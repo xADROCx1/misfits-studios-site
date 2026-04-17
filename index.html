@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MISFITS STUDIOS — Rust Plugins & Desktop Tools. Built Solo.</title>
+<meta name="description" content="Original Rust plugins for Oxide & Carbon, plus desktop apps. One dev, every line. Direct support."/>
+<link rel="icon" href="NewLogo.png"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800;12..96,900&family=Rubik+Mono+One&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
+<script src="assets/store.js" defer></script>
+<script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "bg": "#060e20",
+          "surface": "#091328",
+          "surface-hi": "#141f38",
+          "surface-top": "#192540",
+          "paper": "#dee5ff",
+          "muted": "#a3aac4",
+          "primary": "#cc97ff",
+          "primary-dim": "#9c48ea",
+          "accent": "#53ddfc",
+          "tertiary": "#ff86c3",
+          "ink": "#000000"
+        },
+        borderRadius: { DEFAULT: "0.125rem", sm: "0.125rem", md: "0.375rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
+        fontFamily: {
+          headline: ["Space Grotesk", "sans-serif"],
+          display: ["Space Grotesk", "sans-serif"],
+          label: ["Space Grotesk", "sans-serif"],
+          body: ["Inter", "sans-serif"],
+          mono: ["JetBrains Mono", "monospace"]
+        }
+      }
+    }
+  };
+</script>
+<style>
+  html, body { background:#060e20; color:#dee5ff; }
+  .hazard-stripe { background: linear-gradient(135deg, rgba(204,151,255,.08), rgba(83,221,252,.05)); }
+  .neon-green-glow { text-shadow: 0 0 12px #53ddfc, 0 0 28px rgba(83,221,252,.35); }
+  .neon-purple-glow { text-shadow: 0 0 12px #cc97ff, 0 0 28px rgba(204,151,255,.45); }
+  .logo-wrap { filter: none; }
+  .grain-overlay {
+    position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: 0.06;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .animate-marquee { display: flex; width: 200%; animation: marquee 30s linear infinite; }
+  .border-text { -webkit-text-stroke: 2px #cc97ff; color: transparent; filter: drop-shadow(0 0 18px rgba(204,151,255,.35)); }
+  .logo-invert { filter: brightness(0) invert(1); }
+  /* ---- Obsidian Architect helpers ---- */
+  .ob-glass { background: rgba(9,19,40,.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+  .ob-hero-gradient {
+    background:
+      radial-gradient(circle at 85% 15%, rgba(204,151,255,.18), transparent 55%),
+      radial-gradient(circle at 15% 90%, rgba(83,221,252,.12), transparent 55%),
+      #060e20;
+  }
+  .ob-ambient-shadow { box-shadow: 0 20px 60px rgba(132,44,211,.18); }
+  .ob-btn-primary {
+    background: linear-gradient(135deg,#cc97ff,#9c48ea);
+    color:#000;
+    box-shadow: 0 0 20px rgba(204,151,255,.3);
+    transition: all .3s ease;
+  }
+  .ob-btn-primary:hover { box-shadow: 0 0 40px rgba(204,151,255,.55); transform: translateY(-1px); }
+  .ob-btn-ghost {
+    background: transparent;
+    border: 1px solid rgba(64,72,93,.5);
+    color: #dee5ff;
+    transition: all .3s ease;
+  }
+  .ob-btn-ghost:hover { background: #141f38; border-color: rgba(83,221,252,.4); color: #53ddfc; }
+  .ob-chip {
+    display:inline-flex; align-items:center; gap:.5rem;
+    padding:.25rem .75rem; border-radius: 9999px;
+    background:#192540; border:1px solid rgba(64,72,93,.5);
+    font-family:'Space Grotesk',sans-serif; font-size:11px; letter-spacing:.15em; text-transform:uppercase;
+    color:#53ddfc;
+  }
+  .ob-data-label { font-family:'Space Grotesk',sans-serif; text-transform:uppercase; letter-spacing:.25em; font-size:10px; color:#a3aac4; }
+  @keyframes ob-pulse { 0%,100% { opacity:.55; } 50% { opacity:1; } }
+  .ob-pulse { animation: ob-pulse 2.2s ease-in-out infinite; }
+
+  /* ---- OBSIDIAN GLOBAL CARD SWEEP ---- */
+  /* Kill all legacy brutalist borders + offset drop-shadows */
+  #plugins article, #apps article,
+  #terms > div > div.grid > div,
+  #promise .bg-bg, #promise [class*="border-"],
+  #support a[href] {
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+  /* Plugin + app cards — tonal layering, rounded-sm, ambient purple shadow on hover */
+  #plugins article, #apps article {
+    background: #192540 !important;
+    border-radius: 0.375rem !important;
+    position: relative;
+    overflow: hidden;
+    transition: all .35s ease;
+  }
+  #plugins article:hover, #apps article:hover {
+    background: #1f2b49 !important;
+    box-shadow: 0 20px 50px rgba(132,44,211,.22), 0 0 0 1px rgba(204,151,255,.18) !important;
+    transform: translateY(-3px);
+  }
+  /* Ghost border at 20% opacity, felt not seen */
+  #plugins article::after, #apps article::after {
+    content:""; position:absolute; inset:0; pointer-events:none;
+    border: 1px solid rgba(64,72,93,.25);
+    border-radius: 0.375rem;
+  }
+  /* Card image headers */
+  #plugins article > div:first-child, #apps article > div:first-child {
+    background: linear-gradient(135deg, #141f38, #000000) !important;
+    position: relative;
+  }
+  /* Kill hazard stripes + inline repeating gradients inside cards */
+  #plugins article > div:first-child.hazard-stripe,
+  #plugins article > div:first-child[style*="repeating-linear-gradient"] {
+    background: linear-gradient(135deg, #141f38, #000000) !important;
+  }
+  /* Card header numerals */
+  #plugins article > div:first-child span.font-headline,
+  #apps article > div:first-child span.font-headline {
+    font-family: 'Space Grotesk', sans-serif !important;
+    font-weight: 700 !important;
+    color: rgba(204,151,255,.35) !important;
+    text-shadow: 0 0 20px rgba(204,151,255,.2);
+  }
+  /* Dev-Tag style chips inside card headers */
+  #plugins article > div:first-child > div.absolute,
+  #apps article > div:first-child > div.absolute {
+    border-radius: 9999px !important;
+    background: #000000 !important;
+    border: 1px solid rgba(83,221,252,.35) !important;
+    color: #53ddfc !important;
+    font-family: 'Space Grotesk', sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 9px !important;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    padding: 2px 10px !important;
+  }
+  /* First chip (left side) — use primary instead of accent */
+  #plugins article > div:first-child > div.absolute.left-3,
+  #apps article > div:first-child > div.absolute.left-3 {
+    border-color: rgba(204,151,255,.4) !important;
+    color: #cc97ff !important;
+  }
+  /* No line dividers in cards */
+  #plugins article .border-t-2, #apps article .border-t-2 {
+    border: 0 !important;
+    padding-top: 1rem !important;
+  }
+  /* Price text */
+  #plugins article .text-accent, #apps article .text-accent {
+    font-family: 'Space Grotesk', sans-serif !important;
+    color: #53ddfc !important;
+    font-weight: 700 !important;
+  }
+  /* BUY buttons → Obsidian primary gradient */
+  #plugins article a[href], #apps article a[href] {
+    background: linear-gradient(135deg,#cc97ff,#9c48ea) !important;
+    color:#000 !important;
+    border-radius: 0.125rem !important;
+    font-family: 'Space Grotesk', sans-serif !important;
+    font-weight: 700 !important;
+    letter-spacing: .1em;
+    box-shadow: 0 0 15px rgba(204,151,255,.25) !important;
+    transition: all .25s ease;
+  }
+  #plugins article a[href]:hover, #apps article a[href]:hover {
+    box-shadow: 0 0 30px rgba(204,151,255,.55) !important;
+  }
+  /* Chat command monospace block */
+  #plugins article .font-mono.text-accent {
+    color: #53ddfc !important;
+  }
+
+  /* Plugin + apps + terms + support section headings */
+  #plugins > div > div.border-b-8, #apps > div > div.border-b-8,
+  #terms > div > div.mb-12.border-b-8 {
+    border: 0 !important;
+    padding-bottom: 2rem !important;
+    position: relative;
+  }
+  #plugins > div > div.border-b-8::after, #apps > div > div.border-b-8::after,
+  #terms > div > div.mb-12.border-b-8::after {
+    content:""; position:absolute; bottom:0; left:0; width:6rem; height:3px;
+    background: linear-gradient(90deg, #cc97ff, #9c48ea);
+    border-radius: 2px;
+  }
+  /* Category subheading dividers */
+  #plugins div.border-b-4.border-accent {
+    border: 0 !important;
+    padding-bottom: 1rem !important;
+    position: relative;
+  }
+  #plugins div.border-b-4.border-accent::after {
+    content:""; position:absolute; bottom:0; left:0; right:0; height:1px;
+    background: linear-gradient(90deg, rgba(83,221,252,.4), transparent);
+  }
+  #plugins div.border-b-4.border-accent h3 {
+    font-family: 'Space Grotesk', sans-serif !important;
+    font-style: normal !important;
+    font-weight: 700 !important;
+    color: #dee5ff !important;
+    letter-spacing: -0.01em;
+  }
+  /* Main section titles — Space Grotesk extrabold, no italics */
+  #plugins h2, #apps h2, #terms h2, #support h2, #promise h2 {
+    font-family: 'Space Grotesk', sans-serif !important;
+    font-style: normal !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.03em;
+    color: #dee5ff !important;
+  }
+  #plugins article h3, #apps article h3 {
+    font-family: 'Space Grotesk', sans-serif !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.01em;
+    color: #dee5ff !important;
+  }
+
+  /* Section backgrounds — tonal layering */
+  section.bg-bg { background: #060e20 !important; }
+  section.bg-surface { background: #091328 !important; }
+  section.border-b-8, section.border-y-8, section.border-y-\[16px\] { border: 0 !important; }
+
+  /* Promise + Support sections clean-up */
+  #promise { background: #091328 !important; color: #dee5ff !important; border: 0 !important; }
+  #promise * { color: inherit; }
+  #promise .text-bg { color: #dee5ff !important; }
+  #promise .bg-accent { background: transparent !important; color: #53ddfc !important; }
+
+  /* Terms cards: Obsidian cards with ghost border */
+  #terms > div > div.grid > div {
+    background: #192540 !important;
+    border-radius: 0.375rem !important;
+    position: relative;
+    transition: all .35s ease;
+  }
+  #terms > div > div.grid > div::after {
+    content:""; position:absolute; inset:0; pointer-events:none;
+    border: 1px solid rgba(64,72,93,.25);
+    border-radius: 0.375rem;
+  }
+  #terms > div > div.grid > div:hover {
+    background: #1f2b49 !important;
+    box-shadow: 0 15px 40px rgba(132,44,211,.18);
+    transform: translateY(-2px);
+  }
+
+  /* Support CTAs */
+  #support a[href^="mailto"] {
+    background: linear-gradient(135deg,#cc97ff,#9c48ea) !important;
+    color:#000 !important;
+    border-radius: 0.125rem !important;
+    box-shadow: 0 0 20px rgba(204,151,255,.3) !important;
+  }
+  #support a[href="#"] {
+    background: transparent !important;
+    color:#53ddfc !important;
+    border: 1px solid rgba(83,221,252,.4) !important;
+    border-radius: 0.125rem !important;
+  }
+
+  /* Warning tape marquee */
+  .animate-marquee { font-family: 'Space Grotesk', sans-serif !important; letter-spacing: .2em; }
+</style>
+</head>
+
+
+<!-- Animated Particle Constellation Background -->
+<canvas id="particleBg" style="position:fixed;inset:0;z-index:0;pointer-events:none;"></canvas>
+<script>
+(function(){
+  const c=document.getElementById('particleBg'),ctx=c.getContext('2d');
+  let w,h,particles=[];
+  const COLORS=['rgba(204,151,255,','rgba(83,221,252,','rgba(255,134,195,'];
+  const COUNT=80, SPEED=0.3, LINK_DIST=140, BASE_R=1.8;
+
+  function resize(){w=c.width=window.innerWidth;h=c.height=window.innerHeight;}
+  window.addEventListener('resize',resize);resize();
+
+  for(let i=0;i<COUNT;i++){
+    const col=COLORS[Math.floor(Math.random()*COLORS.length)];
+    const opacity=Math.random()*0.5+0.15;
+    particles.push({
+      x:Math.random()*w,y:Math.random()*h,
+      vx:(Math.random()-0.5)*SPEED,vy:(Math.random()-0.5)*SPEED,
+      r:Math.random()*BASE_R+0.8,
+      col:col,opacity:opacity,
+      pulse:Math.random()*Math.PI*2,pulseSpeed:Math.random()*0.02+0.005
+    });
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    // draw links
+    for(let i=0;i<COUNT;i++){
+      for(let j=i+1;j<COUNT;j++){
+        const dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y;
+        const dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<LINK_DIST){
+          const alpha=(1-dist/LINK_DIST)*0.12;
+          ctx.strokeStyle='rgba(83,221,252,'+alpha+')';
+          ctx.lineWidth=0.5;
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x,particles[i].y);
+          ctx.lineTo(particles[j].x,particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+    // draw particles
+    for(let i=0;i<COUNT;i++){
+      const p=particles[i];
+      p.pulse+=p.pulseSpeed;
+      const glow=Math.sin(p.pulse)*0.15+0.85;
+      const a=p.opacity*glow;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r*glow,0,Math.PI*2);
+      ctx.fillStyle=p.col+a+')';
+      ctx.fill();
+      // subtle glow
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r*3*glow,0,Math.PI*2);
+      ctx.fillStyle=p.col+(a*0.15)+')';
+      ctx.fill();
+      // move
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<-10)p.x=w+10;if(p.x>w+10)p.x=-10;
+      if(p.y<-10)p.y=h+10;if(p.y>h+10)p.y=-10;
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+
+<div class="grain-overlay"></div>
+
+<!-- HUD status strip -->
+<div class="w-full bg-ink py-1.5 overflow-hidden z-[60] border-b border-accent/20">
+  <div class="animate-marquee whitespace-nowrap text-[10px] uppercase">
+    <span class="px-4 text-accent">// OXIDE + CARBON COMPATIBLE // ORIGINAL WORK // SOLO DEV // DIRECT DISCORD SUPPORT // NO RESELLING // V.1.0_STUDIO_PROTOCOL //</span>
+    <span class="px-4 text-accent">// OXIDE + CARBON COMPATIBLE // ORIGINAL WORK // SOLO DEV // DIRECT DISCORD SUPPORT // NO RESELLING // V.1.0_STUDIO_PROTOCOL //</span>
+  </div>
+</div>
+
+<!-- Centered Logo Banner -->
+<div class="relative z-10 pt-8 pb-4 flex flex-col items-center justify-center">
+  <a href="index.html">
+    <img src="NewLogo.png" alt="Misfits Studios" class="h-28 md:h-36 w-auto object-contain drop-shadow-[0_0_30px_rgba(204,151,255,0.3)]" onerror="this.style.display='none'"/>
+  </a>
+  <div class="mt-3 font-headline text-sm md:text-base text-muted tracking-[0.3em] uppercase">Misfits Studios</div>
+</div>
+
+<!-- Top Navigation -->
+<nav class="sticky top-0 w-full z-50 ob-glass flex justify-center items-center px-6 md:px-12 py-3">
+  <div class="flex gap-8 md:gap-10 items-center font-label uppercase text-[11px] tracking-[0.25em]">
+    <a class="text-primary border-b-2 border-primary pb-1" href="index.html">HOME</a>
+    <a class="text-muted hover:text-accent transition-all" href="plugins.html">PLUGINS</a>
+    <a class="text-muted hover:text-accent transition-all" href="apps.html">APPS</a>
+    <a class="text-muted hover:text-accent transition-all" href="about.html">ABOUT</a>
+    <a class="text-muted hover:text-accent transition-all" href="support.html">SUPPORT</a>
+    <a class="text-muted hover:text-accent transition-all" href="terms.html">TERMS</a>
+    <span class="hidden md:inline ob-data-label ml-4"><span class="inline-block w-2 h-2 rounded-full bg-accent ob-pulse align-middle mr-2"></span>ONLINE</span>
+  </div>
+</nav>
+
+<main>
+
+  <!-- Hero -->
+  <section class="relative min-h-[70vh] flex flex-col justify-center px-8 md:px-24 ob-hero-gradient overflow-hidden">
+    <img src="NewLogo.png" alt="" aria-hidden="true" class="pointer-events-none select-none absolute right-[-4rem] top-1/2 -translate-y-1/2 w-[42rem] max-w-[70vw] opacity-[0.07] hidden md:block" onerror="this.style.display='none'"/>
+    <div class="max-w-6xl relative z-10 w-full">
+      <h1 class="font-headline text-5xl md:text-[7.5rem] font-extrabold leading-[0.92] tracking-tighter">
+        CRAFTED FOR<br/>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">MISFITS.</span>
+      </h1>
+      <p class="font-body text-base md:text-lg text-muted max-w-2xl mt-10 leading-relaxed">
+        Original Rust plugins and the desktop tools I built along the way. One developer. Every line. Direct support, zero reseller filler.
+      </p>
+      <div class="flex flex-wrap gap-5 mt-12">
+        <a href="plugins.html" class="ob-btn-primary px-10 py-5 font-label text-xs uppercase tracking-[0.25em] inline-flex items-center gap-3">
+          BROWSE PLUGINS <span aria-hidden="true">&rarr;</span>
+        </a>
+        <a href="apps.html" class="ob-btn-ghost px-10 py-5 font-label text-xs uppercase tracking-[0.25em] text-paper hover:text-accent transition-all">
+          DESKTOP APPS
+        </a>
+      </div>
+      <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl">
+        <div>
+          <div class="font-headline text-4xl md:text-5xl font-bold text-paper">37<span class="text-primary">+</span></div>
+          <div class="ob-data-label mt-3">01 // PLUGINS_SHIPPED</div>
+        </div>
+        <div>
+          <div class="font-headline text-4xl md:text-5xl font-bold text-paper">2<span class="text-accent">x</span></div>
+          <div class="ob-data-label mt-3">02 // FRAMEWORK_COMPAT</div>
+        </div>
+        <div>
+          <div class="font-headline text-4xl md:text-5xl font-bold text-paper">1<span class="text-tertiary">.</span></div>
+          <div class="ob-data-label mt-3">03 // SOLO_DEVELOPER</div>
+        </div>
+        <div>
+          <div class="font-headline text-4xl md:text-5xl font-bold text-paper">&infin;</div>
+          <div class="ob-data-label mt-3">04 // LIFETIME_UPDATES</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="px-6 py-24 bg-bg">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex items-baseline justify-between mb-10 flex-wrap gap-4">
+        <div>
+          <h2 class="text-4xl md:text-5xl font-headline font-black uppercase">Featured Plugins</h2>
+          <p class="font-mono text-sm text-muted mt-2">// hand-picked from across the catalog</p>
+        </div>
+        <a href="plugins.html" class="ob-btn-ghost px-6 py-3 font-label text-xs uppercase tracking-[0.25em]">VIEW ALL 37 &rarr;</a>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <article class="bg-surface-hi border-4 border-bg group flex flex-col">
+          <div class="aspect-square bg-surface relative overflow-hidden flex items-center justify-center" style="background:radial-gradient(circle at 30% 30%,#ff0000 0,#131313 60%)">
+            <span class="font-headline font-black text-5xl md:text-6xl text-accent/90">NEW</span>
+            <div class="absolute top-3 left-3 bg-accent text-bg font-headline px-2 py-0.5 font-black text-xs">ADMIN</div>
+            <div class="absolute top-3 right-3 bg-bg text-accent border-2 border-accent font-mono px-2 py-0.5 text-[10px] font-bold">OXIDE+CARBON</div>
+          </div>
+          <div class="p-5 flex flex-col flex-grow">
+            <h3 class="text-2xl font-headline font-black mb-2 uppercase leading-tight">NeighborhoodWatch</h3>
+            <p class="text-sm font-body mb-3 text-paper/80">All-in-one Discord server monitor — PvP kills, raid alerts, unauthorized looting/door/deployable access with color-coded embeds.</p>
+            <div class="mt-auto pt-4 flex justify-between items-center border-t-2 border-bg">
+              <span class="text-3xl font-headline font-black text-accent">$10</span>
+              <a class="bg-primary text-bg border-2 border-primary font-black px-5 py-2 hover:bg-accent hover:border-accent active:translate-y-1 text-sm" href="plugins.html#neighborhoodwatch">BUY →</a>
+            </div>
+          </div>
+        </article>
+        <article class="bg-surface-hi border-4 border-bg group flex flex-col">
+          <div class="aspect-square bg-surface relative overflow-hidden flex items-center justify-center" style="background:repeating-linear-gradient(0deg,#2a2a2a,#2a2a2a 6px,#1c1b1b 6px,#1c1b1b 12px)">
+            <span class="font-headline font-black text-5xl md:text-6xl text-accent/90">10</span>
+            <div class="absolute top-3 left-3 bg-accent text-bg font-headline px-2 py-0.5 font-black text-xs">WEAPONS</div>
+            <div class="absolute top-3 right-3 bg-bg text-accent border-2 border-accent font-mono px-2 py-0.5 text-[10px] font-bold">OXIDE+CARBON</div>
+          </div>
+          <div class="p-5 flex flex-col flex-grow">
+            <h3 class="text-2xl font-headline font-black mb-2 uppercase leading-tight">SharkGun</h3>
+            <p class="text-sm font-body mb-3 text-paper/80">MP5 skin that shoots SimpleSharks. Corpses drop on ground impact, sharks swim on water entry.</p>
+            <div class="mt-auto pt-4 flex justify-between items-center border-t-2 border-bg">
+              <span class="text-3xl font-headline font-black text-accent">$7</span>
+              <a class="bg-primary text-bg border-2 border-primary font-black px-5 py-2 hover:bg-accent hover:border-accent active:translate-y-1 text-sm" href="plugins.html#sharkgun">BUY →</a>
+            </div>
+          </div>
+        </article>
+        <article class="bg-surface-hi border-4 border-bg group flex flex-col">
+          <div class="aspect-square bg-surface relative overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg, #141f38, #000000)">
+            <span class="font-headline font-black text-5xl md:text-6xl text-accent/90">01</span>
+            <div class="absolute top-3 left-3 bg-accent text-bg font-headline px-2 py-0.5 font-black text-xs">VEHICLES</div>
+            <div class="absolute top-3 right-3 bg-bg text-accent border-2 border-accent font-mono px-2 py-0.5 text-[10px] font-bold">OXIDE+CARBON</div>
+          </div>
+          <div class="p-5 flex flex-col flex-grow">
+            <h3 class="text-2xl font-headline font-black mb-2 uppercase leading-tight">BoatNitro</h3>
+            <p class="text-sm font-body mb-3 text-paper/80">Hold SHIFT to boost rowboats, RHIBs, PTs, and tugs — unified manual eject for driver and passengers.</p>
+            <div class="mt-auto pt-4 flex justify-between items-center border-t-2 border-bg">
+              <span class="text-3xl font-headline font-black text-accent">$5</span>
+              <a class="bg-primary text-bg border-2 border-primary font-black px-5 py-2 hover:bg-accent hover:border-accent active:translate-y-1 text-sm" href="plugins.html#boatnitro">BUY →</a>
+            </div>
+          </div>
+        </article>
+        <article class="bg-surface-hi border-4 border-bg group flex flex-col">
+          <div class="aspect-square bg-surface relative overflow-hidden flex items-center justify-center" style="background:repeating-linear-gradient(90deg,#2a2a2a,#2a2a2a 10px,#1c1b1b 10px,#1c1b1b 20px)">
+            <span class="font-headline font-black text-5xl md:text-6xl text-accent/90">FREE</span>
+            <div class="absolute top-3 left-3 bg-accent text-bg font-headline px-2 py-0.5 font-black text-xs">ADMIN</div>
+            <div class="absolute top-3 right-3 bg-bg text-accent border-2 border-accent font-mono px-2 py-0.5 text-[10px] font-bold">OXIDE+CARBON</div>
+          </div>
+          <div class="p-5 flex flex-col flex-grow">
+            <h3 class="text-2xl font-headline font-black mb-2 uppercase leading-tight">RustConChat</h3>
+            <p class="text-sm font-body mb-3 text-paper/80">Stores recent chat and events in a ring buffer, served via RCON for RustCON app backfill. Lightweight and zero-config.</p>
+            <div class="mt-auto pt-4 flex justify-between items-center border-t-2 border-bg">
+              <span class="text-3xl font-headline font-black text-accent">FREE</span>
+              <a class="bg-primary text-bg border-2 border-primary font-black px-5 py-2 hover:bg-accent hover:border-accent active:translate-y-1 text-sm" href="plugins.html#rustconchat">GET →</a>
+            </div>
+          </div>
+        </article>
+        <article class="bg-surface-hi border-4 border-bg group flex flex-col">
+          <div class="aspect-square bg-surface relative overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg, rgba(204,151,255,.08), rgba(83,221,252,.05))">
+            <span class="font-headline font-black text-5xl md:text-6xl text-accent/90">07</span>
+            <div class="absolute top-3 left-3 bg-accent text-bg font-headline px-2 py-0.5 font-black text-xs">VEHICLES</div>
+            <div class="absolute top-3 right-3 bg-bg text-accent border-2 border-accent font-mono px-2 py-0.5 text-[10px] font-bold">OXIDE+CARBON</div>
+          </div>
+          <div class="p-5 flex flex-col flex-grow">
+            <h3 class="text-2xl font-headline font-black mb-2 uppercase leading-tight">FlyingSubs</h3>
+            <p class="text-sm font-body mb-3 text-paper/80">Submarines that fly. Hold SHIFT to launch. Optional torpedo mode. Solo and duo subs supported.</p>
+            <div class="mt-auto pt-4 flex justify-between items-center border-t-2 border-bg">
+              <span class="text-3xl font-headline font-black text-accent">$7</span>
+              <a class="bg-primary text-bg border-2 border-primary font-black px-5 py-2 hover:bg-accent hover:border-accent active:translate-y-1 text-sm" href="plugins.html#flyingsubs">BUY →</a>
+            </div>
+          </div>
+        </article>
+        <article class="bg-surface-hi border-4 border-bg group flex flex-col">
+          <div class="aspect-square bg-surface relative overflow-hidden flex items-center justify-center" style="background:radial-gradient(circle at 30% 30%,#a855f7 0,#131313 60%)">
+            <span class="font-headline font-black text-5xl md:text-6xl text-accent/90">09</span>
+            <div class="absolute top-3 left-3 bg-accent text-bg font-headline px-2 py-0.5 font-black text-xs">WEAPONS</div>
+            <div class="absolute top-3 right-3 bg-bg text-accent border-2 border-accent font-mono px-2 py-0.5 text-[10px] font-bold">OXIDE+CARBON</div>
+          </div>
+          <div class="p-5 flex flex-col flex-grow">
+            <h3 class="text-2xl font-headline font-black mb-2 uppercase leading-tight">ChickenGun</h3>
+            <p class="text-sm font-body mb-3 text-paper/80">Rifle skin that fires physics-driven chickens full-auto. Yes, it's as dumb and fun as it sounds.</p>
+            <div class="mt-auto pt-4 flex justify-between items-center border-t-2 border-bg">
+              <span class="text-3xl font-headline font-black text-accent">$6</span>
+              <a class="bg-primary text-bg border-2 border-primary font-black px-5 py-2 hover:bg-accent hover:border-accent active:translate-y-1 text-sm" href="plugins.html#chickengun">BUY →</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Links -->
+  <section class="px-6 py-20 bg-surface">
+    <div class="max-w-5xl mx-auto grid md:grid-cols-3 gap-8">
+      <a href="about.html" class="group p-8 bg-surface-hi rounded-md border border-transparent hover:border-primary/30 transition-all hover:shadow-[0_15px_40px_rgba(132,44,211,.18)] hover:-translate-y-1">
+        <h3 class="text-2xl font-headline font-black uppercase mb-3 text-primary group-hover:text-accent transition-all">About</h3>
+        <p class="text-sm text-muted">The promise behind Misfits Studios — original work, direct support from the dev who wrote it.</p>
+      </a>
+      <a href="support.html" class="group p-8 bg-surface-hi rounded-md border border-transparent hover:border-accent/30 transition-all hover:shadow-[0_15px_40px_rgba(83,221,252,.15)] hover:-translate-y-1">
+        <h3 class="text-2xl font-headline font-black uppercase mb-3 text-accent group-hover:text-primary transition-all">Support</h3>
+        <p class="text-sm text-muted">Bug report, pre-sale question, or just want to chat? Talk directly to the person who wrote the code.</p>
+      </a>
+      <a href="terms.html" class="group p-8 bg-surface-hi rounded-md border border-transparent hover:border-tertiary/30 transition-all hover:shadow-[0_15px_40px_rgba(255,134,195,.12)] hover:-translate-y-1">
+        <h3 class="text-2xl font-headline font-black uppercase mb-3 text-tertiary group-hover:text-primary transition-all">Terms</h3>
+        <p class="text-sm text-muted">Licensing, refunds, updates, privacy — plain English, no legalese. Read before you buy.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="relative bg-ink px-6 md:px-12 py-20 overflow-hidden">
+    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent"></div>
+    <img src="NewLogo.png" alt="" aria-hidden="true" class="pointer-events-none select-none absolute left-1/2 bottom-[-6rem] -translate-x-1/2 w-[48rem] max-w-[90vw] opacity-[0.04]" onerror="this.style.display='none'"/>
+    <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-12 relative z-10">
+      <div class="md:col-span-1">
+        <img src="NewLogo.png" alt="Misfits Studios" class="h-28 w-auto object-contain mb-5">
+        <div class="font-headline text-2xl text-primary font-bold tracking-tight">MISFITS_STUDIOS</div>
+      </div>
+      <div>
+        <h4 class="ob-data-label mb-5" style="color:#53ddfc">// NAV</h4>
+        <ul class="space-y-3 font-body text-sm text-paper/70">
+          <li><a href="plugins.html" class="hover:text-primary transition-all">Rust Plugins</a></li>
+          <li><a href="apps.html" class="hover:text-primary transition-all">Desktop Apps</a></li>
+          <li><a href="about.html" class="hover:text-primary transition-all">About</a></li>
+          <li><a href="terms.html" class="hover:text-primary transition-all">Terms &amp; Policy</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="ob-data-label mb-5" style="color:#53ddfc">// CONTACT</h4>
+        <ul class="space-y-3 font-body text-sm text-paper/70">
+          <li><a href="mailto:misfits.support@proton.me" class="hover:text-accent transition-all">misfits.support@proton.me</a></li>
+          <li><a href="#" class="hover:text-accent transition-all">Discord (TBD)</a></li>
+          <li><a href="support.html" class="hover:text-accent transition-all">Direct Support</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="ob-data-label mb-5" style="color:#53ddfc">// STATUS</h4>
+        <div class="space-y-3 font-body text-sm text-paper/70">
+          <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-accent ob-pulse"></span>Studio Online</div>
+          <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-primary"></span>37+ Plugins Live</div>
+          <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-tertiary"></span>Direct Dev Support</div>
+        </div>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto mt-16 pt-6 flex flex-wrap justify-between items-center gap-4">
+      <p class="ob-data-label">(c) 2026 MISFITS STUDIOS</p>
+      <p class="ob-data-label">NOT AFFILIATED WITH FACEPUNCH / OXIDE / CARBON</p>
+    </div>
+  </footer>
+
+</main>
+</body>
+</html>

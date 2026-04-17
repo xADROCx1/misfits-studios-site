@@ -1,0 +1,14 @@
+# Secrets — never commit
+scripts/.env
+.env
+.env.local
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+
+# Build artifacts (if we add a build step later)
+node_modules/
+dist/
