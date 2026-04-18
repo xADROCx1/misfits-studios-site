@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>LS Paste Sheet — Misfits Studios</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="robots" content="noindex, nofollow"/>
+<style>
+  :root {
+    --bg:#060e20; --surface:#091328; --surface-hi:#141f38;
+    --paper:#dee5ff; --muted:#a3aac4;
+    --primary:#cc97ff; --accent:#53ddfc; --green:#7cffa5;
+  }
+  * { box-sizing:border-box; }
+  body { background:var(--bg); color:var(--paper); font:14px/1.5 system-ui, sans-serif; margin:0; padding:24px; }
+  h1 { font-size:28px; margin:0 0 4px; }
+  .sub { color:var(--muted); margin-bottom:24px; }
+  .sub code { background:var(--surface); padding:2px 6px; border-radius:3px; color:var(--accent); }
+  .bar { display:flex; gap:12px; align-items:center; margin-bottom:24px; flex-wrap:wrap; }
+  .chip { background:var(--surface); padding:6px 12px; border-radius:999px; font-size:12px; color:var(--muted); letter-spacing:.1em; }
+  .chip b { color:var(--accent); }
+  .go-btn {
+    background:linear-gradient(135deg,var(--primary),#9c48ea); color:var(--bg);
+    padding:10px 18px; border-radius:6px; text-decoration:none; font-weight:700;
+    box-shadow:0 0 20px rgba(204,151,255,.3);
+  }
+  .filter { background:var(--surface); color:var(--paper); border:1px solid var(--surface-hi); padding:8px 12px; border-radius:6px; }
+
+  .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(420px, 1fr)); gap:16px; }
+  .card { background:var(--surface); border:1px solid var(--surface-hi); border-radius:8px; padding:16px; }
+  .card[data-done="true"] { opacity:.4; border-color:var(--green); }
+  .card-head { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:10px; }
+  .card-head h2 { margin:0; font-size:18px; color:var(--paper); }
+  .slug { color:var(--muted); font-size:11px; font-family:monospace; }
+  .price-chip { color:var(--green); font-weight:700; font-size:16px; white-space:nowrap; }
+  .free .price-chip { color:var(--accent); }
+
+  .row { display:grid; grid-template-columns:80px 1fr 68px; gap:8px; align-items:center; margin:4px 0; font-size:12px; }
+  .row .label { color:var(--muted); text-transform:uppercase; letter-spacing:.1em; font-size:10px; }
+  .row .val { background:#000; border:1px solid var(--surface-hi); padding:6px 8px; border-radius:4px; color:var(--paper); font-family:monospace; font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .row.multi .val { white-space:normal; max-height:60px; overflow-y:auto; }
+
+  button.copy {
+    background:var(--surface-hi); color:var(--paper); border:1px solid transparent;
+    padding:6px 8px; border-radius:4px; cursor:pointer; font-size:11px; font-weight:700; letter-spacing:.05em;
+  }
+  button.copy:hover { background:var(--primary); color:var(--bg); }
+  button.copy.copied { background:var(--green); color:var(--bg); }
+
+  .done-toggle {
+    display:flex; align-items:center; gap:6px; margin-top:12px; padding-top:10px;
+    border-top:1px solid var(--surface-hi); color:var(--muted); cursor:pointer; font-size:12px;
+  }
+  .done-toggle input { accent-color:var(--green); }
+  .file-hint { margin-top:8px; font-size:11px; color:var(--muted); font-family:monospace; word-break:break-all; }
+  .file-hint b { color:var(--accent); }
+
+  .legend { background:var(--surface); padding:12px 16px; border-radius:6px; margin-bottom:20px; font-size:13px; line-height:1.7; }
+  .legend ol { margin:0; padding-left:20px; }
+  .legend code { background:#000; padding:1px 6px; border-radius:3px; color:var(--accent); }
+</style>
+</head>
+<body>
+
+<h1>🍋 LS Paste Sheet</h1>
+<p class="sub">Fastest path to create your 48 products in Lemon Squeezy. Open this page and <code>https://app.lemonsqueezy.com/products/new</code> side-by-side. Click <b>COPY</b> → alt-tab → paste.</p>
+
+<div class="legend">
+  <b>Workflow per product:</b>
+  <ol>
+    <li>Click <b>+ NEW PRODUCT</b> button to open LS in a new tab</li>
+    <li>In LS: fill <b>Name</b> → paste the <b>NAME</b> copy from this card</li>
+    <li>Upload the <b>.cs FILE</b> (path shown at bottom of card)</li>
+    <li>Set <b>Price</b> → paste the <b>PRICE (cents)</b> value (LS uses cents)</li>
+    <li>Paste the <b>SHORT DESC</b> into the description box</li>
+    <li>Click <b>Publish</b> in LS</li>
+    <li>Back here: check the <b>✓ Done</b> box to grey out the card</li>
+  </ol>
+</div>
+
+<div class="bar">
+  <a class="go-btn" href="https://app.lemonsqueezy.com/products/new" target="_blank" rel="noopener">+ NEW PRODUCT →</a>
+  <span class="chip">TOTAL <b id="total">—</b></span>
+  <span class="chip">DONE <b id="done-count">0</b></span>
+  <span class="chip">VALUE <b id="value">—</b></span>
+  <select class="filter" id="cat-filter">
+    <option value="all">All categories</option>
+    <option value="plugin">Plugins only</option>
+    <option value="library">Libraries only</option>
+    <option value="app">Apps only</option>
+  </select>
+  <select class="filter" id="status-filter">
+    <option value="all">All</option>
+    <option value="pending">Pending only</option>
+    <option value="done">Done only</option>
+  </select>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<script>
+const STORAGE_KEY = 'misfits_ls_paste_done';
+
+async function load() {
+  const res = await fetch('../products.json', { cache: 'no-cache' });
+  const data = await res.json();
+  const done = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+  window._products = data.products;
+  window._done = done;
+  render();
+}
+
+function cardHTML(p) {
+  const isDone = !!window._done[p.id];
+  const priceCents = Math.round((p.price_usd || 0) * 100);
+  const fileHint = p.bundle_files
+    ? `Folder: <b>(XADROCX) PLUGINS/${p.name.toLowerCase().includes('plane') ? 'karuza vehicles/RustPlane_1_30_0' : p.name.toLowerCase().includes('helicopter') ? 'karuza vehicles/RustHelicopter_1_24_0' : ''}/</b> — zip all <b>${p.bundle_files.length} files</b>`
+    : p.id === 'fueldisplay'
+      ? `File: <b>(XADROCX) PLUGINS/fueldisplay/oxide/plugins/FuelDisplay.cs</b>`
+      : p.id === 'vehiclelicence'
+        ? `File: <b>(XADROCX) PLUGINS/karuza vehicles/VehicleLicence.cs</b>`
+        : ['dev2discord','misfitsui','misfitscommands'].includes(p.id)
+          ? `Folder: <b>plugins/${p.name}/</b> — zip all files`
+          : `File: <b>(XADROCX) PLUGINS/${p.name}.cs</b>`;
+
+  const isFree = p.price_usd === 0;
+  return `
+    <div class="card ${isFree ? 'free' : ''}" data-id="${p.id}" data-category="${p.category}" data-done="${isDone}">
+      <div class="card-head">
+        <div>
+          <h2>${escapeHTML(p.name)}</h2>
+          <div class="slug">v${p.version} · ${p.category} · ${p.id}</div>
+        </div>
+        <div class="price-chip">${p.price_label}</div>
+      </div>
+
+      <div class="row">
+        <div class="label">Name</div>
+        <div class="val">${escapeHTML(p.name)}</div>
+        <button class="copy" data-copy="${escapeAttr(p.name)}">COPY</button>
+      </div>
+
+      <div class="row">
+        <div class="label">Price ¢</div>
+        <div class="val">${priceCents}</div>
+        <button class="copy" data-copy="${priceCents}">COPY</button>
+      </div>
+
+      <div class="row">
+        <div class="label">Tagline</div>
+        <div class="val">${escapeHTML(p.tagline || '')}</div>
+        <button class="copy" data-copy="${escapeAttr(p.tagline || '')}">COPY</button>
+      </div>
+
+      <div class="row multi">
+        <div class="label">Desc</div>
+        <div class="val">${escapeHTML(p.short_description)}</div>
+        <button class="copy" data-copy="${escapeAttr(p.short_description)}">COPY</button>
+      </div>
+
+      <div class="file-hint">${fileHint}</div>
+
+      <label class="done-toggle">
+        <input type="checkbox" data-done="${p.id}" ${isDone ? 'checked' : ''}/>
+        Done — I created this product in LS
+      </label>
+    </div>`;
+}
+
+function render() {
+  const catFilter = document.getElementById('cat-filter').value;
+  const statusFilter = document.getElementById('status-filter').value;
+  const products = window._products.filter(p => {
+    if (catFilter !== 'all' && p.category !== catFilter) return false;
+    const isDone = !!window._done[p.id];
+    if (statusFilter === 'done' && !isDone) return false;
+    if (statusFilter === 'pending' && isDone) return false;
+    return true;
+  });
+  document.getElementById('grid').innerHTML = products.map(cardHTML).join('');
+  document.getElementById('total').textContent = window._products.length;
+  document.getElementById('done-count').textContent = Object.values(window._done).filter(Boolean).length;
+  const totalValue = window._products.reduce((a, p) => a + (p.price_usd || 0), 0);
+  document.getElementById('value').textContent = '$' + totalValue.toFixed(2);
+}
+
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('button.copy');
+  if (btn) {
+    navigator.clipboard.writeText(btn.dataset.copy).then(() => {
+      const orig = btn.textContent;
+      btn.textContent = '✓ COPIED';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 1200);
+    });
+  }
+});
+
+document.addEventListener('change', (e) => {
+  if (e.target.matches('[data-done]')) {
+    const id = e.target.dataset.done;
+    window._done[id] = e.target.checked;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(window._done));
+    const card = e.target.closest('.card');
+    card.setAttribute('data-done', e.target.checked);
+    document.getElementById('done-count').textContent = Object.values(window._done).filter(Boolean).length;
+  }
+  if (e.target.matches('select.filter')) render();
+});
+
+function escapeHTML(s) {
+  return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
+}
+function escapeAttr(s) {
+  return String(s||'').replace(/"/g, '&quot;');
+}
+
+load();
+</script>
+</body>
+</html>

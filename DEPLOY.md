@@ -52,12 +52,24 @@ The `.env` file is git-ignored — it will never be committed.
 
 ## STEP 3 — Create your products in Lemon Squeezy
 
-For each Misfits product, in the LS dashboard:
+Lemon Squeezy does **not** support programmatic product creation (no API endpoint, no bulk CSV import — we verified). Products must be created one-by-one in the dashboard.
 
-1. **Products → New product**
-2. **Name** — must match (case-insensitive) or slug-match an entry in `products.json`. Current entries: `dev2discord`, `misfitsui`, `misfitscommands`.
-3. **Upload the artifact** — the `.cs` file (or a `.zip` containing `.cs` + `_info.txt` + `README.md`). Everything in `../plugins/<Name>/` belongs in the download.
-4. **Price** — use the prices already suggested in `products.json`, or set your own (sync will pull whatever LS says).
+**To make that fast, use the paste-sheet helper** — open these two URLs side-by-side in your browser:
+
+1. https://misfits-studios-site.qwikkidd.workers.dev/admin/ls-paste-sheet.html — 48 products, each with one-click COPY buttons for name/price/description, and a "✓ Done" checkbox that greys the card out so you can track progress
+2. https://app.lemonsqueezy.com/products/new — the LS "New Product" panel
+
+Workflow per product:
+
+1. Click **+ NEW PRODUCT** on the paste sheet (opens LS in new tab)
+2. In LS: paste the **name**, upload the `.cs` file (paste sheet shows the exact path), paste the **price in cents** (LS wants cents), paste the **description**
+3. Turn on **Generate license keys** for paid plugins (auto-creates per-buyer keys)
+4. **Publish**
+5. Back on paste sheet: check the **✓ Done** box — its state persists in localStorage so you can leave and resume
+
+After all 48 are in LS, run the sync (Step 4) — that pulls `buy_now_url` and `variant_id` down into `products.json` and commits.
+
+**Naming must match:** The product names in LS must match (case-insensitive or slug-match) the entries in `products.json`. If you change a name in LS, update `products.json` to match, or the sync will append it as a new "unsorted" entry.
 5. **Licensing** — turn on **License keys** for paid plugins. LS auto-generates one per buyer.
 6. **Publish**.
 
