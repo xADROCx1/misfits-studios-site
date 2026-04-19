@@ -16,78 +16,133 @@
   h1 { font-size:28px; margin:0 0 4px; }
   h2 { font-size:20px; margin-top:32px; color:var(--accent); }
   .sub { color:var(--muted); margin-bottom:24px; }
-  code { background:var(--surface); padding:2px 6px; border-radius:3px; color:var(--accent); font-size:13px; }
+  code { background:var(--surface); padding:2px 6px; border-radius:3px; color:var(--accent); font-size:13px; word-break:break-all; }
 
-  .bookmarklet {
-    display:inline-block; padding:14px 24px; margin:12px 0 20px;
+  .primary-btn {
+    display:inline-block; padding:12px 22px; margin:8px 0;
     background:linear-gradient(135deg,var(--primary),#9c48ea); color:var(--bg);
-    text-decoration:none; font-weight:900; font-size:16px; border-radius:6px;
+    text-decoration:none; font-weight:900; font-size:15px; border-radius:6px; border:0;
     box-shadow:0 0 20px rgba(204,151,255,.4);
-    cursor:grab;
+    cursor:pointer;
   }
-  .bookmarklet:active { cursor:grabbing; }
+  .primary-btn:hover { box-shadow:0 0 40px rgba(204,151,255,.55); }
+  .primary-btn.copied { background:var(--green); color:var(--bg); }
 
-  ol li { margin:8px 0; }
+  ol li, ul li { margin:8px 0; }
   .box { background:var(--surface); border-left:3px solid var(--accent); padding:14px 18px; border-radius:4px; margin:16px 0; }
   .warn { border-left-color:#ff9e53; }
   .warn strong { color:#ff9e53; }
   kbd { background:#000; padding:2px 6px; border-radius:3px; border:1px solid var(--surface-hi); font-family:monospace; font-size:12px; }
 
-  pre {
-    background:#000; border:1px solid var(--surface-hi); border-radius:6px;
-    padding:14px; overflow-x:auto; font-size:11px; line-height:1.4; max-height:200px;
+  textarea.code {
+    width:100%; background:#000; color:var(--green); border:1px solid var(--surface-hi); border-radius:6px;
+    padding:14px; font-family:monospace; font-size:11px; line-height:1.4; min-height:140px;
+    resize:vertical;
   }
+
+  .draggable {
+    display:inline-block; padding:14px 22px; margin:6px 0;
+    background:linear-gradient(135deg,var(--primary),#9c48ea); color:var(--bg);
+    text-decoration:none; font-weight:900; font-size:16px; border-radius:6px;
+    box-shadow:0 0 20px rgba(204,151,255,.4);
+    cursor:grab; user-select:none;
+  }
+  .draggable:active { cursor:grabbing; }
 </style>
 </head>
 <body>
 
 <h1>🍋 LS Autofill Bookmarklet</h1>
-<p class="sub">One-click form-filler for <code>https://app.lemonsqueezy.com/products/new</code>. Zero install, works in any browser.</p>
+<p class="sub">One-click form-filler for <code>https://app.lemonsqueezy.com/products/new</code>. Zero install, runs in your own Chrome where the LS domain isn't blocked.</p>
 
-<h2>Step 1 — Install the bookmarklet</h2>
+<h2>Install — pick one of two ways</h2>
+
+<h3>Way A: Drag to bookmarks bar (easy)</h3>
 <ol>
-  <li>Show your browser's <b>bookmarks bar</b> (<kbd>Ctrl+Shift+B</kbd> in Chrome)</li>
-  <li><b>Drag this purple button</b> onto your bookmarks bar:</li>
+  <li>Show your browser's <b>bookmarks bar</b> (<kbd>Ctrl+Shift+B</kbd>)</li>
+  <li>Drag this button onto it:</li>
 </ol>
+<p><a id="drag-btn" class="draggable" href="#">🍋 Fill Next LS Product</a></p>
 
-<a class="bookmarklet" href="javascript:(function(){try{var MANIFEST='https://misfits-studios-site.qwikkidd.workers.dev/products.json';var STATE_KEY='misfits_ls_autofill_idx';function setVal(el,v){if(!el)return false;var proto=el.tagName==='TEXTAREA'?window.HTMLTextAreaElement.prototype:window.HTMLInputElement.prototype;var setter=Object.getOwnPropertyDescriptor(proto,'value').set;setter.call(el,v);el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));return true;}function findByLabel(txt){var labels=Array.from(document.querySelectorAll('label'));var lbl=labels.find(function(l){return l.textContent.trim().toLowerCase().indexOf(txt.toLowerCase())>=0;});if(!lbl)return null;if(lbl.htmlFor){var el=document.getElementById(lbl.htmlFor);if(el)return el;}var input=lbl.querySelector('input,textarea');if(input)return input;var sib=lbl.parentElement&&lbl.parentElement.querySelector('input,textarea');return sib||null;}function findInputByPlaceholder(txt){return document.querySelector('input[placeholder*=\"'+txt+'\" i],textarea[placeholder*=\"'+txt+'\" i]');}fetch(MANIFEST).then(function(r){return r.json();}).then(function(data){var products=(data.products||[]).filter(function(p){return p.status==='live';});var idx=parseInt(localStorage.getItem(STATE_KEY)||'0',10);if(idx>=products.length)idx=0;var p=products[idx];var nameEl=findByLabel('name')||findInputByPlaceholder('product name')||document.querySelector('input[name=\"name\"]');var priceEl=findByLabel('price')||document.querySelector('input[name=\"price\"]')||document.querySelector('input[type=\"number\"]');var descEl=document.querySelector('textarea[name=\"description\"]')||document.querySelector('.ProseMirror')||document.querySelector('[contenteditable=\"true\"]')||document.querySelector('textarea');var slugEl=findByLabel('slug')||document.querySelector('input[name=\"slug\"]');var statusReport=[];if(setVal(nameEl,p.name))statusReport.push('✓ name: '+p.name);else statusReport.push('✗ name field not found');var priceCents=Math.round((p.price_usd||0)*100);if(priceEl){if(priceEl.tagName==='INPUT'&&priceEl.type==='number')setVal(priceEl,priceCents);else setVal(priceEl,(p.price_usd||0).toFixed(2));statusReport.push('✓ price: '+priceCents+'¢');}else statusReport.push('✗ price field not found');if(slugEl&&!slugEl.value)setVal(slugEl,p.slug);if(descEl){if(descEl.isContentEditable){descEl.focus();document.execCommand('selectAll',false);document.execCommand('insertText',false,p.short_description);statusReport.push('✓ description (contenteditable)');}else{setVal(descEl,p.short_description);statusReport.push('✓ description');}}else statusReport.push('✗ description field not found');localStorage.setItem(STATE_KEY,String(idx+1));var filePath='';if(p.bundle_files){filePath='(XADROCX) PLUGINS/karuza vehicles/'+(p.name.toLowerCase().indexOf('plane')>=0?'RustPlane_1_30_0':'RustHelicopter_1_24_0')+'/ (zip all files)';}else if(p.id==='fueldisplay'){filePath='(XADROCX) PLUGINS/fueldisplay/oxide/plugins/FuelDisplay.cs';}else if(p.id==='vehiclelicence'){filePath='(XADROCX) PLUGINS/karuza vehicles/VehicleLicence.cs';}else if(['dev2discord','misfitsui','misfitscommands'].indexOf(p.id)>=0){filePath='plugins/'+p.name+'/ (zip all files)';}else{filePath='(XADROCX) PLUGINS/'+p.name+'.cs';}var banner=document.createElement('div');banner.style.cssText='position:fixed;top:16px;right:16px;z-index:999999;background:#060e20;color:#dee5ff;padding:16px 20px;border-radius:8px;box-shadow:0 10px 40px rgba(0,0,0,.6);font:13px/1.5 system-ui;max-width:380px;border:2px solid #cc97ff;';banner.innerHTML='<div style=\"font-weight:900;font-size:16px;color:#cc97ff;margin-bottom:8px\">'+(idx+1)+'/'+products.length+': '+p.name+' — '+p.price_label+'</div>'+'<div style=\"color:#7cffa5;font-size:12px;margin-bottom:6px\">'+statusReport.join('<br>')+'</div>'+'<div style=\"color:#53ddfc;font-size:11px;margin-top:10px;padding-top:10px;border-top:1px solid #141f38\">📂 <b>Upload file:</b><br>'+filePath+'</div>'+'<div style=\"color:#a3aac4;font-size:11px;margin-top:8px\">Click bookmarklet again after publishing for the next product.<br>Reset: <a href=\"#\" onclick=\"localStorage.removeItem(\\''+STATE_KEY+'\\');this.parentElement.parentElement.remove();return false\" style=\"color:#ff86c3\">clear progress</a> · <a href=\"#\" onclick=\"this.parentElement.parentElement.remove();return false\" style=\"color:#a3aac4\">close</a></div>';document.body.appendChild(banner);}).catch(function(err){alert('Failed to load manifest: '+err.message);});}())">🍋 Fill Next LS Product</a>
+<h3>Way B: Copy-paste (if the drag glitches)</h3>
+<ol>
+  <li>Right-click your <b>bookmarks bar</b> → <b>Add page…</b> or <b>Add bookmark</b></li>
+  <li>Name: <code>LS Autofill</code></li>
+  <li>Paste the URL below into the URL field → Save</li>
+</ol>
+<textarea class="code" id="code-box" readonly></textarea>
+<p><button class="primary-btn" id="copy-btn">📋 Copy Bookmarklet URL</button></p>
+
+<h2>Use it</h2>
+<ol>
+  <li>Go to <code>https://app.lemonsqueezy.com/products/new</code></li>
+  <li>Click the <b>🍋 Fill Next LS Product</b> bookmark</li>
+  <li>A purple panel appears (top-right) showing the product name, price, and file path to upload</li>
+  <li>Manually drag the <code>.cs</code> file onto LS's upload zone (file upload can't be automated from a bookmarklet — browser security)</li>
+  <li>Toggle <b>Generate license keys</b> for paid products</li>
+  <li>Click <b>Publish</b></li>
+  <li>Navigate back to <code>/products/new</code>, click bookmark again — auto-advances to product 2, 3, 4…</li>
+  <li>Progress persists in your browser's <code>localStorage</code> — close and resume anytime</li>
+</ol>
 
 <div class="box warn">
-  <strong>Note:</strong> file uploads can't be automated from a bookmarklet (browser security). You'll still need to drag the <code>.cs</code> file onto the LS upload zone — but the file path is shown in the autofill banner so you know exactly which one.
+  <strong>If a field doesn't auto-fill:</strong> LS sometimes changes their form DOM. The banner will say <code>✗ name field not found</code> (or similar). Just fill that one field by hand — the rest still work. Tell me if one breaks and I'll adjust the selectors.
 </div>
 
-<h2>Step 2 — Use it</h2>
-<ol>
-  <li>Go to <code>https://app.lemonsqueezy.com/products/new</code> in your browser</li>
-  <li>Click the <b>🍋 Fill Next LS Product</b> bookmark on your bookmarks bar</li>
-  <li>A purple panel appears top-right with the current product, price, and file path to upload</li>
-  <li>Manually <b>drag the .cs file</b> shown into the LS upload zone</li>
-  <li>Toggle <b>Generate license keys</b> on for paid products</li>
-  <li>Click <b>Publish</b> in LS</li>
-  <li>Navigate to <code>/products/new</code> again, click the bookmarklet — it auto-advances to product 2, 3, 4...</li>
-  <li>Progress saves in <code>localStorage</code> so you can resume anytime</li>
-</ol>
+<h2>Reset progress</h2>
+<p>Click this to clear the "which product is next" counter and start from product 1 again:</p>
+<button class="primary-btn" onclick="localStorage.removeItem('misfits_ls_autofill_idx');alert('Reset. Next click starts at product 1.');">🔄 Reset counter</button>
 
-<h2>What it fills</h2>
-<ul>
-  <li>✓ <b>Name</b> — exact product name from <code>products.json</code></li>
-  <li>✓ <b>Price</b> — in cents (999 for $9.99)</li>
-  <li>✓ <b>Slug</b> — if the field is empty</li>
-  <li>✓ <b>Description</b> — short description (works with LS's rich-text editor)</li>
-  <li>✗ <b>File upload</b> — manual (file path shown in banner)</li>
-  <li>✗ <b>License keys toggle</b> — manual one-click</li>
-  <li>✗ <b>Publish button</b> — manual (so you can verify each product before going live)</li>
-</ul>
-
-<h2>If it can't find a field</h2>
-<p>LS sometimes renames their DOM selectors. If the banner shows <code>✗ name field not found</code> or similar, just fill that one field manually — the rest will still auto-fill.</p>
-
-<h2>Raw bookmarklet code (for debugging)</h2>
-<pre id="src"></pre>
 <script>
-  // Pull the href from the button and show it for transparency
-  var link = document.querySelector('a.bookmarklet');
-  document.getElementById('src').textContent = link.getAttribute('href');
+// Build the bookmarklet code here so both the drag button and the copy-box stay in sync.
+// IMPORTANT: use only single quotes in the minified JS to keep HTML attribute escaping simple.
+var BOOKMARKLET = 'javascript:(function(){' +
+  'try{' +
+  'var URL_MANIFEST=' + JSON.stringify('https://misfits-studios-site.qwikkidd.workers.dev/products.json') + ';' +
+  'var KEY=' + JSON.stringify('misfits_ls_autofill_idx') + ';' +
+  'function setVal(el,v){if(!el)return false;var proto=el.tagName===' + JSON.stringify('TEXTAREA') + '?HTMLTextAreaElement.prototype:HTMLInputElement.prototype;var s=Object.getOwnPropertyDescriptor(proto,' + JSON.stringify('value') + ').set;s.call(el,v);el.dispatchEvent(new Event(' + JSON.stringify('input') + ',{bubbles:true}));el.dispatchEvent(new Event(' + JSON.stringify('change') + ',{bubbles:true}));return true;}' +
+  'function byLabel(txt){var labels=Array.from(document.querySelectorAll(' + JSON.stringify('label') + '));var lbl=labels.find(function(l){return l.textContent.trim().toLowerCase().indexOf(txt.toLowerCase())>=0;});if(!lbl)return null;if(lbl.htmlFor){var el=document.getElementById(lbl.htmlFor);if(el)return el;}var inp=lbl.querySelector(' + JSON.stringify('input,textarea') + ');if(inp)return inp;return lbl.parentElement&&lbl.parentElement.querySelector(' + JSON.stringify('input,textarea') + ');}' +
+  'function byPH(txt){return document.querySelector(' + JSON.stringify('input[placeholder*="') + '+txt+' + JSON.stringify('" i],textarea[placeholder*="') + '+txt+' + JSON.stringify('" i]') + ');}' +
+  'function byName(n){return document.querySelector(' + JSON.stringify('[name="') + '+n+' + JSON.stringify('"]') + ');}' +
+  'fetch(URL_MANIFEST).then(function(r){return r.json();}).then(function(d){' +
+  'var ps=(d.products||[]).filter(function(p){return p.status===' + JSON.stringify('live') + ';});' +
+  'var i=parseInt(localStorage.getItem(KEY)||' + JSON.stringify('0') + ',10);if(i>=ps.length)i=0;var p=ps[i];' +
+  'var nameEl=byLabel(' + JSON.stringify('name') + ')||byPH(' + JSON.stringify('product name') + ')||byName(' + JSON.stringify('name') + ');' +
+  'var priceEl=byLabel(' + JSON.stringify('price') + ')||byName(' + JSON.stringify('price') + ')||document.querySelector(' + JSON.stringify('input[type="number"]') + ');' +
+  'var descEl=document.querySelector(' + JSON.stringify('textarea[name="description"]') + ')||document.querySelector(' + JSON.stringify('.ProseMirror') + ')||document.querySelector(' + JSON.stringify('[contenteditable="true"]') + ')||document.querySelector(' + JSON.stringify('textarea') + ');' +
+  'var slugEl=byLabel(' + JSON.stringify('slug') + ')||byName(' + JSON.stringify('slug') + ');' +
+  'var rep=[];' +
+  'if(setVal(nameEl,p.name))rep.push(' + JSON.stringify('\u2713 name: ') + '+p.name);else rep.push(' + JSON.stringify('\u2717 name field not found') + ');' +
+  'var cents=Math.round((p.price_usd||0)*100);' +
+  'if(priceEl){if(priceEl.type===' + JSON.stringify('number') + ')setVal(priceEl,cents);else setVal(priceEl,(p.price_usd||0).toFixed(2));rep.push(' + JSON.stringify('\u2713 price: ') + '+cents+' + JSON.stringify('\u00A2') + ');}else rep.push(' + JSON.stringify('\u2717 price field not found') + ');' +
+  'if(slugEl&&!slugEl.value){setVal(slugEl,p.slug);}' +
+  'if(descEl){if(descEl.isContentEditable){descEl.focus();document.execCommand(' + JSON.stringify('selectAll') + ',false);document.execCommand(' + JSON.stringify('insertText') + ',false,p.short_description);rep.push(' + JSON.stringify('\u2713 description (rich)') + ');}else{setVal(descEl,p.short_description);rep.push(' + JSON.stringify('\u2713 description') + ');}}else rep.push(' + JSON.stringify('\u2717 description field not found') + ');' +
+  'localStorage.setItem(KEY,String(i+1));' +
+  'var fp;if(p.bundle_files){fp=' + JSON.stringify('(XADROCX) PLUGINS/karuza vehicles/') + '+(p.name.toLowerCase().indexOf(' + JSON.stringify('plane') + ')>=0?' + JSON.stringify('RustPlane_1_30_0') + ':' + JSON.stringify('RustHelicopter_1_24_0') + ')+' + JSON.stringify('/ (zip all files)') + ';}' +
+  'else if(p.id===' + JSON.stringify('fueldisplay') + '){fp=' + JSON.stringify('(XADROCX) PLUGINS/fueldisplay/oxide/plugins/FuelDisplay.cs') + ';}' +
+  'else if(p.id===' + JSON.stringify('vehiclelicence') + '){fp=' + JSON.stringify('(XADROCX) PLUGINS/karuza vehicles/VehicleLicence.cs') + ';}' +
+  'else if([' + JSON.stringify('dev2discord') + ',' + JSON.stringify('misfitsui') + ',' + JSON.stringify('misfitscommands') + '].indexOf(p.id)>=0){fp=' + JSON.stringify('plugins/') + '+p.name+' + JSON.stringify('/ (zip all files)') + ';}' +
+  'else{fp=' + JSON.stringify('(XADROCX) PLUGINS/') + '+p.name+' + JSON.stringify('.cs') + ';}' +
+  'var b=document.createElement(' + JSON.stringify('div') + ');' +
+  'b.style.cssText=' + JSON.stringify('position:fixed;top:16px;right:16px;z-index:999999;background:#060e20;color:#dee5ff;padding:16px 20px;border-radius:8px;box-shadow:0 10px 40px rgba(0,0,0,.6);font:13px/1.5 system-ui;max-width:380px;border:2px solid #cc97ff;') + ';' +
+  'b.innerHTML=' + JSON.stringify('<div style="font-weight:900;font-size:16px;color:#cc97ff;margin-bottom:8px">') + '+(i+1)+' + JSON.stringify('/') + '+ps.length+' + JSON.stringify(': ') + '+p.name+' + JSON.stringify(' — ') + '+p.price_label+' + JSON.stringify('</div><div style="color:#7cffa5;font-size:12px;margin-bottom:6px">') + '+rep.join(' + JSON.stringify('<br>') + ')+' + JSON.stringify('</div><div style="color:#53ddfc;font-size:11px;margin-top:10px;padding-top:10px;border-top:1px solid #141f38">\ud83d\udcc2 <b>Upload file:</b><br>') + '+fp+' + JSON.stringify('</div><div style="color:#a3aac4;font-size:11px;margin-top:8px">Click bookmarklet again after publishing for the next product. <a href="#" onclick="this.parentElement.parentElement.remove();return false" style="color:#a3aac4;float:right">close</a></div>') + ';' +
+  'document.body.appendChild(b);' +
+  '}).catch(function(e){alert(' + JSON.stringify('Manifest fetch failed: ') + '+e.message);});' +
+  '}catch(e){alert(' + JSON.stringify('Bookmarklet error: ') + '+e.message);}' +
+  '})();';
+
+document.getElementById('drag-btn').href = BOOKMARKLET;
+document.getElementById('code-box').value = BOOKMARKLET;
+
+document.getElementById('copy-btn').addEventListener('click', function () {
+  var btn = this;
+  navigator.clipboard.writeText(BOOKMARKLET).then(function () {
+    var orig = btn.textContent;
+    btn.textContent = '✓ Copied';
+    btn.classList.add('copied');
+    setTimeout(function () { btn.textContent = orig; btn.classList.remove('copied'); }, 1500);
+  });
+});
 </script>
 
 </body>
