@@ -18,9 +18,11 @@
 <meta name="twitter:image" content="https://misfits-studios.com/NewLogo.png"/>
 <link rel="icon" href="NewLogo.png"/>
 <link rel="stylesheet" href="/assets/theme.css"/>
+<link rel="stylesheet" href="/assets/cyber-v5.css"/>
 <script src="/assets/analytics.js" defer></script>
 <script src="/assets/theme.js" defer></script>
 <script src="/assets/boot-sequence.js" defer></script>
+<script src="/assets/matrix-rain.js" defer></script>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800;12..96,900&family=Rubik+Mono+One&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
@@ -382,260 +384,99 @@
   <div class="mt-3 font-headline text-sm md:text-base text-muted tracking-[0.3em] uppercase">Misfits Studios</div>
 </div>
 
-<!-- Top Navigation -->
-<nav class="sticky top-0 w-full z-50 ob-glass flex justify-center items-center px-6 md:px-12 py-3">
-  <div class="flex gap-8 md:gap-10 items-center font-label uppercase text-[11px] tracking-[0.25em]">
-    <a class="text-primary border-b-2 border-primary pb-1" href="index.html">HOME</a>
-    <a class="text-muted hover:text-accent transition-all" href="plugins.html">PLUGINS</a>
-    <a class="text-muted hover:text-accent transition-all" href="apps.html">APPS</a>
-    <a class="text-muted hover:text-accent transition-all" href="about.html">ABOUT</a>
-    <a class="text-muted hover:text-accent transition-all" href="support.html">SUPPORT</a>
-    <a class="text-muted hover:text-accent transition-all" href="terms.html">TERMS</a>
-    <span class="hidden md:inline ob-data-label ml-4"><span class="inline-block w-2 h-2 rounded-full bg-accent ob-pulse align-middle mr-2"></span>ONLINE</span>
-  </div>
+<!-- V5 CYBER NAV -->
+<nav class="v5-nav" role="navigation" aria-label="Primary">
+  <a href="/" class="v5-brand" aria-label="Misfits Studios home">
+    <span class="v5-brand-mark" aria-hidden="true">M</span>
+    <span class="v5-brand-stack">
+      <span class="v5-brand-name">MISFITS_STUDIOS</span>
+      <span class="v5-brand-kana">ミスフィッツ・スタジオ</span>
+    </span>
+  </a>
+  <ul class="v5-nav-list">
+    <li><a class="v5-nav-pill v5-nav-pill--active" href="/"><span class="v5-nav-icon" aria-hidden="true">⌂</span> HOME</a></li>
+    <li><a class="v5-nav-pill" href="/plugins.html"><span class="v5-nav-icon" aria-hidden="true">⚡</span> PLUGINS</a></li>
+    <li><a class="v5-nav-pill" href="/apps.html"><span class="v5-nav-icon" aria-hidden="true">▣</span> APPS</a></li>
+    <li><a class="v5-nav-pill" href="/changelog.html"><span class="v5-nav-icon" aria-hidden="true">◈</span> CHANGELOG</a></li>
+    <li><a class="v5-nav-pill" href="/support.html"><span class="v5-nav-icon" aria-hidden="true">✉</span> SUPPORT</a></li>
+  </ul>
 </nav>
 
 <main>
 
-  <!-- Hero -->
-  <section class="relative min-h-[80vh] flex flex-col justify-center px-8 md:px-20 ob-hero-gradient overflow-hidden">
-    <style>
-      @keyframes msfts-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
-      .msfts-cursor { animation: msfts-blink 1.1s step-end infinite; color: #00ffa3; text-shadow: 0 0 12px rgba(0,255,163,.75), 0 0 28px rgba(0,255,163,.35); }
-      @keyframes msfts-hud-pulse { 0%, 100% { opacity: .45; } 50% { opacity: 1; } }
-      .msfts-hud-pulse { animation: msfts-hud-pulse 1.8s ease-in-out infinite; }
-      .msfts-boot-line { font-family: 'JetBrains Mono', 'VT323', monospace; font-size: 11px; letter-spacing: .08em; color: rgba(0,255,163,.65); }
-      .msfts-boot-line .addr { color: rgba(163,170,196,.55); }
-      .msfts-boot-line .ok { color: #00ffa3; }
-      .msfts-boot-line .warn { color: #ff9e53; }
-      .msfts-boot-line .dim { color: rgba(163,170,196,.45); }
-      .msfts-hero-display {
-        font-family: 'Rubik Mono One', 'Space Grotesk', sans-serif;
-        font-weight: 400;
-        text-transform: uppercase;
-        letter-spacing: -0.02em;
-        line-height: 0.88;
-        color: #dee5ff;
-        text-shadow: 0 0 40px rgba(0,255,163,.18), 0 2px 0 rgba(0,0,0,.5);
-      }
-      .msfts-hero-display .mint { color: #00ffa3; text-shadow: 0 0 24px rgba(0,255,163,.55), 0 0 48px rgba(0,255,163,.25); }
-      .msfts-hud-frame {
-        position: relative;
-        background: linear-gradient(180deg, rgba(9,19,40,.85), rgba(6,14,32,.95));
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        padding: 2rem 2rem 2rem 2rem;
-      }
-      .msfts-hud-frame::before, .msfts-hud-frame::after,
-      .msfts-hud-frame > .corner-tl, .msfts-hud-frame > .corner-tr,
-      .msfts-hud-frame > .corner-bl, .msfts-hud-frame > .corner-br {
-        content: ""; position: absolute; width: 18px; height: 18px; pointer-events: none;
-      }
-      .msfts-hud-frame > .corner-tl { top: 0; left: 0; border-top: 2px solid #00ffa3; border-left: 2px solid #00ffa3; }
-      .msfts-hud-frame > .corner-tr { top: 0; right: 0; border-top: 2px solid #00ffa3; border-right: 2px solid #00ffa3; }
-      .msfts-hud-frame > .corner-bl { bottom: 0; left: 0; border-bottom: 2px solid #00ffa3; border-left: 2px solid #00ffa3; }
-      .msfts-hud-frame > .corner-br { bottom: 0; right: 0; border-bottom: 2px solid #00ffa3; border-right: 2px solid #00ffa3; }
-      .msfts-hud-frame > .edge-x { position: absolute; left: 18px; right: 18px; height: 1px; background: linear-gradient(90deg, transparent, rgba(0,255,163,.2), transparent); pointer-events: none; }
-      .msfts-hud-frame > .edge-top { top: 0; }
-      .msfts-hud-frame > .edge-bot { bottom: 0; }
-      .msfts-datarow {
-        display: grid; grid-template-columns: 1fr auto;
-        align-items: baseline; gap: 1rem;
-        padding: .55rem 0;
-        border-bottom: 1px dashed rgba(163,170,196,.12);
-        font-family: 'JetBrains Mono', monospace;
-      }
-      .msfts-datarow:last-child { border-bottom: 0; }
-      .msfts-datarow .k { font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: rgba(163,170,196,.7); }
-      .msfts-datarow .v { font-size: 14px; font-weight: 700; color: #dee5ff; letter-spacing: .05em; }
-      .msfts-datarow .v.mint { color: #00ffa3; text-shadow: 0 0 10px rgba(0,255,163,.4); }
-      .msfts-datarow .v.cyan { color: #53ddfc; }
-      .msfts-datarow .v.purple { color: #cc97ff; }
-      .msfts-datarow .v.warn { color: #ff9e53; }
-      .msfts-status-chip {
-        display: inline-flex; align-items: center; gap: .45rem;
-        padding: 2px 10px;
-        border: 1px solid rgba(0,255,163,.55);
-        background: rgba(0,255,163,.08);
-        color: #00ffa3;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 11px; font-weight: 700; letter-spacing: .2em;
-        border-radius: 2px;
-      }
-      .msfts-status-chip .dot {
-        width: 7px; height: 7px; border-radius: 9999px;
-        background: #00ffa3; box-shadow: 0 0 10px #00ffa3, 0 0 20px rgba(0,255,163,.5);
-      }
-      .msfts-hero-tagline {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 12px; letter-spacing: .28em; text-transform: uppercase;
-        color: rgba(83,221,252,.8);
-      }
-      .msfts-hero-body {
-        font-family: 'Inter', sans-serif;
-        font-size: 15px; line-height: 1.6; color: #a3aac4;
-      }
-      .msfts-hero-btn {
-        display: inline-flex; align-items: center; gap: .75rem;
-        padding: 1rem 1.75rem;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 12px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
-        border-radius: 2px;
-        transition: all .25s ease;
-      }
-      .msfts-hero-btn--primary {
-        background: linear-gradient(135deg, #00ffa3, #00b877);
-        color: #060e20;
-        border: 1px solid #00ffa3;
-        box-shadow: 0 0 24px rgba(0,255,163,.35), inset 0 1px 0 rgba(255,255,255,.2);
-      }
-      .msfts-hero-btn--primary:hover {
-        box-shadow: 0 0 40px rgba(0,255,163,.65), inset 0 1px 0 rgba(255,255,255,.3);
-        transform: translateY(-1px);
-      }
-      .msfts-hero-btn--ghost {
-        background: transparent;
-        color: #dee5ff;
-        border: 1px solid rgba(0,255,163,.35);
-      }
-      .msfts-hero-btn--ghost:hover {
-        border-color: #00ffa3;
-        color: #00ffa3;
-        background: rgba(0,255,163,.05);
-        transform: translateY(-1px);
-      }
-      .msfts-stat-hud {
-        position: relative;
-        padding: 1rem 1.25rem;
-        background: rgba(9,19,40,.6);
-        border: 1px solid rgba(64,72,93,.3);
-        border-radius: 2px;
-      }
-      .msfts-stat-hud::before {
-        content: ""; position: absolute; top: -1px; left: -1px; width: 10px; height: 10px;
-        border-top: 2px solid #00ffa3; border-left: 2px solid #00ffa3;
-      }
-      .msfts-stat-hud::after {
-        content: ""; position: absolute; bottom: -1px; right: -1px; width: 10px; height: 10px;
-        border-bottom: 2px solid #00ffa3; border-right: 2px solid #00ffa3;
-      }
-      .msfts-stat-num { font-family: 'Rubik Mono One', sans-serif; font-size: 2.4rem; line-height: 1; color: #00ffa3; text-shadow: 0 0 20px rgba(0,255,163,.4); }
-      .msfts-stat-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .25em; text-transform: uppercase; color: rgba(163,170,196,.7); margin-top: .6rem; }
-    </style>
+  <!-- V5 CYBER Hero + WHERE_TO_GO cards -->
+  <section class="v5-hero">
+    <canvas class="v5-matrix-canvas" aria-hidden="true"></canvas>
+    <div class="v5-scan-beam" aria-hidden="true"></div>
+    <div class="v5-wrap v5-hero-content">
+      <p class="v5-hero-eyebrow">&gt;&gt;&nbsp;&nbsp;ONE DEV&nbsp;&nbsp;&middot;&nbsp;&nbsp;EVERY LINE&nbsp;&nbsp;&middot;&nbsp;&nbsp;ZERO FILLER&nbsp;&nbsp;&lt;&lt;</p>
 
-    <img src="NewLogo.png" alt="" aria-hidden="true" class="pointer-events-none select-none absolute right-[-6rem] top-1/2 -translate-y-1/2 w-[42rem] max-w-[65vw] opacity-[0.04] hidden md:block" onerror="this.style.display='none'"/>
+      <h1 class="v5-hero-stack">
+        <span class="v5-hero-crafted" data-text="CRAFTED">CRAFTED</span>
+        <span class="v5-hero-for">FOR</span>
+        <span class="v5-hero-misfits">MISFITS.</span>
+      </h1>
 
-    <div class="max-w-7xl mx-auto relative z-10 w-full py-16">
+      <p class="v5-hero-body">
+        48 weaponized Rust plugins. Per-server license. Lifetime updates. Oxide + Carbon compatible.
+        Built direct from the keyboard that wrote them &mdash; no middlemen, no reseller markup.
+      </p>
 
-      <!-- Two-column grid: left = terminal + hero statement, right = data readout -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+      <div class="v5-cta-row">
+        <a href="/plugins.html" class="v5-cta v5-cta--primary"><span aria-hidden="true">&#9656;</span> BROWSE_CATALOG</a>
+        <a href="/apps.html" class="v5-cta v5-cta--ghost"><span aria-hidden="true">&#9656;</span> DESKTOP_APPS</a>
+      </div>
+    </div>
+  </section>
 
-        <!-- LEFT: boot log + hero statement -->
-        <div class="lg:col-span-7">
-          <!-- Boot log header -->
-          <div class="mb-8 space-y-1">
-            <div class="msfts-boot-line"><span class="addr">[0x00A1]</span> <span class="ok">&gt;</span> INIT studio.protocol <span class="ok">// OK</span></div>
-            <div class="msfts-boot-line"><span class="addr">[0x00A2]</span> <span class="ok">&gt;</span> MOUNT oxide.framework <span class="ok">// OK</span></div>
-            <div class="msfts-boot-line"><span class="addr">[0x00A3]</span> <span class="ok">&gt;</span> MOUNT carbon.framework <span class="ok">// OK</span></div>
-            <div class="msfts-boot-line"><span class="addr">[0x00A4]</span> <span class="ok">&gt;</span> LOAD catalog.index <span class="dim">// 48 units staged</span></div>
-            <div class="msfts-boot-line"><span class="addr">[0x00A5]</span> <span class="warn">&gt;</span> HANDSHAKE v.2_studio_protocol <span class="ok">// LIVE</span></div>
-          </div>
+  <div class="v5-divider" aria-hidden="true"></div>
 
-          <!-- Hero statement -->
-          <h1 class="msfts-hero-display text-[2.25rem] sm:text-5xl md:text-6xl lg:text-[4.5rem] xl:text-[5.25rem] leading-[0.92] break-words">
-            CRAFTED<br/>FOR<br/>
-            <span class="mint">MISFITS<span style="color:#dee5ff">.</span></span><span class="msfts-cursor" aria-hidden="true">&#9605;</span>
-          </h1>
-
-          <!-- Tagline -->
-          <p class="msfts-hero-tagline mt-8">
-            <span style="color:#00ffa3">//</span> ONE DEV &nbsp;&middot;&nbsp; EVERY LINE &nbsp;&middot;&nbsp; ZERO FILLER
-          </p>
-
-          <!-- Body -->
-          <p class="msfts-hero-body mt-5 max-w-xl">
-            Original Rust plugins and the desktop tools forged alongside them. Oxide + Carbon compatible. Shipped direct from the keyboard that wrote them &mdash; no middlemen, no reseller markup.
-          </p>
-
-          <!-- CTAs -->
-          <div class="flex flex-wrap gap-4 mt-10">
-            <a href="plugins.html" class="msfts-hero-btn msfts-hero-btn--primary">
-              <span aria-hidden="true">&#9656;</span> BROWSE_CATALOG
-            </a>
-            <a href="apps.html" class="msfts-hero-btn msfts-hero-btn--ghost">
-              <span aria-hidden="true">&#9656;</span> DESKTOP_APPS
-            </a>
-          </div>
-        </div>
-
-        <!-- RIGHT: HUD data readout panel -->
-        <div class="lg:col-span-5">
-          <div class="mb-3 flex items-center justify-between">
-            <span class="msfts-boot-line"><span class="ok">&gt;</span> STUDIO_TELEMETRY <span class="dim">// LIVE_READOUT</span></span>
-            <span class="msfts-status-chip"><span class="dot msfts-hud-pulse"></span>ONLINE</span>
-          </div>
-
-          <div class="msfts-hud-frame">
-            <span class="corner-tl"></span><span class="corner-tr"></span>
-            <span class="corner-bl"></span><span class="corner-br"></span>
-            <span class="edge-x edge-top"></span><span class="edge-x edge-bot"></span>
-
-            <div class="msfts-datarow">
-              <span class="k">&#9500; PLUGINS_LIVE</span>
-              <span class="v mint">48</span>
-            </div>
-            <div class="msfts-datarow">
-              <span class="k">&#9500; FRAMEWORKS</span>
-              <span class="v cyan">OXIDE · CARBON</span>
-            </div>
-            <div class="msfts-datarow">
-              <span class="k">&#9500; UPDATES</span>
-              <span class="v purple">LIFETIME</span>
-            </div>
-            <div class="msfts-datarow">
-              <span class="k">&#9500; SUPPORT</span>
-              <span class="v">DIRECT · DISCORD</span>
-            </div>
-            <div class="msfts-datarow">
-              <span class="k">&#9500; LICENSE</span>
-              <span class="v">PER-SERVER</span>
-            </div>
-            <div class="msfts-datarow">
-              <span class="k">&#9492; PROTOCOL</span>
-              <span class="v warn">V.2_ACTIVE</span>
-            </div>
-          </div>
-
-          <div class="mt-3 flex items-center justify-between">
-            <span class="msfts-boot-line"><span class="dim">&gt; last_sync &middot; t-00:00:04</span></span>
-            <span class="msfts-boot-line"><span class="ok">[OK]</span></span>
-          </div>
-        </div>
+  <!-- V5 WHERE_TO_GO quick-nav cards -->
+  <section class="v5-wtg-section">
+    <div class="v5-wrap">
+      <div class="v5-wtg-header">
+        <h2 class="v5-wtg-title">WHERE_TO_GO</h2>
+        <p class="v5-wtg-sub">//&nbsp;&nbsp;fast_uplink &middot; pick_a_route</p>
       </div>
 
-      <!-- Stat counters below the hero -->
-      <div class="mt-16 pt-10 border-t border-dashed border-[rgba(0,255,163,0.15)]">
-        <div class="msfts-boot-line mb-5"><span class="ok">&gt;</span> STUDIO_METRICS <span class="dim">// summary.block</span></div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div class="msfts-stat-hud">
-            <div class="msfts-stat-num">48<span style="color:#ff86c3">+</span></div>
-            <div class="msfts-stat-label">01 &#9656; PLUGINS_SHIPPED</div>
-          </div>
-          <div class="msfts-stat-hud">
-            <div class="msfts-stat-num">2<span style="color:#53ddfc">x</span></div>
-            <div class="msfts-stat-label">02 &#9656; FRAMEWORK_COMPAT</div>
-          </div>
-          <div class="msfts-stat-hud">
-            <div class="msfts-stat-num">1<span style="color:#cc97ff">.</span></div>
-            <div class="msfts-stat-label">03 &#9656; SOLO_DEVELOPER</div>
-          </div>
-          <div class="msfts-stat-hud">
-            <div class="msfts-stat-num">&infin;</div>
-            <div class="msfts-stat-label">04 &#9656; LIFETIME_UPDATES</div>
-          </div>
-        </div>
+      <div class="v5-card-grid">
+        <a class="v5-card v5-card--cyan" href="/plugins.html">
+          <span class="v5-card-icon" aria-hidden="true">&#9889;</span>
+          <h3 class="v5-card-title">BROWSE PLUGINS</h3>
+          <p class="v5-card-desc">48 Rust plugins. Vehicles, weapons, admin, AI diagnostics.</p>
+          <span class="v5-card-link">&#9656; /plugins</span>
+        </a>
+        <a class="v5-card v5-card--pink" href="/apps.html">
+          <span class="v5-card-icon" aria-hidden="true">&#9635;</span>
+          <h3 class="v5-card-title">DESKTOP APPS</h3>
+          <p class="v5-card-desc">Windows-first tools. Standalone binaries. No subscriptions.</p>
+          <span class="v5-card-link">&#9656; /apps</span>
+        </a>
+        <a class="v5-card v5-card--mint" href="/changelog.html">
+          <span class="v5-card-icon" aria-hidden="true">&#9672;</span>
+          <h3 class="v5-card-title">CHANGELOG</h3>
+          <p class="v5-card-desc">Every version of every plugin. Release notes, SemVer tracked.</p>
+          <span class="v5-card-link">&#9656; /changelog</span>
+        </a>
+        <a class="v5-card v5-card--purple" href="/about.html">
+          <span class="v5-card-icon" aria-hidden="true">&#9673;</span>
+          <h3 class="v5-card-title">ABOUT</h3>
+          <p class="v5-card-desc">Who makes this. The solo-dev promise. No corporate PR tone.</p>
+          <span class="v5-card-link">&#9656; /about</span>
+        </a>
+        <a class="v5-card v5-card--yellow" href="/support.html">
+          <span class="v5-card-icon" aria-hidden="true">&#9993;</span>
+          <h3 class="v5-card-title">SUPPORT</h3>
+          <p class="v5-card-desc">Direct email + Discord. Pre-sales, bugs, feature asks.</p>
+          <span class="v5-card-link">&#9656; /support</span>
+        </a>
+        <a class="v5-card v5-card--muted" href="/terms.html">
+          <span class="v5-card-icon" aria-hidden="true">&sect;</span>
+          <h3 class="v5-card-title">LEGAL</h3>
+          <p class="v5-card-desc">Terms &middot; privacy &middot; refund policy. Plain English.</p>
+          <span class="v5-card-link">&#9656; /terms</span>
+        </a>
       </div>
-
     </div>
   </section>
 
