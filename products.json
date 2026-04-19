@@ -27,8 +27,18 @@
       "short_description": "Auto-posts official Rust devblogs, patch notes, and news to your server's Discord channel. Digest or instant mode.",
       "price_usd": 9.99,
       "price_label": "$9.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["discord", "rss", "automation", "server", "utility"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "discord",
+        "rss",
+        "automation",
+        "server",
+        "utility"
+      ],
       "cs_info_author": "Misfits Studios"
     },
     {
@@ -42,9 +52,25 @@
       "short_description": "Free library — branded colors, ImageLibrary integration, reusable UI components. Dependency for the Misfits plugin stack.",
       "price_usd": 0,
       "price_label": "FREE",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": false, "download_only": true },
-      "tags": ["library", "ui", "dependency", "free"],
-      "cs_info_author": "Misfits Studios"
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": false,
+        "download_only": true
+      },
+      "tags": [
+        "library",
+        "ui",
+        "dependency",
+        "free"
+      ],
+      "cs_info_author": "Misfits Studios",
+      "paddle": {
+        "product_id": "pro_01kpm2ctttg83y3gz1ntw7dbph",
+        "price_id": null,
+        "checkout_url": null,
+        "environment": "live"
+      }
     },
     {
       "id": "misfitscommands",
@@ -57,9 +83,21 @@
       "short_description": "Terminal-inspired in-game browser for chat commands, console commands, permissions, and skin IDs across every loaded plugin.",
       "price_usd": 14.99,
       "price_label": "$14.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["admin", "commands", "ui", "cyberpunk", "in-game"],
-      "requires": ["misfitsui"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "admin",
+        "commands",
+        "ui",
+        "cyberpunk",
+        "in-game"
+      ],
+      "requires": [
+        "misfitsui"
+      ],
       "cs_info_author": "Misfits Studios"
     },
     {
@@ -73,8 +111,17 @@
       "short_description": "Full-featured admin map with entity tracking, player positions, and server-wide visibility tools.",
       "price_usd": 19.99,
       "price_label": "$19.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["admin", "map", "monitoring", "ui"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "admin",
+        "map",
+        "monitoring",
+        "ui"
+      ],
       "cs_info_author": "0xF"
     },
     {
@@ -88,8 +135,18 @@
       "short_description": "Large Backpack + diving tank behavior: oxygen in water, drains air, refill via chat, compact O2 HUD.",
       "price_usd": 9.99,
       "price_label": "$9.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["backpack", "diving", "oxygen", "underwater", "ui"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "backpack",
+        "diving",
+        "oxygen",
+        "underwater",
+        "ui"
+      ],
       "cs_info_author": "xADROCx"
     },
     {
@@ -103,8 +160,17 @@
       "short_description": "NPC vending machines keep a high default stack and reset to it after every purchase. Includes timer and restock-all command.",
       "price_usd": 4.99,
       "price_label": "$4.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["vending", "npc", "economy", "server"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "vending",
+        "npc",
+        "economy",
+        "server"
+      ],
       "cs_info_author": "xADROCx"
     },
     {
@@ -118,8 +184,16 @@
       "short_description": "Improves armor-insert slot behavior across attire items with auto-detect and per-item overrides.",
       "price_usd": 9.99,
       "price_label": "$9.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["armor", "inventory", "gear"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "armor",
+        "inventory",
+        "gear"
+      ],
       "cs_info_author": "jtedal"
     },
     {
@@ -133,8 +207,17 @@
       "short_description": "Shift-only boat boost (rowboat / RHIB / PT + optional tug) and unified manual-eject for driver & passengers.",
       "price_usd": 9.99,
       "price_label": "$9.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["boat", "nitro", "vehicle", "water"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "boat",
+        "nitro",
+        "vehicle",
+        "water"
+      ],
       "cs_info_author": "xADROCx, CodeCopilot"
     },
     {
@@ -148,8 +231,16 @@
       "short_description": "Explosive 5.56 launches timed explosives (C4) when toggled on. Permission-gated.",
       "price_usd": 4.99,
       "price_label": "$4.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["weapons", "explosives", "chaos"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "weapons",
+        "explosives",
+        "chaos"
+      ],
       "cs_info_author": "xADROCx"
     },
     {
@@ -163,8 +254,16 @@
       "short_description": "Smooth car boost with midair steering, ground collision prevention, and improved physics.",
       "price_usd": 9.99,
       "price_label": "$9.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["car", "nitro", "vehicle"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "car",
+        "nitro",
+        "vehicle"
+      ],
       "cs_info_author": "xADROCx"
     },
     {
@@ -178,8 +277,17 @@
       "short_description": "Gun skin that fires physics-driven chickens (full-auto). No bullets, AI disabled, hover/floor protection, landing modes, caps, and Codefling-safe permission handling.",
       "price_usd": 9.99,
       "price_label": "$9.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["weapons", "chaos", "chickens", "fun"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "weapons",
+        "chaos",
+        "chickens",
+        "fun"
+      ],
       "cs_info_author": "xADROCx"
     },
     {
@@ -193,8 +301,16 @@
       "short_description": "Adds a Chicken Lover button to Chicken Coop UI that satisfies only the chickens inside the coop you're currently looting.",
       "price_usd": 4.99,
       "price_label": "$4.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["farming", "qol", "ui"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "farming",
+        "qol",
+        "ui"
+      ],
       "cs_info_author": "xADROCx"
     },
     {
@@ -208,8 +324,16 @@
       "short_description": "Splits compostables evenly across open slots. Blocks when full. Persists composter stack layout across restarts.",
       "price_usd": 4.99,
       "price_label": "$4.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["farming", "qol", "compost"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "farming",
+        "qol",
+        "compost"
+      ],
       "cs_info_author": "xADROCx"
     },
     {
@@ -223,8 +347,17 @@
       "short_description": "Adds a loot UI button on your own corpse to instantly retrieve items, with optional exact layout restore.",
       "price_usd": 7.99,
       "price_label": "$7.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["death", "loot", "qol", "ui"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "death",
+        "loot",
+        "qol",
+        "ui"
+      ],
       "cs_info_author": "xADROCx"
     },
     {
@@ -238,8 +371,17 @@
       "short_description": "Speed boost and nitro system for modular boats.",
       "price_usd": 9.99,
       "price_label": "$9.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["boat", "nitro", "modular", "water"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "boat",
+        "nitro",
+        "modular",
+        "water"
+      ],
       "cs_info_author": "Adam/Claude"
     },
     {
@@ -253,8 +395,16 @@
       "short_description": "Adds a togglable EAT ALL button that consumes every food item in the player's inventory and applies the cumulative stat buffs.",
       "price_usd": 4.99,
       "price_label": "$4.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["food", "qol", "ui"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "food",
+        "qol",
+        "ui"
+      ],
       "cs_info_author": "Misfit"
     },
     {
@@ -268,8 +418,17 @@
       "short_description": "Tracks animal populations and broadcasts immersive ecosystem updates to the server. Toggle with /ecosystem.",
       "price_usd": 9.99,
       "price_label": "$9.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["ecosystem", "animals", "immersive", "server"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "ecosystem",
+        "animals",
+        "immersive",
+        "server"
+      ],
       "cs_info_author": "xADROCx"
     },
     {
@@ -283,8 +442,16 @@
       "short_description": "Counts Rust entities owned by online/offline players.",
       "price_usd": 4.99,
       "price_label": "$4.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["admin", "entities", "monitoring"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "admin",
+        "entities",
+        "monitoring"
+      ],
       "cs_info_author": "xADROCx"
     },
     {
@@ -298,8 +465,17 @@
       "short_description": "Limits total owned entities per player using 4 permissions: tier1, tier2, tier3, unlimited (-1 = infinite).",
       "price_usd": 7.99,
       "price_label": "$7.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["admin", "entities", "limits", "permissions"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "admin",
+        "entities",
+        "limits",
+        "permissions"
+      ],
       "cs_info_author": "xADROCx"
     },
     {
@@ -313,8 +489,17 @@
       "short_description": "When enabled (permission-gated), firing rifle ammo launches random firework ROCKET projectiles in the aimed direction.",
       "price_usd": 4.99,
       "price_label": "$4.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["weapons", "fireworks", "chaos", "fun"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "weapons",
+        "fireworks",
+        "chaos",
+        "fun"
+      ],
       "cs_info_author": "xADROCx"
     },
     {
@@ -328,8 +513,17 @@
       "short_description": "Periodically spawns a cluster of sharks that leap out of the water and splash back down. Fully configurable.",
       "price_usd": 9.99,
       "price_label": "$9.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["sharks", "water", "spawns", "ambient"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "sharks",
+        "water",
+        "spawns",
+        "ambient"
+      ],
       "cs_info_author": "xADROCx"
     },
     {
@@ -343,8 +537,17 @@
       "short_description": "Allows submarines to fly through the air. Use /flysub to toggle. Hold SHIFT to launch and thrust. Supports solo and duo subs.",
       "price_usd": 7.99,
       "price_label": "$7.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["submarine", "flight", "chaos", "vehicle"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "submarine",
+        "flight",
+        "chaos",
+        "vehicle"
+      ],
       "cs_info_author": "xADROCx"
     },
     {
@@ -358,8 +561,17 @@
       "short_description": "Adds a 'Bee Happy' button to Beehive UI that satisfies the bees in the hive you are currently looting.",
       "price_usd": 4.99,
       "price_label": "$4.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["farming", "bees", "qol", "ui"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "farming",
+        "bees",
+        "qol",
+        "ui"
+      ],
       "cs_info_author": "xADROCx"
     },
     {
@@ -373,8 +585,16 @@
       "short_description": "Nitro boost for player-driven helicopters (minicopter / scrap / attack) with cooldown and safety checks.",
       "price_usd": 7.99,
       "price_label": "$7.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["helicopter", "nitro", "vehicle"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "helicopter",
+        "nitro",
+        "vehicle"
+      ],
       "cs_info_author": "CodeCopilot"
     },
     {
@@ -388,8 +608,17 @@
       "short_description": "Gun skin shoots horses. Ground impact detected via ground polling, forces ragdoll/corpse, corpse despawns after 3 seconds.",
       "price_usd": 9.99,
       "price_label": "$9.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["weapons", "chaos", "horses", "fun"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "weapons",
+        "chaos",
+        "horses",
+        "fun"
+      ],
       "cs_info_author": "CodeCopilot"
     },
     {
@@ -403,8 +632,16 @@
       "short_description": "Instant engine startup for Minicopter, Scrap Transport Helicopter & Attack Helicopter + optional jump impulse.",
       "price_usd": 4.99,
       "price_label": "$4.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["helicopter", "qol", "vehicle"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "helicopter",
+        "qol",
+        "vehicle"
+      ],
       "cs_info_author": "xADROCx"
     },
     {
@@ -418,8 +655,18 @@
       "short_description": "Logs chat messages containing configurable keywords to a file and optionally to Discord.",
       "price_usd": 4.99,
       "price_label": "$4.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["admin", "logging", "chat", "discord", "moderation"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "admin",
+        "logging",
+        "chat",
+        "discord",
+        "moderation"
+      ],
       "cs_info_author": "xADROCx"
     },
     {
@@ -433,8 +680,16 @@
       "short_description": "Turret presets applied automatically on placement. Per-player loadouts and smart targeting.",
       "price_usd": 12.99,
       "price_label": "$12.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["turrets", "base-defense", "automation"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "turrets",
+        "base-defense",
+        "automation"
+      ],
       "cs_info_author": "xADROCx"
     },
     {
@@ -448,8 +703,18 @@
       "short_description": "Captures console errors and sends them to Claude AI for plain-English diagnosis. First-of-its-kind for Rust servers.",
       "price_usd": 14.99,
       "price_label": "$14.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["ai", "admin", "debugging", "errors", "claude"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "ai",
+        "admin",
+        "debugging",
+        "errors",
+        "claude"
+      ],
       "cs_info_author": "xADROCx",
       "featured": true
     },
@@ -464,8 +729,16 @@
       "short_description": "Forces maximum armor insert slots on attire items. Auto-detect + legacy per-item overrides.",
       "price_usd": 4.99,
       "price_label": "$4.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["crafting", "armor", "gear"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "crafting",
+        "armor",
+        "gear"
+      ],
       "cs_info_author": "xADROCx"
     },
     {
@@ -479,8 +752,16 @@
       "short_description": "Hold Shift = nitro. In air = A/D steering only. Immortal bikes.",
       "price_usd": 4.99,
       "price_label": "$4.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["motorbike", "nitro", "vehicle"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "motorbike",
+        "nitro",
+        "vehicle"
+      ],
       "cs_info_author": "xADROCx"
     },
     {
@@ -494,8 +775,17 @@
       "short_description": "Players can spawn and fetch boats and submarines via chat commands with permission-based access and configurable fuel.",
       "price_usd": 9.99,
       "price_label": "$9.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["boat", "submarine", "vehicle", "spawn"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "boat",
+        "submarine",
+        "vehicle",
+        "spawn"
+      ],
       "cs_info_author": "xADROCx"
     },
     {
@@ -509,8 +799,17 @@
       "short_description": "Removes or shortens the napalm fire around loot crates (Patrol Heli + Bradley APC).",
       "price_usd": 4.99,
       "price_label": "$4.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["loot", "fire", "qol", "heli"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "loot",
+        "fire",
+        "qol",
+        "heli"
+      ],
       "cs_info_author": "xADROCx"
     },
     {
@@ -524,8 +823,16 @@
       "short_description": "Runs heli commands on server startup to restore old heli behavior.",
       "price_usd": 2.99,
       "price_label": "$2.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["heli", "server", "startup"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "heli",
+        "server",
+        "startup"
+      ],
       "cs_info_author": "xADROCx"
     },
     {
@@ -539,8 +846,16 @@
       "short_description": "Logs player connections, sessions, and activity for admin review.",
       "price_usd": 4.99,
       "price_label": "$4.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["admin", "logging", "players"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "admin",
+        "logging",
+        "players"
+      ],
       "cs_info_author": "xADROCx"
     },
     {
@@ -554,8 +869,17 @@
       "short_description": "Browse chat/console commands, permissions, and skin IDs from all loaded plugins via a clean admin UI.",
       "price_usd": 14.99,
       "price_label": "$14.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["admin", "commands", "ui", "discovery"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "admin",
+        "commands",
+        "ui",
+        "discovery"
+      ],
       "cs_info_author": "Modworks.gg - Sudo"
     },
     {
@@ -569,8 +893,16 @@
       "short_description": "Allow 556 guns to fire rockets based on ammo type.",
       "price_usd": 7.99,
       "price_label": "$7.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["weapons", "rockets", "chaos"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "weapons",
+        "rockets",
+        "chaos"
+      ],
       "cs_info_author": "Sapnu Puas #3696"
     },
     {
@@ -584,8 +916,17 @@
       "short_description": "Ultra-light ocean crate + sharks. Works on custom maps.",
       "price_usd": 7.99,
       "price_label": "$7.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["loot", "sharks", "ocean", "events"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "loot",
+        "sharks",
+        "ocean",
+        "events"
+      ],
       "cs_info_author": "xADROCx"
     },
     {
@@ -599,8 +940,17 @@
       "short_description": "MP5 skin shoots SimpleSharks. Bullets blocked, full-auto, corpse on ground impact, swim normally on water entry, Codefling-safe caps.",
       "price_usd": 9.99,
       "price_label": "$9.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["weapons", "chaos", "sharks", "fun"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "weapons",
+        "chaos",
+        "sharks",
+        "fun"
+      ],
       "cs_info_author": "xADROCx"
     },
     {
@@ -614,8 +964,16 @@
       "short_description": "Execute configured server commands after startup delay.",
       "price_usd": 2.99,
       "price_label": "$2.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["server", "startup", "automation"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "server",
+        "startup",
+        "automation"
+      ],
       "cs_info_author": "xADROCx"
     },
     {
@@ -629,8 +987,17 @@
       "short_description": "A smart trading system for friends and family. Full-featured economy + trust tier system.",
       "price_usd": 14.99,
       "price_label": "$14.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["trading", "economy", "social", "ui"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "trading",
+        "economy",
+        "social",
+        "ui"
+      ],
       "cs_info_author": "Raul-Sorin Sorban"
     },
     {
@@ -644,8 +1011,17 @@
       "short_description": "Permission-based super damage ammo multipliers with per-player toggle. One-shot animals, all scientists, heli, Bradley.",
       "price_usd": 4.99,
       "price_label": "$4.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["weapons", "damage", "admin", "chaos"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "weapons",
+        "damage",
+        "admin",
+        "chaos"
+      ],
       "cs_info_author": "xADROCx"
     },
     {
@@ -659,8 +1035,16 @@
       "short_description": "Lightweight team inspector — quick admin lookup of team rosters and IDs.",
       "price_usd": 2.99,
       "price_label": "$2.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["admin", "teams", "utility"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "admin",
+        "teams",
+        "utility"
+      ],
       "cs_info_author": "xADROCx"
     },
     {
@@ -674,8 +1058,17 @@
       "short_description": "Toggleable remover with crosshair UI. While enabled, right-click removes the targeted tree or ore node.",
       "price_usd": 7.99,
       "price_label": "$7.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["admin", "terrain", "utility", "ui"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "admin",
+        "terrain",
+        "utility",
+        "ui"
+      ],
       "cs_info_author": "xADROCx"
     },
     {
@@ -689,8 +1082,17 @@
       "short_description": "Displays a fuel gauge UI while a player is in a vehicle.",
       "price_usd": 4.99,
       "price_label": "$4.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["vehicle", "fuel", "hud", "ui"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "vehicle",
+        "fuel",
+        "hud",
+        "ui"
+      ],
       "cs_info_author": "RustFlash"
     },
     {
@@ -704,15 +1106,30 @@
       "short_description": "Full plane vehicle for Rust — includes CustomEntities framework, Karuza common libraries, vehicle chat commands, horse towing, push, radio, and bullet projectile modules. Bundle.",
       "price_usd": 24.99,
       "price_label": "$24.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["vehicle", "plane", "flight", "bundle", "custom-entity"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "vehicle",
+        "plane",
+        "flight",
+        "bundle",
+        "custom-entity"
+      ],
       "cs_info_author": "Karuza",
       "featured": true,
       "bundle_files": [
-        "RustPlane.cs", "BulletProjectile.cs", "CustomEntities.cs",
-        "KaruzaEntitiesCommon.cs", "KaruzaVehicleChatCommand.cs",
-        "KaruzaVehicleHorseTowing.cs", "KaruzaVehicleItemManager.cs",
-        "KaruzaVehiclePush.cs", "Radio.cs"
+        "RustPlane.cs",
+        "BulletProjectile.cs",
+        "CustomEntities.cs",
+        "KaruzaEntitiesCommon.cs",
+        "KaruzaVehicleChatCommand.cs",
+        "KaruzaVehicleHorseTowing.cs",
+        "KaruzaVehicleItemManager.cs",
+        "KaruzaVehiclePush.cs",
+        "Radio.cs"
       ]
     },
     {
@@ -726,15 +1143,30 @@
       "short_description": "Full helicopter vehicle for Rust — includes CustomEntities framework, Karuza common libraries, vehicle chat commands, horse towing, push, radio, and bullet projectile modules. Bundle.",
       "price_usd": 24.99,
       "price_label": "$24.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["vehicle", "helicopter", "flight", "bundle", "custom-entity"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "vehicle",
+        "helicopter",
+        "flight",
+        "bundle",
+        "custom-entity"
+      ],
       "cs_info_author": "Karuza",
       "featured": true,
       "bundle_files": [
-        "RustHelicopter.cs", "BulletProjectile.cs", "CustomEntities.cs",
-        "KaruzaEntitiesCommon.cs", "KaruzaVehicleChatCommand.cs",
-        "KaruzaVehicleHorseTowing.cs", "KaruzaVehicleItemManager.cs",
-        "KaruzaVehiclePush.cs", "Radio.cs"
+        "RustHelicopter.cs",
+        "BulletProjectile.cs",
+        "CustomEntities.cs",
+        "KaruzaEntitiesCommon.cs",
+        "KaruzaVehicleChatCommand.cs",
+        "KaruzaVehicleHorseTowing.cs",
+        "KaruzaVehicleItemManager.cs",
+        "KaruzaVehiclePush.cs",
+        "Radio.cs"
       ]
     },
     {
@@ -748,8 +1180,17 @@
       "short_description": "Allows players to buy vehicles and then spawn or store them.",
       "price_usd": 9.99,
       "price_label": "$9.99",
-      "lemonsqueezy": { "variant_id": null, "buy_url": null, "overlay_enabled": true },
-      "tags": ["vehicle", "economy", "spawn", "qol"],
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "vehicle",
+        "economy",
+        "spawn",
+        "qol"
+      ],
       "cs_info_author": "Sorrow/TheDoc/Arainrr"
     }
   ],
