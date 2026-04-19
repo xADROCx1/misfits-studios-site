@@ -114,6 +114,9 @@ function renderPage(p, all) {
 <meta name="twitter:image" content="${attr(ogImage)}"/>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="/assets/theme.css"/>
+<script src="/assets/analytics.js" defer></script>
+<script src="/assets/theme.js" defer></script>
 <script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
 <script src="https://cdn.paddle.com/paddle/v2/paddle.js" defer></script>
 <script>

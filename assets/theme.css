@@ -1,0 +1,519 @@
+/* ==========================================================================
+ * MISFITS STUDIOS — V2 Theme Layer
+ * "Obsidian Architect" base + "Neon Kinetic" HUD + punk/underground accents
+ * ==========================================================================
+ * Loads AFTER Tailwind config on each page. Additive — doesn't destroy
+ * existing layouts. Every rule targets a new class, a pseudo-element, or
+ * enhances an existing section without breaking it.
+ *
+ * Colors unified here as CSS custom properties so we can tune the whole
+ * site from this one file.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Mono+One&family=VT323&family=Share+Tech+Mono&display=swap');
+
+:root {
+  /* Base (Obsidian) */
+  --bg: #060e20;
+  --surface: #091328;
+  --surface-hi: #141f38;
+  --surface-top: #192540;
+  --paper: #dee5ff;
+  --muted: #a3aac4;
+
+  /* Primary brand (existing) */
+  --primary: #cc97ff;      /* electric purple */
+  --primary-dim: #9c48ea;
+  --accent: #53ddfc;       /* neon cyan */
+  --tertiary: #ff86c3;     /* digital pink */
+
+  /* NEW — punk / underground accents (memory: pink/green/orange) */
+  --neon-mint: #00ffa3;    /* shipped / online / free */
+  --neon-warning: #ff9e53; /* warnings / hazard / breaking */
+  --neon-danger: #ff3e64;  /* errors / danger / raids */
+
+  /* Typography */
+  --font-hero: 'Rubik Mono One', 'Space Grotesk', sans-serif;
+  --font-headline: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Share Tech Mono', monospace;
+  --font-retro: 'VT323', 'Share Tech Mono', monospace;
+}
+
+/* ==========================================================================
+ * 1. GLOBAL ATMOSPHERE — grain overlay + ambient hazard tape
+ * ========================================================================== */
+
+/* Film grain — slightly stronger than default */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/></svg>");
+  mix-blend-mode: overlay;
+}
+
+/* Scan lines — very subtle, adds CRT vibe */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9997;
+  opacity: 0.025;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent 0,
+    transparent 2px,
+    var(--neon-mint) 2px,
+    transparent 4px
+  );
+}
+
+/* ==========================================================================
+ * 2. HAZARD TAPE TICKER — warning-striped marquee across the top
+ * ========================================================================== */
+
+.msfts-hazard-tape {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    -45deg,
+    #1a1a1a 0 18px,
+    var(--neon-warning) 18px 36px
+  );
+  color: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  height: 22px;
+  overflow: hidden;
+  border-bottom: 2px solid #000;
+}
+
+.msfts-hazard-tape__track {
+  display: flex;
+  white-space: nowrap;
+  animation: msfts-marquee 48s linear infinite;
+}
+
+.msfts-hazard-tape__track > span {
+  padding: 0 32px;
+  color: #000;
+  text-shadow: 0 0 1px #fff;
+  line-height: 22px;
+}
+
+@keyframes msfts-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Push page content down to avoid hazard tape overlap */
+body.msfts-v2 {
+  padding-top: 22px;
+}
+
+/* ==========================================================================
+ * 3. HUD CORNER BRACKETS — "L" brackets on containers
+ * ========================================================================== */
+
+.msfts-hud {
+  position: relative;
+}
+
+.msfts-hud::before,
+.msfts-hud::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--neon-mint);
+  pointer-events: none;
+  transition: border-color .3s ease;
+}
+
+.msfts-hud::before {
+  top: -2px;
+  left: -2px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.msfts-hud::after {
+  bottom: -2px;
+  right: -2px;
+  border-left: none;
+  border-top: none;
+}
+
+.msfts-hud:hover::before,
+.msfts-hud:hover::after {
+  border-color: var(--tertiary);
+}
+
+/* HUD variant with bracket on all 4 corners */
+.msfts-hud-4 {
+  position: relative;
+}
+
+.msfts-hud-4::before,
+.msfts-hud-4::after,
+.msfts-hud-4 > .hud-tl,
+.msfts-hud-4 > .hud-br {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--accent);
+  pointer-events: none;
+}
+
+.msfts-hud-4::before { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+.msfts-hud-4::after { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+
+/* ==========================================================================
+ * 4. GLITCH TEXT HOVER EFFECT
+ * ========================================================================== */
+
+.msfts-glitch {
+  position: relative;
+  display: inline-block;
+}
+
+.msfts-glitch::before,
+.msfts-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity .15s;
+}
+
+.msfts-glitch:hover::before {
+  animation: msfts-glitch-1 .35s infinite linear alternate-reverse;
+  color: var(--tertiary);
+  opacity: 0.8;
+  clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+}
+
+.msfts-glitch:hover::after {
+  animation: msfts-glitch-2 .4s infinite linear alternate-reverse;
+  color: var(--accent);
+  opacity: 0.8;
+  clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+}
+
+@keyframes msfts-glitch-1 {
+  0%, 100% { transform: translate(0); }
+  50% { transform: translate(-2px, 1px); }
+}
+@keyframes msfts-glitch-2 {
+  0%, 100% { transform: translate(0); }
+  50% { transform: translate(2px, -1px); }
+}
+
+/* ==========================================================================
+ * 5. HERO DISPLAY TYPE — Rubik Mono One for big statements
+ * ========================================================================== */
+
+.msfts-display {
+  font-family: var(--font-hero);
+  font-weight: 400; /* Rubik Mono One only has 400 */
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 0.92;
+}
+
+.msfts-mono {
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+}
+
+.msfts-retro {
+  font-family: var(--font-retro);
+  letter-spacing: 0.05em;
+}
+
+/* ==========================================================================
+ * 6. SKULL / PUNK ICONOGRAPHY — SVG watermarks + chips
+ * ========================================================================== */
+
+.msfts-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  background: #000;
+  border: 1px solid rgba(255,255,255,0.06);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--neon-mint);
+}
+
+.msfts-chip--live { color: var(--neon-mint); }
+.msfts-chip--hot { color: var(--neon-warning); }
+.msfts-chip--danger { color: var(--neon-danger); }
+.msfts-chip--cool { color: var(--accent); }
+.msfts-chip--punk { color: var(--tertiary); }
+
+.msfts-chip::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: currentColor;
+  box-shadow: 0 0 6px currentColor;
+  border-radius: 50%;
+  animation: msfts-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes msfts-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+/* ==========================================================================
+ * 7. BUTTONS — V2 brutalist with neon-mint shipped state
+ * ========================================================================== */
+
+.msfts-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 22px;
+  font-family: var(--font-headline);
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 2px solid transparent;
+  border-radius: 0;
+  background: var(--primary);
+  color: var(--bg);
+  cursor: pointer;
+  transition: all .2s ease;
+  box-shadow: 0 0 0 0 var(--primary);
+  position: relative;
+}
+
+.msfts-btn:hover {
+  background: var(--neon-mint);
+  color: #000;
+  box-shadow: 0 0 24px rgba(0, 255, 163, 0.5);
+  transform: translateY(-1px);
+}
+
+.msfts-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 0 0 0 var(--primary);
+}
+
+.msfts-btn--ghost {
+  background: transparent;
+  color: var(--paper);
+  border-color: rgba(222, 229, 255, 0.15);
+}
+
+.msfts-btn--ghost:hover {
+  background: transparent;
+  color: var(--neon-mint);
+  border-color: var(--neon-mint);
+  box-shadow: 0 0 24px rgba(0, 255, 163, 0.3);
+  transform: translateY(-1px);
+}
+
+.msfts-btn--danger {
+  background: var(--neon-danger);
+  color: #000;
+}
+.msfts-btn--danger:hover {
+  background: var(--neon-warning);
+  color: #000;
+  box-shadow: 0 0 24px rgba(255, 158, 83, 0.5);
+}
+
+/* ==========================================================================
+ * 8. CARD ENHANCEMENTS — applied to product cards by store.js
+ * ========================================================================== */
+
+.msfts-card {
+  background: linear-gradient(180deg, var(--surface) 0%, var(--surface-hi) 100%);
+  border: none;
+  position: relative;
+  transition: all .3s ease;
+}
+
+.msfts-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--neon-mint), transparent);
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+
+.msfts-card:hover::before {
+  opacity: 1;
+}
+
+.msfts-card:hover {
+  background: linear-gradient(180deg, var(--surface-hi) 0%, var(--surface-top) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px rgba(0, 255, 163, 0.08),
+              0 0 0 1px rgba(0, 255, 163, 0.1);
+}
+
+/* Product-grid card wrapper — store.js generates these with .msfts-product-card */
+.msfts-product-card {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  background: var(--surface);
+  position: relative;
+  overflow: hidden;
+  transition: all .3s ease;
+}
+
+.msfts-product-card__header {
+  padding: 20px 22px 14px;
+  background: linear-gradient(135deg, var(--surface-hi), var(--surface));
+  border-bottom: 1px solid rgba(204, 151, 255, 0.1);
+  position: relative;
+}
+
+.msfts-product-card__body {
+  padding: 16px 22px 22px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.msfts-product-card__footer {
+  padding: 14px 22px;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid rgba(0, 255, 163, 0.15);
+}
+
+/* ==========================================================================
+ * 9. TABLE / DATA MATRIX — for technical specs on product pages
+ * ========================================================================== */
+
+.msfts-datamatrix {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 24px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.msfts-datamatrix dt {
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 10px;
+}
+
+.msfts-datamatrix dd {
+  color: var(--paper);
+  margin: 0;
+}
+
+/* ==========================================================================
+ * 10. UTILITY COLORS
+ * ========================================================================== */
+
+.msfts-text-mint { color: var(--neon-mint); }
+.msfts-text-warning { color: var(--neon-warning); }
+.msfts-text-danger { color: var(--neon-danger); }
+.msfts-text-punk { color: var(--tertiary); }
+
+.msfts-bg-mint { background: var(--neon-mint); color: #000; }
+.msfts-bg-warning { background: var(--neon-warning); color: #000; }
+
+.msfts-border-mint { border-color: var(--neon-mint) !important; }
+.msfts-border-warning { border-color: var(--neon-warning) !important; }
+
+/* Neon glow text */
+.msfts-glow-mint { text-shadow: 0 0 12px rgba(0, 255, 163, 0.6), 0 0 28px rgba(0, 255, 163, 0.3); }
+.msfts-glow-purple { text-shadow: 0 0 12px rgba(204, 151, 255, 0.6), 0 0 28px rgba(204, 151, 255, 0.3); }
+.msfts-glow-cyan { text-shadow: 0 0 12px rgba(83, 221, 252, 0.6), 0 0 28px rgba(83, 221, 252, 0.3); }
+
+/* ==========================================================================
+ * 11. LOGO + HEADER ENHANCEMENTS — subtle, not invasive
+ * ========================================================================== */
+
+/* Add subtle animated scan on the sticky header */
+header[class*="sticky"]::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--neon-mint) 50%, transparent 100%);
+  opacity: 0.4;
+  animation: msfts-scan 6s ease-in-out infinite;
+}
+
+@keyframes msfts-scan {
+  0%, 100% { opacity: 0.15; transform: scaleX(0.5); }
+  50% { opacity: 0.5; transform: scaleX(1); }
+}
+
+/* ==========================================================================
+ * 12. PRINT-STYLE MARGIN NOTES — side labels for scannable data
+ * ========================================================================== */
+
+.msfts-marginnote {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 4px 0;
+  border-left: 2px solid var(--neon-mint);
+  padding-left: 10px;
+  margin: 8px 0;
+}
+
+/* ==========================================================================
+ * 13. RESPONSIVE — scale down decorative elements on mobile
+ * ========================================================================== */
+
+@media (max-width: 640px) {
+  .msfts-hazard-tape { height: 18px; font-size: 9px; }
+  body.msfts-v2 { padding-top: 18px; }
+  .msfts-hud::before, .msfts-hud::after { width: 10px; height: 10px; }
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .msfts-hazard-tape__track,
+  .msfts-chip::before,
+  header[class*="sticky"]::after {
+    animation: none !important;
+  }
+}
