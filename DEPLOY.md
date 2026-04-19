@@ -1,6 +1,19 @@
 # MISFITS STUDIOS — Deploy & Automation Guide
 
-The store is now wired for **Lemon Squeezy** checkout + automated product sync. This guide walks you through the one-time account + hosting setup. After that, adding a new product is ~3 clicks.
+The store supports **two** payment backends, both wired up:
+
+| Feature | Lemon Squeezy | Paddle |
+|---|---|---|
+| Create Product via API | ❌ (dashboard only) | ✅ (`scripts/bulk-create-paddle-products.js`) |
+| Sync prices/URLs via API | ✅ | ✅ |
+| Merchant of record (handles VAT) | ✅ | ✅ |
+| License key auto-generation | ✅ | ❌ (roll your own via webhook) |
+| File hosting + delivery | ✅ | ❌ (deliver via your own webhook) |
+| Overlay checkout JS | ✅ (`lemon.js`) | ✅ (`paddle.js`) |
+
+**Recommended:** Lemon Squeezy for simplicity (less infrastructure work), Paddle for full automation. Your `products.json` can hold both sets of IDs — `store.js` will prefer Paddle if both are present.
+
+**Domain:** `https://misfits-studios.com` (Cloudflare Registrar, auto-renews $10.46/yr).
 
 ---
 
@@ -56,7 +69,7 @@ Lemon Squeezy does **not** support programmatic product creation (no API endpoin
 
 **To make that fast, use the paste-sheet helper** — open these two URLs side-by-side in your browser:
 
-1. https://misfits-studios-site.qwikkidd.workers.dev/admin/ls-paste-sheet.html — 48 products, each with one-click COPY buttons for name/price/description, and a "✓ Done" checkbox that greys the card out so you can track progress
+1. https://misfits-studios.com/admin/ls-paste-sheet.html — 48 products, each with one-click COPY buttons for name/price/description, and a "✓ Done" checkbox that greys the card out so you can track progress
 2. https://app.lemonsqueezy.com/products/new — the LS "New Product" panel
 
 Workflow per product:
@@ -134,6 +147,18 @@ node scripts/sync-from-lemonsqueezy.js
 git add products.json
 git commit -m "sync: updated pricing"
 git push
+```
+
+Or if using Paddle:
+```bash
+# First time: bulk-create all 48 products from products.json
+node scripts/bulk-create-paddle-products.js --sandbox --dry-run   # preview
+node scripts/bulk-create-paddle-products.js --sandbox             # sandbox for testing
+node scripts/bulk-create-paddle-products.js                       # live
+
+# Ongoing: sync prices/URLs from Paddle → products.json
+node scripts/sync-from-paddle.js
+git add products.json && git commit -m "sync: Paddle prices" && git push
 ```
 
 ### Option B: GitHub Action (fully automated)

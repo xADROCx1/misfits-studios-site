@@ -19,9 +19,24 @@
   }
 
   function cardHTML(p) {
-    var hasBuyUrl = p.lemonsqueezy && p.lemonsqueezy.buy_url;
-    var overlayClass = (p.lemonsqueezy && p.lemonsqueezy.overlay_enabled !== false) ? 'lemonsqueezy-button' : '';
-    var href = hasBuyUrl ? p.lemonsqueezy.buy_url : '#';
+    // Prefer Paddle if wired; fall back to Lemon Squeezy. Cards render regardless.
+    var paddlePriceId = p.paddle && p.paddle.price_id;
+    var paddleUrl = p.paddle && p.paddle.checkout_url;
+    var lsUrl = p.lemonsqueezy && p.lemonsqueezy.buy_url;
+    var hasBuyUrl = !!(paddleUrl || lsUrl);
+    var isPaddle = !!paddleUrl;
+
+    // Paddle.js attaches to class="paddle_button" with data-items; Lemon.js attaches to class="lemonsqueezy-button" with href.
+    var classAttr, dataAttr = '', href;
+    if (isPaddle) {
+      classAttr = 'paddle_button';
+      dataAttr = ' data-display-mode="overlay" data-items=\'' + JSON.stringify([{ priceId: paddlePriceId, quantity: 1 }]).replace(/'/g, '&#39;') + '\'';
+      href = paddleUrl;
+    } else {
+      classAttr = (p.lemonsqueezy && p.lemonsqueezy.overlay_enabled !== false) ? 'lemonsqueezy-button' : '';
+      href = lsUrl || '#';
+    }
+
     var cta = p.price_usd === 0 ? 'DOWNLOAD →' : 'BUY →';
     var disabledNote = hasBuyUrl ? '' : '<div class="text-xs text-muted mt-2 font-mono uppercase tracking-wider">Checkout wiring pending</div>';
 
@@ -44,7 +59,7 @@
         ) : '') +
         '<div class="flex items-center justify-between mt-auto pt-4 border-t border-surface-hi">' +
           '<div class="font-headline text-3xl font-black text-accent neon-green-glow">' + fmtPrice(p) + '</div>' +
-          '<a class="' + overlayClass + ' bg-primary text-bg border-2 border-primary font-black px-5 py-2 hover:bg-accent hover:border-accent active:translate-y-1 text-sm" href="' + href + '">' + cta + '</a>' +
+          '<a class="' + classAttr + ' bg-primary text-bg border-2 border-primary font-black px-5 py-2 hover:bg-accent hover:border-accent active:translate-y-1 text-sm" href="' + href + '"' + dataAttr + '>' + cta + '</a>' +
         '</div>' +
         disabledNote +
       '</article>'
@@ -64,6 +79,10 @@
     container.innerHTML = filtered.map(cardHTML).join('');
     // Re-initialize Lemon.js in case it loaded before our buttons rendered.
     if (window.createLemonSqueezy) { window.createLemonSqueezy(); }
+    // Re-scan for Paddle.js buttons. Paddle auto-scans on init, but we re-render cards after fetch.
+    if (window.Paddle && typeof window.Paddle.Initialize === 'function' && window.__misfits_paddle_token && !window.__misfits_paddle_init) {
+      try { window.Paddle.Initialize({ token: window.__misfits_paddle_token }); window.__misfits_paddle_init = true; } catch (_) {}
+    }
   }
 
   function load() {

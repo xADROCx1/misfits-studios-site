@@ -98,7 +98,7 @@
 // IMPORTANT: use only single quotes in the minified JS to keep HTML attribute escaping simple.
 var BOOKMARKLET = 'javascript:(function(){' +
   'try{' +
-  'var URL_MANIFEST=' + JSON.stringify('https://misfits-studios-site.qwikkidd.workers.dev/products.json') + ';' +
+  'var URL_MANIFEST=' + JSON.stringify('https://misfits-studios.com/products.json') + ';' +
   'var KEY=' + JSON.stringify('misfits_ls_autofill_idx') + ';' +
   'function setVal(el,v){if(!el)return false;var proto=el.tagName===' + JSON.stringify('TEXTAREA') + '?HTMLTextAreaElement.prototype:HTMLInputElement.prototype;var s=Object.getOwnPropertyDescriptor(proto,' + JSON.stringify('value') + ').set;s.call(el,v);el.dispatchEvent(new Event(' + JSON.stringify('input') + ',{bubbles:true}));el.dispatchEvent(new Event(' + JSON.stringify('change') + ',{bubbles:true}));return true;}' +
   'function byLabel(txt){var labels=Array.from(document.querySelectorAll(' + JSON.stringify('label') + '));var lbl=labels.find(function(l){return l.textContent.trim().toLowerCase().indexOf(txt.toLowerCase())>=0;});if(!lbl)return null;if(lbl.htmlFor){var el=document.getElementById(lbl.htmlFor);if(el)return el;}var inp=lbl.querySelector(' + JSON.stringify('input,textarea') + ');if(inp)return inp;return lbl.parentElement&&lbl.parentElement.querySelector(' + JSON.stringify('input,textarea') + ');}' +
