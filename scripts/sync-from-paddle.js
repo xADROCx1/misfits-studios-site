@@ -50,8 +50,8 @@ const API_KEY = IS_SANDBOX ? process.env.PADDLE_SANDBOX_API_KEY : process.env.PA
 const API_BASE = IS_SANDBOX ? 'https://sandbox-api.paddle.com' : 'https://api.paddle.com';
 
 if (!API_KEY) {
-  console.error(`ERROR: ${IS_SANDBOX ? 'PADDLE_SANDBOX_API_KEY' : 'PADDLE_API_KEY'} not set in scripts/.env`);
-  process.exit(1);
+  console.log(`[sync-from-paddle] ${IS_SANDBOX ? 'PADDLE_SANDBOX_API_KEY' : 'PADDLE_API_KEY'} not set — skipping sync.`);
+  process.exit(0);
 }
 
 const headers = {

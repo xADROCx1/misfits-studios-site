@@ -2,9 +2,9 @@ name: Sync Lemon Squeezy → products.json
 
 on:
   schedule:
-    # Every 6 hours at :00
-    - cron: '0 */6 * * *'
-  workflow_dispatch: {}   # manual trigger button in the Actions UI
+    # Every 6 hours at :07 (off the round-minute fleet storm)
+    - cron: '7 */6 * * *'
+  workflow_dispatch: {}   # manual trigger from the Actions tab
 
 permissions:
   contents: write   # needed to commit the updated products.json
@@ -21,7 +21,7 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Run LS sync
+      - name: Run LS sync (graceful no-op if API key absent)
         env:
           LEMONSQUEEZY_API_KEY: ${{ secrets.LEMONSQUEEZY_API_KEY }}
           LEMONSQUEEZY_STORE_ID: ${{ secrets.LEMONSQUEEZY_STORE_ID }}
@@ -33,7 +33,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add products.json
           if git diff --staged --quiet; then
-            echo "No product changes."
+            echo "No product changes — nothing to commit."
           else
             git commit -m "chore(sync): update products from Lemon Squeezy"
             git push

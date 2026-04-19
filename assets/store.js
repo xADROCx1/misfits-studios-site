@@ -39,6 +39,10 @@
 
     var cta = p.price_usd === 0 ? 'DOWNLOAD →' : 'BUY →';
     var disabledNote = hasBuyUrl ? '' : '<div class="text-xs text-muted mt-2 font-mono uppercase tracking-wider">Checkout wiring pending</div>';
+    // Add-to-cart button (always shown for paid products; hidden for free)
+    var addToCartBtn = p.price_usd > 0
+      ? '<button type="button" data-add-to-cart="' + escapeHTML(p.id) + '" aria-label="Add ' + escapeHTML(p.name) + ' to cart" class="ml-2 bg-transparent border-2 border-accent text-accent font-black px-3 py-2 hover:bg-accent hover:text-bg active:translate-y-1 text-sm" title="Add to cart">+ CART</button>'
+      : '';
 
     return (
       '<article class="bg-surface p-6 flex flex-col gap-3" data-product-id="' + p.id + '">' +
@@ -59,7 +63,10 @@
         ) : '') +
         '<div class="flex items-center justify-between mt-auto pt-4 border-t border-surface-hi">' +
           '<div class="font-headline text-3xl font-black text-accent neon-green-glow">' + fmtPrice(p) + '</div>' +
-          '<a class="' + classAttr + ' bg-primary text-bg border-2 border-primary font-black px-5 py-2 hover:bg-accent hover:border-accent active:translate-y-1 text-sm" href="' + href + '"' + dataAttr + '>' + cta + '</a>' +
+          '<div class="flex items-center">' +
+            '<a class="' + classAttr + ' bg-primary text-bg border-2 border-primary font-black px-5 py-2 hover:bg-accent hover:border-accent active:translate-y-1 text-sm" href="' + href + '"' + dataAttr + '>' + cta + '</a>' +
+            addToCartBtn +
+          '</div>' +
         '</div>' +
         disabledNote +
       '</article>'

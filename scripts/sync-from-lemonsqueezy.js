@@ -54,9 +54,10 @@ const API_KEY = process.env.LEMONSQUEEZY_API_KEY;
 const STORE_ID = process.env.LEMONSQUEEZY_STORE_ID || '';
 
 if (!API_KEY) {
-  console.error('ERROR: LEMONSQUEEZY_API_KEY not set. Add it to scripts/.env or export it.');
-  console.error('Create one at https://app.lemonsqueezy.com/settings/api');
-  process.exit(1);
+  // Graceful no-op: don't fail CI when the secret is intentionally not wired yet.
+  console.log('[sync-from-lemonsqueezy] LEMONSQUEEZY_API_KEY not set — skipping sync.');
+  console.log('  Add it at https://app.lemonsqueezy.com/settings/api and store as a GitHub Actions secret, or drop it in scripts/.env locally.');
+  process.exit(0);
 }
 
 const API_BASE = 'https://api.lemonsqueezy.com/v1';

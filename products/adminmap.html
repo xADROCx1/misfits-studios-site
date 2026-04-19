@@ -22,6 +22,7 @@
 <script src="/assets/analytics.js" defer></script>
 <script src="/assets/theme.js" defer></script>
 <script src="/assets/boot-sequence.js" defer></script>
+<script src="/assets/cart.js" defer></script>
 <script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
 <script src="https://cdn.paddle.com/paddle/v2/paddle.js" defer></script>
 <script>
@@ -50,10 +51,13 @@
   .chip-accent { color:#53ddfc; border-color:#53ddfc55; }
   .chip-tertiary { color:#ff86c3; border-color:#ff86c355; }
   .price-huge { font-family:'Space Grotesk',sans-serif; font-weight:900; font-size:72px; line-height:1; color:#cc97ff; text-shadow:0 0 24px #cc97ff55; }
-  .buy-btn { display:inline-block; padding:16px 32px; background:#53ddfc; color:#060e20; font-family:'Space Grotesk',sans-serif; font-weight:900; text-transform:uppercase; letter-spacing:.15em; font-size:14px; border:0; cursor:pointer; transition:all .2s; margin-top:18px; }
+  .buy-row { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-top:18px; }
+  .buy-btn { display:inline-block; padding:16px 32px; background:#53ddfc; color:#060e20; font-family:'Space Grotesk',sans-serif; font-weight:900; text-transform:uppercase; letter-spacing:.15em; font-size:14px; border:0; cursor:pointer; transition:all .2s; }
   .buy-btn:hover { background:#cc97ff; color:#060e20; transform:translate(-2px,-2px); box-shadow:4px 4px 0 #ff86c3; }
   .buy-btn-disabled { background:#141f38; color:#a3aac4; cursor:not-allowed; }
   .buy-btn-disabled:hover { background:#141f38; color:#a3aac4; transform:none; box-shadow:none; }
+  .cart-btn { padding:16px 22px; background:transparent; border:2px solid #00ffa3; color:#00ffa3; font-family:'Space Grotesk',sans-serif; font-weight:900; text-transform:uppercase; letter-spacing:.1em; font-size:14px; cursor:pointer; transition:all .2s; }
+  .cart-btn:hover { background:#00ffa3; color:#060e20; box-shadow:0 0 24px rgba(0,255,163,.5); transform:translateY(-1px); }
   .long-desc { font-size:16px; line-height:1.8; color:rgba(222,229,255,.92); margin-top:14px; }
   .related-card { background:#091328; border-left:3px solid #53ddfc; padding:18px 20px; transition:all .2s; text-decoration:none; }
   .related-card:hover { border-left-color:#ff86c3; background:#141f38; transform:translate(-2px,-2px); }
@@ -85,6 +89,9 @@
 
 <main class="max-w-5xl mx-auto px-6 py-12">
 
+  <!-- Hidden JSON blob for cart.js to resolve this product -->
+  <script type="application/json" data-product-manifest="adminmap" data-product-json='{&quot;id&quot;:&quot;adminmap&quot;,&quot;slug&quot;:&quot;adminmap&quot;,&quot;name&quot;:&quot;AdminMap&quot;,&quot;category&quot;:&quot;plugin&quot;,&quot;price_usd&quot;:19.99,&quot;price_label&quot;:&quot;$19.99&quot;,&quot;paddle&quot;:null,&quot;lemonsqueezy&quot;:{&quot;variant_id&quot;:null,&quot;buy_url&quot;:null,&quot;overlay_enabled&quot;:true}}'>product-manifest</script>
+
   <a href="/plugins.html" class="back-link">[ ← back to plugins ]</a>
 
   <section class="hero-card msfts-hud-4 mt-4">
@@ -101,7 +108,7 @@
         <p class="ob-data-label mb-1">// price</p>
         <p class="price-huge">$19.99</p>
       </div>
-      <div><span class="buy-btn buy-btn-disabled" aria-disabled="true">Checkout coming soon</span></div>
+      <div><div class="buy-row"><span class="buy-btn buy-btn-disabled" aria-disabled="true">Checkout coming soon</span><button type="button" data-add-to-cart="adminmap" class="cart-btn" aria-label="Add AdminMap to cart">+ CART</button></div></div>
     </div>
   </section>
 

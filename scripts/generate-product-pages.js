@@ -23,14 +23,20 @@ const jsonSafe = (s) => String(s == null ? '' : s).replace(/\\/g, '\\\\').replac
 function buyButton(p) {
   const ls = p.lemonsqueezy && p.lemonsqueezy.buy_url;
   const pd = p.paddle && p.paddle.price_id;
+  let buy = '';
   if (ls) {
-    return `<a href="${attr(p.lemonsqueezy.buy_url)}" class="lemonsqueezy-button buy-btn" data-slug="${attr(p.slug)}">BUY ${esc(p.price_label)} →</a>`;
-  }
-  if (pd) {
+    buy = `<a href="${attr(p.lemonsqueezy.buy_url)}" class="lemonsqueezy-button buy-btn" data-slug="${attr(p.slug)}">BUY ${esc(p.price_label)} →</a>`;
+  } else if (pd) {
     const items = JSON.stringify([{ priceId: p.paddle.price_id, quantity: 1 }]);
-    return `<a href="#" class="paddle_button buy-btn" data-items='${attr(items)}' data-slug="${attr(p.slug)}">BUY ${esc(p.price_label)} →</a>`;
+    buy = `<a href="#" class="paddle_button buy-btn" data-items='${attr(items)}' data-slug="${attr(p.slug)}">BUY ${esc(p.price_label)} →</a>`;
+  } else {
+    buy = `<span class="buy-btn buy-btn-disabled" aria-disabled="true">Checkout coming soon</span>`;
   }
-  return `<span class="buy-btn buy-btn-disabled" aria-disabled="true">Checkout coming soon</span>`;
+  // Add to cart button (paid products only; free products skip the cart)
+  const cartBtn = (p.price_usd && p.price_usd > 0)
+    ? `<button type="button" data-add-to-cart="${attr(p.id)}" class="cart-btn" aria-label="Add ${attr(p.name)} to cart">+ CART</button>`
+    : '';
+  return `<div class="buy-row">${buy}${cartBtn}</div>`;
 }
 
 function relatedCards(current, all) {
@@ -118,6 +124,7 @@ function renderPage(p, all) {
 <script src="/assets/analytics.js" defer></script>
 <script src="/assets/theme.js" defer></script>
 <script src="/assets/boot-sequence.js" defer></script>
+<script src="/assets/cart.js" defer></script>
 <script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
 <script src="https://cdn.paddle.com/paddle/v2/paddle.js" defer></script>
 <script>
@@ -146,10 +153,13 @@ function renderPage(p, all) {
   .chip-accent { color:#53ddfc; border-color:#53ddfc55; }
   .chip-tertiary { color:#ff86c3; border-color:#ff86c355; }
   .price-huge { font-family:'Space Grotesk',sans-serif; font-weight:900; font-size:72px; line-height:1; color:#cc97ff; text-shadow:0 0 24px #cc97ff55; }
-  .buy-btn { display:inline-block; padding:16px 32px; background:#53ddfc; color:#060e20; font-family:'Space Grotesk',sans-serif; font-weight:900; text-transform:uppercase; letter-spacing:.15em; font-size:14px; border:0; cursor:pointer; transition:all .2s; margin-top:18px; }
+  .buy-row { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-top:18px; }
+  .buy-btn { display:inline-block; padding:16px 32px; background:#53ddfc; color:#060e20; font-family:'Space Grotesk',sans-serif; font-weight:900; text-transform:uppercase; letter-spacing:.15em; font-size:14px; border:0; cursor:pointer; transition:all .2s; }
   .buy-btn:hover { background:#cc97ff; color:#060e20; transform:translate(-2px,-2px); box-shadow:4px 4px 0 #ff86c3; }
   .buy-btn-disabled { background:#141f38; color:#a3aac4; cursor:not-allowed; }
   .buy-btn-disabled:hover { background:#141f38; color:#a3aac4; transform:none; box-shadow:none; }
+  .cart-btn { padding:16px 22px; background:transparent; border:2px solid #00ffa3; color:#00ffa3; font-family:'Space Grotesk',sans-serif; font-weight:900; text-transform:uppercase; letter-spacing:.1em; font-size:14px; cursor:pointer; transition:all .2s; }
+  .cart-btn:hover { background:#00ffa3; color:#060e20; box-shadow:0 0 24px rgba(0,255,163,.5); transform:translateY(-1px); }
   .long-desc { font-size:16px; line-height:1.8; color:rgba(222,229,255,.92); margin-top:14px; }
   .related-card { background:#091328; border-left:3px solid #53ddfc; padding:18px 20px; transition:all .2s; text-decoration:none; }
   .related-card:hover { border-left-color:#ff86c3; background:#141f38; transform:translate(-2px,-2px); }
@@ -180,6 +190,13 @@ function renderPage(p, all) {
 </header>
 
 <main class="max-w-5xl mx-auto px-6 py-12">
+
+  <!-- Hidden JSON blob for cart.js to resolve this product -->
+  <script type="application/json" data-product-manifest="${attr(p.id)}" data-product-json='${attr(JSON.stringify({
+    id: p.id, slug: p.slug, name: p.name, category: p.category,
+    price_usd: p.price_usd, price_label: p.price_label,
+    paddle: p.paddle || null, lemonsqueezy: p.lemonsqueezy || null,
+  }))}'>product-manifest</script>
 
   <a href="/plugins.html" class="back-link">[ ← back to plugins ]</a>
 
