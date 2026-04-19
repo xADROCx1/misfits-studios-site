@@ -39,7 +39,13 @@
         "server",
         "utility"
       ],
-      "cs_info_author": "Misfits Studios"
+      "cs_info_author": "Misfits Studios",
+      "paddle": {
+        "product_id": "pro_01kpm2ctd1k0ydn4s6dpjradg8",
+        "price_id": "pri_01kpm2ctgvwbzvpvxjbx0fdxrx",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v2mqt92dtg2mx6r72pkc",
+        "environment": "live"
+      }
     },
     {
       "id": "misfitsui",
@@ -98,7 +104,13 @@
       "requires": [
         "misfitsui"
       ],
-      "cs_info_author": "Misfits Studios"
+      "cs_info_author": "Misfits Studios",
+      "paddle": {
+        "product_id": "pro_01kpm2ctz626s06vg3hvkyxz9s",
+        "price_id": "pri_01kpm2cv217k81hrmt0xt4zbfg",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v2gsn1cw38rphtf3fxhf",
+        "environment": "live"
+      }
     },
     {
       "id": "adminmap",
@@ -122,7 +134,13 @@
         "monitoring",
         "ui"
       ],
-      "cs_info_author": "0xF"
+      "cs_info_author": "0xF",
+      "paddle": {
+        "product_id": "pro_01kpm2cv9mw9e101gtt2c869tk",
+        "price_id": "pri_01kpm2cvc7f3v0qav9bex1mjc8",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v2d2hnd7e49q93bzfmb8",
+        "environment": "live"
+      }
     },
     {
       "id": "airbags",
@@ -147,7 +165,13 @@
         "underwater",
         "ui"
       ],
-      "cs_info_author": "xADROCx"
+      "cs_info_author": "xADROCx",
+      "paddle": {
+        "product_id": "pro_01kpm2cvm2h63q3cspcr0a0p85",
+        "price_id": "pri_01kpm2cvpn8z7dw3x15p13xmsf",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v28bxf9w1hqjnyt6gmv0",
+        "environment": "live"
+      }
     },
     {
       "id": "alwaysstocked",
@@ -171,7 +195,13 @@
         "economy",
         "server"
       ],
-      "cs_info_author": "xADROCx"
+      "cs_info_author": "xADROCx",
+      "paddle": {
+        "product_id": "pro_01kpm2cvytzacwb696z60ner6p",
+        "price_id": "pri_01kpm2cw2bxfgmgkgfgj56mv52",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v24mcvn1kavd7hyhqh7f",
+        "environment": "live"
+      }
     },
     {
       "id": "betterarmorinsert",
@@ -194,7 +224,13 @@
         "inventory",
         "gear"
       ],
-      "cs_info_author": "jtedal"
+      "cs_info_author": "jtedal",
+      "paddle": {
+        "product_id": "pro_01kpm2cw9hrjk0qz4pxxm7knme",
+        "price_id": "pri_01kpm2cwc625qaa5xjvef8qn9g",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v211rv16byka2n3m7tgf",
+        "environment": "live"
+      }
     },
     {
       "id": "boatnitro",
@@ -218,7 +254,13 @@
         "vehicle",
         "water"
       ],
-      "cs_info_author": "xADROCx, CodeCopilot"
+      "cs_info_author": "xADROCx, CodeCopilot",
+      "paddle": {
+        "product_id": "pro_01kpm2cwnaardqzwy93jy26tam",
+        "price_id": "pri_01kpm2cwqycjeq3kr1y7481vkr",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v1xan6a41tkt4rpg5kz5",
+        "environment": "live"
+      }
     },
     {
       "id": "c4guns",
@@ -241,7 +283,13 @@
         "explosives",
         "chaos"
       ],
-      "cs_info_author": "xADROCx"
+      "cs_info_author": "xADROCx",
+      "paddle": {
+        "product_id": "pro_01kpm2cwz788jxaem7r54yab0v",
+        "price_id": "pri_01kpm2cx2c6egp29br63xf59b4",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v1stx347dy69yv6vkwan",
+        "environment": "live"
+      }
     },
     {
       "id": "carnitro",
@@ -264,7 +312,13 @@
         "nitro",
         "vehicle"
       ],
-      "cs_info_author": "xADROCx"
+      "cs_info_author": "xADROCx",
+      "paddle": {
+        "product_id": "pro_01kpm2cxa1441re4jvevqjrxks",
+        "price_id": "pri_01kpm2cxcpf80nhaxb0kethy5n",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v1npxkh640jgb29jgbtr",
+        "environment": "live"
+      }
     },
     {
       "id": "chickengun",
@@ -288,7 +342,13 @@
         "chickens",
         "fun"
       ],
-      "cs_info_author": "xADROCx"
+      "cs_info_author": "xADROCx",
+      "paddle": {
+        "product_id": "pro_01kpm2cxkw728nhjqjvvj79g0a",
+        "price_id": "pri_01kpm2cxpb6pq6z7y1y3jyh1rv",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v1j9xeqct9788w4gtgs3",
+        "environment": "live"
+      }
     },
     {
       "id": "chickenlover",
@@ -311,7 +371,13 @@
         "qol",
         "ui"
       ],
-      "cs_info_author": "xADROCx"
+      "cs_info_author": "xADROCx",
+      "paddle": {
+        "product_id": "pro_01kpm2cxx7b0dd0v4g938gw411",
+        "price_id": "pri_01kpm2cxzw9ypb5yzbv0tyd62m",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v1f0g6qtbzk7pev1t6nd",
+        "environment": "live"
+      }
     },
     {
       "id": "compostsplitter",
@@ -334,7 +400,13 @@
         "qol",
         "compost"
       ],
-      "cs_info_author": "xADROCx"
+      "cs_info_author": "xADROCx",
+      "paddle": {
+        "product_id": "pro_01kpm2cy6s5bf2j7g41m12zkbt",
+        "price_id": "pri_01kpm2cy97g86nk1eqsnn6enp0",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v1b26h5ysqs4z2mmqf7x",
+        "environment": "live"
+      }
     },
     {
       "id": "deadmanslocker",
@@ -358,7 +430,13 @@
         "qol",
         "ui"
       ],
-      "cs_info_author": "xADROCx"
+      "cs_info_author": "xADROCx",
+      "paddle": {
+        "product_id": "pro_01kpm2cyghh1w2ew397h6xpdy7",
+        "price_id": "pri_01kpm2cyjxdh6q0df0z306zm2j",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v1794gfy5z778e2b7bhs",
+        "environment": "live"
+      }
     },
     {
       "id": "deepseaspeed",
@@ -382,7 +460,13 @@
         "modular",
         "water"
       ],
-      "cs_info_author": "Adam/Claude"
+      "cs_info_author": "Adam/Claude",
+      "paddle": {
+        "product_id": "pro_01kpm2cytyffc6ss7djnnkmkx6",
+        "price_id": "pri_01kpm2cyxcvx6n2d1fdc4030zj",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v13vssk5exmgf4xdba6t",
+        "environment": "live"
+      }
     },
     {
       "id": "eatall",
@@ -405,7 +489,13 @@
         "qol",
         "ui"
       ],
-      "cs_info_author": "Misfit"
+      "cs_info_author": "Misfit",
+      "paddle": {
+        "product_id": "pro_01kpm2cz4p4zj2kptnyt8306zf",
+        "price_id": "pri_01kpm2cz78fmd8bvzkddwq7jrp",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v101k3p5yjvvcnvdpsda",
+        "environment": "live"
+      }
     },
     {
       "id": "ecosystemtracker",
@@ -429,7 +519,13 @@
         "immersive",
         "server"
       ],
-      "cs_info_author": "xADROCx"
+      "cs_info_author": "xADROCx",
+      "paddle": {
+        "product_id": "pro_01kpm2czey2xzfwry14gtcr9ff",
+        "price_id": "pri_01kpm2czhmx4d0xhyaewyfhj63",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v0w2revs4yh3v4vnzs2s",
+        "environment": "live"
+      }
     },
     {
       "id": "entcount",
@@ -452,7 +548,13 @@
         "entities",
         "monitoring"
       ],
-      "cs_info_author": "xADROCx"
+      "cs_info_author": "xADROCx",
+      "paddle": {
+        "product_id": "pro_01kpm2czsc2p80maz8nz1r635v",
+        "price_id": "pri_01kpm2czwa5fnca9tebepdw3zh",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v0r0xm79f3tn09syfke4",
+        "environment": "live"
+      }
     },
     {
       "id": "entitylimiter",
@@ -476,7 +578,13 @@
         "limits",
         "permissions"
       ],
-      "cs_info_author": "xADROCx"
+      "cs_info_author": "xADROCx",
+      "paddle": {
+        "product_id": "pro_01kpm2d03af9bn7j6mj5cedf50",
+        "price_id": "pri_01kpm2d05y7zs7j7hn3j8a8yy2",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v0mak6t23t88crz9qsb1",
+        "environment": "live"
+      }
     },
     {
       "id": "fireworkguns",
@@ -500,7 +608,13 @@
         "chaos",
         "fun"
       ],
-      "cs_info_author": "xADROCx"
+      "cs_info_author": "xADROCx",
+      "paddle": {
+        "product_id": "pro_01kpm2d0d1k73dfkhxrx8d1y7g",
+        "price_id": "pri_01kpm2d0fmjask1h0e3b5hhb8g",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v0ghkb62vjb7knkze7e6",
+        "environment": "live"
+      }
     },
     {
       "id": "flyingfish",
@@ -524,7 +638,13 @@
         "spawns",
         "ambient"
       ],
-      "cs_info_author": "xADROCx"
+      "cs_info_author": "xADROCx",
+      "paddle": {
+        "product_id": "pro_01kpm2d0pwgtgsy2r2j4gmy489",
+        "price_id": "pri_01kpm2d0spcvnbmbfn4k2zmztj",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v0czjyb596mmsax4rkkb",
+        "environment": "live"
+      }
     },
     {
       "id": "flyingsubs",
@@ -548,7 +668,13 @@
         "chaos",
         "vehicle"
       ],
-      "cs_info_author": "xADROCx"
+      "cs_info_author": "xADROCx",
+      "paddle": {
+        "product_id": "pro_01kpm2d112hhyt0a3bp3q278fc",
+        "price_id": "pri_01kpm2d13qtehrtfr7mf32ccd0",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v09gapgf7etd2hdyd2cs",
+        "environment": "live"
+      }
     },
     {
       "id": "happybee",
@@ -572,7 +698,13 @@
         "qol",
         "ui"
       ],
-      "cs_info_author": "xADROCx"
+      "cs_info_author": "xADROCx",
+      "paddle": {
+        "product_id": "pro_01kpm2d1bbyw6ecmejfxa45wxn",
+        "price_id": "pri_01kpm2d1dqsskm7hks00v49638",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v0697vkqh40x8t38jht2",
+        "environment": "live"
+      }
     },
     {
       "id": "helinitro",
@@ -595,7 +727,13 @@
         "nitro",
         "vehicle"
       ],
-      "cs_info_author": "CodeCopilot"
+      "cs_info_author": "CodeCopilot",
+      "paddle": {
+        "product_id": "pro_01kpm2d1nfc9bspkwzvhamqw7z",
+        "price_id": "pri_01kpm2d1rardk6pdxhk2c9vdpb",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v02m6qm94q40m9bk1kc6",
+        "environment": "live"
+      }
     },
     {
       "id": "horsegun",
@@ -619,7 +757,13 @@
         "horses",
         "fun"
       ],
-      "cs_info_author": "CodeCopilot"
+      "cs_info_author": "CodeCopilot",
+      "paddle": {
+        "product_id": "pro_01kpm2d1zjn6e3z70x7f24aeya",
+        "price_id": "pri_01kpm2d221haf8tj8mj8ev87df",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2tzyprfnebtetwpftfntc",
+        "environment": "live"
+      }
     },
     {
       "id": "instanthelistartup",
@@ -642,7 +786,13 @@
         "qol",
         "vehicle"
       ],
-      "cs_info_author": "xADROCx"
+      "cs_info_author": "xADROCx",
+      "paddle": {
+        "product_id": "pro_01kpm2d28k5c597j3vww1zgp2g",
+        "price_id": "pri_01kpm2d2b993gehb8tr883tw7f",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2tzty64wmvtt9e350ywvr",
+        "environment": "live"
+      }
     },
     {
       "id": "keywordlog",
@@ -667,7 +817,13 @@
         "discord",
         "moderation"
       ],
-      "cs_info_author": "xADROCx"
+      "cs_info_author": "xADROCx",
+      "paddle": {
+        "product_id": "pro_01kpm2d2jdstr66m18dhsvnxkg",
+        "price_id": "pri_01kpm2d2mtc6nqcyp1k4yrvw6p",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2tzq8tfg0sqyhp77e81ca",
+        "environment": "live"
+      }
     },
     {
       "id": "loadedturrets",
@@ -690,7 +846,13 @@
         "base-defense",
         "automation"
       ],
-      "cs_info_author": "xADROCx"
+      "cs_info_author": "xADROCx",
+      "paddle": {
+        "product_id": "pro_01kpm2d2w65crkdq839zx86yrk",
+        "price_id": "pri_01kpm2d2z7tj3bzzt25cr58ws6",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2tzkr24xztpbtk150t506",
+        "environment": "live"
+      }
     },
     {
       "id": "logdiagnostics",
@@ -716,7 +878,13 @@
         "claude"
       ],
       "cs_info_author": "xADROCx",
-      "featured": true
+      "featured": true,
+      "paddle": {
+        "product_id": "pro_01kpm2d36vr9tr6fgkvwnh40c5",
+        "price_id": "pri_01kpm2d39exj0md86x7hthb4rr",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2tzg75sz9m3dbd9jv6qjn",
+        "environment": "live"
+      }
     },
     {
       "id": "maxarmorcraft",
@@ -739,7 +907,13 @@
         "armor",
         "gear"
       ],
-      "cs_info_author": "xADROCx"
+      "cs_info_author": "xADROCx",
+      "paddle": {
+        "product_id": "pro_01kpm2d3gr3yg2t8qxpxp4mp7s",
+        "price_id": "pri_01kpm2d3kkp8zq9ghpje44gkny",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2tzcraprknbfwypeayvfx",
+        "environment": "live"
+      }
     },
     {
       "id": "motorbikenitro",
@@ -762,7 +936,13 @@
         "nitro",
         "vehicle"
       ],
-      "cs_info_author": "xADROCx"
+      "cs_info_author": "xADROCx",
+      "paddle": {
+        "product_id": "pro_01kpm2d3vwxnx7jefkf2004bb8",
+        "price_id": "pri_01kpm2d3yn8hkvnepy58ejeccf",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2tz9ch5p64v84rxvxfk7h",
+        "environment": "live"
+      }
     },
     {
       "id": "myboat",
@@ -786,7 +966,13 @@
         "vehicle",
         "spawn"
       ],
-      "cs_info_author": "xADROCx"
+      "cs_info_author": "xADROCx",
+      "paddle": {
+        "product_id": "pro_01kpm2d45ny7prh9zdzvy0r1tx",
+        "price_id": "pri_01kpm2d485nw6yez77vkz784bz",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2tz585za47dj24g3hzxda",
+        "environment": "live"
+      }
     },
     {
       "id": "nocratefire",
@@ -810,7 +996,13 @@
         "qol",
         "heli"
       ],
-      "cs_info_author": "xADROCx"
+      "cs_info_author": "xADROCx",
+      "paddle": {
+        "product_id": "pro_01kpm2d4few3771471q2ea51m8",
+        "price_id": "pri_01kpm2d4j55d8m1781cg3tnamh",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2tz1j4r12d254f1a3wqv2",
+        "environment": "live"
+      }
     },
     {
       "id": "oldrustheli",
@@ -833,7 +1025,13 @@
         "server",
         "startup"
       ],
-      "cs_info_author": "xADROCx"
+      "cs_info_author": "xADROCx",
+      "paddle": {
+        "product_id": "pro_01kpm2d4s52pjvqpy1r5smhxja",
+        "price_id": "pri_01kpm2d4vq7d6e61cbr1rcdm8k",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2tyxy2z6jvtm55p83c94f",
+        "environment": "live"
+      }
     },
     {
       "id": "playerlog",
@@ -856,7 +1054,13 @@
         "logging",
         "players"
       ],
-      "cs_info_author": "xADROCx"
+      "cs_info_author": "xADROCx",
+      "paddle": {
+        "product_id": "pro_01kpm2d53gqg67exmd1v9whbej",
+        "price_id": "pri_01kpm2d5654zyhajems5teqxm0",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2tytabmzaq61ja13djf1a",
+        "environment": "live"
+      }
     },
     {
       "id": "plugincommands",
@@ -880,7 +1084,13 @@
         "ui",
         "discovery"
       ],
-      "cs_info_author": "Modworks.gg - Sudo"
+      "cs_info_author": "Modworks.gg - Sudo",
+      "paddle": {
+        "product_id": "pro_01kpm2d5dfemhk8w6e3hdfwfxp",
+        "price_id": "pri_01kpm2d5g5rsv20q9tm48gx19a",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2typfktkpmybzxb61hjft",
+        "environment": "live"
+      }
     },
     {
       "id": "rocketguns",
@@ -903,7 +1113,13 @@
         "rockets",
         "chaos"
       ],
-      "cs_info_author": "Sapnu Puas #3696"
+      "cs_info_author": "Sapnu Puas #3696",
+      "paddle": {
+        "product_id": "pro_01kpm2d5q4a88pg4nzwqmmta07",
+        "price_id": "pri_01kpm2d5sj9d4q066hb04cskhx",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2tyjwr2bw5qw93a4s48rj",
+        "environment": "live"
+      }
     },
     {
       "id": "sharkbaitcrate",
@@ -927,7 +1143,13 @@
         "ocean",
         "events"
       ],
-      "cs_info_author": "xADROCx"
+      "cs_info_author": "xADROCx",
+      "paddle": {
+        "product_id": "pro_01kpm2d60gbdq8788h276qbk7z",
+        "price_id": "pri_01kpm2d630hpqcehq6r9rbtm9q",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2tydfx8341y65bq92n3rp",
+        "environment": "live"
+      }
     },
     {
       "id": "sharkgun",
@@ -951,7 +1173,13 @@
         "sharks",
         "fun"
       ],
-      "cs_info_author": "xADROCx"
+      "cs_info_author": "xADROCx",
+      "paddle": {
+        "product_id": "pro_01kpm2d6a0329wjaj63xtwk82e",
+        "price_id": "pri_01kpm2d6cknpm09nnfm96meakj",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2ty9w26mfr5pxwywt20y1",
+        "environment": "live"
+      }
     },
     {
       "id": "startupcommander",
@@ -974,7 +1202,13 @@
         "startup",
         "automation"
       ],
-      "cs_info_author": "xADROCx"
+      "cs_info_author": "xADROCx",
+      "paddle": {
+        "product_id": "pro_01kpm2d6k6c0y4mzqj16w062ff",
+        "price_id": "pri_01kpm2d6nqpy81dehjea2xmg6m",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2ty626mggp1krpqamhrqt",
+        "environment": "live"
+      }
     },
     {
       "id": "statictrader",
@@ -998,7 +1232,13 @@
         "social",
         "ui"
       ],
-      "cs_info_author": "Raul-Sorin Sorban"
+      "cs_info_author": "Raul-Sorin Sorban",
+      "paddle": {
+        "product_id": "pro_01kpm2d6x32qw4d9phdg5kremm",
+        "price_id": "pri_01kpm2d6zk8n5exhd3r3s6s8vg",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2ty25jppjq1mxsew91t2g",
+        "environment": "live"
+      }
     },
     {
       "id": "superammo",
@@ -1022,7 +1262,13 @@
         "admin",
         "chaos"
       ],
-      "cs_info_author": "xADROCx"
+      "cs_info_author": "xADROCx",
+      "paddle": {
+        "product_id": "pro_01kpm2d766ex7z2wb4mrc3p5w1",
+        "price_id": "pri_01kpm2d78pcgazfzey979mhccd",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2txyj8g4j1gjygmz35q3c",
+        "environment": "live"
+      }
     },
     {
       "id": "teamid",
@@ -1045,7 +1291,13 @@
         "teams",
         "utility"
       ],
-      "cs_info_author": "xADROCx"
+      "cs_info_author": "xADROCx",
+      "paddle": {
+        "product_id": "pro_01kpm2d7f9req4ktgwd5qzfq5t",
+        "price_id": "pri_01kpm2d7hrbcc74b833smrxxk2",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2txtgdd9qncyed0f2d12f",
+        "environment": "live"
+      }
     },
     {
       "id": "treeremover",
@@ -1069,7 +1321,13 @@
         "utility",
         "ui"
       ],
-      "cs_info_author": "xADROCx"
+      "cs_info_author": "xADROCx",
+      "paddle": {
+        "product_id": "pro_01kpm2d7rvk4qxgv0hanp4apt4",
+        "price_id": "pri_01kpm2d7v7vjwnq88dpxhqy1vd",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2txq98yrh9xpc8cethdgt",
+        "environment": "live"
+      }
     },
     {
       "id": "fueldisplay",
@@ -1093,7 +1351,13 @@
         "hud",
         "ui"
       ],
-      "cs_info_author": "RustFlash"
+      "cs_info_author": "RustFlash",
+      "paddle": {
+        "product_id": "pro_01kpm2d82430x2trj7jz60verd",
+        "price_id": "pri_01kpm2d84ws12mebqq9vtk2ccy",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2txky6pqxmckyza3gyjr9",
+        "environment": "live"
+      }
     },
     {
       "id": "rustplane",
@@ -1130,7 +1394,13 @@
         "KaruzaVehicleItemManager.cs",
         "KaruzaVehiclePush.cs",
         "Radio.cs"
-      ]
+      ],
+      "paddle": {
+        "product_id": "pro_01kpm2d8chnrcrxeddkdf2m2w4",
+        "price_id": "pri_01kpm2d8f0r6veh6hwefk2w5zz",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2txg7q20y7wmmtzywzhw9",
+        "environment": "live"
+      }
     },
     {
       "id": "rusthelicopter",
@@ -1167,7 +1437,13 @@
         "KaruzaVehicleItemManager.cs",
         "KaruzaVehiclePush.cs",
         "Radio.cs"
-      ]
+      ],
+      "paddle": {
+        "product_id": "pro_01kpm2d8pc99dsn1sg160npta1",
+        "price_id": "pri_01kpm2d8rt3werehfyrf1fat7z",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2txcdrggc50c8c9ptt9qf",
+        "environment": "live"
+      }
     },
     {
       "id": "vehiclelicence",
@@ -1191,7 +1467,13 @@
         "spawn",
         "qol"
       ],
-      "cs_info_author": "Sorrow/TheDoc/Arainrr"
+      "cs_info_author": "Sorrow/TheDoc/Arainrr",
+      "paddle": {
+        "product_id": "pro_01kpm2d8zngewq8a694z7h521r",
+        "price_id": "pri_01kpm2d923db3g6e1bzpfmv5fr",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2tx7shtrr2gca9tt455my",
+        "environment": "live"
+      }
     }
   ],
   "coming_soon": [
