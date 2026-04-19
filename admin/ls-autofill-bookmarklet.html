@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>LS Autofill Bookmarklet — Misfits Studios</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="robots" content="noindex, nofollow"/>
+<style>
+  :root {
+    --bg:#060e20; --surface:#091328; --surface-hi:#141f38;
+    --paper:#dee5ff; --muted:#a3aac4;
+    --primary:#cc97ff; --accent:#53ddfc; --green:#7cffa5;
+  }
+  * { box-sizing:border-box; }
+  body { background:var(--bg); color:var(--paper); font:15px/1.6 system-ui, sans-serif; margin:0; padding:32px; max-width:900px; margin-inline:auto; }
+  h1 { font-size:28px; margin:0 0 4px; }
+  h2 { font-size:20px; margin-top:32px; color:var(--accent); }
+  .sub { color:var(--muted); margin-bottom:24px; }
+  code { background:var(--surface); padding:2px 6px; border-radius:3px; color:var(--accent); font-size:13px; }
+
+  .bookmarklet {
+    display:inline-block; padding:14px 24px; margin:12px 0 20px;
+    background:linear-gradient(135deg,var(--primary),#9c48ea); color:var(--bg);
+    text-decoration:none; font-weight:900; font-size:16px; border-radius:6px;
+    box-shadow:0 0 20px rgba(204,151,255,.4);
+    cursor:grab;
+  }
+  .bookmarklet:active { cursor:grabbing; }
+
+  ol li { margin:8px 0; }
+  .box { background:var(--surface); border-left:3px solid var(--accent); padding:14px 18px; border-radius:4px; margin:16px 0; }
+  .warn { border-left-color:#ff9e53; }
+  .warn strong { color:#ff9e53; }
+  kbd { background:#000; padding:2px 6px; border-radius:3px; border:1px solid var(--surface-hi); font-family:monospace; font-size:12px; }
+
+  pre {
+    background:#000; border:1px solid var(--surface-hi); border-radius:6px;
+    padding:14px; overflow-x:auto; font-size:11px; line-height:1.4; max-height:200px;
+  }
+</style>
+</head>
+<body>
+
+<h1>🍋 LS Autofill Bookmarklet</h1>
+<p class="sub">One-click form-filler for <code>https://app.lemonsqueezy.com/products/new</code>. Zero install, works in any browser.</p>
+
+<h2>Step 1 — Install the bookmarklet</h2>
+<ol>
+  <li>Show your browser's <b>bookmarks bar</b> (<kbd>Ctrl+Shift+B</kbd> in Chrome)</li>
+  <li><b>Drag this purple button</b> onto your bookmarks bar:</li>
+</ol>
+
+<a class="bookmarklet" href="javascript:(function(){try{var MANIFEST='https://misfits-studios-site.qwikkidd.workers.dev/products.json';var STATE_KEY='misfits_ls_autofill_idx';function setVal(el,v){if(!el)return false;var proto=el.tagName==='TEXTAREA'?window.HTMLTextAreaElement.prototype:window.HTMLInputElement.prototype;var setter=Object.getOwnPropertyDescriptor(proto,'value').set;setter.call(el,v);el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));return true;}function findByLabel(txt){var labels=Array.from(document.querySelectorAll('label'));var lbl=labels.find(function(l){return l.textContent.trim().toLowerCase().indexOf(txt.toLowerCase())>=0;});if(!lbl)return null;if(lbl.htmlFor){var el=document.getElementById(lbl.htmlFor);if(el)return el;}var input=lbl.querySelector('input,textarea');if(input)return input;var sib=lbl.parentElement&&lbl.parentElement.querySelector('input,textarea');return sib||null;}function findInputByPlaceholder(txt){return document.querySelector('input[placeholder*=\"'+txt+'\" i],textarea[placeholder*=\"'+txt+'\" i]');}fetch(MANIFEST).then(function(r){return r.json();}).then(function(data){var products=(data.products||[]).filter(function(p){return p.status==='live';});var idx=parseInt(localStorage.getItem(STATE_KEY)||'0',10);if(idx>=products.length)idx=0;var p=products[idx];var nameEl=findByLabel('name')||findInputByPlaceholder('product name')||document.querySelector('input[name=\"name\"]');var priceEl=findByLabel('price')||document.querySelector('input[name=\"price\"]')||document.querySelector('input[type=\"number\"]');var descEl=document.querySelector('textarea[name=\"description\"]')||document.querySelector('.ProseMirror')||document.querySelector('[contenteditable=\"true\"]')||document.querySelector('textarea');var slugEl=findByLabel('slug')||document.querySelector('input[name=\"slug\"]');var statusReport=[];if(setVal(nameEl,p.name))statusReport.push('✓ name: '+p.name);else statusReport.push('✗ name field not found');var priceCents=Math.round((p.price_usd||0)*100);if(priceEl){if(priceEl.tagName==='INPUT'&&priceEl.type==='number')setVal(priceEl,priceCents);else setVal(priceEl,(p.price_usd||0).toFixed(2));statusReport.push('✓ price: '+priceCents+'¢');}else statusReport.push('✗ price field not found');if(slugEl&&!slugEl.value)setVal(slugEl,p.slug);if(descEl){if(descEl.isContentEditable){descEl.focus();document.execCommand('selectAll',false);document.execCommand('insertText',false,p.short_description);statusReport.push('✓ description (contenteditable)');}else{setVal(descEl,p.short_description);statusReport.push('✓ description');}}else statusReport.push('✗ description field not found');localStorage.setItem(STATE_KEY,String(idx+1));var filePath='';if(p.bundle_files){filePath='(XADROCX) PLUGINS/karuza vehicles/'+(p.name.toLowerCase().indexOf('plane')>=0?'RustPlane_1_30_0':'RustHelicopter_1_24_0')+'/ (zip all files)';}else if(p.id==='fueldisplay'){filePath='(XADROCX) PLUGINS/fueldisplay/oxide/plugins/FuelDisplay.cs';}else if(p.id==='vehiclelicence'){filePath='(XADROCX) PLUGINS/karuza vehicles/VehicleLicence.cs';}else if(['dev2discord','misfitsui','misfitscommands'].indexOf(p.id)>=0){filePath='plugins/'+p.name+'/ (zip all files)';}else{filePath='(XADROCX) PLUGINS/'+p.name+'.cs';}var banner=document.createElement('div');banner.style.cssText='position:fixed;top:16px;right:16px;z-index:999999;background:#060e20;color:#dee5ff;padding:16px 20px;border-radius:8px;box-shadow:0 10px 40px rgba(0,0,0,.6);font:13px/1.5 system-ui;max-width:380px;border:2px solid #cc97ff;';banner.innerHTML='<div style=\"font-weight:900;font-size:16px;color:#cc97ff;margin-bottom:8px\">'+(idx+1)+'/'+products.length+': '+p.name+' — '+p.price_label+'</div>'+'<div style=\"color:#7cffa5;font-size:12px;margin-bottom:6px\">'+statusReport.join('<br>')+'</div>'+'<div style=\"color:#53ddfc;font-size:11px;margin-top:10px;padding-top:10px;border-top:1px solid #141f38\">📂 <b>Upload file:</b><br>'+filePath+'</div>'+'<div style=\"color:#a3aac4;font-size:11px;margin-top:8px\">Click bookmarklet again after publishing for the next product.<br>Reset: <a href=\"#\" onclick=\"localStorage.removeItem(\\''+STATE_KEY+'\\');this.parentElement.parentElement.remove();return false\" style=\"color:#ff86c3\">clear progress</a> · <a href=\"#\" onclick=\"this.parentElement.parentElement.remove();return false\" style=\"color:#a3aac4\">close</a></div>';document.body.appendChild(banner);}).catch(function(err){alert('Failed to load manifest: '+err.message);});}())">🍋 Fill Next LS Product</a>
+
+<div class="box warn">
+  <strong>Note:</strong> file uploads can't be automated from a bookmarklet (browser security). You'll still need to drag the <code>.cs</code> file onto the LS upload zone — but the file path is shown in the autofill banner so you know exactly which one.
+</div>
+
+<h2>Step 2 — Use it</h2>
+<ol>
+  <li>Go to <code>https://app.lemonsqueezy.com/products/new</code> in your browser</li>
+  <li>Click the <b>🍋 Fill Next LS Product</b> bookmark on your bookmarks bar</li>
+  <li>A purple panel appears top-right with the current product, price, and file path to upload</li>
+  <li>Manually <b>drag the .cs file</b> shown into the LS upload zone</li>
+  <li>Toggle <b>Generate license keys</b> on for paid products</li>
+  <li>Click <b>Publish</b> in LS</li>
+  <li>Navigate to <code>/products/new</code> again, click the bookmarklet — it auto-advances to product 2, 3, 4...</li>
+  <li>Progress saves in <code>localStorage</code> so you can resume anytime</li>
+</ol>
+
+<h2>What it fills</h2>
+<ul>
+  <li>✓ <b>Name</b> — exact product name from <code>products.json</code></li>
+  <li>✓ <b>Price</b> — in cents (999 for $9.99)</li>
+  <li>✓ <b>Slug</b> — if the field is empty</li>
+  <li>✓ <b>Description</b> — short description (works with LS's rich-text editor)</li>
+  <li>✗ <b>File upload</b> — manual (file path shown in banner)</li>
+  <li>✗ <b>License keys toggle</b> — manual one-click</li>
+  <li>✗ <b>Publish button</b> — manual (so you can verify each product before going live)</li>
+</ul>
+
+<h2>If it can't find a field</h2>
+<p>LS sometimes renames their DOM selectors. If the banner shows <code>✗ name field not found</code> or similar, just fill that one field manually — the rest will still auto-fill.</p>
+
+<h2>Raw bookmarklet code (for debugging)</h2>
+<pre id="src"></pre>
+<script>
+  // Pull the href from the button and show it for transparency
+  var link = document.querySelector('a.bookmarklet');
+  document.getElementById('src').textContent = link.getAttribute('href');
+</script>
+
+</body>
+</html>
