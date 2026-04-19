@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">
+  <title>Hazard warning</title>
+  <!-- Outer triangle -->
+  <path d="M16 4 L29 27 L3 27 Z"/>
+  <!-- Inner monospaced bang bar -->
+  <path d="M16 12 L16 20" stroke-width="2.5"/>
+  <!-- Bang dot -->
+  <path d="M16 23 L16 24.5" stroke-width="2.5"/>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">
+  <title>Misfits skull</title>
+  <!-- Cranium dome: angular sharp-edged shape -->
+  <path d="M12 30 L12 22 L18 14 L28 10 L36 10 L46 14 L52 22 L52 30 L52 38 L48 42 L48 48 L42 48 L40 54 L36 54 L36 48 L28 48 L28 54 L24 54 L22 48 L16 48 L16 42 L12 38 Z"/>
+  <!-- Left eye socket: hexagonal -->
+  <path d="M18 28 L22 24 L28 24 L30 28 L30 34 L26 38 L22 38 L18 34 Z"/>
+  <!-- Right eye socket -->
+  <path d="M34 28 L38 24 L42 24 L46 28 L46 34 L42 38 L38 38 L34 34 Z"/>
+  <!-- Nose cavity: triangular -->
+  <path d="M30 40 L32 44 L34 40 Z"/>
+  <!-- Teeth / jaw grid -->
+  <path d="M22 48 L22 52 M26 48 L26 52 M30 48 L30 52 M34 48 L34 52 M38 48 L38 52 M42 48 L42 52"/>
+  <!-- Crack across forehead (punk detail) -->
+  <path d="M24 18 L28 20 L26 24 L30 22" stroke-width="1.5"/>
+</svg>
