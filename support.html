@@ -5,7 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Support — MISFITS STUDIOS</title>
 <meta name="description" content="Get direct support from the developer. Email or Discord, no ticket farm."/>
+<link rel="canonical" href="https://misfits-studios.com/support.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Misfits Studios"/>
+<meta property="og:title" content="Support — Misfits Studios"/>
+<meta property="og:description" content="Direct support from the developer. Email or Discord, no ticket farm."/>
+<meta property="og:url" content="https://misfits-studios.com/support.html"/>
+<meta property="og:image" content="https://misfits-studios.com/NewLogo.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Support — Misfits Studios"/>
+<meta name="twitter:description" content="Direct support from the developer. Email or Discord, no ticket farm."/>
+<meta name="twitter:image" content="https://misfits-studios.com/NewLogo.png"/>
 <link rel="icon" href="NewLogo.png"/>
+<script src="/assets/analytics.js" defer></script>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800;12..96,900&family=Rubik+Mono+One&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
@@ -391,6 +403,87 @@
         <a href="#" class="bg-bg text-primary border-4 border-primary font-black px-8 py-4 hover:bg-primary hover:text-bg active:translate-y-1 text-lg uppercase tracking-wide">Discord &rarr;</a>
       </div>
       <p class="font-mono text-xs text-muted mt-8 uppercase tracking-widest">[ response within 24h &middot; solo dev, but we don't ghost ]</p>
+    </div>
+  </section>
+
+  <!-- Contact Form -->
+  <section class="px-6 py-20 bg-surface border-y-8 border-bg" id="contact">
+    <div class="max-w-3xl mx-auto">
+      <div class="mb-8 border-b-4 border-primary pb-3">
+        <h2 class="text-3xl md:text-4xl font-headline font-black uppercase italic">// send_a_message</h2>
+        <p class="font-mono text-xs text-muted mt-2 uppercase tracking-widest">goes straight to misfits.support@proton.me</p>
+      </div>
+
+      <form id="contact-form" action="https://formspree.io/f/REPLACE_ME_FORMSPREE_ID" method="POST" class="space-y-5">
+        <div class="grid md:grid-cols-2 gap-5">
+          <label class="block">
+            <span class="ob-data-label block mb-2">// name</span>
+            <input type="text" name="name" required placeholder="what to call you" class="w-full bg-bg border-2 border-surface-hi focus:border-accent px-4 py-3 text-paper font-body placeholder:text-muted/50 outline-none transition-all"/>
+          </label>
+          <label class="block">
+            <span class="ob-data-label block mb-2">// email</span>
+            <input type="email" name="email" required placeholder="where we reply" class="w-full bg-bg border-2 border-surface-hi focus:border-accent px-4 py-3 text-paper font-body placeholder:text-muted/50 outline-none transition-all"/>
+          </label>
+        </div>
+        <label class="block">
+          <span class="ob-data-label block mb-2">// subject</span>
+          <select name="subject" class="w-full bg-bg border-2 border-surface-hi focus:border-accent px-4 py-3 text-paper font-body outline-none transition-all">
+            <option>Pre-sale question</option>
+            <option>Bug report</option>
+            <option>Feature request</option>
+            <option>Plugin collaboration</option>
+            <option>Other</option>
+          </select>
+        </label>
+        <label class="block">
+          <span class="ob-data-label block mb-2">// message</span>
+          <textarea name="message" required rows="6" placeholder="the details. code snippets welcome." class="w-full bg-bg border-2 border-surface-hi focus:border-accent px-4 py-3 text-paper font-body placeholder:text-muted/50 outline-none transition-all resize-y"></textarea>
+        </label>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true"/>
+        <div class="flex items-center justify-between gap-4 flex-wrap">
+          <p class="font-mono text-[11px] text-muted uppercase tracking-widest max-w-xs">we don't spam, don't sell, and read everything. see <a href="privacy.html" class="underline text-accent">privacy</a>.</p>
+          <button type="submit" class="bg-accent text-bg border-4 border-accent font-black px-8 py-3 hover:bg-primary hover:border-primary hover:text-paper active:translate-y-1 uppercase tracking-wide text-sm">SEND →</button>
+        </div>
+      </form>
+
+      <div id="contact-result" class="mt-6 hidden"></div>
+    </div>
+
+    <script>
+      (function () {
+        var form = document.getElementById('contact-form');
+        var resultEl = document.getElementById('contact-result');
+        if (!form) return;
+        form.addEventListener('submit', function (e) {
+          var action = form.getAttribute('action');
+          if (!action || action.indexOf('REPLACE_ME') >= 0) {
+            e.preventDefault();
+            resultEl.className = 'mt-6 p-4 bg-bg border-l-4 border-primary text-sm text-paper';
+            resultEl.innerHTML = '<b class="text-primary">Contact form not yet wired up.</b><br>' +
+              'Email us directly at <a href="mailto:misfits.support@proton.me" class="text-accent underline">misfits.support@proton.me</a> — ' +
+              'or the site admin can paste a Formspree endpoint into this form\'s <code class="font-mono text-accent">action</code> attribute.';
+            resultEl.classList.remove('hidden');
+            return;
+          }
+          // Else — let the form submit to the configured endpoint.
+        });
+      })();
+    </script>
+  </section>
+
+  <!-- Newsletter Signup -->
+  <section class="px-6 py-20 bg-bg" id="newsletter">
+    <div class="max-w-3xl mx-auto text-center">
+      <p class="ob-data-label mb-2">// low volume &middot; no spam</p>
+      <h2 class="text-3xl md:text-4xl font-headline font-black uppercase italic mb-4">Join_The_Misfits_List</h2>
+      <p class="text-paper/80 text-sm max-w-xl mx-auto mb-8">New plugin releases, patch notes when Facepunch breaks something, and the occasional deep dive on a system we're building. No marketing blasts.</p>
+
+      <form action="https://buttondown.email/api/emails/embed-subscribe/REPLACE_ME_BUTTONDOWN_USERNAME" method="POST" target="popupwindow" onsubmit="window.open('about:blank', 'popupwindow', 'width=600,height=400');" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+        <input type="email" name="email" required placeholder="your@email.com" class="flex-grow bg-surface border-2 border-surface-hi focus:border-accent px-4 py-3 text-paper font-body placeholder:text-muted/50 outline-none transition-all"/>
+        <input type="hidden" value="1" name="embed"/>
+        <button type="submit" class="bg-primary text-bg border-2 border-primary font-black px-6 py-3 hover:bg-accent hover:border-accent active:translate-y-1 uppercase text-sm tracking-wide">SUBSCRIBE →</button>
+      </form>
+      <p class="font-mono text-[10px] text-muted mt-4 uppercase tracking-widest">[ unsubscribe any time &middot; <a href="privacy.html" class="underline text-accent">privacy policy</a> ]</p>
     </div>
   </section>
 

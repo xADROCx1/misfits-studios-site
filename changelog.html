@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Changelog — MISFITS STUDIOS</title>
+<meta name="description" content="Release notes for every Misfits Studios plugin and app. What changed, when, and why."/>
+<link rel="canonical" href="https://misfits-studios.com/changelog.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Changelog — Misfits Studios"/>
+<meta property="og:description" content="Release notes for every Misfits Studios plugin and app."/>
+<meta property="og:url" content="https://misfits-studios.com/changelog.html"/>
+<meta property="og:image" content="https://misfits-studios.com/NewLogo.png"/>
+<link rel="icon" href="/NewLogo.png"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="/assets/analytics.js" defer></script>
+<script src="/assets/store.js" defer></script>
+<script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: { extend: {
+      colors: { "bg":"#060e20", "surface":"#091328", "surface-hi":"#141f38", "paper":"#dee5ff", "muted":"#a3aac4", "primary":"#cc97ff", "accent":"#53ddfc", "tertiary":"#ff86c3" },
+      fontFamily: { headline:["Space Grotesk","sans-serif"], body:["Inter","sans-serif"], mono:["JetBrains Mono","monospace"] }
+    }}
+  };
+</script>
+<style>
+  html, body { background:#060e20; color:#dee5ff; }
+  .ob-data-label { font-family:'Space Grotesk',sans-serif; text-transform:uppercase; letter-spacing:.25em; font-size:10px; color:#a3aac4; }
+  .log-card { background:#091328; border-left:4px solid #53ddfc; padding:20px 24px; margin-bottom:16px; }
+  .log-card.primary { border-left-color:#cc97ff; }
+  .log-card.tertiary { border-left-color:#ff86c3; }
+  .log-version { font-family:'JetBrains Mono',monospace; font-size:11px; color:#a3aac4; letter-spacing:.1em; text-transform:uppercase; }
+  .log-name { font-family:'Space Grotesk',sans-serif; font-weight:900; font-size:18px; }
+  .log-meta { font-family:'JetBrains Mono',monospace; font-size:11px; color:#a3aac4; }
+</style>
+</head>
+<body class="bg-bg text-paper font-body">
+
+<header class="sticky top-0 z-40 bg-bg/95 backdrop-blur border-b border-surface-hi">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3">
+      <img src="/NewLogo.png" alt="Misfits Studios" class="h-10 w-auto object-contain" onerror="this.style.display='none'"/>
+      <span class="font-headline text-lg font-black tracking-tight">MISFITS_STUDIOS</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-sm font-headline tracking-widest">
+      <a class="text-muted hover:text-accent transition-all" href="/">HOME</a>
+      <a class="text-muted hover:text-accent transition-all" href="/plugins.html">PLUGINS</a>
+      <a class="text-muted hover:text-accent transition-all" href="/apps.html">APPS</a>
+      <a class="text-muted hover:text-accent transition-all" href="/about.html">ABOUT</a>
+      <a class="text-muted hover:text-accent transition-all" href="/support.html">SUPPORT</a>
+      <a class="text-primary border-b-2 border-primary pb-1" href="/changelog.html">CHANGELOG</a>
+    </nav>
+  </div>
+</header>
+
+<main class="max-w-5xl mx-auto px-6 py-16">
+
+  <div class="mb-10 border-b-4 border-surface-hi pb-6">
+    <p class="ob-data-label mb-2">// release history</p>
+    <h1 class="font-headline text-5xl md:text-6xl font-black uppercase italic">Changelog</h1>
+    <p class="font-mono text-xs text-muted mt-3 uppercase tracking-widest">[ currently tracking: 48 products · versioned via SemVer ]</p>
+  </div>
+
+  <p class="text-paper/80 text-sm mb-10 max-w-3xl">
+    Every Misfits Studios plugin ships with a version. This page shows the <b>current version of every plugin in the catalog</b>, pulled live from our products manifest. Detailed release notes per plugin live on each product page.
+  </p>
+
+  <div id="log-root">
+    <div class="text-center py-16 text-muted font-mono text-sm">[ loading version history… ]</div>
+  </div>
+
+</main>
+
+<footer class="bg-ink px-6 py-12 border-t border-surface-hi">
+  <div class="max-w-7xl mx-auto text-center text-xs text-muted font-mono tracking-widest uppercase">
+    © 2026 Misfits Studios · <a href="/terms.html" class="hover:text-accent">Terms</a> · <a href="/privacy.html" class="hover:text-accent">Privacy</a> · <a href="/refund.html" class="hover:text-accent">Refund</a>
+  </div>
+</footer>
+
+<script>
+  document.addEventListener('misfits:products-loaded', function (e) {
+    var data = e.detail;
+    var products = (data.products || []).filter(function (p) { return p.status === 'live'; });
+
+    // Group by category
+    var byCat = {};
+    products.forEach(function (p) {
+      var c = p.category || 'other';
+      if (!byCat[c]) byCat[c] = [];
+      byCat[c].push(p);
+    });
+
+    var colorMap = { plugin: '', library: 'primary', app: 'tertiary', other: 'primary' };
+
+    var html = '';
+    Object.keys(byCat).sort().forEach(function (cat) {
+      html += '<h2 class="font-headline text-2xl md:text-3xl font-black uppercase italic text-paper mt-12 mb-4 border-b-2 border-accent pb-2">// ' + cat + 's</h2>';
+      html += '<div class="grid grid-cols-1 md:grid-cols-2 gap-3">';
+      byCat[cat].sort(function (a, b) { return a.name.localeCompare(b.name); }).forEach(function (p) {
+        var cls = colorMap[cat] || '';
+        html += '<a href="/products/' + p.slug + '.html" class="log-card ' + cls + ' block hover:bg-surface-hi transition-all">' +
+                  '<div class="flex items-baseline justify-between gap-4 mb-1">' +
+                    '<div class="log-name">' + escapeHTML(p.name) + '</div>' +
+                    '<div class="log-version">v' + escapeHTML(p.version) + '</div>' +
+                  '</div>' +
+                  '<div class="text-sm text-paper/70 mb-2">' + escapeHTML(p.tagline || p.short_description || '') + '</div>' +
+                  '<div class="log-meta">' + escapeHTML(p.category) + ' · ' + (p.price_label || '$' + (p.price_usd || 0).toFixed(2)) + ' · ' + escapeHTML(p.cs_info_author || 'Misfits') + '</div>' +
+                '</a>';
+      });
+      html += '</div>';
+    });
+
+    document.getElementById('log-root').innerHTML = html;
+
+    function escapeHTML(s) {
+      return String(s || '').replace(/[&<>"']/g, function (c) {
+        return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+      });
+    }
+  });
+</script>
+
+</body>
+</html>

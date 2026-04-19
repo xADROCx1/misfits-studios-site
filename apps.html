@@ -5,7 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Desktop Apps — MISFITS STUDIOS</title>
 <meta name="description" content="Windows-first desktop tools from Misfits Studios. Standalone binaries, no subscriptions."/>
+<link rel="canonical" href="https://misfits-studios.com/apps.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Misfits Studios"/>
+<meta property="og:title" content="Desktop Apps — Misfits Studios"/>
+<meta property="og:description" content="Windows-first desktop tools from Misfits Studios. Standalone binaries, no subscriptions."/>
+<meta property="og:url" content="https://misfits-studios.com/apps.html"/>
+<meta property="og:image" content="https://misfits-studios.com/NewLogo.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Desktop Apps — Misfits Studios"/>
+<meta name="twitter:description" content="Windows-first desktop tools from Misfits Studios."/>
+<meta name="twitter:image" content="https://misfits-studios.com/NewLogo.png"/>
 <link rel="icon" href="NewLogo.png"/>
+<script src="/assets/analytics.js" defer></script>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800;12..96,900&family=Rubik+Mono+One&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
@@ -428,6 +440,29 @@
 
       </div>
     </div>
+  </section>
+
+  <!-- Full catalog — dynamic grid driven by products.json -->
+  <section class="px-6 py-24 bg-surface/40 border-y-8 border-bg" id="full-catalog">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-8 border-b-4 border-primary pb-4 flex items-baseline justify-between flex-wrap gap-3">
+        <div>
+          <h2 class="text-4xl md:text-5xl font-headline font-black uppercase italic">// all_apps</h2>
+          <p class="font-mono text-xs text-muted uppercase tracking-widest mt-2">every desktop tool, auto-synced from our payment catalog</p>
+        </div>
+        <span class="font-body text-accent font-black uppercase tracking-widest" id="catalog-count-apps">[ loading... ]</span>
+      </div>
+      <div id="product-grid" data-category="app" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="col-span-full text-center py-12 text-muted font-mono text-sm">[ loading products.json… ]</div>
+      </div>
+    </div>
+    <script>
+      document.addEventListener('misfits:products-loaded', function (e) {
+        var count = (e.detail.products || []).filter(function (p) { return p.category === 'app' && p.status === 'live'; }).length;
+        var el = document.getElementById('catalog-count-apps');
+        if (el) el.textContent = '[ ' + count + ' apps live ]';
+      });
+    </script>
   </section>
 
   <!-- Footer -->

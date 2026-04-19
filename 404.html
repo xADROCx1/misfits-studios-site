@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>404 — MISFITS STUDIOS</title>
+<meta name="description" content="Page not found. Broken hyperlink? Plugin you're looking for got renamed? Check the nav."/>
+<link rel="icon" href="/NewLogo.png"/>
+<link rel="canonical" href="https://misfits-studios.com/404.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="404 — Misfits Studios"/>
+<meta property="og:description" content="Page not found. Broken hyperlink or renamed plugin?"/>
+<meta property="og:url" content="https://misfits-studios.com/404.html"/>
+<meta property="og:image" content="https://misfits-studios.com/NewLogo.png"/>
+<script src="/assets/analytics.js" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: { extend: {
+      colors: { "bg":"#060e20", "surface":"#091328", "surface-hi":"#141f38", "paper":"#dee5ff", "muted":"#a3aac4", "primary":"#cc97ff", "accent":"#53ddfc", "tertiary":"#ff86c3" },
+      fontFamily: { headline:["Space Grotesk","sans-serif"], body:["Inter","sans-serif"], mono:["JetBrains Mono","monospace"] }
+    }}
+  };
+</script>
+<style>
+  html, body { background:#060e20; color:#dee5ff; margin:0; min-height:100vh; }
+  .glitch {
+    position: relative;
+    color: #dee5ff;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+  }
+  .glitch::before, .glitch::after {
+    content: attr(data-text);
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  }
+  .glitch::before {
+    color: #cc97ff;
+    animation: glitch-1 2.5s infinite;
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+  }
+  .glitch::after {
+    color: #53ddfc;
+    animation: glitch-2 2.5s infinite;
+    clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+  }
+  @keyframes glitch-1 {
+    0%, 100% { transform: translate(0); } 20% { transform: translate(-3px, 2px); }
+    40% { transform: translate(-3px, -2px); } 60% { transform: translate(3px, 2px); } 80% { transform: translate(3px, -2px); }
+  }
+  @keyframes glitch-2 {
+    0%, 100% { transform: translate(0); } 20% { transform: translate(3px, -2px); }
+    40% { transform: translate(3px, 2px); } 60% { transform: translate(-3px, -2px); } 80% { transform: translate(-3px, 2px); }
+  }
+  @keyframes scan { 0%,100% { opacity:0.3; } 50% { opacity:0.7; } }
+  .scanline { animation: scan 3s linear infinite; }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(204,151,255,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(204,151,255,.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+</style>
+</head>
+<body class="bg-bg text-paper font-body min-h-screen grid-bg">
+
+<header class="sticky top-0 z-40 bg-bg/95 backdrop-blur border-b border-surface-hi">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3">
+      <img src="/NewLogo.png" alt="Misfits Studios" class="h-10 w-auto object-contain" onerror="this.style.display='none'"/>
+      <span class="font-headline text-lg font-black tracking-tight">MISFITS_STUDIOS</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-sm font-headline tracking-widest">
+      <a class="text-muted hover:text-accent transition-all" href="/">HOME</a>
+      <a class="text-muted hover:text-accent transition-all" href="/plugins.html">PLUGINS</a>
+      <a class="text-muted hover:text-accent transition-all" href="/apps.html">APPS</a>
+      <a class="text-muted hover:text-accent transition-all" href="/about.html">ABOUT</a>
+      <a class="text-muted hover:text-accent transition-all" href="/support.html">SUPPORT</a>
+    </nav>
+  </div>
+</header>
+
+<main class="max-w-5xl mx-auto px-6 py-20 md:py-28 text-center">
+
+  <div class="inline-block mb-2 px-3 py-1 bg-surface border border-surface-hi rounded-sm font-mono text-xs text-muted uppercase tracking-widest scanline">
+    ▸ ERR_NO_ROUTE · ASSET NOT FOUND
+  </div>
+
+  <h1 class="glitch font-headline font-black text-[22vw] md:text-[15rem] leading-none" data-text="404">404</h1>
+
+  <p class="font-mono text-lg md:text-xl text-accent mt-8 max-w-2xl mx-auto">
+    // the page you requested does not exist in this server's memory
+  </p>
+
+  <p class="font-body text-paper/80 mt-4 max-w-xl mx-auto">
+    Broken link, renamed plugin, or straight-up vibes. Pick a direction below.
+  </p>
+
+  <div class="mt-12 grid md:grid-cols-3 gap-4 max-w-3xl mx-auto">
+    <a href="/" class="group bg-surface hover:bg-surface-hi border border-surface-hi hover:border-primary p-6 text-left transition-all">
+      <div class="font-mono text-xs text-muted uppercase tracking-widest mb-1">01 ·</div>
+      <div class="font-headline text-xl font-black text-paper group-hover:text-primary">HOME →</div>
+      <div class="text-sm text-muted mt-2">Back to the studio.</div>
+    </a>
+    <a href="/plugins.html" class="group bg-surface hover:bg-surface-hi border border-surface-hi hover:border-accent p-6 text-left transition-all">
+      <div class="font-mono text-xs text-muted uppercase tracking-widest mb-1">02 ·</div>
+      <div class="font-headline text-xl font-black text-paper group-hover:text-accent">PLUGINS →</div>
+      <div class="text-sm text-muted mt-2">Browse the full catalog.</div>
+    </a>
+    <a href="/support.html" class="group bg-surface hover:bg-surface-hi border border-surface-hi hover:border-tertiary p-6 text-left transition-all">
+      <div class="font-mono text-xs text-muted uppercase tracking-widest mb-1">03 ·</div>
+      <div class="font-headline text-xl font-black text-paper group-hover:text-tertiary">REPORT →</div>
+      <div class="text-sm text-muted mt-2">Tell us what you were looking for.</div>
+    </a>
+  </div>
+
+  <div class="mt-20 pt-8 border-t border-surface-hi text-xs font-mono text-muted uppercase tracking-widest">
+    STATUS: <span class="text-accent">ONLINE</span> · 404 logged · no action needed
+  </div>
+
+</main>
+
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>FlyingFish — Misfits Studios</title>
+<meta name="description" content="Periodically spawns a cluster of sharks that leap out of the water and splash back down. Fully configurable."/>
+<link rel="canonical" href="https://misfits-studios.com/products/flyingfish.html"/>
+<link rel="icon" href="/NewLogo.png"/>
+<meta property="og:title" content="FlyingFish — Misfits Studios"/>
+<meta property="og:description" content="Periodically spawns a cluster of sharks that leap out of the water and splash back down. Fully configurable."/>
+<meta property="og:image" content="https://misfits-studios.com/NewLogo.png"/>
+<meta property="og:type" content="product"/>
+<meta property="og:url" content="https://misfits-studios.com/products/flyingfish.html"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="FlyingFish — Misfits Studios"/>
+<meta name="twitter:description" content="Periodically spawns a cluster of sharks that leap out of the water and splash back down. Fully configurable."/>
+<meta name="twitter:image" content="https://misfits-studios.com/NewLogo.png"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
+<script src="https://cdn.paddle.com/paddle/v2/paddle.js" defer></script>
+<script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: { extend: {
+      colors: { "bg":"#060e20","surface":"#091328","surface-hi":"#141f38","paper":"#dee5ff","muted":"#a3aac4","primary":"#cc97ff","accent":"#53ddfc","tertiary":"#ff86c3" },
+      borderRadius: { DEFAULT:"0.125rem", sm:"0.125rem", md:"0.375rem", lg:"0.5rem" },
+      fontFamily: { headline:["Space Grotesk","sans-serif"], body:["Inter","sans-serif"], mono:["JetBrains Mono","monospace"] }
+    }}
+  };
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"FlyingFish","description":"Periodically spawns a cluster of sharks that leap out of the water and splash back down. Fully configurable.","sku":"flyingfish","brand":{"@type":"Brand","name":"Misfits Studios"},"category":"Software > Rust Plugin","offers":{"@type":"Offer","price":"9.99","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://misfits-studios.com/products/flyingfish.html"}}</script>
+<style>
+  html, body { background:#060e20; color:#dee5ff; }
+  .ob-data-label { font-family:'Space Grotesk',sans-serif; text-transform:uppercase; letter-spacing:.25em; font-size:10px; color:#a3aac4; }
+  .content-card { background:#091328; border-left:4px solid #cc97ff; padding:24px 28px; margin-bottom:20px; }
+  .content-card h2 { font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:900; color:#dee5ff; text-transform:uppercase; letter-spacing:.05em; margin-bottom:10px; }
+  .content-card p, .content-card li { font-size:14px; line-height:1.7; color:rgba(222,229,255,.88); }
+  .content-card ul { list-style:disc; padding-left:22px; margin:8px 0; }
+  .content-card a { color:#53ddfc; text-decoration:underline; text-underline-offset:3px; }
+  .content-card a:hover { color:#cc97ff; }
+  .hero-card { background:linear-gradient(135deg,#091328 0%,#141f38 100%); border-left:6px solid #ff86c3; padding:40px 36px; margin-bottom:28px; position:relative; overflow:hidden; }
+  .hero-card::after { content:''; position:absolute; right:-60px; top:-60px; width:200px; height:200px; background:radial-gradient(circle,#cc97ff33 0%,transparent 70%); pointer-events:none; }
+  .chip { display:inline-block; padding:4px 10px; margin:0 6px 6px 0; background:#141f38; border:1px solid #141f38; border-radius:2px; font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:#a3aac4; }
+  .chip-accent { color:#53ddfc; border-color:#53ddfc55; }
+  .chip-tertiary { color:#ff86c3; border-color:#ff86c355; }
+  .price-huge { font-family:'Space Grotesk',sans-serif; font-weight:900; font-size:72px; line-height:1; color:#cc97ff; text-shadow:0 0 24px #cc97ff55; }
+  .buy-btn { display:inline-block; padding:16px 32px; background:#53ddfc; color:#060e20; font-family:'Space Grotesk',sans-serif; font-weight:900; text-transform:uppercase; letter-spacing:.15em; font-size:14px; border:0; cursor:pointer; transition:all .2s; margin-top:18px; }
+  .buy-btn:hover { background:#cc97ff; color:#060e20; transform:translate(-2px,-2px); box-shadow:4px 4px 0 #ff86c3; }
+  .buy-btn-disabled { background:#141f38; color:#a3aac4; cursor:not-allowed; }
+  .buy-btn-disabled:hover { background:#141f38; color:#a3aac4; transform:none; box-shadow:none; }
+  .long-desc { font-size:16px; line-height:1.8; color:rgba(222,229,255,.92); margin-top:14px; }
+  .related-card { background:#091328; border-left:3px solid #53ddfc; padding:18px 20px; transition:all .2s; text-decoration:none; }
+  .related-card:hover { border-left-color:#ff86c3; background:#141f38; transform:translate(-2px,-2px); }
+  .tech-row { display:flex; justify-content:space-between; border-bottom:1px dashed #141f38; padding:10px 0; font-size:13px; }
+  .tech-row .k { font-family:'Space Grotesk',sans-serif; text-transform:uppercase; letter-spacing:.15em; color:#a3aac4; font-size:11px; }
+  .tech-row .v { font-family:'JetBrains Mono',monospace; color:#dee5ff; }
+  .back-link { font-family:'JetBrains Mono',monospace; font-size:12px; color:#a3aac4; text-transform:uppercase; letter-spacing:.2em; }
+  .back-link:hover { color:#53ddfc; }
+</style>
+</head>
+<body class="bg-bg text-paper font-body">
+
+<header class="sticky top-0 z-40 bg-bg/95 backdrop-blur border-b border-surface-hi">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="/index.html" class="flex items-center gap-3">
+      <img src="/NewLogo.png" alt="Misfits Studios" class="h-10 w-auto object-contain" onerror="this.style.display='none'"/>
+      <span class="font-headline text-lg font-black tracking-tight">MISFITS_STUDIOS</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-sm font-headline tracking-widest">
+      <a class="text-muted hover:text-accent transition-all" href="/index.html">HOME</a>
+      <a class="text-primary border-b-2 border-primary pb-1" href="/plugins.html">PLUGINS</a>
+      <a class="text-muted hover:text-accent transition-all" href="/apps.html">APPS</a>
+      <a class="text-muted hover:text-accent transition-all" href="/about.html">ABOUT</a>
+      <a class="text-muted hover:text-accent transition-all" href="/support.html">SUPPORT</a>
+      <a class="text-muted hover:text-accent transition-all" href="/terms.html">LEGAL</a>
+    </nav>
+  </div>
+</header>
+
+<main class="max-w-5xl mx-auto px-6 py-12">
+
+  <a href="/plugins.html" class="back-link">[ ← back to plugins ]</a>
+
+  <section class="hero-card mt-4">
+    <p class="ob-data-label mb-2">// plugin  ·  v1.0.0</p>
+    <h1 class="font-headline text-5xl md:text-7xl font-black uppercase italic mb-3">FlyingFish</h1>
+    <p class="text-lg md:text-xl text-paper/90 mb-5">Jumping shark clusters</p>
+    <div class="mb-5">
+      <span class="chip chip-accent">v1.0.0</span>
+      <span class="chip chip-tertiary">plugin</span>
+      <span class="chip">sharks</span><span class="chip">water</span><span class="chip">spawns</span><span class="chip">ambient</span>
+    </div>
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mt-8">
+      <div>
+        <p class="ob-data-label mb-1">// price</p>
+        <p class="price-huge">$9.99</p>
+      </div>
+      <div><span class="buy-btn buy-btn-disabled" aria-disabled="true">Checkout coming soon</span></div>
+    </div>
+  </section>
+
+  <section class="content-card">
+    <h2>Overview</h2>
+    <p style="font-size:16px; color:#dee5ff;">Periodically spawns a cluster of sharks that leap out of the water and splash back down. Fully configurable.</p>
+    
+  </section>
+
+  
+
+  <section class="content-card">
+    <h2>What you get</h2>
+    <ul>
+      <li>The <code class="font-mono text-accent">FlyingFish.cs</code> plugin file, ready to drop into <code class="font-mono">oxide/plugins/</code> or <code class="font-mono">carbon/plugins/</code>.</li>
+      <li>Lifetime updates — every future version, free.</li>
+      <li>Discord support from the Misfits Studios community.</li>
+      <li>Per-server license — install on all the servers you run.</li>
+    </ul>
+  </section>
+
+  <section class="content-card">
+    <h2>Technical details</h2>
+    <div class="tech-row"><span class="k">ID</span><span class="v">flyingfish</span></div>
+    <div class="tech-row"><span class="k">Slug</span><span class="v">flyingfish</span></div>
+    <div class="tech-row"><span class="k">Version</span><span class="v">1.0.0</span></div>
+    <div class="tech-row"><span class="k">Category</span><span class="v">plugin</span></div>
+    <div class="tech-row"><span class="k">Author</span><span class="v">xADROCx</span></div>
+    <div class="tech-row"><span class="k">Tags</span><span class="v">sharks, water, spawns, ambient</span></div>
+  </section>
+
+  
+  <section class="mt-16">
+    <p class="ob-data-label mb-3">// related</p>
+    <h2 class="font-headline text-3xl md:text-4xl font-black uppercase italic mb-6">You_Might_Also_Like</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      
+      <a href="/products/boatnitro.html" class="related-card block">
+        <p class="ob-data-label mb-1">// plugin</p>
+        <h3 class="font-headline text-xl font-black uppercase mb-2">BoatNitro</h3>
+        <p class="text-sm text-muted mb-3">Shift-to-boost for every boat</p>
+        <span class="font-mono text-xs text-accent">$9.99  →</span>
+      </a>
+      <a href="/products/deepseaspeed.html" class="related-card block">
+        <p class="ob-data-label mb-1">// plugin</p>
+        <h3 class="font-headline text-xl font-black uppercase mb-2">Deep Sea Speed</h3>
+        <p class="text-sm text-muted mb-3">Modular boat speed + nitro</p>
+        <span class="font-mono text-xs text-accent">$9.99  →</span>
+      </a>
+      <a href="/products/sharkbaitcrate.html" class="related-card block">
+        <p class="ob-data-label mb-1">// plugin</p>
+        <h3 class="font-headline text-xl font-black uppercase mb-2">SharkBaitCrate</h3>
+        <p class="text-sm text-muted mb-3">Ocean crate + shark event</p>
+        <span class="font-mono text-xs text-accent">$7.99  →</span>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="bg-ink px-6 py-12 border-t border-surface-hi mt-12">
+  <div class="max-w-7xl mx-auto text-center text-xs text-muted font-mono tracking-widest uppercase">
+    © 2026 Misfits Studios · <a href="/terms.html" class="hover:text-accent">Terms</a> · <a href="/privacy.html" class="hover:text-accent">Privacy</a> · <a href="/refund.html" class="hover:text-accent">Refund</a>
+  </div>
+</footer>
+
+<script>
+  // Paddle init — no-op if token isn't set on the window.
+  (function () {
+    if (window.Paddle && typeof window.Paddle.Initialize === 'function' && window.__misfits_paddle_token) {
+      try { window.Paddle.Initialize({ token: window.__misfits_paddle_token }); } catch (e) { console.warn('Paddle init failed', e); }
+    } else if (window.__misfits_paddle_token) {
+      // Paddle script loads async — retry once it's ready.
+      document.addEventListener('DOMContentLoaded', function () {
+        if (window.Paddle && window.Paddle.Initialize) {
+          try { window.Paddle.Initialize({ token: window.__misfits_paddle_token }); } catch (e) {}
+        }
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>
