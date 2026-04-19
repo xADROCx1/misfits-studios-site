@@ -17,6 +17,44 @@ The store supports **two** payment backends, both wired up:
 
 ---
 
+## ⚡ One-command Paddle go-live
+
+If you're using Paddle (verified and ready), the entire pipeline is:
+
+```bash
+# 1. Put your two Paddle tokens into scripts/.env:
+#    PADDLE_API_KEY=pdl_live_apikey_...                (from vendors.paddle.com/authentication)
+#    PADDLE_SANDBOX_API_KEY=pdl_sdbx_apikey_...        (optional, for sandbox testing)
+#    PADDLE_CLIENT_TOKEN=live_...                      (browser-side token, same page)
+cp scripts/.env.example scripts/.env
+${EDITOR:-notepad} scripts/.env
+
+# 2. Preview what will happen (no API calls, no commits)
+node scripts/go-live-paddle.js --sandbox --dry-run
+
+# 3. Run it in SANDBOX first (safe — creates products in your Paddle sandbox only)
+node scripts/go-live-paddle.js --sandbox
+
+# 4. When satisfied, run it LIVE (will prompt for "yes, go live" confirmation)
+node scripts/go-live-paddle.js
+```
+
+Each `go-live-paddle` invocation runs 5 phases automatically:
+1. Pre-flight checks (keys present, products.json valid)
+2. Bulk-creates all 48 products + prices + checkout URLs in Paddle via API
+3. Syncs the new Paddle IDs + URLs back into `products.json`
+4. Injects the client-side token into every HTML `<head>` (so Paddle.js overlays work)
+5. `git add + commit + push` → Cloudflare auto-redeploys (~30s)
+
+Flags:
+- `--sandbox` — use sandbox API key (recommended first run)
+- `--dry-run` — preview without any API calls or file changes
+- `--no-commit` — skip phase 5 (inspect changes before pushing yourself)
+- `--only=bulk` / `--only=sync` / `--only=inject` / `--only=commit` — run one phase only
+- `--yes` — skip the "yes, go live" prompt (for CI/automation)
+
+---
+
 ## Architecture at a glance
 
 ```
