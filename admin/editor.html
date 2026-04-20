@@ -483,9 +483,117 @@
     .nav { flex-direction: row; overflow-x: auto; }
     .side { max-height: 50vh; }
   }
+
+  /* -------- Password gate (access wall) -------- */
+  #pw-gate {
+    position: fixed; inset: 0; z-index: 10000;
+    background: radial-gradient(circle at 50% 30%, #0a0018 0%, #000 70%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  #pw-gate.hidden { display: none; }
+  .pw-box {
+    width: 380px; max-width: calc(100vw - 40px);
+    background: #0a0a14;
+    border: 1px solid rgba(0, 242, 255, 0.25);
+    padding: 36px 32px 28px;
+    box-shadow: 0 0 60px rgba(255, 26, 143, 0.2), 0 0 120px rgba(0, 242, 255, 0.12);
+    position: relative;
+  }
+  .pw-box::before {
+    content: ''; position: absolute; inset: -1px;
+    background: linear-gradient(135deg, var(--cyan), var(--pink), var(--mint));
+    z-index: -1; filter: blur(6px); opacity: 0.35;
+  }
+  .pw-logo {
+    font-family: var(--font-display); font-size: 20px; letter-spacing: 0.08em;
+    background: linear-gradient(90deg, var(--cyan), var(--pink));
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 4px;
+  }
+  .pw-title { font-family: var(--font-head); font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
+  .pw-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .pw-input {
+    width: 100%; background: #05050c; border: 1px solid rgba(0, 242, 255, 0.2); color: var(--paper);
+    padding: 12px 14px; font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.08em;
+    outline: none; transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .pw-input:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(0, 242, 255, 0.15); }
+  .pw-btn {
+    width: 100%; margin-top: 16px; padding: 12px; background: var(--cyan); color: #000;
+    border: none; font-family: var(--font-head); font-weight: 700; font-size: 13px;
+    letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer;
+    transition: background 0.15s, transform 0.05s;
+  }
+  .pw-btn:hover { background: #00d8e3; }
+  .pw-btn:active { transform: translateY(1px); }
+  .pw-err {
+    margin-top: 12px; font-family: var(--font-mono); font-size: 11px; color: var(--danger);
+    opacity: 0; transition: opacity 0.2s;
+  }
+  .pw-err.show { opacity: 1; }
+  .pw-box.shake { animation: pw-shake 0.4s; }
+  @keyframes pw-shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-8px); }
+    40%, 80% { transform: translateX(8px); }
+  }
+  .pw-foot {
+    margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line);
+    font-family: var(--font-mono); font-size: 10px; color: var(--muted); letter-spacing: 0.06em;
+  }
+
+  /* -------- Publish flow (new save modal) -------- */
+  .pub-primary {
+    width: 100%; padding: 20px; margin-top: 8px;
+    background: linear-gradient(135deg, var(--cyan), var(--mint));
+    color: #000; border: none; cursor: pointer;
+    font-family: var(--font-head); font-weight: 900; font-size: 14px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    transition: transform 0.05s, box-shadow 0.15s;
+    box-shadow: 0 4px 24px rgba(0, 242, 255, 0.3);
+  }
+  .pub-primary:hover { box-shadow: 0 6px 32px rgba(0, 242, 255, 0.45); }
+  .pub-primary:active { transform: translateY(1px); }
+  .pub-primary:disabled { opacity: 0.5; cursor: not-allowed; background: var(--muted); box-shadow: none; }
+
+  .pub-steps { margin-top: 20px; display: none; flex-direction: column; gap: 6px; }
+  .pub-steps.show { display: flex; }
+  .pub-step { display: flex; align-items: center; gap: 10px; padding: 8px 10px; font-family: var(--font-mono); font-size: 12px; border: 1px solid var(--line); background: #05050c; color: var(--muted); }
+  .pub-step .bullet { width: 14px; height: 14px; display: inline-flex; align-items: center; justify-content: center; color: var(--muted); font-size: 10px; }
+  .pub-step.active { color: var(--paper); border-color: rgba(0, 242, 255, 0.4); }
+  .pub-step.active .bullet { color: var(--cyan); }
+  .pub-step.done  { color: var(--mint); border-color: rgba(0, 255, 163, 0.3); }
+  .pub-step.done  .bullet { color: var(--mint); }
+  .pub-step.err   { color: var(--danger); border-color: rgba(255, 71, 87, 0.5); }
+
+  .pub-final { margin-top: 16px; padding: 12px; border: 1px solid rgba(0, 255, 163, 0.4); background: rgba(0, 255, 163, 0.05); font-family: var(--font-mono); font-size: 12px; color: var(--mint); display: none; }
+  .pub-final.show { display: block; }
+  .pub-final a { color: var(--cyan); text-decoration: underline; }
+
+  .pat-box { margin-top: 12px; padding: 12px; border: 1px dashed rgba(255, 235, 0, 0.3); background: rgba(255, 235, 0, 0.04); font-family: var(--font-mono); font-size: 11px; color: var(--paper); }
+  .pat-box label { display: block; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+  .pat-box a { color: var(--cyan); }
+
+  details.backup { margin-top: 20px; border-top: 1px solid var(--line); padding-top: 14px; }
+  details.backup > summary { cursor: pointer; font-family: var(--font-mono); font-size: 11px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; list-style: none; }
+  details.backup > summary::before { content: '▸ '; }
+  details.backup[open] > summary::before { content: '▾ '; }
 </style>
 </head>
 <body>
+
+<!-- PASSWORD GATE -->
+<div id="pw-gate">
+  <div class="pw-box" id="pw-box">
+    <div class="pw-logo">MISFITS</div>
+    <div class="pw-title">Editor · Access Required</div>
+    <div class="pw-label">Password</div>
+    <input type="password" class="pw-input" id="pw-input" autofocus autocomplete="off" spellcheck="false" />
+    <button class="pw-btn" id="pw-btn">Enter</button>
+    <div class="pw-err" id="pw-err">Wrong password. Try again.</div>
+    <div class="pw-foot">Access wall for the product editor. This page is not indexed and not linked from anywhere public.</div>
+  </div>
+</div>
 
 <div class="app" id="app">
 
@@ -556,46 +664,54 @@
   </div>
 </div>
 
-<!-- SAVE MODAL -->
+<!-- PUBLISH MODAL -->
 <div class="modal-bg" id="modal-bg">
   <div class="modal" onclick="event.stopPropagation()">
-    <h3>Save Changes</h3>
+    <h3>Publish Changes</h3>
     <div class="modal-body">
-      <div class="save-opt" onclick="downloadJSON()">
-        <div class="glyph">&#11015;</div>
-        <div>
-          <div class="t">Download JSON</div>
-          <div class="d">Save products.json to your Downloads folder.</div>
-        </div>
+      <div style="font-family:var(--font-mono);font-size:12px;color:var(--muted);line-height:1.6;">
+        One click pushes your changes straight to the live site. Takes ~30–60 seconds total:
+        commit to GitHub → Cloudflare builds → new version served.
       </div>
-      <div class="save-opt" onclick="copyJSON()">
-        <div class="glyph">&#9783;</div>
-        <div>
-          <div class="t">Copy to Clipboard</div>
-          <div class="d">Copy full JSON; paste into git or anywhere.</div>
-        </div>
+
+      <!-- PAT setup (shown only if no stored token) -->
+      <div class="pat-box" id="pat-setup" style="display:none">
+        <label>First-time setup · GitHub Access Token</label>
+        <div style="margin-bottom:8px">This editor needs a GitHub Personal Access Token (classic, "repo" scope) to write changes. <a href="https://github.com/settings/tokens/new?description=Misfits%20Editor&scopes=repo" target="_blank" rel="noreferrer">Create one here</a> — takes 20 seconds. Paste below. Stored locally in this browser only, never sent to Misfits servers.</div>
+        <input type="password" class="inp" id="gh-token" placeholder="ghp_..." autocomplete="off" style="width:100%;margin-bottom:8px" />
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+          <input type="checkbox" id="gh-token-remember" checked />
+          <span style="text-transform:none;letter-spacing:normal;color:var(--paper)">Remember on this browser (recommended)</span>
+        </label>
       </div>
-      <div class="save-opt" onclick="toggleGH()">
-        <div class="glyph">&#9881;</div>
-        <div style="flex:1">
-          <div class="t">Commit via GitHub <span style="font-family:var(--font-mono);font-size:10px;color:var(--muted)">(xADROCx1/misfits-studios-site)</span></div>
-          <div class="d">Commits products.json directly to main. Requires a PAT (repo scope).</div>
-          <div class="gh-form" id="gh-form">
-            <div class="field">
-              <label>GitHub Personal Access Token</label>
-              <input type="password" class="inp" id="gh-token" placeholder="ghp_..." autocomplete="off" />
-              <div class="hint">Stored only in memory for this session.</div>
-            </div>
-            <div class="field">
-              <label>Commit Message</label>
-              <input type="text" class="inp" id="gh-msg" value="Update products.json via editor" />
-            </div>
-            <button class="btn btn-primary" style="width:100%" onclick="commitToGH(event)">Commit Now</button>
-            <div class="gh-status" id="gh-status"></div>
-          </div>
-        </div>
+
+      <!-- Primary publish button -->
+      <button class="pub-primary" id="pub-btn" onclick="publishNow()">▸ Publish to Live Site</button>
+
+      <!-- Commit message (subtle, with sensible default) -->
+      <div style="margin-top:12px;font-family:var(--font-mono);font-size:11px;color:var(--muted);">Commit message</div>
+      <input type="text" class="inp" id="gh-msg" value="Update products.json via editor" style="width:100%;margin-top:4px" />
+
+      <!-- Live progress steps -->
+      <div class="pub-steps" id="pub-steps">
+        <div class="pub-step" id="step-1"><span class="bullet">◌</span><span>Validating token</span></div>
+        <div class="pub-step" id="step-2"><span class="bullet">◌</span><span>Committing to GitHub (main)</span></div>
+        <div class="pub-step" id="step-3"><span class="bullet">◌</span><span>Waiting for Cloudflare to build + deploy</span></div>
+        <div class="pub-step" id="step-4"><span class="bullet">◌</span><span>Verifying new content is live</span></div>
       </div>
-      <button class="btn" style="width:100%;margin-top:10px" onclick="closeModal()">Close</button>
+      <div class="pub-final" id="pub-final"></div>
+
+      <!-- Backup paths, collapsed by default -->
+      <details class="backup">
+        <summary>Backup options</summary>
+        <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px">
+          <button class="btn" onclick="downloadJSON()">▾ Download products.json (doesn't publish)</button>
+          <button class="btn" onclick="copyJSON()">⎘ Copy JSON to clipboard (doesn't publish)</button>
+          <button class="btn" onclick="forgetPAT()" id="forget-pat-btn" style="display:none">✕ Forget saved GitHub token</button>
+        </div>
+      </details>
+
+      <button class="btn" style="width:100%;margin-top:14px" onclick="closeModal()">Close</button>
     </div>
   </div>
 </div>
@@ -1252,32 +1368,120 @@ function markAllClean() {
   renderGrid();
 }
 
-/* GitHub commit */
-async function commitToGH(e) {
-  if (e) e.preventDefault();
-  const token = document.getElementById('gh-token').value.trim();
-  const msg = document.getElementById('gh-msg').value.trim() || 'Update products.json';
-  const statusEl = document.getElementById('gh-status');
-  statusEl.className = 'gh-status show wait';
-  statusEl.innerHTML = '<span class="spinner"></span>Fetching current file SHA...';
-  if (!token) { statusEl.className = 'gh-status show err'; statusEl.textContent = 'Token required.'; return; }
+/* ============================================================
+ *  PAT PERSISTENCE
+ * ============================================================ */
+const PAT_KEY = '__misfits_editor_gh_pat_v1';
+function getStoredPAT() {
+  try {
+    const v = localStorage.getItem(PAT_KEY);
+    if (!v) return '';
+    // Light obfuscation (base64). Not real crypto — just stops at-a-glance exposure.
+    return atob(v);
+  } catch (_) { return ''; }
+}
+function setStoredPAT(tok) {
+  try { localStorage.setItem(PAT_KEY, btoa(tok)); } catch (_) {}
+}
+function clearStoredPAT() {
+  try { localStorage.removeItem(PAT_KEY); } catch (_) {}
+}
+function forgetPAT() {
+  clearStoredPAT();
+  toast('Forgot saved GitHub token', 'ok');
+  syncPATUI();
+}
+function syncPATUI() {
+  const stored = getStoredPAT();
+  const patSetup = document.getElementById('pat-setup');
+  const forgetBtn = document.getElementById('forget-pat-btn');
+  if (stored) {
+    patSetup.style.display = 'none';
+    if (forgetBtn) forgetBtn.style.display = '';
+  } else {
+    patSetup.style.display = '';
+    if (forgetBtn) forgetBtn.style.display = 'none';
+  }
+}
+
+/* ============================================================
+ *  PUBLISH FLOW — commit + wait for Cloudflare + verify live
+ * ============================================================ */
+function setStep(n, state, extra) {
+  const el = document.getElementById('step-' + n);
+  if (!el) return;
+  el.classList.remove('active', 'done', 'err');
+  el.classList.add(state);
+  const bullet = el.querySelector('.bullet');
+  if (bullet) {
+    bullet.textContent = state === 'done' ? '✓' : state === 'err' ? '✗' : state === 'active' ? '◉' : '◌';
+  }
+  if (extra) {
+    let label = el.querySelector('span:nth-child(2)');
+    if (label && !label.dataset.orig) label.dataset.orig = label.textContent;
+    if (label) label.textContent = (label.dataset.orig || label.textContent) + ' · ' + extra;
+  }
+}
+function resetSteps() {
+  for (let i = 1; i <= 4; i++) {
+    const el = document.getElementById('step-' + i);
+    el.classList.remove('active', 'done', 'err');
+    const bullet = el.querySelector('.bullet');
+    if (bullet) bullet.textContent = '◌';
+    let label = el.querySelector('span:nth-child(2)');
+    if (label && label.dataset.orig) label.textContent = label.dataset.orig;
+  }
+  document.getElementById('pub-final').classList.remove('show');
+  document.getElementById('pub-final').innerHTML = '';
+  document.getElementById('pub-steps').classList.add('show');
+}
+
+async function publishNow() {
+  // Resolve token from storage or input
+  let token = getStoredPAT();
+  const inputEl = document.getElementById('gh-token');
+  const rememberEl = document.getElementById('gh-token-remember');
+  if (!token && inputEl) {
+    token = inputEl.value.trim();
+    if (token && rememberEl && rememberEl.checked) setStoredPAT(token);
+  }
+  if (!token) {
+    toast('Enter your GitHub token first', 'err');
+    if (inputEl) inputEl.focus();
+    return;
+  }
+
+  const btn = document.getElementById('pub-btn');
+  btn.disabled = true;
+  btn.textContent = 'Publishing...';
+  resetSteps();
+
   const repo = 'xADROCx1/misfits-studios-site';
   const path = 'products.json';
   const branch = 'main';
   const api = `https://api.github.com/repos/${repo}/contents/${path}`;
+  const msg = (document.getElementById('gh-msg').value || '').trim() || 'Update products.json via editor';
+
+  // Stamp the payload with an edit timestamp so the CDN-verify step has something unambiguous to poll for
+  const stamp = new Date().toISOString();
+  if (S.raw) S.raw.last_editor_update = stamp;
+  const contentStr = serializedJSON();
+
   try {
-    const getR = await fetch(api + '?ref=' + branch, {
-      headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github+json' }
-    });
-    if (!getR.ok) {
-      const t = await getR.text();
-      throw new Error('GET failed: ' + getR.status + ' ' + t.slice(0, 200));
-    }
+    // STEP 1 — validate token
+    setStep(1, 'active');
+    const meR = await fetch('https://api.github.com/user', { headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github+json' } });
+    if (!meR.ok) throw new Error('token rejected (' + meR.status + ') — create a new PAT with "repo" scope');
+    const meJ = await meR.json();
+    setStep(1, 'done', '@' + meJ.login);
+
+    // STEP 2 — commit
+    setStep(2, 'active');
+    const getR = await fetch(api + '?ref=' + branch, { headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github+json' } });
+    if (!getR.ok) throw new Error('GET products.json failed (' + getR.status + ')');
     const getJ = await getR.json();
     const sha = getJ.sha;
-    statusEl.innerHTML = '<span class="spinner"></span>Committing...';
-    const content = serializedJSON();
-    const b64 = btoa(unescape(encodeURIComponent(content)));
+    const b64 = btoa(unescape(encodeURIComponent(contentStr)));
     const putR = await fetch(api, {
       method: 'PUT',
       headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json' },
@@ -1285,16 +1489,68 @@ async function commitToGH(e) {
     });
     if (!putR.ok) {
       const t = await putR.text();
-      throw new Error('PUT failed: ' + putR.status + ' ' + t.slice(0, 200));
+      throw new Error('commit failed (' + putR.status + '): ' + t.slice(0, 160));
     }
     const putJ = await putR.json();
-    statusEl.className = 'gh-status show ok';
-    statusEl.innerHTML = '&#10003; Committed! <a href="' + (putJ.commit?.html_url || '#') + '" target="_blank" style="color:var(--cyan)">View commit</a>';
-    toast('Pushed to GitHub main', 'ok');
+    const commitUrl = putJ.commit && putJ.commit.html_url || '';
+    const commitSha = (putJ.commit && putJ.commit.sha || '').slice(0, 7);
+    setStep(2, 'done', commitSha);
+
+    // STEP 3 — wait for Cloudflare build (typical 30–60s)
+    setStep(3, 'active');
+    // Cloudflare Pages "Deploy on push" starts within seconds; we don't have a build-status API without extra tokens,
+    // so we poll the live products.json URL for the timestamp we just committed. That's the actual source-of-truth.
+    const liveUrl = (location.origin.includes('localhost') ? 'https://misfits-studios.com' : location.origin) + '/products.json';
+    const startMs = Date.now();
+    const MAX_MS = 180000; // 3 min hard cap
+    let lastStatus = '';
+    let deployed = false;
+    while (Date.now() - startMs < MAX_MS) {
+      try {
+        const r = await fetch(liveUrl + '?_=' + Date.now(), { cache: 'no-store' });
+        if (r.ok) {
+          const j = await r.json();
+          if (j && j.last_editor_update === stamp) { deployed = true; break; }
+          lastStatus = j && j.last_editor_update ? 'old stamp' : 'no stamp yet';
+        } else {
+          lastStatus = 'HTTP ' + r.status;
+        }
+      } catch (e) { lastStatus = 'net err'; }
+      const elapsed = Math.round((Date.now() - startMs) / 1000);
+      setStep(3, 'active', elapsed + 's · ' + lastStatus);
+      await new Promise(r => setTimeout(r, 4000));
+    }
+    if (!deployed) {
+      setStep(3, 'err', 'timeout — Cloudflare may still be building');
+      throw new Error('deploy did not complete within 3 min. The commit landed on GitHub — check Cloudflare Pages dashboard for build status.');
+    }
+    const secs = Math.round((Date.now() - startMs) / 1000);
+    setStep(3, 'done', secs + 's');
+
+    // STEP 4 — verify (we already confirmed, but surface it as its own tick for clarity)
+    setStep(4, 'active');
+    setStep(4, 'done', 'live');
+
+    // Success card
+    const finalEl = document.getElementById('pub-final');
+    finalEl.innerHTML =
+      '✓ Published!<br/>' +
+      (commitUrl ? '<a href="' + commitUrl + '" target="_blank">View commit ' + commitSha + '</a> · ' : '') +
+      '<a href="/" target="_blank">Open live site</a>';
+    finalEl.classList.add('show');
+    toast('Published to live site', 'ok');
     markAllClean();
   } catch (err) {
-    statusEl.className = 'gh-status show err';
-    statusEl.textContent = 'Error: ' + err.message;
+    const finalEl = document.getElementById('pub-final');
+    finalEl.style.color = 'var(--danger)';
+    finalEl.style.borderColor = 'rgba(255, 71, 87, 0.5)';
+    finalEl.style.background = 'rgba(255, 71, 87, 0.06)';
+    finalEl.innerHTML = '✗ ' + (err.message || err);
+    finalEl.classList.add('show');
+    toast('Publish failed: ' + err.message, 'err');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '▸ Publish to Live Site';
   }
 }
 
@@ -1315,18 +1571,74 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-/* ---------- Wire up ---------- */
-document.querySelectorAll('.nav-item').forEach(n => {
-  n.addEventListener('click', () => setFilter(n.dataset.cat));
-});
-document.getElementById('add-new').addEventListener('click', addNew);
-document.getElementById('undo-btn').addEventListener('click', undo);
-document.getElementById('redo-btn').addEventListener('click', redo);
-document.getElementById('save-btn').addEventListener('click', () => { if (S.dirty.size) openModal(); });
-document.getElementById('modal-bg').addEventListener('click', closeModal);
-document.getElementById('search').addEventListener('input', (e) => { S.query = e.target.value; renderGrid(); });
+/* ============================================================
+ *  PASSWORD GATE
+ * ============================================================ *
+ * This is a client-side access wall, not real security — the hash
+ * below is visible in source, and a determined person could bypass
+ * it by editing the DOM. Actual protection comes from:
+ *   1. The hidden-URL strategy (not linked, noindex/nofollow)
+ *   2. The GitHub PAT being required to actually publish anything
+ * The gate is a friction layer to discourage casual drive-bys.
+ * ============================================================ */
+const PW_HASH = '35e397e1ef2e0c78466b4db6c5c35f864544bfc20493a6236ee0d788cec46914';
+const PW_SESSION_KEY = '__misfits_editor_unlocked_v1';
 
-load();
+async function sha256Hex(s) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function tryPassword() {
+  const input = document.getElementById('pw-input');
+  const err   = document.getElementById('pw-err');
+  const box   = document.getElementById('pw-box');
+  const attempt = (input.value || '').trim();
+  if (!attempt) return;
+  const h = await sha256Hex(attempt);
+  if (h === PW_HASH) {
+    try { sessionStorage.setItem(PW_SESSION_KEY, '1'); } catch (_) {}
+    document.getElementById('pw-gate').classList.add('hidden');
+    bootEditor();
+  } else {
+    err.classList.add('show');
+    box.classList.remove('shake');
+    void box.offsetWidth; // reflow so animation replays
+    box.classList.add('shake');
+    input.select();
+  }
+}
+
+function wireGate() {
+  document.getElementById('pw-btn').addEventListener('click', tryPassword);
+  document.getElementById('pw-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); tryPassword(); }
+    if (e.key !== 'Escape') document.getElementById('pw-err').classList.remove('show');
+  });
+}
+
+function bootEditor() {
+  /* ---------- Wire up ---------- */
+  document.querySelectorAll('.nav-item').forEach(n => {
+    n.addEventListener('click', () => setFilter(n.dataset.cat));
+  });
+  document.getElementById('add-new').addEventListener('click', addNew);
+  document.getElementById('undo-btn').addEventListener('click', undo);
+  document.getElementById('redo-btn').addEventListener('click', redo);
+  document.getElementById('save-btn').addEventListener('click', () => { if (S.dirty.size) { syncPATUI(); openModal(); } });
+  document.getElementById('modal-bg').addEventListener('click', closeModal);
+  document.getElementById('search').addEventListener('input', (e) => { S.query = e.target.value; renderGrid(); });
+  syncPATUI();
+  load();
+}
+
+wireGate();
+try {
+  if (sessionStorage.getItem(PW_SESSION_KEY) === '1') {
+    document.getElementById('pw-gate').classList.add('hidden');
+    bootEditor();
+  }
+} catch (_) {}
 </script>
 </body>
 </html>
