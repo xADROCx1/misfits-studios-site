@@ -256,6 +256,10 @@ function renderPage(p, all) {
   .content-card a:hover { color:#cc97ff; }
   .hero-card { background:linear-gradient(135deg,#091328 0%,#141f38 100%); border-left:6px solid #ff86c3; padding:40px 36px; margin-bottom:28px; position:relative; overflow:hidden; }
   .hero-card::after { content:''; position:absolute; right:-60px; top:-60px; width:200px; height:200px; background:radial-gradient(circle,#cc97ff33 0%,transparent 70%); pointer-events:none; }
+  .hero-card-flex { display:flex; flex-direction:row; gap:32px; align-items:flex-start; }
+  .hero-card-flex .hero-main { flex:1; min-width:0; }
+  .hero-icon { flex:0 0 180px; width:180px; height:180px; object-fit:cover; border:2px solid rgba(0,255,163,.35); box-shadow:0 0 30px rgba(255,134,195,.2); background:#000; }
+  @media (max-width:720px) { .hero-card-flex { flex-direction:column; } .hero-icon { width:120px; height:120px; flex:0 0 120px; } }
   .chip { display:inline-block; padding:4px 10px; margin:0 6px 6px 0; background:#141f38; border:1px solid #141f38; border-radius:2px; font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:#a3aac4; }
   .chip-accent { color:#53ddfc; border-color:#53ddfc55; }
   .chip-tertiary { color:#ff86c3; border-color:#ff86c355; }
@@ -332,7 +336,9 @@ function renderPage(p, all) {
 
   <a href="/plugins.html" class="back-link">[ ← back to plugins ]</a>
 
-  <section class="hero-card msfts-hud-4 mt-4">
+  <section class="hero-card hero-card-flex msfts-hud-4 mt-4">
+    ${p.assets && p.assets.icon ? `<img class="hero-icon" src="${attr(p.assets.icon)}" alt="${attr(p.name)} icon" loading="eager"/>` : ''}
+    <div class="hero-main">
     <p class="ob-data-label mb-2">// ${esc(p.category || 'plugin')}  ·  v${esc(p.version)}</p>
     <h1 class="msfts-display msfts-glow-mint text-5xl md:text-7xl font-black uppercase mb-3">${esc(p.name)}</h1>
     <p class="text-lg md:text-xl text-paper/90 mb-5">${esc(p.tagline || '')}</p>
@@ -347,6 +353,7 @@ function renderPage(p, all) {
         <p class="price-huge">${esc(p.price_label)}</p>
       </div>
       <div>${buyButton(p)}</div>
+    </div>
     </div>
   </section>
 

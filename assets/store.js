@@ -44,14 +44,22 @@
       ? '<button type="button" data-add-to-cart="' + escapeHTML(p.id) + '" aria-label="Add ' + escapeHTML(p.name) + ' to cart" class="ml-2 bg-transparent border-2 border-mint text-mint font-black px-3 py-2 hover:bg-mint hover:text-bg active:translate-y-1 text-xs whitespace-nowrap" style="border-color:#00ffa3;color:#00ffa3" title="Add to cart">+ CART</button>'
       : '';
 
+    var iconUrl = p.assets && p.assets.icon ? p.assets.icon : '';
+    var iconBlock = iconUrl
+      ? '<div class="relative -mx-6 -mt-6 mb-2 aspect-square overflow-hidden bg-black">' +
+          '<img src="' + escapeHTML(iconUrl) + '" alt="" loading="lazy" class="w-full h-full object-cover" style="filter:saturate(1.1) contrast(1.05)"/>' +
+          '<div class="absolute top-3 right-3"><span class="ob-chip">' + escapeHTML(p.status.toUpperCase()) + '</span></div>' +
+        '</div>'
+      : '';
     return (
-      '<article class="bg-surface p-6 flex flex-col gap-3" data-product-id="' + p.id + '">' +
+      '<article class="bg-surface p-6 flex flex-col gap-3 overflow-hidden" data-product-id="' + p.id + '">' +
+        iconBlock +
         '<div class="flex items-start justify-between gap-4">' +
           '<div>' +
             '<h3 class="font-headline text-2xl font-black text-paper">' + escapeHTML(p.name) + '</h3>' +
             '<div class="ob-data-label mt-1">v' + escapeHTML(p.version) + ' · ' + escapeHTML(p.category.toUpperCase()) + '</div>' +
           '</div>' +
-          '<span class="ob-chip">' + escapeHTML(p.status.toUpperCase()) + '</span>' +
+          (iconUrl ? '' : '<span class="ob-chip">' + escapeHTML(p.status.toUpperCase()) + '</span>') +
         '</div>' +
         '<p class="font-body text-paper/80 text-sm">' + escapeHTML(p.short_description) + '</p>' +
         (p.features && p.features.length ? (

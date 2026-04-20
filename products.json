@@ -45,6 +45,9 @@
         "price_id": "pri_01kpm2ctgvwbzvpvxjbx0fdxrx",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vxe4ng50e8sr2nhd5b7a",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/dev2discord.png"
       }
     },
     {
@@ -76,6 +79,9 @@
         "price_id": null,
         "checkout_url": null,
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/misfitsui.png"
       }
     },
     {
@@ -110,6 +116,9 @@
         "price_id": "pri_01kpm2cv217k81hrmt0xt4zbfg",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vxaaf26cchxsrynf3n51",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/misfitscommands.png"
       }
     },
     {
@@ -141,6 +150,9 @@
         "price_id": "pri_01kpm2cvpn8z7dw3x15p13xmsf",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vx6e8fy1r0x9qfdrh444",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/airbags.png"
       }
     },
     {
@@ -171,6 +183,9 @@
         "price_id": "pri_01kpm2cw2bxfgmgkgfgj56mv52",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vx2vf5yv49rgd7fzap8j",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/alwaysstocked.png"
       }
     },
     {
@@ -200,6 +215,9 @@
         "price_id": "pri_01kpm2cwc625qaa5xjvef8qn9g",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vwzea8wq9pkesr8xjb1x",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/betterarmorinsert.png"
       }
     },
     {
@@ -230,6 +248,9 @@
         "price_id": "pri_01kpm2cwqycjeq3kr1y7481vkr",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vwvmcda3ydc6brv8jypg",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/boatnitro.png"
       }
     },
     {
@@ -259,6 +280,9 @@
         "price_id": "pri_01kpm2cx2c6egp29br63xf59b4",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vwqyg7bwt3vaq5ryh8d3",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/c4guns.png"
       }
     },
     {
@@ -289,6 +313,9 @@
         "price_id": "pri_01kpm2cxpb6pq6z7y1y3jyh1rv",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vwkkjpsw8p52mwfcn1f8",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/chickengun.png"
       }
     },
     {
@@ -318,6 +345,9 @@
         "price_id": "pri_01kpm2cxzw9ypb5yzbv0tyd62m",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vwgd3m7h1tb5r33zc6ke",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/chickenlover.png"
       }
     },
     {
@@ -347,6 +377,9 @@
         "price_id": "pri_01kpm2cy97g86nk1eqsnn6enp0",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vwc2tydb8ng2tcdt19bm",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/compostsplitter.png"
       }
     },
     {
@@ -377,6 +410,9 @@
         "price_id": "pri_01kpm2cyjxdh6q0df0z306zm2j",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vw8epx2tynr2j6jnv240",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/deadmanslocker.png"
       }
     },
     {
@@ -407,6 +443,9 @@
         "price_id": "pri_01kpm2cyxcvx6n2d1fdc4030zj",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vw31nr3w0wa7n4qtv6ak",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/deepseaspeed.png"
       }
     },
     {
@@ -436,6 +475,9 @@
         "price_id": "pri_01kpm2cz78fmd8bvzkddwq7jrp",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vvzadptgqq1f5vhx8sp9",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/eatall.png"
       }
     },
     {
@@ -465,6 +507,9 @@
         "price_id": "pri_01kpm2czwa5fnca9tebepdw3zh",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vvv39sjgvj1nysh1j8bf",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/entcount.png"
       }
     },
     {
@@ -495,6 +540,9 @@
         "price_id": "pri_01kpm2d05y7zs7j7hn3j8a8yy2",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vvqb277yc7k57z02qrmf",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/entitylimiter.png"
       }
     },
     {
@@ -525,6 +573,9 @@
         "price_id": "pri_01kpm2d0spcvnbmbfn4k2zmztj",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vvkp09rf0qq3jsaba3wk",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/flyingfish.png"
       }
     },
     {
@@ -555,6 +606,9 @@
         "price_id": "pri_01kpm2d13qtehrtfr7mf32ccd0",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vvfb7r6hq1djm5mv9sk0",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/flyingsubs.png"
       }
     },
     {
@@ -585,6 +639,9 @@
         "price_id": "pri_01kpm2d1dqsskm7hks00v49638",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vvatxg9dh9q8s278yzzr",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/happybee.png"
       }
     },
     {
@@ -614,6 +671,9 @@
         "price_id": "pri_01kpm2d1rardk6pdxhk2c9vdpb",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vv6tdw53eqat7r36zb7s",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/helinitro.png"
       }
     },
     {
@@ -644,6 +704,9 @@
         "price_id": "pri_01kpm2d221haf8tj8mj8ev87df",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vv2qem7cmdprp8d6ktxt",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/horsegun.png"
       }
     },
     {
@@ -673,6 +736,9 @@
         "price_id": "pri_01kpm2d2b993gehb8tr883tw7f",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vtyrejgprwc8n3kz791j",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/instanthelistartup.png"
       }
     },
     {
@@ -704,6 +770,9 @@
         "price_id": "pri_01kpm2d2mtc6nqcyp1k4yrvw6p",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vtte60nmah7shdqxd3st",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/keywordlog.png"
       }
     },
     {
@@ -733,6 +802,9 @@
         "price_id": "pri_01kpm2d2z7tj3bzzt25cr58ws6",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vtphyy0zaardt4mfetn1",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/loadedturrets.png"
       }
     },
     {
@@ -762,6 +834,9 @@
         "price_id": "pri_01kpm2d3kkp8zq9ghpje44gkny",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vtjbpys4c6v5gebzv25b",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/maxarmorcraft.png"
       }
     },
     {
@@ -791,6 +866,9 @@
         "price_id": "pri_01kpm2d3yn8hkvnepy58ejeccf",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vteqjdsed2ghxxba2s4y",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/motorbikenitro.png"
       }
     },
     {
@@ -821,6 +899,9 @@
         "price_id": "pri_01kpm2d485nw6yez77vkz784bz",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vta3bfctdba3pkz2h5xr",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/myboat.png"
       }
     },
     {
@@ -851,6 +932,9 @@
         "price_id": "pri_01kpm2d4j55d8m1781cg3tnamh",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vt68xgrpvhd08ww27fsc",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/nocratefire.png"
       }
     },
     {
@@ -880,6 +964,9 @@
         "price_id": "pri_01kpm2d5654zyhajems5teqxm0",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vt2epa29mq8rgjh6bwm0",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/playerlog.png"
       }
     },
     {
@@ -910,6 +997,9 @@
         "price_id": "pri_01kpm2d630hpqcehq6r9rbtm9q",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vsy87pttm6545974q1wg",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/sharkbaitcrate.png"
       }
     },
     {
@@ -940,6 +1030,9 @@
         "price_id": "pri_01kpm2d6cknpm09nnfm96meakj",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vsqzxbe60k12sh5s87fx",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/sharkgun.png"
       }
     },
     {
@@ -970,6 +1063,9 @@
         "price_id": "pri_01kpm2d78pcgazfzey979mhccd",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vskw8xeq7zkjca3027za",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/superammo.png"
       }
     },
     {
@@ -999,6 +1095,9 @@
         "price_id": "pri_01kpm2d7hrbcc74b833smrxxk2",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vsfdzahq253krdbm70kd",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/teamid.png"
       }
     },
     {
@@ -1029,6 +1128,9 @@
         "price_id": "pri_01kpm2d7v7vjwnq88dpxhqy1vd",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vsb7wrt38b49g7hvrgvg",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/treeremover.png"
       }
     },
     {
@@ -1061,6 +1163,9 @@
         "price_id": "pri_01kpm3eh8bvn4mbmzwqx23pqe6",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vs6qpbfsp2jnc3bhsvsh",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/neighborhoodwatch.png"
       }
     },
     {
@@ -1092,6 +1197,9 @@
         "price_id": "pri_01kpm3ehpp1qwdj23q3d8b4xed",
         "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vs1yw6mw7vrzn5mey07p",
         "environment": "live"
+      },
+      "assets": {
+        "icon": "/assets/products/rustconchat.png"
       }
     }
   ],

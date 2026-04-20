@@ -130,7 +130,9 @@ function buildPrompt(p) {
 }
 
 // ---- Replicate API ----
-async function replicateCreate(prompt) {
+const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+
+async function replicateCreate(prompt, attempt = 0) {
   const res = await fetch('https://api.replicate.com/v1/models/black-forest-labs/flux-schnell/predictions', {
     method: 'POST',
     headers: {
@@ -151,6 +153,18 @@ async function replicateCreate(prompt) {
       },
     }),
   });
+  // Honor Retry-After on 429 / 503 — Replicate rate-limits new accounts aggressively.
+  if (res.status === 429 || res.status === 503) {
+    if (attempt >= 4) {
+      const body = await res.text().catch(() => '');
+      throw new Error(`Replicate ${res.status} after ${attempt} retries: ${body.slice(0, 200)}`);
+    }
+    const retryAfterHeader = Number(res.headers.get('retry-after')) || 0;
+    const wait = Math.max(retryAfterHeader * 1000, 30000 * Math.pow(1.5, attempt)); // min 30s, grows
+    process.stdout.write(`(throttled, waiting ${Math.round(wait/1000)}s) `);
+    await sleep(wait);
+    return replicateCreate(prompt, attempt + 1);
+  }
   if (!res.ok) {
     const body = await res.text().catch(() => '');
     throw new Error(`Replicate ${res.status}: ${body.slice(0, 300)}`);
@@ -237,9 +251,17 @@ async function downloadImage(url, destPath) {
       p.assets.icon = `/assets/products/${p.slug}.png`;
       done++;
       console.log(`✓ ${(bytes / 1024).toFixed(0)}kb`);
+
+      // Persist progress after every success so a crash/interrupt doesn't lose work
+      fs.writeFileSync(PRODUCTS_PATH, JSON.stringify(manifest, null, 2) + '\n');
+
+      // Gentle pacing to stay under Replicate's per-account rate limit for new accounts
+      if (toRun.indexOf(p) < toRun.length - 1) await sleep(2000);
     } catch (e) {
       failed++;
       console.log(`✗ ${e.message.slice(0, 100)}`);
+      // After a failure, longer cooldown before trying the next one
+      await sleep(5000);
     }
   }
 
