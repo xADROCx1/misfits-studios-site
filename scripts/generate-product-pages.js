@@ -25,16 +25,16 @@ function buyButton(p) {
   const pd = p.paddle && p.paddle.price_id;
   let buy = '';
   if (ls) {
-    buy = `<a href="${attr(p.lemonsqueezy.buy_url)}" class="lemonsqueezy-button buy-btn" data-slug="${attr(p.slug)}">BUY ${esc(p.price_label)} →</a>`;
+    buy = `<a href="${attr(p.lemonsqueezy.buy_url)}" class="lemonsqueezy-button buy-btn" data-slug="${attr(p.slug)}">▸ BUY NOW · ${esc(p.price_label)}</a>`;
   } else if (pd) {
     const items = JSON.stringify([{ priceId: p.paddle.price_id, quantity: 1 }]);
-    buy = `<a href="#" class="paddle_button buy-btn" data-items='${attr(items)}' data-slug="${attr(p.slug)}">BUY ${esc(p.price_label)} →</a>`;
+    buy = `<a href="#" class="paddle_button buy-btn" data-items='${attr(items)}' data-slug="${attr(p.slug)}">▸ BUY NOW · ${esc(p.price_label)}</a>`;
   } else {
     buy = `<span class="buy-btn buy-btn-disabled" aria-disabled="true">Checkout coming soon</span>`;
   }
   // Add to cart button (paid products only; free products skip the cart)
   const cartBtn = (p.price_usd && p.price_usd > 0)
-    ? `<button type="button" data-add-to-cart="${attr(p.id)}" class="cart-btn" aria-label="Add ${attr(p.name)} to cart">+ CART</button>`
+    ? `<button type="button" data-add-to-cart="${attr(p.id)}" class="cart-btn" aria-label="Add ${attr(p.name)} to cart">+ ADD TO CART</button>`
     : '';
   return `<div class="buy-row">${buy}${cartBtn}</div>`;
 }

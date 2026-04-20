@@ -37,11 +37,11 @@
       href = lsUrl || '#';
     }
 
-    var cta = p.price_usd === 0 ? 'DOWNLOAD →' : 'BUY →';
+    var cta = p.price_usd === 0 ? 'DOWNLOAD →' : '▸ BUY NOW';
     var disabledNote = hasBuyUrl ? '' : '<div class="text-xs text-muted mt-2 font-mono uppercase tracking-wider">Checkout wiring pending</div>';
     // Add-to-cart button (always shown for paid products; hidden for free)
     var addToCartBtn = p.price_usd > 0
-      ? '<button type="button" data-add-to-cart="' + escapeHTML(p.id) + '" aria-label="Add ' + escapeHTML(p.name) + ' to cart" class="ml-2 bg-transparent border-2 border-accent text-accent font-black px-3 py-2 hover:bg-accent hover:text-bg active:translate-y-1 text-sm" title="Add to cart">+ CART</button>'
+      ? '<button type="button" data-add-to-cart="' + escapeHTML(p.id) + '" aria-label="Add ' + escapeHTML(p.name) + ' to cart" class="ml-2 bg-transparent border-2 border-mint text-mint font-black px-3 py-2 hover:bg-mint hover:text-bg active:translate-y-1 text-xs whitespace-nowrap" style="border-color:#00ffa3;color:#00ffa3" title="Add to cart">+ CART</button>'
       : '';
 
     return (
