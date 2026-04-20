@@ -602,6 +602,24 @@
   .icon-upload-btn input { display: none; }
   .icon-hint { font-family: var(--font-mono); font-size: 10px; color: var(--muted); }
   .icon-hint.staged { color: var(--yellow); }
+
+  /* -------- Plugin source file editor -------- */
+  .src-box {
+    border: 1px solid var(--line); background: #05050c; padding: 10px; display: flex; flex-direction: column; gap: 6px; position: relative;
+  }
+  .src-box.staged::before {
+    content: 'STAGED'; position: absolute; top: 6px; right: 6px;
+    background: var(--yellow); color: #000; font-family: var(--font-mono); font-size: 9px;
+    font-weight: 700; padding: 1px 5px; letter-spacing: 0.1em; z-index: 2;
+  }
+  .src-row { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 11px; }
+  .src-row .glyph { color: var(--mint); }
+  .src-row .name { color: var(--paper); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+  .src-row .meta { color: var(--muted); }
+  .src-warn {
+    font-family: var(--font-mono); font-size: 10px; color: var(--yellow); background: rgba(255, 235, 0, 0.05);
+    border: 1px solid rgba(255, 235, 0, 0.25); padding: 6px 8px; line-height: 1.45;
+  }
 </style>
 </head>
 <body>
@@ -768,7 +786,8 @@ window._editorState = {
   baseline: new Map(),  // id -> stringified original
   history: [],          // undo stack (cap 20)
   future: [],           // redo stack
-  stagedImages: new Map() // repoPath -> { base64Content, filename, dataUrl }
+  stagedImages: new Map(), // repoPath -> { base64Content, filename, dataUrl }
+  stagedFiles:  new Map()  // repoPath -> { base64Content, filename, size }
 };
 const S = window._editorState;
 
@@ -1128,6 +1147,30 @@ function renderSide() {
         </div>
       </div>
       <div class="field">
+        <label>Plugin Source File${p.price_usd === 0 ? ' <span style="color:var(--mint);text-transform:none">(powers the free download link)</span>' : ''}</label>
+        <div class="src-box" id="src-box">
+          <div class="src-row">
+            <span class="glyph">&lt;/&gt;</span>
+            <span class="name" id="src-name">${p.download_url ? escapeHtml(p.download_url) : (p.source_file ? escapeHtml(p.source_file) : 'no file attached')}</span>
+            <span class="meta" id="src-meta"></span>
+          </div>
+          <input class="inp" data-f="source_file" value="${escapeHtml(p.source_file || p.download_url || '')}" placeholder="/downloads/${escapeHtml(p.slug || 'Slug')}.cs" id="src-path-input" />
+          <select class="sel" id="src-picker">
+            <option value="">— pick existing file in /downloads/ —</option>
+            ${[...new Set([
+              ...S.products.map(x => x.source_file).filter(Boolean),
+              ...S.products.map(x => x.download_url).filter(Boolean)
+            ])].sort().map(pt => `<option value="${escapeHtml(pt)}">${escapeHtml(pt)}</option>`).join('')}
+          </select>
+          <label class="icon-upload-btn">
+            &#11014; Upload new plugin file (.cs / .zip / .dll)
+            <input type="file" accept=".cs,.zip,.dll,text/plain,application/zip" id="src-upload" />
+          </label>
+          <div class="icon-hint" id="src-upload-hint">Max 10MB. Staged on upload; commits on next Publish.</div>
+          ${p.price_usd > 0 ? '<div class="src-warn">⚠ PAID PRODUCT — files dropped in /downloads/ are PUBLICLY downloadable by anyone with the URL. For paid plugins, either change the path above to a non-public folder, or handle fulfillment via Paddle post-purchase emails.</div>' : ''}
+        </div>
+      </div>
+      <div class="field">
         <label>Author &mdash; read-only</label>
         <input class="inp" value="${escapeHtml(p.cs_info_author || '')}" disabled style="opacity:0.6" />
       </div>
@@ -1207,6 +1250,37 @@ function renderSide() {
       if (f) stageIconUpload(f);
     });
   }
+
+  // Plugin source file picker
+  const srcPicker = ed.querySelector('#src-picker');
+  if (srcPicker) {
+    srcPicker.addEventListener('change', (e) => {
+      const v = e.target.value;
+      if (!v) return;
+      applySourceFilePath(v, /*fromPicker*/true);
+      srcPicker.value = '';
+    });
+  }
+  const srcUpload = ed.querySelector('#src-upload');
+  if (srcUpload) {
+    srcUpload.addEventListener('change', (e) => {
+      const f = e.target.files && e.target.files[0];
+      if (f) stagePluginUpload(f);
+      e.target.value = '';
+    });
+  }
+  // Drag-to-upload on the whole src-box
+  const srcBox = ed.querySelector('#src-box');
+  if (srcBox) {
+    srcBox.addEventListener('dragover', (e) => { e.preventDefault(); srcBox.style.borderColor = 'var(--cyan)'; });
+    srcBox.addEventListener('dragleave', () => { srcBox.style.borderColor = ''; });
+    srcBox.addEventListener('drop', (e) => {
+      e.preventDefault(); srcBox.style.borderColor = '';
+      const f = e.dataTransfer.files && e.dataTransfer.files[0];
+      if (f) stagePluginUpload(f);
+    });
+  }
+  refreshSourceMeta();
 }
 
 function featureRowHTML(val, i) {
@@ -1331,6 +1405,82 @@ function stageIconUpload(file) {
     toast('Image staged for publish', 'ok');
   };
   reader.readAsDataURL(file);
+}
+
+/* ---------- Plugin source-file helpers ---------- */
+function applySourceFilePath(publicPath, fromPicker) {
+  const p = S.products.find(x => x.id === S.selectedId);
+  if (!p) return;
+  snapshot();
+  p.source_file = publicPath;
+  // For free products, keep download_url in sync so the public button hits the same file.
+  if (p.price_usd === 0) p.download_url = publicPath;
+  const pathInp = document.getElementById('src-path-input');
+  if (pathInp) pathInp.value = publicPath;
+  const nameEl = document.getElementById('src-name');
+  if (nameEl) nameEl.textContent = publicPath;
+  markDirty(p.id);
+  refreshSourceMeta();
+  if (fromPicker) toast('Source file set to ' + publicPath, 'ok');
+}
+
+function stagePluginUpload(file) {
+  const p = S.products.find(x => x.id === S.selectedId);
+  if (!p) return;
+  const ext = (file.name.split('.').pop() || '').toLowerCase();
+  if (!/^(cs|zip|dll|txt)$/.test(ext)) { toast('Unsupported type — use .cs / .zip / .dll', 'err'); return; }
+  if (file.size > 10 * 1024 * 1024) { toast('File too large (>10MB)', 'err'); return; }
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    const dataUrl = reader.result;
+    const comma = dataUrl.indexOf(',');
+    const base64Content = dataUrl.slice(comma + 1);
+
+    // Build a target path — default /downloads/<Name>.<ext> using PascalCase name; fall back to slug.
+    const basename = file.name;
+    // Derive a clean repo filename from the current product — don't rely on the uploaded filename which may be munged
+    const cleanName = (p.name || p.slug || p.id || 'Plugin').replace(/[^A-Za-z0-9_-]+/g, '');
+    const targetPath  = 'downloads/' + cleanName + '.' + ext;
+    const publicPath  = '/' + targetPath;
+
+    S.stagedFiles.set(publicPath, {
+      repoPath: targetPath,
+      filename: basename,
+      base64: base64Content,
+      size: file.size
+    });
+
+    snapshot();
+    p.source_file = publicPath;
+    if (p.price_usd === 0) p.download_url = publicPath;
+    const pathInp = document.getElementById('src-path-input');
+    if (pathInp) pathInp.value = publicPath;
+    const hint = document.getElementById('src-upload-hint');
+    if (hint) {
+      hint.textContent = `✓ ${basename} staged → ${publicPath} (${(file.size/1024).toFixed(1)} KB). Commits on next Publish.`;
+      hint.classList.add('staged');
+    }
+    const box = document.getElementById('src-box');
+    if (box) box.classList.add('staged');
+    markDirty(p.id);
+    refreshSourceMeta();
+    toast('Plugin file staged for publish', 'ok');
+  };
+  reader.readAsDataURL(file);
+}
+
+function refreshSourceMeta() {
+  const p = S.products.find(x => x.id === S.selectedId);
+  if (!p) return;
+  const nameEl = document.getElementById('src-name');
+  const metaEl = document.getElementById('src-meta');
+  const box = document.getElementById('src-box');
+  const path = p.source_file || p.download_url || '';
+  if (nameEl) nameEl.textContent = path || 'no file attached';
+  const staged = path && S.stagedFiles.get(path);
+  if (box) box.classList.toggle('staged', !!staged);
+  if (metaEl) metaEl.textContent = staged ? (staged.size ? (staged.size/1024).toFixed(1) + ' KB' : 'staged') : '';
 }
 function rerenderCard(id) {
   // simplest: redo full grid (48 items is trivial)
@@ -1608,40 +1758,55 @@ async function publishNow() {
     setStep(2, 'active');
     const apiBase = `https://api.github.com/repos/${repo}/contents/`;
 
-    // 2a. Upload any staged images. We commit each as its own commit so if anything
-    //     trips midway, partial progress is still on main (idempotent-safe — next run
-    //     will just skip what's already there).
-    const stagedEntries = Array.from(S.stagedImages.values());
-    if (stagedEntries.length) {
-      let i = 0;
-      for (const img of stagedEntries) {
-        i++;
-        setStep(2, 'active', `uploading image ${i}/${stagedEntries.length} · ${img.filename}`);
-        // Check if the target path already exists so we can include its sha (update vs create)
-        let existingSha = null;
-        try {
-          const eR = await fetch(apiBase + encodeURIComponent(img.repoPath).replace(/%2F/gi, '/') + '?ref=' + branch, {
-            headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github+json' }
-          });
-          if (eR.ok) {
-            const eJ = await eR.json();
-            existingSha = eJ.sha || null;
-          }
-        } catch (_) { /* treat as create */ }
-
-        const imgBody = { message: 'editor: upload ' + img.repoPath, content: img.base64, branch: branch };
-        if (existingSha) imgBody.sha = existingSha;
-        const imgR = await fetch(apiBase + encodeURIComponent(img.repoPath).replace(/%2F/gi, '/'), {
-          method: 'PUT',
-          headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json' },
-          body: JSON.stringify(imgBody)
+    // 2a. Generic helper to commit one staged asset (image or plugin file) via Contents API.
+    //     Existence check first so we can include sha for updates (GitHub requires it).
+    async function commitStagedAsset(asset, kind) {
+      let existingSha = null;
+      try {
+        const eR = await fetch(apiBase + encodeURIComponent(asset.repoPath).replace(/%2F/gi, '/') + '?ref=' + branch, {
+          headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github+json' }
         });
-        if (!imgR.ok) {
-          const t = await imgR.text();
-          throw new Error('image upload failed (' + imgR.status + ') for ' + img.repoPath + ': ' + t.slice(0, 160));
+        if (eR.ok) {
+          const eJ = await eR.json();
+          existingSha = eJ.sha || null;
         }
+      } catch (_) { /* treat as create */ }
+
+      const body = { message: 'editor: upload ' + asset.repoPath, content: asset.base64, branch: branch };
+      if (existingSha) body.sha = existingSha;
+      const r = await fetch(apiBase + encodeURIComponent(asset.repoPath).replace(/%2F/gi, '/'), {
+        method: 'PUT',
+        headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+      if (!r.ok) {
+        const t = await r.text();
+        throw new Error(kind + ' upload failed (' + r.status + ') for ' + asset.repoPath + ': ' + t.slice(0, 160));
       }
     }
+
+    // 2a-1. Upload any staged images
+    const stagedImages = Array.from(S.stagedImages.values());
+    if (stagedImages.length) {
+      let i = 0;
+      for (const img of stagedImages) {
+        i++;
+        setStep(2, 'active', `uploading image ${i}/${stagedImages.length} · ${img.filename}`);
+        await commitStagedAsset(img, 'image');
+      }
+    }
+
+    // 2a-2. Upload any staged plugin source files
+    const stagedPlugins = Array.from(S.stagedFiles.values());
+    if (stagedPlugins.length) {
+      let i = 0;
+      for (const pf of stagedPlugins) {
+        i++;
+        setStep(2, 'active', `uploading plugin ${i}/${stagedPlugins.length} · ${pf.filename}`);
+        await commitStagedAsset(pf, 'plugin file');
+      }
+    }
+    const stagedCount = stagedImages.length + stagedPlugins.length;
 
     // 2b. Commit products.json with the updated assets.icon paths
     setStep(2, 'active', 'committing products.json');
@@ -1662,9 +1827,13 @@ async function publishNow() {
     const putJ = await putR.json();
     const commitUrl = putJ.commit && putJ.commit.html_url || '';
     const commitSha = (putJ.commit && putJ.commit.sha || '').slice(0, 7);
-    setStep(2, 'done', commitSha + (stagedEntries.length ? ` · +${stagedEntries.length} image${stagedEntries.length>1?'s':''}` : ''));
-    // Clear staged images once all uploads succeeded
+    const stagedTag = stagedCount
+      ? ` · +${stagedImages.length ? stagedImages.length + ' img' : ''}${stagedImages.length && stagedPlugins.length ? ', ' : ''}${stagedPlugins.length ? stagedPlugins.length + ' file' : ''}`
+      : '';
+    setStep(2, 'done', commitSha + stagedTag);
+    // Clear staged uploads once all succeeded
     S.stagedImages.clear();
+    S.stagedFiles.clear();
 
     // STEP 3 — wait for Cloudflare build (typical 30–60s)
     setStep(3, 'active');
