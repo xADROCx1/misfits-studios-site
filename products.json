@@ -134,8 +134,8 @@
       "status": "live",
       "tagline": "Rust devblog RSS → Discord bridge",
       "short_description": "Auto-posts official Rust devblogs, patch notes, and news to your server's Discord channel. Digest or instant mode.",
-      "price_usd": 2.95,
-      "price_label": "$2.95",
+      "price_usd": 0,
+      "price_label": "FREE",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -1237,5 +1237,5 @@
       "eta": "TBD"
     }
   ],
-  "last_editor_update": "2026-04-20T21:57:48.747Z"
+  "last_editor_update": "2026-04-20T22:02:52.530Z"
 }
