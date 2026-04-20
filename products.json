@@ -20,7 +20,7 @@
       "id": "dev2discord",
       "slug": "dev2discord",
       "name": "Dev2Discord",
-      "version": "1.2.0",
+      "version": "1.3.0",
       "category": "plugin",
       "status": "live",
       "tagline": "Rust devblog RSS → Discord bridge",

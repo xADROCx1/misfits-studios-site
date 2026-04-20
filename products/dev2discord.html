@@ -126,11 +126,11 @@
   <section class="hero-card hero-card-flex msfts-hud-4 mt-4">
     <img class="hero-icon" src="/assets/products/dev2discord.png" alt="Dev2Discord icon" loading="eager"/>
     <div class="hero-main">
-    <p class="ob-data-label mb-2">// plugin  ·  v1.2.0</p>
+    <p class="ob-data-label mb-2">// plugin  ·  v1.3.0</p>
     <h1 class="msfts-display msfts-glow-mint text-5xl md:text-7xl font-black uppercase mb-3">Dev2Discord</h1>
     <p class="text-lg md:text-xl text-paper/90 mb-5">Rust devblog RSS → Discord bridge</p>
     <div class="mb-5">
-      <span class="msfts-chip msfts-chip--live">v1.2.0</span>
+      <span class="msfts-chip msfts-chip--live">v1.3.0</span>
       <span class="msfts-chip msfts-chip--punk">plugin</span>
       <span class="msfts-chip msfts-chip--cool">discord</span><span class="msfts-chip msfts-chip--cool">rss</span><span class="msfts-chip msfts-chip--cool">automation</span><span class="msfts-chip msfts-chip--cool">server</span>
     </div>
@@ -153,11 +153,39 @@
   
   <section class="content-card">
     <h2>Features</h2>
-    <ul><li>Bridges the Rust devblog RSS feed to a Discord webhook</li><li>Digest mode posts one daily roundup at a set time</li><li>Individual mode posts each new devblog item immediately</li><li>Keyword filters include or exclude items by title content</li><li>Optional role ping triggered only on keyword-matching posts</li></ul>
+    <ul><li>Bridges the Rust devblog RSS feed to a Discord webhook</li><li>Individual mode posts each new devblog item the moment it appears</li><li>Digest mode rolls up all new items into one daily post at a set time</li><li>Keyword filters include or exclude items by title content</li><li>Optional role ping triggered only on keyword-matching posts</li><li>Diagnostic console commands to test the webhook and inspect state</li></ul>
   </section>
 
   
   
+  <section class="content-card">
+    <h2>Console commands</h2>
+    <p class="doc-note">Run from the server console or RCON. Most are called by the UI &mdash; you rarely need to type them manually.</p>
+    <div class="doc-table">
+      <div class="doc-row doc-head doc-row-2"><span>Command</span><span>Does</span></div>
+      
+      <div class="doc-row doc-row-2">
+        <span class="doc-mono doc-strong">dev2discord.test</span>
+        <span></span>
+      </div>
+      <div class="doc-row doc-row-2">
+        <span class="doc-mono doc-strong">dev2discord.poll</span>
+        <span></span>
+      </div>
+      <div class="doc-row doc-row-2">
+        <span class="doc-mono doc-strong">dev2discord.digest</span>
+        <span></span>
+      </div>
+      <div class="doc-row doc-row-2">
+        <span class="doc-mono doc-strong">dev2discord.status</span>
+        <span></span>
+      </div>
+      <div class="doc-row doc-row-2">
+        <span class="doc-mono doc-strong">dev2discord.reset</span>
+        <span></span>
+      </div>
+    </div>
+  </section>
   
   
   <section class="content-card">
@@ -173,13 +201,13 @@
       </div>
       <div class="doc-row">
         <span class="doc-mono doc-strong">Mode</span>
-        <span class="doc-mono doc-dim">digest</span>
-        <span>digest = one post per day; individual = post each item immediately</span>
+        <span class="doc-mono doc-dim">individual</span>
+        <span>individual = instant post per item; digest = one daily roundup</span>
       </div>
       <div class="doc-row">
         <span class="doc-mono doc-strong">DigestPostTime</span>
         <span class="doc-mono doc-dim">12:00</span>
-        <span>Server-local 24h time to send the digest</span>
+        <span>Server-local 24h time to send the digest (digest mode only)</span>
       </div>
       <div class="doc-row">
         <span class="doc-mono doc-strong">PollIntervalSeconds</span>
@@ -213,7 +241,7 @@
     <h2>Technical details</h2>
     <div class="tech-row"><span class="k">ID</span><span class="v">dev2discord</span></div>
     <div class="tech-row"><span class="k">Slug</span><span class="v">dev2discord</span></div>
-    <div class="tech-row"><span class="k">Version</span><span class="v">1.2.0</span></div>
+    <div class="tech-row"><span class="k">Version</span><span class="v">1.3.0</span></div>
     <div class="tech-row"><span class="k">Category</span><span class="v">plugin</span></div>
     <div class="tech-row"><span class="k">Author</span><span class="v">Misfits Studios</span></div>
     <div class="tech-row"><span class="k">Tags</span><span class="v">discord, rss, automation, server, utility</span></div>

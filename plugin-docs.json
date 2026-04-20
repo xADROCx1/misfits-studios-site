@@ -9,26 +9,73 @@
         "Admin command gives AirBags and refills other players"
       ],
       "chat_commands": [
-        { "cmd": "/airbag", "description": "Give yourself AirBags (admin) or show usage", "permission": "airbags.admin" },
-        { "cmd": "/airbag refill", "description": "Refill your equipped AirBags (admin = free, others pay low grade fuel)", "permission": "airbags.refill" },
-        { "cmd": "/airbag status", "description": "Inspect equipped AirBags air level for a player", "permission": "airbags.admin" },
-        { "cmd": "/airbag give", "description": "Give AirBags to a target player by name or SteamID", "permission": "airbags.admin" }
+        {
+          "cmd": "/airbag",
+          "description": "Give yourself AirBags (admin) or show usage",
+          "permission": "airbags.admin"
+        },
+        {
+          "cmd": "/airbag refill",
+          "description": "Refill your equipped AirBags (admin = free, others pay low grade fuel)",
+          "permission": "airbags.refill"
+        },
+        {
+          "cmd": "/airbag status",
+          "description": "Inspect equipped AirBags air level for a player",
+          "permission": "airbags.admin"
+        },
+        {
+          "cmd": "/airbag give",
+          "description": "Give AirBags to a target player by name or SteamID",
+          "permission": "airbags.admin"
+        }
       ],
       "console_commands": [
-        { "cmd": "airbags.give", "description": "Give AirBags to a player from console" }
+        {
+          "cmd": "airbags.give",
+          "description": "Give AirBags to a player from console"
+        }
       ],
       "permissions": [
-        { "name": "airbags.admin", "grants": "Give AirBags, inspect other players' tanks, refill for free" },
-        { "name": "airbags.refill", "grants": "Refill own equipped AirBags using low grade fuel" }
+        {
+          "name": "airbags.admin",
+          "grants": "Give AirBags, inspect other players' tanks, refill for free"
+        },
+        {
+          "name": "airbags.refill",
+          "grants": "Refill own equipped AirBags using low grade fuel"
+        }
       ],
       "config_highlights": [
-        { "key": "AirBagsSkinId", "default": 3407631036, "note": "Workshop skin ID used to identify AirBags" },
-        { "key": "OxygenMaxWhileBoosted", "default": 50, "note": "Max oxygen value granted while AirBags is active" },
-        { "key": "FallbackSecondsOfAir", "default": 900, "note": "How long a full tank lasts underwater" },
-        { "key": "EnableCraftConversion", "default": true, "note": "Craft a Large Backpack + diving tank to produce AirBags" },
-        { "key": "DrainOnlyWhenHeadUnderwater", "default": true, "note": "If false, drains while swimming or partially submerged" }
+        {
+          "key": "AirBagsSkinId",
+          "default": 3407631036,
+          "note": "Workshop skin ID used to identify AirBags"
+        },
+        {
+          "key": "OxygenMaxWhileBoosted",
+          "default": 50,
+          "note": "Max oxygen value granted while AirBags is active"
+        },
+        {
+          "key": "FallbackSecondsOfAir",
+          "default": 900,
+          "note": "How long a full tank lasts underwater"
+        },
+        {
+          "key": "EnableCraftConversion",
+          "default": true,
+          "note": "Craft a Large Backpack + diving tank to produce AirBags"
+        },
+        {
+          "key": "DrainOnlyWhenHeadUnderwater",
+          "default": true,
+          "note": "If false, drains while swimming or partially submerged"
+        }
       ],
-      "requires": ["Oxide or Carbon"]
+      "requires": [
+        "Oxide or Carbon"
+      ]
     },
     "alwaysstocked": {
       "features": [
@@ -38,19 +85,39 @@
         "Admin command restocks every NPC vendor on demand"
       ],
       "chat_commands": [
-        { "cmd": "/as.restockall", "description": "Force-restock every NPC vending machine now", "permission": "alwaysstocked.admin" }
+        {
+          "cmd": "/as.restockall",
+          "description": "Force-restock every NPC vending machine now",
+          "permission": "alwaysstocked.admin"
+        }
       ],
       "console_commands": [
-        { "cmd": "as.restockall", "description": "Force-restock every NPC vending machine now" }
+        {
+          "cmd": "as.restockall",
+          "description": "Force-restock every NPC vending machine now"
+        }
       ],
       "permissions": [
-        { "name": "alwaysstocked.admin", "grants": "Trigger manual restock-all" }
+        {
+          "name": "alwaysstocked.admin",
+          "grants": "Trigger manual restock-all"
+        }
       ],
       "config_highlights": [
-        { "key": "StockPerItem", "default": 100000, "note": "Stack size applied to every NPC vendor slot" },
-        { "key": "RestockIntervalSeconds", "default": 30, "note": "Periodic restock cadence; 0 disables the timer" }
+        {
+          "key": "StockPerItem",
+          "default": 100000,
+          "note": "Stack size applied to every NPC vendor slot"
+        },
+        {
+          "key": "RestockIntervalSeconds",
+          "default": 30,
+          "note": "Periodic restock cadence; 0 disables the timer"
+        }
       ],
-      "requires": ["Oxide or Carbon"]
+      "requires": [
+        "Oxide or Carbon"
+      ]
     },
     "betterarmorinsert": {
       "features": [
@@ -61,23 +128,59 @@
         "Localized config with English and Russian JSON labels"
       ],
       "chat_commands": [
-        { "cmd": "/bastats", "description": "View stats for the insert currently held or equipped" },
-        { "cmd": "/ba", "description": "Main player command for insert info" }
+        {
+          "cmd": "/bastats",
+          "description": "View stats for the insert currently held or equipped"
+        },
+        {
+          "cmd": "/ba",
+          "description": "Main player command for insert info"
+        }
       ],
       "console_commands": [
-        { "cmd": "giveinsert", "description": "Give a specific armor insert to a player", "permission": "betterarmorinsert.give" }
+        {
+          "cmd": "giveinsert",
+          "description": "Give a specific armor insert to a player",
+          "permission": "betterarmorinsert.give"
+        }
       ],
       "permissions": [
-        { "name": "betterarmorinsert.give", "grants": "Use the giveinsert console command" }
+        {
+          "name": "betterarmorinsert.give",
+          "grants": "Use the giveinsert console command"
+        }
       ],
       "config_highlights": [
-        { "key": "WoodenArmorInsertSettings", "default": "3 tiers preconfigured", "note": "Dictionary of skin-id to damage scale + drop rate" },
-        { "key": "AsbestosArmorInsertSettings", "default": "3 tiers preconfigured", "note": "Heat/explosion/shock resist tiers" },
-        { "key": "LeadArmorInsertSettings", "default": "3 tiers preconfigured", "note": "Radiation/blunt resist tiers" },
-        { "key": "MetalArmorInsertSettings", "default": "3 tiers preconfigured", "note": "High bullet/slash resist tiers" },
-        { "key": "ChanceDestruction", "default": -1.0, "note": "Per-insert destruction chance when moving into clothing; -1 disables" }
+        {
+          "key": "WoodenArmorInsertSettings",
+          "default": "3 tiers preconfigured",
+          "note": "Dictionary of skin-id to damage scale + drop rate"
+        },
+        {
+          "key": "AsbestosArmorInsertSettings",
+          "default": "3 tiers preconfigured",
+          "note": "Heat/explosion/shock resist tiers"
+        },
+        {
+          "key": "LeadArmorInsertSettings",
+          "default": "3 tiers preconfigured",
+          "note": "Radiation/blunt resist tiers"
+        },
+        {
+          "key": "MetalArmorInsertSettings",
+          "default": "3 tiers preconfigured",
+          "note": "High bullet/slash resist tiers"
+        },
+        {
+          "key": "ChanceDestruction",
+          "default": -1,
+          "note": "Per-insert destruction chance when moving into clothing; -1 disables"
+        }
       ],
-      "requires": ["Oxide or Carbon", "HarmonyLib"]
+      "requires": [
+        "Oxide or Carbon",
+        "HarmonyLib"
+      ]
     },
     "boatnitro": {
       "features": [
@@ -88,21 +191,56 @@
         "Optional tugboat boost profile with its own lighter tuning"
       ],
       "chat_commands": [
-        { "cmd": "/killboat", "description": "Destroy the boat you are mounted on or looking at", "permission": "boatnitro.killboat" },
-        { "cmd": "/bntug", "description": "Toggle tugboat boost enable/disable for testing" }
+        {
+          "cmd": "/killboat",
+          "description": "Destroy the boat you are mounted on or looking at",
+          "permission": "boatnitro.killboat"
+        },
+        {
+          "cmd": "/bntug",
+          "description": "Toggle tugboat boost enable/disable for testing"
+        }
       ],
       "permissions": [
-        { "name": "boatnitro.use", "grants": "Use Shift boost on supported boats" },
-        { "name": "boatnitro.killboat", "grants": "Use the /killboat command" }
+        {
+          "name": "boatnitro.use",
+          "grants": "Use Shift boost on supported boats"
+        },
+        {
+          "name": "boatnitro.killboat",
+          "grants": "Use the /killboat command"
+        }
       ],
       "config_highlights": [
-        { "key": "BoostForce", "default": 20, "note": "Base forward force applied per boost tick" },
-        { "key": "UpwardBoost", "default": 0.25, "note": "Lift component added to boost vector" },
-        { "key": "BoostDurationSeconds", "default": 1.0, "note": "How long each Shift press boosts" },
-        { "key": "BlockAutoEject", "default": true, "note": "Prevents vanilla auto-eject so manual Space-eject takes over" },
-        { "key": "IncludeTugboat", "default": true, "note": "Applies boost to tugboats when enabled" }
+        {
+          "key": "BoostForce",
+          "default": 20,
+          "note": "Base forward force applied per boost tick"
+        },
+        {
+          "key": "UpwardBoost",
+          "default": 0.25,
+          "note": "Lift component added to boost vector"
+        },
+        {
+          "key": "BoostDurationSeconds",
+          "default": 1,
+          "note": "How long each Shift press boosts"
+        },
+        {
+          "key": "BlockAutoEject",
+          "default": true,
+          "note": "Prevents vanilla auto-eject so manual Space-eject takes over"
+        },
+        {
+          "key": "IncludeTugboat",
+          "default": true,
+          "note": "Applies boost to tugboats when enabled"
+        }
       ],
-      "requires": ["Oxide or Carbon"]
+      "requires": [
+        "Oxide or Carbon"
+      ]
     },
     "c4guns": {
       "features": [
@@ -112,16 +250,33 @@
         "Optional fuse override — set the C4 timer shorter or longer"
       ],
       "console_commands": [
-        { "cmd": "c4gun.toggle", "description": "Toggle C4 mode on or off (supports 1/0/on/off args)", "permission": "c4guns.use" }
+        {
+          "cmd": "c4gun.toggle",
+          "description": "Toggle C4 mode on or off (supports 1/0/on/off args)",
+          "permission": "c4guns.use"
+        }
       ],
       "permissions": [
-        { "name": "c4guns.use", "grants": "Toggle C4 firing mode on the player" }
+        {
+          "name": "c4guns.use",
+          "grants": "Toggle C4 firing mode on the player"
+        }
       ],
       "config_highlights": [
-        { "key": "LaunchSpeed", "default": 30, "note": "Muzzle velocity given to the launched C4" },
-        { "key": "FuseSeconds", "default": 10, "note": "Fuse length; 0 leaves vanilla timer untouched" }
+        {
+          "key": "LaunchSpeed",
+          "default": 30,
+          "note": "Muzzle velocity given to the launched C4"
+        },
+        {
+          "key": "FuseSeconds",
+          "default": 10,
+          "note": "Fuse length; 0 leaves vanilla timer untouched"
+        }
       ],
-      "requires": ["Oxide or Carbon"]
+      "requires": [
+        "Oxide or Carbon"
+      ]
     },
     "chickengun": {
       "features": [
@@ -133,19 +288,48 @@
         "Per-player and global active-chicken caps"
       ],
       "chat_commands": [
-        { "cmd": "/chickengun", "description": "Give yourself the ChickenGun or see usage", "permission": "chickengun.use" }
+        {
+          "cmd": "/chickengun",
+          "description": "Give yourself the ChickenGun or see usage",
+          "permission": "chickengun.use"
+        }
       ],
       "permissions": [
-        { "name": "chickengun.use", "grants": "Fire chickens from the skinned weapon" }
+        {
+          "name": "chickengun.use",
+          "grants": "Fire chickens from the skinned weapon"
+        }
       ],
       "config_highlights": [
-        { "key": "LaunchSpeed", "default": 70, "note": "Initial velocity applied to each chicken" },
-        { "key": "LandingMode", "default": "NoBounce", "note": "NoBounce stops on first ground contact; OneBounce allows one bounce; Normal does nothing" },
-        { "key": "MaxActiveChickensPerPlayer", "default": 20, "note": "Caps concurrent flying chickens per player" },
-        { "key": "MaxActiveChickensGlobal", "default": 400, "note": "Server-wide active chicken cap" },
-        { "key": "AutoKillAfterSeconds", "default": 0, "note": "If greater than 0, despawns chickens after this many seconds" }
+        {
+          "key": "LaunchSpeed",
+          "default": 70,
+          "note": "Initial velocity applied to each chicken"
+        },
+        {
+          "key": "LandingMode",
+          "default": "NoBounce",
+          "note": "NoBounce stops on first ground contact; OneBounce allows one bounce; Normal does nothing"
+        },
+        {
+          "key": "MaxActiveChickensPerPlayer",
+          "default": 20,
+          "note": "Caps concurrent flying chickens per player"
+        },
+        {
+          "key": "MaxActiveChickensGlobal",
+          "default": 400,
+          "note": "Server-wide active chicken cap"
+        },
+        {
+          "key": "AutoKillAfterSeconds",
+          "default": 0,
+          "note": "If greater than 0, despawns chickens after this many seconds"
+        }
       ],
-      "requires": ["Oxide or Carbon"]
+      "requires": [
+        "Oxide or Carbon"
+      ]
     },
     "chickenlover": {
       "features": [
@@ -155,17 +339,38 @@
         "Button flips to a \"done\" state after use"
       ],
       "console_commands": [
-        { "cmd": "chickenlover.love", "description": "Internal handler invoked by the Coop UI button", "permission": "chickenlover.use" }
+        {
+          "cmd": "chickenlover.love",
+          "description": "Internal handler invoked by the Coop UI button",
+          "permission": "chickenlover.use"
+        }
       ],
       "permissions": [
-        { "name": "chickenlover.use", "grants": "See and use the Chicken Lover button" }
+        {
+          "name": "chickenlover.use",
+          "grants": "See and use the Chicken Lover button"
+        }
       ],
       "config_highlights": [
-        { "key": "ScanRadius", "default": 6, "note": "Radius (meters) searched for chickens around the coop" },
-        { "key": "HealToFull", "default": true, "note": "Restore chicken health to full on click" },
-        { "key": "FillNeedsToFull", "default": true, "note": "Fill hunger/comfort/etc. needs on click" }
+        {
+          "key": "ScanRadius",
+          "default": 6,
+          "note": "Radius (meters) searched for chickens around the coop"
+        },
+        {
+          "key": "HealToFull",
+          "default": true,
+          "note": "Restore chicken health to full on click"
+        },
+        {
+          "key": "FillNeedsToFull",
+          "default": true,
+          "note": "Fill hunger/comfort/etc. needs on click"
+        }
       ],
-      "requires": ["Oxide or Carbon"]
+      "requires": [
+        "Oxide or Carbon"
+      ]
     },
     "compostsplitter": {
       "features": [
@@ -175,10 +380,15 @@
         "Per-player permission gate so compost behavior is opt-in"
       ],
       "permissions": [
-        { "name": "compostsplitter.use", "grants": "Enable even-split composting for the player" }
+        {
+          "name": "compostsplitter.use",
+          "grants": "Enable even-split composting for the player"
+        }
       ],
       "config_highlights": [],
-      "requires": ["Oxide or Carbon"]
+      "requires": [
+        "Oxide or Carbon"
+      ]
     },
     "deadmanslocker": {
       "features": [
@@ -188,18 +398,43 @@
         "Per-player cooldown and optional file/console logging"
       ],
       "console_commands": [
-        { "cmd": "deadmanslocker.transfer", "description": "Internal handler invoked by the corpse UI button", "permission": "deadmanslocker.use" }
+        {
+          "cmd": "deadmanslocker.transfer",
+          "description": "Internal handler invoked by the corpse UI button",
+          "permission": "deadmanslocker.use"
+        }
       ],
       "permissions": [
-        { "name": "deadmanslocker.use", "grants": "See and use the retrieve button on your corpse" }
+        {
+          "name": "deadmanslocker.use",
+          "grants": "See and use the retrieve button on your corpse"
+        }
       ],
       "config_highlights": [
-        { "key": "DropOverflowToGround", "default": true, "note": "Drops items that don't fit back in inventory" },
-        { "key": "CooldownSeconds", "default": 2, "note": "Minimum gap between retrieves per player" },
-        { "key": "RestoreExactLayout", "default": true, "note": "Items return to the exact slots they were in at death" },
-        { "key": "SnapshotMaxAgeSeconds", "default": 1800, "note": "Max age of a death snapshot before it expires" }
+        {
+          "key": "DropOverflowToGround",
+          "default": true,
+          "note": "Drops items that don't fit back in inventory"
+        },
+        {
+          "key": "CooldownSeconds",
+          "default": 2,
+          "note": "Minimum gap between retrieves per player"
+        },
+        {
+          "key": "RestoreExactLayout",
+          "default": true,
+          "note": "Items return to the exact slots they were in at death"
+        },
+        {
+          "key": "SnapshotMaxAgeSeconds",
+          "default": 1800,
+          "note": "Max age of a death snapshot before it expires"
+        }
       ],
-      "requires": ["Oxide or Carbon"]
+      "requires": [
+        "Oxide or Carbon"
+      ]
     },
     "deepseaspeed": {
       "features": [
@@ -210,32 +445,96 @@
         "Ship flip command to right capsized boats"
       ],
       "chat_commands": [
-        { "cmd": "/ss", "description": "Toggle the speed multiplier mode", "permission": "deepseaspeed.speed" },
-        { "cmd": "/ssnitro", "description": "Trigger nitro on the current ship", "permission": "deepseaspeed.nitro" },
-        { "cmd": "/flipship", "description": "Flip a capsized ship upright", "permission": "deepseaspeed.flip" },
-        { "cmd": "/killship", "description": "Destroy the ship you are on" }
+        {
+          "cmd": "/ss",
+          "description": "Toggle the speed multiplier mode",
+          "permission": "deepseaspeed.speed"
+        },
+        {
+          "cmd": "/ssnitro",
+          "description": "Trigger nitro on the current ship",
+          "permission": "deepseaspeed.nitro"
+        },
+        {
+          "cmd": "/flipship",
+          "description": "Flip a capsized ship upright",
+          "permission": "deepseaspeed.flip"
+        },
+        {
+          "cmd": "/killship",
+          "description": "Destroy the ship you are on"
+        }
       ],
       "console_commands": [
-        { "cmd": "ss", "description": "Toggle speed multiplier from console" },
-        { "cmd": "ssnitro", "description": "Trigger nitro from console" }
+        {
+          "cmd": "ss",
+          "description": "Toggle speed multiplier from console"
+        },
+        {
+          "cmd": "ssnitro",
+          "description": "Trigger nitro from console"
+        }
       ],
       "permissions": [
-        { "name": "deepseaspeed.boost", "grants": "Use the stock boost mode" },
-        { "name": "deepseaspeed.speed", "grants": "Use the speed multiplier mode" },
-        { "name": "deepseaspeed.nitro", "grants": "Use the nitro burst" },
-        { "name": "deepseaspeed.bypasscooldown", "grants": "Skip the nitro cooldown" },
-        { "name": "deepseaspeed.flip", "grants": "Use the ship-flip command" },
-        { "name": "deepseaspeed.vip", "grants": "Unlock VIP speed cap and unlimited nitro" },
-        { "name": "deepseaspeed.admin", "grants": "Administrative overrides" }
+        {
+          "name": "deepseaspeed.boost",
+          "grants": "Use the stock boost mode"
+        },
+        {
+          "name": "deepseaspeed.speed",
+          "grants": "Use the speed multiplier mode"
+        },
+        {
+          "name": "deepseaspeed.nitro",
+          "grants": "Use the nitro burst"
+        },
+        {
+          "name": "deepseaspeed.bypasscooldown",
+          "grants": "Skip the nitro cooldown"
+        },
+        {
+          "name": "deepseaspeed.flip",
+          "grants": "Use the ship-flip command"
+        },
+        {
+          "name": "deepseaspeed.vip",
+          "grants": "Unlock VIP speed cap and unlimited nitro"
+        },
+        {
+          "name": "deepseaspeed.admin",
+          "grants": "Administrative overrides"
+        }
       ],
       "config_highlights": [
-        { "key": "SpeedMultiplier", "default": 2.5, "note": "Sustained speed mode multiplier" },
-        { "key": "NitroSpeedMultiplier", "default": 50, "note": "Burst multiplier during nitro" },
-        { "key": "NitroDuration", "default": 10, "note": "Nitro active time in seconds" },
-        { "key": "NitroCooldown", "default": 15, "note": "Cooldown between nitro uses" },
-        { "key": "FuelCostPerNitro", "default": 50, "note": "Low grade fuel consumed per activation" }
+        {
+          "key": "SpeedMultiplier",
+          "default": 2.5,
+          "note": "Sustained speed mode multiplier"
+        },
+        {
+          "key": "NitroSpeedMultiplier",
+          "default": 50,
+          "note": "Burst multiplier during nitro"
+        },
+        {
+          "key": "NitroDuration",
+          "default": 10,
+          "note": "Nitro active time in seconds"
+        },
+        {
+          "key": "NitroCooldown",
+          "default": 15,
+          "note": "Cooldown between nitro uses"
+        },
+        {
+          "key": "FuelCostPerNitro",
+          "default": 50,
+          "note": "Low grade fuel consumed per activation"
+        }
       ],
-      "requires": ["Oxide or Carbon"]
+      "requires": [
+        "Oxide or Carbon"
+      ]
     },
     "eatall": {
       "features": [
@@ -247,25 +546,66 @@
         "Auto-hides the button after use or after a timeout"
       ],
       "chat_commands": [
-        { "cmd": "/eatall", "description": "Toggle the EAT ALL button visibility", "permission": "eatall.use" }
+        {
+          "cmd": "/eatall",
+          "description": "Toggle the EAT ALL button visibility",
+          "permission": "eatall.use"
+        }
       ],
       "console_commands": [
-        { "cmd": "eatall.toggle", "description": "Toggle button visibility from console" },
-        { "cmd": "eatall.show", "description": "Show the button" },
-        { "cmd": "eatall.hide", "description": "Hide the button" },
-        { "cmd": "eatall.consume", "description": "Internal handler for the button click" }
+        {
+          "cmd": "eatall.toggle",
+          "description": "Toggle button visibility from console"
+        },
+        {
+          "cmd": "eatall.show",
+          "description": "Show the button"
+        },
+        {
+          "cmd": "eatall.hide",
+          "description": "Hide the button"
+        },
+        {
+          "cmd": "eatall.consume",
+          "description": "Internal handler for the button click"
+        }
       ],
       "permissions": [
-        { "name": "eatall.use", "grants": "See and use the EAT ALL button" }
+        {
+          "name": "eatall.use",
+          "grants": "See and use the EAT ALL button"
+        }
       ],
       "config_highlights": [
-        { "key": "MaxPerClick", "default": 0, "note": "Max items consumed per click; 0 is unlimited" },
-        { "key": "IncludeBelt", "default": true, "note": "Also consume food on the belt/hotbar" },
-        { "key": "IncludeWear", "default": false, "note": "Also consume food in wear slots like backpacks" },
-        { "key": "Blacklist", "default": "[]", "note": "Shortnames to skip when eating" },
-        { "key": "AutoHideSeconds", "default": 8, "note": "Hide the button after this many seconds; 0 never hides" }
+        {
+          "key": "MaxPerClick",
+          "default": 0,
+          "note": "Max items consumed per click; 0 is unlimited"
+        },
+        {
+          "key": "IncludeBelt",
+          "default": true,
+          "note": "Also consume food on the belt/hotbar"
+        },
+        {
+          "key": "IncludeWear",
+          "default": false,
+          "note": "Also consume food in wear slots like backpacks"
+        },
+        {
+          "key": "Blacklist",
+          "default": "[]",
+          "note": "Shortnames to skip when eating"
+        },
+        {
+          "key": "AutoHideSeconds",
+          "default": 8,
+          "note": "Hide the button after this many seconds; 0 never hides"
+        }
       ],
-      "requires": ["Oxide or Carbon"]
+      "requires": [
+        "Oxide or Carbon"
+      ]
     },
     "entcount": {
       "features": [
@@ -275,16 +615,29 @@
         "10-second cache keeps repeated queries cheap"
       ],
       "chat_commands": [
-        { "cmd": "/entcount", "description": "Show entity count for yourself, a player, or a list", "permission": "entcount.use" }
+        {
+          "cmd": "/entcount",
+          "description": "Show entity count for yourself, a player, or a list",
+          "permission": "entcount.use"
+        }
       ],
       "console_commands": [
-        { "cmd": "entcount", "description": "Same lookup from server console with higher result limits", "permission": "entcount.use" }
+        {
+          "cmd": "entcount",
+          "description": "Same lookup from server console with higher result limits",
+          "permission": "entcount.use"
+        }
       ],
       "permissions": [
-        { "name": "entcount.use", "grants": "Run entity count lookups" }
+        {
+          "name": "entcount.use",
+          "grants": "Run entity count lookups"
+        }
       ],
       "config_highlights": [],
-      "requires": ["Oxide or Carbon"]
+      "requires": [
+        "Oxide or Carbon"
+      ]
     },
     "entitylimiter": {
       "features": [
@@ -294,23 +647,64 @@
         "Optional full server recount on load"
       ],
       "chat_commands": [
-        { "cmd": "/elimit", "description": "Show your current entity count and limit", "permission": "entitylimiter.tier1" },
-        { "cmd": "/limit", "description": "Alias of /elimit" }
+        {
+          "cmd": "/elimit",
+          "description": "Show your current entity count and limit",
+          "permission": "entitylimiter.tier1"
+        },
+        {
+          "cmd": "/limit",
+          "description": "Alias of /elimit"
+        }
       ],
       "permissions": [
-        { "name": "entitylimiter.tier1", "grants": "Applies the Tier 1 entity cap" },
-        { "name": "entitylimiter.tier2", "grants": "Applies the Tier 2 entity cap" },
-        { "name": "entitylimiter.tier3", "grants": "Applies the Tier 3 entity cap" },
-        { "name": "entitylimiter.unlimited", "grants": "Bypass the entity cap entirely" }
+        {
+          "name": "entitylimiter.tier1",
+          "grants": "Applies the Tier 1 entity cap"
+        },
+        {
+          "name": "entitylimiter.tier2",
+          "grants": "Applies the Tier 2 entity cap"
+        },
+        {
+          "name": "entitylimiter.tier3",
+          "grants": "Applies the Tier 3 entity cap"
+        },
+        {
+          "name": "entitylimiter.unlimited",
+          "grants": "Bypass the entity cap entirely"
+        }
       ],
       "config_highlights": [
-        { "key": "DefaultLimit", "default": 200, "note": "Cap used when no tier permission is granted" },
-        { "key": "Tier1Limit", "default": 100, "note": "Tier 1 entity cap" },
-        { "key": "Tier2Limit", "default": 200, "note": "Tier 2 entity cap" },
-        { "key": "Tier3Limit", "default": 500, "note": "Tier 3 entity cap" },
-        { "key": "RecountOnLoad", "default": false, "note": "Force a full entity recount on plugin load" }
+        {
+          "key": "DefaultLimit",
+          "default": 200,
+          "note": "Cap used when no tier permission is granted"
+        },
+        {
+          "key": "Tier1Limit",
+          "default": 100,
+          "note": "Tier 1 entity cap"
+        },
+        {
+          "key": "Tier2Limit",
+          "default": 200,
+          "note": "Tier 2 entity cap"
+        },
+        {
+          "key": "Tier3Limit",
+          "default": 500,
+          "note": "Tier 3 entity cap"
+        },
+        {
+          "key": "RecountOnLoad",
+          "default": false,
+          "note": "Force a full entity recount on plugin load"
+        }
       ],
-      "requires": ["Oxide or Carbon"]
+      "requires": [
+        "Oxide or Carbon"
+      ]
     },
     "flyingfish": {
       "features": [
@@ -321,23 +715,58 @@
         "Admin commands to trigger, stop, or check status"
       ],
       "chat_commands": [
-        { "cmd": "/flyingfish", "description": "Trigger, stop, reload config, or check event status", "permission": "flyingfish.admin" }
+        {
+          "cmd": "/flyingfish",
+          "description": "Trigger, stop, reload config, or check event status",
+          "permission": "flyingfish.admin"
+        }
       ],
       "console_commands": [
-        { "cmd": "flyingfish.start", "description": "Manually trigger a flying-fish event" },
-        { "cmd": "flyingfish.stop", "description": "Stop the currently running event" }
+        {
+          "cmd": "flyingfish.start",
+          "description": "Manually trigger a flying-fish event"
+        },
+        {
+          "cmd": "flyingfish.stop",
+          "description": "Stop the currently running event"
+        }
       ],
       "permissions": [
-        { "name": "flyingfish.admin", "grants": "Trigger, stop, and configure the event" }
+        {
+          "name": "flyingfish.admin",
+          "grants": "Trigger, stop, and configure the event"
+        }
       ],
       "config_highlights": [
-        { "key": "SharkCount", "default": 8, "note": "Sharks spawned per event" },
-        { "key": "EventFrequencyMin", "default": 180, "note": "Minimum seconds between auto events" },
-        { "key": "EventFrequencyMax", "default": 420, "note": "Maximum seconds between auto events" },
-        { "key": "JumpRepeatCount", "default": 3, "note": "Times each shark leaps during the event" },
-        { "key": "AnnounceEvent", "default": true, "note": "Broadcast chat message when an event starts" }
+        {
+          "key": "SharkCount",
+          "default": 8,
+          "note": "Sharks spawned per event"
+        },
+        {
+          "key": "EventFrequencyMin",
+          "default": 180,
+          "note": "Minimum seconds between auto events"
+        },
+        {
+          "key": "EventFrequencyMax",
+          "default": 420,
+          "note": "Maximum seconds between auto events"
+        },
+        {
+          "key": "JumpRepeatCount",
+          "default": 3,
+          "note": "Times each shark leaps during the event"
+        },
+        {
+          "key": "AnnounceEvent",
+          "default": true,
+          "note": "Broadcast chat message when an event starts"
+        }
       ],
-      "requires": ["Oxide or Carbon"]
+      "requires": [
+        "Oxide or Carbon"
+      ]
     },
     "flyingsubs": {
       "features": [
@@ -348,24 +777,63 @@
         "Supports solo and duo submarines"
       ],
       "chat_commands": [
-        { "cmd": "/flysub", "description": "Toggle flight mode on the sub you are piloting", "permission": "flyingsubs.fly" },
-        { "cmd": "/torpedo", "description": "Fire an air-to-surface torpedo while flying", "permission": "flyingsubs.fly" }
+        {
+          "cmd": "/flysub",
+          "description": "Toggle flight mode on the sub you are piloting",
+          "permission": "flyingsubs.fly"
+        },
+        {
+          "cmd": "/torpedo",
+          "description": "Fire an air-to-surface torpedo while flying",
+          "permission": "flyingsubs.fly"
+        }
       ],
       "console_commands": [
-        { "cmd": "flyingsubs.toggle", "description": "Console equivalent of /flysub" }
+        {
+          "cmd": "flyingsubs.toggle",
+          "description": "Console equivalent of /flysub"
+        }
       ],
       "permissions": [
-        { "name": "flyingsubs.fly", "grants": "Toggle flight mode on submarines" },
-        { "name": "flyingsubs.admin", "grants": "Administrative overrides" }
+        {
+          "name": "flyingsubs.fly",
+          "grants": "Toggle flight mode on submarines"
+        },
+        {
+          "name": "flyingsubs.admin",
+          "grants": "Administrative overrides"
+        }
       ],
       "config_highlights": [
-        { "key": "LaunchBoost", "default": 18, "note": "Impulse applied when launching out of water" },
-        { "key": "ThrustSpeed", "default": 14, "note": "Horizontal thrust speed while airborne" },
-        { "key": "AirTorpedoes", "default": true, "note": "Allow firing torpedoes while flying" },
-        { "key": "TorpedoCooldown", "default": 2, "note": "Seconds between torpedo fires" },
-        { "key": "RequirePermission", "default": true, "note": "Gate access behind flyingsubs.fly" }
+        {
+          "key": "LaunchBoost",
+          "default": 18,
+          "note": "Impulse applied when launching out of water"
+        },
+        {
+          "key": "ThrustSpeed",
+          "default": 14,
+          "note": "Horizontal thrust speed while airborne"
+        },
+        {
+          "key": "AirTorpedoes",
+          "default": true,
+          "note": "Allow firing torpedoes while flying"
+        },
+        {
+          "key": "TorpedoCooldown",
+          "default": 2,
+          "note": "Seconds between torpedo fires"
+        },
+        {
+          "key": "RequirePermission",
+          "default": true,
+          "note": "Gate access behind flyingsubs.fly"
+        }
       ],
-      "requires": ["Oxide or Carbon"]
+      "requires": [
+        "Oxide or Carbon"
+      ]
     },
     "happybee": {
       "features": [
@@ -375,20 +843,52 @@
         "Button flips to a \"done\" state after use"
       ],
       "console_commands": [
-        { "cmd": "happybee.happy", "description": "Internal handler invoked by the Beehive UI button", "permission": "happybee.use" }
+        {
+          "cmd": "happybee.happy",
+          "description": "Internal handler invoked by the Beehive UI button",
+          "permission": "happybee.use"
+        }
       ],
       "permissions": [
-        { "name": "happybee.use", "grants": "See and use the Bee Happy button" },
-        { "name": "happybee.admin", "grants": "Administrative overrides" }
+        {
+          "name": "happybee.use",
+          "grants": "See and use the Bee Happy button"
+        },
+        {
+          "name": "happybee.admin",
+          "grants": "Administrative overrides"
+        }
       ],
       "config_highlights": [
-        { "key": "HappinessDurationMinutes", "default": 60, "note": "How long the happiness boost lasts" },
-        { "key": "CheckIntervalSeconds", "default": 10, "note": "How often the plugin reasserts happy state" },
-        { "key": "SetOutside", "default": true, "note": "Force the 'outside' condition to satisfied" },
-        { "key": "SetTemperature", "default": true, "note": "Force the temperature condition to satisfied" },
-        { "key": "SetHumidity", "default": true, "note": "Force the humidity condition to satisfied" }
+        {
+          "key": "HappinessDurationMinutes",
+          "default": 60,
+          "note": "How long the happiness boost lasts"
+        },
+        {
+          "key": "CheckIntervalSeconds",
+          "default": 10,
+          "note": "How often the plugin reasserts happy state"
+        },
+        {
+          "key": "SetOutside",
+          "default": true,
+          "note": "Force the 'outside' condition to satisfied"
+        },
+        {
+          "key": "SetTemperature",
+          "default": true,
+          "note": "Force the temperature condition to satisfied"
+        },
+        {
+          "key": "SetHumidity",
+          "default": true,
+          "note": "Force the humidity condition to satisfied"
+        }
       ],
-      "requires": ["Oxide or Carbon"]
+      "requires": [
+        "Oxide or Carbon"
+      ]
     },
     "helinitro": {
       "features": [
@@ -399,23 +899,58 @@
         "Profile linking — attack heli can inherit minicopter tuning"
       ],
       "chat_commands": [
-        { "cmd": "/nitro", "description": "Trigger or info for nitro boost", "permission": "helinitro.use" }
+        {
+          "cmd": "/nitro",
+          "description": "Trigger or info for nitro boost",
+          "permission": "helinitro.use"
+        }
       ],
       "console_commands": [
-        { "cmd": "nitro", "description": "Trigger nitro from console" }
+        {
+          "cmd": "nitro",
+          "description": "Trigger nitro from console"
+        }
       ],
       "permissions": [
-        { "name": "helinitro.use", "grants": "Use nitro boost on supported helicopters" },
-        { "name": "minicopternitro.use", "grants": "Legacy compatibility permission from the old plugin name" }
+        {
+          "name": "helinitro.use",
+          "grants": "Use nitro boost on supported helicopters"
+        },
+        {
+          "name": "minicopternitro.use",
+          "grants": "Legacy compatibility permission from the old plugin name"
+        }
       ],
       "config_highlights": [
-        { "key": "ModifiedHelicopterSpeed", "default": 2.0, "note": "Multiplier applied during nitro" },
-        { "key": "NitroDurationSeconds", "default": 2, "note": "How long each boost lasts" },
-        { "key": "CooldownSeconds", "default": 1, "note": "Cooldown before next activation" },
-        { "key": "NitroButton", "default": "SPRINT", "note": "Button that triggers nitro" },
-        { "key": "MinimumGroundDistance", "default": 15, "note": "Disables boost when too close to the ground" }
+        {
+          "key": "ModifiedHelicopterSpeed",
+          "default": 2,
+          "note": "Multiplier applied during nitro"
+        },
+        {
+          "key": "NitroDurationSeconds",
+          "default": 2,
+          "note": "How long each boost lasts"
+        },
+        {
+          "key": "CooldownSeconds",
+          "default": 1,
+          "note": "Cooldown before next activation"
+        },
+        {
+          "key": "NitroButton",
+          "default": "SPRINT",
+          "note": "Button that triggers nitro"
+        },
+        {
+          "key": "MinimumGroundDistance",
+          "default": 15,
+          "note": "Disables boost when too close to the ground"
+        }
       ],
-      "requires": ["Oxide or Carbon"]
+      "requires": [
+        "Oxide or Carbon"
+      ]
     },
     "horsegun": {
       "features": [
@@ -426,21 +961,57 @@
         "Admin command spawns horse prefabs for testing"
       ],
       "chat_commands": [
-        { "cmd": "/horsegun", "description": "Give yourself the HorseGun", "permission": "horsegun.use" },
-        { "cmd": "/horsegunprefab", "description": "Spawn a horse prefab for testing", "permission": "horsegun.admin" }
+        {
+          "cmd": "/horsegun",
+          "description": "Give yourself the HorseGun",
+          "permission": "horsegun.use"
+        },
+        {
+          "cmd": "/horsegunprefab",
+          "description": "Spawn a horse prefab for testing",
+          "permission": "horsegun.admin"
+        }
       ],
       "permissions": [
-        { "name": "horsegun.use", "grants": "Fire horses from the skinned weapon" },
-        { "name": "horsegun.admin", "grants": "Use admin debug spawn commands" }
+        {
+          "name": "horsegun.use",
+          "grants": "Fire horses from the skinned weapon"
+        },
+        {
+          "name": "horsegun.admin",
+          "grants": "Use admin debug spawn commands"
+        }
       ],
       "config_highlights": [
-        { "key": "LaunchSpeed", "default": 55, "note": "Initial velocity of launched horses" },
-        { "key": "KillOnGroundImpact", "default": true, "note": "Horses die on ground contact" },
-        { "key": "CorpseCleanupSeconds", "default": 3, "note": "How long corpses remain before despawn" },
-        { "key": "AutoKillAfterSeconds", "default": 8, "note": "Max flight time before auto-kill" },
-        { "key": "HorsePrefabOverride", "default": "", "note": "Force a specific horse prefab; empty = auto-detect" }
+        {
+          "key": "LaunchSpeed",
+          "default": 55,
+          "note": "Initial velocity of launched horses"
+        },
+        {
+          "key": "KillOnGroundImpact",
+          "default": true,
+          "note": "Horses die on ground contact"
+        },
+        {
+          "key": "CorpseCleanupSeconds",
+          "default": 3,
+          "note": "How long corpses remain before despawn"
+        },
+        {
+          "key": "AutoKillAfterSeconds",
+          "default": 8,
+          "note": "Max flight time before auto-kill"
+        },
+        {
+          "key": "HorsePrefabOverride",
+          "default": "",
+          "note": "Force a specific horse prefab; empty = auto-detect"
+        }
       ],
-      "requires": ["Oxide or Carbon"]
+      "requires": [
+        "Oxide or Carbon"
+      ]
     },
     "instanthelistartup": {
       "features": [
@@ -450,18 +1021,41 @@
         "Per-player toggle for the jump impulse"
       ],
       "chat_commands": [
-        { "cmd": "/jump", "description": "Toggle the jump impulse on or off (use 'status' for current)", "permission": "instanthelistartup.togglejump" }
+        {
+          "cmd": "/jump",
+          "description": "Toggle the jump impulse on or off (use 'status' for current)",
+          "permission": "instanthelistartup.togglejump"
+        }
       ],
       "permissions": [
-        { "name": "instanthelistartup.use", "grants": "Get instant engine startup on supported helis" },
-        { "name": "instanthelistartup.exclude", "grants": "Opt out of instant startup even if .use is held" },
-        { "name": "instanthelistartup.togglejump", "grants": "Use the /jump toggle command" }
+        {
+          "name": "instanthelistartup.use",
+          "grants": "Get instant engine startup on supported helis"
+        },
+        {
+          "name": "instanthelistartup.exclude",
+          "grants": "Opt out of instant startup even if .use is held"
+        },
+        {
+          "name": "instanthelistartup.togglejump",
+          "grants": "Use the /jump toggle command"
+        }
       ],
       "config_highlights": [
-        { "key": "GlobalEnabled", "default": true, "note": "Master enable switch for instant startup" },
-        { "key": "JumpImpulseEnabledByDefault", "default": true, "note": "Apply the jump impulse when engines start" }
+        {
+          "key": "GlobalEnabled",
+          "default": true,
+          "note": "Master enable switch for instant startup"
+        },
+        {
+          "key": "JumpImpulseEnabledByDefault",
+          "default": true,
+          "note": "Apply the jump impulse when engines start"
+        }
       ],
-      "requires": ["Oxide or Carbon"]
+      "requires": [
+        "Oxide or Carbon"
+      ]
     },
     "keywordlog": {
       "features": [
@@ -473,13 +1067,35 @@
       ],
       "permissions": [],
       "config_highlights": [
-        { "key": "MonitorGlobal", "default": true, "note": "Log keywords from global chat" },
-        { "key": "MonitorTeam", "default": true, "note": "Log keywords from team chat" },
-        { "key": "DiscordWebhook", "default": "", "note": "Discord webhook URL; empty disables Discord output" },
-        { "key": "Keywords", "default": "[hack, cheat, exploit, admin, raid, ...]", "note": "Case-insensitive keyword list" },
-        { "key": "LogFileName", "default": "KeyWordLog", "note": "Base filename for the log file" }
+        {
+          "key": "MonitorGlobal",
+          "default": true,
+          "note": "Log keywords from global chat"
+        },
+        {
+          "key": "MonitorTeam",
+          "default": true,
+          "note": "Log keywords from team chat"
+        },
+        {
+          "key": "DiscordWebhook",
+          "default": "",
+          "note": "Discord webhook URL; empty disables Discord output"
+        },
+        {
+          "key": "Keywords",
+          "default": "[hack, cheat, exploit, admin, raid, ...]",
+          "note": "Case-insensitive keyword list"
+        },
+        {
+          "key": "LogFileName",
+          "default": "KeyWordLog",
+          "note": "Base filename for the log file"
+        }
       ],
-      "requires": ["Oxide or Carbon"]
+      "requires": [
+        "Oxide or Carbon"
+      ]
     },
     "loadedturrets": {
       "features": [
@@ -490,27 +1106,74 @@
         "Background ammo top-up timer with configurable interval"
       ],
       "chat_commands": [
-        { "cmd": "/turret", "description": "Open the turret preset UI", "permission": "loadedturrets.use" }
+        {
+          "cmd": "/turret",
+          "description": "Open the turret preset UI",
+          "permission": "loadedturrets.use"
+        }
       ],
       "console_commands": [
-        { "cmd": "turret.page", "description": "UI handler: change preset page" },
-        { "cmd": "turret.weaponpage", "description": "UI handler: change weapon list page" },
-        { "cmd": "turret.toggle", "description": "UI handler: toggle preset options" },
-        { "cmd": "turret.setweapon", "description": "UI handler: select preset weapon" },
-        { "cmd": "turret.setammo", "description": "UI handler: select preset ammo" },
-        { "cmd": "turret.close", "description": "UI handler: close the preset panel" }
+        {
+          "cmd": "turret.page",
+          "description": "UI handler: change preset page"
+        },
+        {
+          "cmd": "turret.weaponpage",
+          "description": "UI handler: change weapon list page"
+        },
+        {
+          "cmd": "turret.toggle",
+          "description": "UI handler: toggle preset options"
+        },
+        {
+          "cmd": "turret.setweapon",
+          "description": "UI handler: select preset weapon"
+        },
+        {
+          "cmd": "turret.setammo",
+          "description": "UI handler: select preset ammo"
+        },
+        {
+          "cmd": "turret.close",
+          "description": "UI handler: close the preset panel"
+        }
       ],
       "permissions": [
-        { "name": "loadedturrets.use", "grants": "Use the turret preset system (gated when RequirePermission is true)" }
+        {
+          "name": "loadedturrets.use",
+          "grants": "Use the turret preset system (gated when RequirePermission is true)"
+        }
       ],
       "config_highlights": [
-        { "key": "RequirePermission", "default": false, "note": "If true, only loadedturrets.use holders get presets" },
-        { "key": "AmmoCheckInterval", "default": 2, "note": "Seconds between ammo top-up scans" },
-        { "key": "AmmoRefillAmount", "default": 128, "note": "Ammo refilled per top-up" },
-        { "key": "PrimaryColor", "default": "#4A9EFF", "note": "UI accent color" },
-        { "key": "BackgroundColor", "default": "#0A0A0A", "note": "UI background color" }
+        {
+          "key": "RequirePermission",
+          "default": false,
+          "note": "If true, only loadedturrets.use holders get presets"
+        },
+        {
+          "key": "AmmoCheckInterval",
+          "default": 2,
+          "note": "Seconds between ammo top-up scans"
+        },
+        {
+          "key": "AmmoRefillAmount",
+          "default": 128,
+          "note": "Ammo refilled per top-up"
+        },
+        {
+          "key": "PrimaryColor",
+          "default": "#4A9EFF",
+          "note": "UI accent color"
+        },
+        {
+          "key": "BackgroundColor",
+          "default": "#0A0A0A",
+          "note": "UI background color"
+        }
       ],
-      "requires": ["Oxide or Carbon"]
+      "requires": [
+        "Oxide or Carbon"
+      ]
     },
     "maxarmorcraft": {
       "features": [
@@ -521,16 +1184,40 @@
         "Optional fallback to auto-detect for admin users"
       ],
       "permissions": [
-        { "name": "maxarmorcraft.use", "grants": "Auto-detected insert slots are applied to your crafted attire" },
-        { "name": "maxarmorcraft.admin", "grants": "Legacy per-shortname overrides apply to your gear" }
+        {
+          "name": "maxarmorcraft.use",
+          "grants": "Auto-detected insert slots are applied to your crafted attire"
+        },
+        {
+          "name": "maxarmorcraft.admin",
+          "grants": "Legacy per-shortname overrides apply to your gear"
+        }
       ],
       "config_highlights": [
-        { "key": "ApplyOnCraft", "default": true, "note": "Modify items as they finish crafting" },
-        { "key": "ApplyOnItemAddedToContainer", "default": true, "note": "Modify items picked up or received" },
-        { "key": "DefaultAutoDetectSlots", "default": 3, "note": "Slot count applied by auto-detect" },
-        { "key": "AdminLegacyMaxSlotsByShortname", "default": "hazmat/roadsign/metal etc = 3", "note": "Hard-coded slot counts for the .admin tier" }
+        {
+          "key": "ApplyOnCraft",
+          "default": true,
+          "note": "Modify items as they finish crafting"
+        },
+        {
+          "key": "ApplyOnItemAddedToContainer",
+          "default": true,
+          "note": "Modify items picked up or received"
+        },
+        {
+          "key": "DefaultAutoDetectSlots",
+          "default": 3,
+          "note": "Slot count applied by auto-detect"
+        },
+        {
+          "key": "AdminLegacyMaxSlotsByShortname",
+          "default": "hazmat/roadsign/metal etc = 3",
+          "note": "Hard-coded slot counts for the .admin tier"
+        }
       ],
-      "requires": ["Oxide or Carbon"]
+      "requires": [
+        "Oxide or Carbon"
+      ]
     },
     "motorbikenitro": {
       "features": [
@@ -540,15 +1227,36 @@
         "Per-bike tuning for regular and sidecar motorbikes"
       ],
       "permissions": [
-        { "name": "motorbikenitro.use", "grants": "Use nitro on motorbikes" }
+        {
+          "name": "motorbikenitro.use",
+          "grants": "Use nitro on motorbikes"
+        }
       ],
       "config_highlights": [
-        { "key": "GodModeBikes", "default": true, "note": "Bikes are immortal and heal every 15s" },
-        { "key": "NitroForce", "default": 40, "note": "Forward force per nitro tick" },
-        { "key": "AirSteering", "default": true, "note": "Enable A/D air steering while off the ground" },
-        { "key": "AirSteerStrength", "default": 28, "note": "How hard air steering turns the bike" }
+        {
+          "key": "GodModeBikes",
+          "default": true,
+          "note": "Bikes are immortal and heal every 15s"
+        },
+        {
+          "key": "NitroForce",
+          "default": 40,
+          "note": "Forward force per nitro tick"
+        },
+        {
+          "key": "AirSteering",
+          "default": true,
+          "note": "Enable A/D air steering while off the ground"
+        },
+        {
+          "key": "AirSteerStrength",
+          "default": 28,
+          "note": "How hard air steering turns the bike"
+        }
       ],
-      "requires": ["Oxide or Carbon"]
+      "requires": [
+        "Oxide or Carbon"
+      ]
     },
     "myboat": {
       "features": [
@@ -559,33 +1267,109 @@
         "Per-vehicle permissions plus a bypass-cooldown and all-access tier"
       ],
       "chat_commands": [
-        { "cmd": "/myboat", "description": "Spawn a rowboat", "permission": "myboat.rowboat" },
-        { "cmd": "/myrhib", "description": "Spawn a RHIB", "permission": "myboat.rhib" },
-        { "cmd": "/mykayak", "description": "Spawn a kayak", "permission": "myboat.kayak" },
-        { "cmd": "/mysolosub", "description": "Spawn a solo submarine", "permission": "myboat.solosub" },
-        { "cmd": "/myduosub", "description": "Spawn a duo submarine", "permission": "myboat.duosub" },
-        { "cmd": "/mymotorboat", "description": "Spawn a motor rowboat", "permission": "myboat.motorrowboat" },
-        { "cmd": "/fboat", "description": "Fetch your most recent spawned boat to your location" },
-        { "cmd": "/noboat", "description": "Destroy your spawned boat" }
+        {
+          "cmd": "/myboat",
+          "description": "Spawn a rowboat",
+          "permission": "myboat.rowboat"
+        },
+        {
+          "cmd": "/myrhib",
+          "description": "Spawn a RHIB",
+          "permission": "myboat.rhib"
+        },
+        {
+          "cmd": "/mykayak",
+          "description": "Spawn a kayak",
+          "permission": "myboat.kayak"
+        },
+        {
+          "cmd": "/mysolosub",
+          "description": "Spawn a solo submarine",
+          "permission": "myboat.solosub"
+        },
+        {
+          "cmd": "/myduosub",
+          "description": "Spawn a duo submarine",
+          "permission": "myboat.duosub"
+        },
+        {
+          "cmd": "/mymotorboat",
+          "description": "Spawn a motor rowboat",
+          "permission": "myboat.motorrowboat"
+        },
+        {
+          "cmd": "/fboat",
+          "description": "Fetch your most recent spawned boat to your location"
+        },
+        {
+          "cmd": "/noboat",
+          "description": "Destroy your spawned boat"
+        }
       ],
       "permissions": [
-        { "name": "myboat.rowboat", "grants": "Spawn a rowboat" },
-        { "name": "myboat.rhib", "grants": "Spawn a RHIB" },
-        { "name": "myboat.kayak", "grants": "Spawn a kayak" },
-        { "name": "myboat.solosub", "grants": "Spawn a solo submarine" },
-        { "name": "myboat.duosub", "grants": "Spawn a duo submarine" },
-        { "name": "myboat.motorrowboat", "grants": "Spawn a motor rowboat" },
-        { "name": "myboat.nocooldown", "grants": "Bypass the per-vehicle spawn cooldown" },
-        { "name": "myboat.all", "grants": "Access every vehicle type" }
+        {
+          "name": "myboat.rowboat",
+          "grants": "Spawn a rowboat"
+        },
+        {
+          "name": "myboat.rhib",
+          "grants": "Spawn a RHIB"
+        },
+        {
+          "name": "myboat.kayak",
+          "grants": "Spawn a kayak"
+        },
+        {
+          "name": "myboat.solosub",
+          "grants": "Spawn a solo submarine"
+        },
+        {
+          "name": "myboat.duosub",
+          "grants": "Spawn a duo submarine"
+        },
+        {
+          "name": "myboat.motorrowboat",
+          "grants": "Spawn a motor rowboat"
+        },
+        {
+          "name": "myboat.nocooldown",
+          "grants": "Bypass the per-vehicle spawn cooldown"
+        },
+        {
+          "name": "myboat.all",
+          "grants": "Access every vehicle type"
+        }
       ],
       "config_highlights": [
-        { "key": "Rowboat.Cooldown", "default": 300, "note": "Seconds between spawns for rowboat (each vehicle configurable)" },
-        { "key": "Rowboat.FuelAmount", "default": 100, "note": "Low grade fuel put in the vehicle on spawn" },
-        { "key": "Rowboat.MaxDistanceFromWater", "default": 50, "note": "Max distance from water allowed at spawn" },
-        { "key": "DestroyPrevious", "default": true, "note": "Kill a previously spawned boat when spawning a new one" },
-        { "key": "OnlySpawnInWater", "default": false, "note": "Require the player to be on water to spawn" }
+        {
+          "key": "Rowboat.Cooldown",
+          "default": 300,
+          "note": "Seconds between spawns for rowboat (each vehicle configurable)"
+        },
+        {
+          "key": "Rowboat.FuelAmount",
+          "default": 100,
+          "note": "Low grade fuel put in the vehicle on spawn"
+        },
+        {
+          "key": "Rowboat.MaxDistanceFromWater",
+          "default": 50,
+          "note": "Max distance from water allowed at spawn"
+        },
+        {
+          "key": "DestroyPrevious",
+          "default": true,
+          "note": "Kill a previously spawned boat when spawning a new one"
+        },
+        {
+          "key": "OnlySpawnInWater",
+          "default": false,
+          "note": "Require the player to be on water to spawn"
+        }
       ],
-      "requires": ["Oxide or Carbon"]
+      "requires": [
+        "Oxide or Carbon"
+      ]
     },
     "neighborhoodwatch": {
       "features": [
@@ -597,25 +1381,70 @@
         "In-game lookup of stats, grid location, and recent events"
       ],
       "chat_commands": [
-        { "cmd": "/nw.stats", "description": "Show monitor stats for yourself or the server" },
-        { "cmd": "/nw.lookup", "description": "Look up recent events for a target player" },
-        { "cmd": "/nw.grid", "description": "Show grid coordinate of a player or position" },
-        { "cmd": "/nw.clearlog", "description": "Clear the local event log file" }
+        {
+          "cmd": "/nw.stats",
+          "description": "Show monitor stats for yourself or the server"
+        },
+        {
+          "cmd": "/nw.lookup",
+          "description": "Look up recent events for a target player"
+        },
+        {
+          "cmd": "/nw.grid",
+          "description": "Show grid coordinate of a player or position"
+        },
+        {
+          "cmd": "/nw.clearlog",
+          "description": "Clear the local event log file"
+        }
       ],
       "console_commands": [
-        { "cmd": "nw.test", "description": "Send a test embed to each configured webhook" },
-        { "cmd": "nw.stats", "description": "Show monitor stats from console" }
+        {
+          "cmd": "nw.test",
+          "description": "Send a test embed to each configured webhook"
+        },
+        {
+          "cmd": "nw.stats",
+          "description": "Show monitor stats from console"
+        }
       ],
       "permissions": [],
       "config_highlights": [
-        { "key": "WebhookPvP", "default": "", "note": "Discord webhook URL for PvP kill alerts" },
-        { "key": "WebhookUnauth", "default": "", "note": "Webhook for unauthorized access alerts" },
-        { "key": "WebhookRaid", "default": "", "note": "Webhook for raid alerts" },
-        { "key": "WebhookMaster", "default": "", "note": "Single webhook override for all categories" },
-        { "key": "RaidIgnoreClanAllies", "default": true, "note": "Don't flag clan or team allies as raiders (requires Clans plugin)" },
-        { "key": "AlertCooldown", "default": 10, "note": "Seconds before a duplicate alert is sent again" }
+        {
+          "key": "WebhookPvP",
+          "default": "",
+          "note": "Discord webhook URL for PvP kill alerts"
+        },
+        {
+          "key": "WebhookUnauth",
+          "default": "",
+          "note": "Webhook for unauthorized access alerts"
+        },
+        {
+          "key": "WebhookRaid",
+          "default": "",
+          "note": "Webhook for raid alerts"
+        },
+        {
+          "key": "WebhookMaster",
+          "default": "",
+          "note": "Single webhook override for all categories"
+        },
+        {
+          "key": "RaidIgnoreClanAllies",
+          "default": true,
+          "note": "Don't flag clan or team allies as raiders (requires Clans plugin)"
+        },
+        {
+          "key": "AlertCooldown",
+          "default": 10,
+          "note": "Seconds before a duplicate alert is sent again"
+        }
       ],
-      "requires": ["Oxide or Carbon", "Clans (optional — for clan/ally detection)"]
+      "requires": [
+        "Oxide or Carbon",
+        "Clans (optional — for clan/ally detection)"
+      ]
     },
     "nocratefire": {
       "features": [
@@ -625,17 +1454,38 @@
         "Zero-duration mode kills fire instantly when a tracked crate lands"
       ],
       "chat_commands": [
-        { "cmd": "/hcf", "description": "Toggle or trigger manual fire cleanup on nearby tracked crates", "permission": "nocratefire.use" }
+        {
+          "cmd": "/hcf",
+          "description": "Toggle or trigger manual fire cleanup on nearby tracked crates",
+          "permission": "nocratefire.use"
+        }
       ],
       "permissions": [
-        { "name": "nocratefire.use", "grants": "Use the /hcf command" }
+        {
+          "name": "nocratefire.use",
+          "grants": "Use the /hcf command"
+        }
       ],
       "config_highlights": [
-        { "key": "FireDurationSeconds", "default": 0, "note": "How long fire lingers before cleanup; 0 kills instantly" },
-        { "key": "CrateShortNames", "default": "[heli_crate, bradley_crate]", "note": "Which crates trigger tracking" },
-        { "key": "FireShortNames", "default": "[fireball_small, fireball, napalm]", "note": "Which fire prefabs get cleaned" }
+        {
+          "key": "FireDurationSeconds",
+          "default": 0,
+          "note": "How long fire lingers before cleanup; 0 kills instantly"
+        },
+        {
+          "key": "CrateShortNames",
+          "default": "[heli_crate, bradley_crate]",
+          "note": "Which crates trigger tracking"
+        },
+        {
+          "key": "FireShortNames",
+          "default": "[fireball_small, fireball, napalm]",
+          "note": "Which fire prefabs get cleaned"
+        }
       ],
-      "requires": ["Oxide or Carbon"]
+      "requires": [
+        "Oxide or Carbon"
+      ]
     },
     "playerlog": {
       "features": [
@@ -647,15 +1497,31 @@
         "Auto-clears join counts on fresh server wipe"
       ],
       "console_commands": [
-        { "cmd": "plt", "description": "Toggle the live watcher that streams connect/disconnect to your console", "permission": "playerlog.admin" },
-        { "cmd": "plt.reset", "description": "Reset all join counts to zero", "permission": "playerlog.admin" }
+        {
+          "cmd": "plt",
+          "description": "Toggle the live watcher that streams connect/disconnect to your console",
+          "permission": "playerlog.admin"
+        },
+        {
+          "cmd": "plt.reset",
+          "description": "Reset all join counts to zero",
+          "permission": "playerlog.admin"
+        }
       ],
       "permissions": [
-        { "name": "playerlog.admin", "grants": "Use the watcher and reset commands" },
-        { "name": "playerlog.notify", "grants": "Receive connect/disconnect notifications in chat" }
+        {
+          "name": "playerlog.admin",
+          "grants": "Use the watcher and reset commands"
+        },
+        {
+          "name": "playerlog.notify",
+          "grants": "Receive connect/disconnect notifications in chat"
+        }
       ],
       "config_highlights": [],
-      "requires": ["Oxide or Carbon"]
+      "requires": [
+        "Oxide or Carbon"
+      ]
     },
     "rustconchat": {
       "features": [
@@ -665,19 +1531,51 @@
         "Configurable buffer size"
       ],
       "console_commands": [
-        { "cmd": "rustconchat", "description": "Dump the current buffer over RCON for the RustCON app" },
-        { "cmd": "rustconchat.ping", "description": "RCON ping check" },
-        { "cmd": "rustconchat.clear", "description": "Clear the ring buffer" }
+        {
+          "cmd": "rustconchat",
+          "description": "Dump the current buffer over RCON for the RustCON app"
+        },
+        {
+          "cmd": "rustconchat.ping",
+          "description": "RCON ping check"
+        },
+        {
+          "cmd": "rustconchat.clear",
+          "description": "Clear the ring buffer"
+        }
       ],
       "permissions": [],
       "config_highlights": [
-        { "key": "MaxMessages", "default": 100, "note": "Ring buffer size" },
-        { "key": "LogGlobal", "default": true, "note": "Include global chat in the buffer" },
-        { "key": "LogTeam", "default": true, "note": "Include team chat in the buffer" },
-        { "key": "LogConnections", "default": true, "note": "Include player connects" },
-        { "key": "LogDisconnections", "default": true, "note": "Include player disconnects" }
+        {
+          "key": "MaxMessages",
+          "default": 100,
+          "note": "Ring buffer size"
+        },
+        {
+          "key": "LogGlobal",
+          "default": true,
+          "note": "Include global chat in the buffer"
+        },
+        {
+          "key": "LogTeam",
+          "default": true,
+          "note": "Include team chat in the buffer"
+        },
+        {
+          "key": "LogConnections",
+          "default": true,
+          "note": "Include player connects"
+        },
+        {
+          "key": "LogDisconnections",
+          "default": true,
+          "note": "Include player disconnects"
+        }
       ],
-      "requires": ["Oxide or Carbon", "RustCON app for backfill consumption"]
+      "requires": [
+        "Oxide or Carbon",
+        "RustCON app for backfill consumption"
+      ]
     },
     "sharkbaitcrate": {
       "features": [
@@ -688,20 +1586,53 @@
         "Auto-runs on a configurable interval"
       ],
       "chat_commands": [
-        { "cmd": "/sbc", "description": "Manually spawn or manage the ocean crate event", "permission": "sharkbaitcrate.use" }
+        {
+          "cmd": "/sbc",
+          "description": "Manually spawn or manage the ocean crate event",
+          "permission": "sharkbaitcrate.use"
+        }
       ],
       "permissions": [
-        { "name": "sharkbaitcrate.use", "grants": "Use the /sbc manual trigger command" }
+        {
+          "name": "sharkbaitcrate.use",
+          "grants": "Use the /sbc manual trigger command"
+        }
       ],
       "config_highlights": [
-        { "key": "Sharks", "default": 4, "note": "Number of sharks spawned around the crate" },
-        { "key": "Radius", "default": 15, "note": "Radius (meters) sharks patrol around the crate" },
-        { "key": "MinDepth", "default": 4, "note": "Minimum water depth required at the spawn point" },
-        { "key": "Auto", "default": true, "note": "Automatically spawn crates on the interval" },
-        { "key": "Interval", "default": 30, "note": "Seconds between auto spawns" },
-        { "key": "UseMarker", "default": true, "note": "Show a map marker at the crate location" }
+        {
+          "key": "Sharks",
+          "default": 4,
+          "note": "Number of sharks spawned around the crate"
+        },
+        {
+          "key": "Radius",
+          "default": 15,
+          "note": "Radius (meters) sharks patrol around the crate"
+        },
+        {
+          "key": "MinDepth",
+          "default": 4,
+          "note": "Minimum water depth required at the spawn point"
+        },
+        {
+          "key": "Auto",
+          "default": true,
+          "note": "Automatically spawn crates on the interval"
+        },
+        {
+          "key": "Interval",
+          "default": 30,
+          "note": "Seconds between auto spawns"
+        },
+        {
+          "key": "UseMarker",
+          "default": true,
+          "note": "Show a map marker at the crate location"
+        }
       ],
-      "requires": ["Oxide or Carbon"]
+      "requires": [
+        "Oxide or Carbon"
+      ]
     },
     "sharkgun": {
       "features": [
@@ -712,19 +1643,48 @@
         "Per-player and global active-shark caps"
       ],
       "chat_commands": [
-        { "cmd": "/sharkgun", "description": "Give yourself the SharkGun skin", "permission": "sharkgun.use" }
+        {
+          "cmd": "/sharkgun",
+          "description": "Give yourself the SharkGun skin",
+          "permission": "sharkgun.use"
+        }
       ],
       "permissions": [
-        { "name": "sharkgun.use", "grants": "Fire sharks from the skinned weapon" }
+        {
+          "name": "sharkgun.use",
+          "grants": "Fire sharks from the skinned weapon"
+        }
       ],
       "config_highlights": [
-        { "key": "WeaponShortname", "default": "smg.mp5", "note": "Weapon item used as the carrier" },
-        { "key": "WeaponSkinId", "default": 3577321998, "note": "Workshop skin ID that activates the effect" },
-        { "key": "CarrierSpeed", "default": 95, "note": "Initial speed of the shark projectile" },
-        { "key": "KillOnGroundImpact", "default": true, "note": "Sharks die when hitting the ground" },
-        { "key": "EnableSwimOnWater", "default": true, "note": "Sharks swim normally when they hit water" }
+        {
+          "key": "WeaponShortname",
+          "default": "smg.mp5",
+          "note": "Weapon item used as the carrier"
+        },
+        {
+          "key": "WeaponSkinId",
+          "default": 3577321998,
+          "note": "Workshop skin ID that activates the effect"
+        },
+        {
+          "key": "CarrierSpeed",
+          "default": 95,
+          "note": "Initial speed of the shark projectile"
+        },
+        {
+          "key": "KillOnGroundImpact",
+          "default": true,
+          "note": "Sharks die when hitting the ground"
+        },
+        {
+          "key": "EnableSwimOnWater",
+          "default": true,
+          "note": "Sharks swim normally when they hit water"
+        }
       ],
-      "requires": ["Oxide or Carbon"]
+      "requires": [
+        "Oxide or Carbon"
+      ]
     },
     "superammo": {
       "features": [
@@ -735,19 +1695,48 @@
         "Separate toggles for affecting players and NPCs"
       ],
       "chat_commands": [
-        { "cmd": "/sa", "description": "Toggle super-ammo mode for yourself", "permission": "superammo.use" }
+        {
+          "cmd": "/sa",
+          "description": "Toggle super-ammo mode for yourself",
+          "permission": "superammo.use"
+        }
       ],
       "permissions": [
-        { "name": "superammo.use", "grants": "Toggle and use super-damage ammo multipliers" }
+        {
+          "name": "superammo.use",
+          "grants": "Toggle and use super-damage ammo multipliers"
+        }
       ],
       "config_highlights": [
-        { "key": "EnabledByDefault", "default": false, "note": "Whether new players start with super-ammo on" },
-        { "key": "AffectPlayers", "default": true, "note": "Apply multipliers to PvP damage" },
-        { "key": "AffectNPCs", "default": true, "note": "Apply multipliers to NPC damage" },
-        { "key": "ScaleAllDamageTypes", "default": true, "note": "Scale every damage type, not just bullet" },
-        { "key": "AmmoDamageMultipliers", "default": "10000x for every ammo", "note": "Per-ammo multiplier table" }
+        {
+          "key": "EnabledByDefault",
+          "default": false,
+          "note": "Whether new players start with super-ammo on"
+        },
+        {
+          "key": "AffectPlayers",
+          "default": true,
+          "note": "Apply multipliers to PvP damage"
+        },
+        {
+          "key": "AffectNPCs",
+          "default": true,
+          "note": "Apply multipliers to NPC damage"
+        },
+        {
+          "key": "ScaleAllDamageTypes",
+          "default": true,
+          "note": "Scale every damage type, not just bullet"
+        },
+        {
+          "key": "AmmoDamageMultipliers",
+          "default": "10000x for every ammo",
+          "note": "Per-ammo multiplier table"
+        }
       ],
-      "requires": ["Oxide or Carbon"]
+      "requires": [
+        "Oxide or Carbon"
+      ]
     },
     "teamid": {
       "features": [
@@ -757,19 +1746,41 @@
         "Output prints to chat console (F1) and server log"
       ],
       "chat_commands": [
-        { "cmd": "/ti.team", "description": "Show members of a specific team ID", "permission": "teamid.use" },
-        { "cmd": "/ti.all", "description": "Show every team on the server", "permission": "teamid.use" }
+        {
+          "cmd": "/ti.team",
+          "description": "Show members of a specific team ID",
+          "permission": "teamid.use"
+        },
+        {
+          "cmd": "/ti.all",
+          "description": "Show every team on the server",
+          "permission": "teamid.use"
+        }
       ],
       "console_commands": [
-        { "cmd": "ti.team", "description": "Show a team from console" },
-        { "cmd": "ti.all", "description": "Show all teams from console" }
+        {
+          "cmd": "ti.team",
+          "description": "Show a team from console"
+        },
+        {
+          "cmd": "ti.all",
+          "description": "Show all teams from console"
+        }
       ],
       "permissions": [
-        { "name": "teamid.use", "grants": "Run team inspector commands" },
-        { "name": "teamid.admin", "grants": "Administrative alias with the same access" }
+        {
+          "name": "teamid.use",
+          "grants": "Run team inspector commands"
+        },
+        {
+          "name": "teamid.admin",
+          "grants": "Administrative alias with the same access"
+        }
       ],
       "config_highlights": [],
-      "requires": ["Oxide or Carbon"]
+      "requires": [
+        "Oxide or Carbon"
+      ]
     },
     "treeremover": {
       "features": [
@@ -779,34 +1790,96 @@
         "Per-player state, cooldown, and no-target messages"
       ],
       "chat_commands": [
-        { "cmd": "/tree", "description": "Toggle the tree/ore remover mode on or off", "permission": "treeremover.use" }
+        {
+          "cmd": "/tree",
+          "description": "Toggle the tree/ore remover mode on or off",
+          "permission": "treeremover.use"
+        }
       ],
       "permissions": [
-        { "name": "treeremover.use", "grants": "Use the tree and ore remover mode" }
+        {
+          "name": "treeremover.use",
+          "grants": "Use the tree and ore remover mode"
+        }
       ],
       "config_highlights": [
-        { "key": "DisableOnToolbarSelection", "default": true, "note": "Automatically turn off when the player selects a hotbar item" }
+        {
+          "key": "DisableOnToolbarSelection",
+          "default": true,
+          "note": "Automatically turn off when the player selects a hotbar item"
+        }
       ],
-      "requires": ["Oxide or Carbon"]
+      "requires": [
+        "Oxide or Carbon"
+      ]
     },
     "dev2discord": {
       "features": [
         "Bridges the Rust devblog RSS feed to a Discord webhook",
-        "Digest mode posts one daily roundup at a set time",
-        "Individual mode posts each new devblog item immediately",
+        "Individual mode posts each new devblog item the moment it appears",
+        "Digest mode rolls up all new items into one daily post at a set time",
         "Keyword filters include or exclude items by title content",
-        "Optional role ping triggered only on keyword-matching posts"
+        "Optional role ping triggered only on keyword-matching posts",
+        "Diagnostic console commands to test the webhook and inspect state"
+      ],
+      "console_commands": [
+        {
+          "cmd": "dev2discord.test",
+          "note": "Post a one-off test embed to your webhook now (admin/RCON)"
+        },
+        {
+          "cmd": "dev2discord.poll",
+          "note": "Force an immediate RSS poll, bypass the timer"
+        },
+        {
+          "cmd": "dev2discord.digest",
+          "note": "Flush the pending digest queue to Discord now"
+        },
+        {
+          "cmd": "dev2discord.status",
+          "note": "Print mode, webhook state, last poll, queue, counts"
+        },
+        {
+          "cmd": "dev2discord.reset",
+          "note": "Clear seen-GUID list so next poll treats all items as new"
+        }
       ],
       "permissions": [],
       "config_highlights": [
-        { "key": "WebhookUrl", "default": "", "note": "Discord webhook URL (required)" },
-        { "key": "Mode", "default": "digest", "note": "digest = one post per day; individual = post each item immediately" },
-        { "key": "DigestPostTime", "default": "12:00", "note": "Server-local 24h time to send the digest" },
-        { "key": "PollIntervalSeconds", "default": 600, "note": "Feed-check cadence (separate from posting time)" },
-        { "key": "RolePing", "default": "", "note": "Role mention string like <@&ROLE_ID> to ping on qualifying posts" },
-        { "key": "PingKeywords", "default": "[wipe, devblog, force]", "note": "Only ping the role when title contains one of these" }
+        {
+          "key": "WebhookUrl",
+          "default": "",
+          "note": "Discord webhook URL (required)"
+        },
+        {
+          "key": "Mode",
+          "default": "individual",
+          "note": "individual = instant post per item; digest = one daily roundup"
+        },
+        {
+          "key": "DigestPostTime",
+          "default": "12:00",
+          "note": "Server-local 24h time to send the digest (digest mode only)"
+        },
+        {
+          "key": "PollIntervalSeconds",
+          "default": 600,
+          "note": "Feed-check cadence (separate from posting time)"
+        },
+        {
+          "key": "RolePing",
+          "default": "",
+          "note": "Role mention string like <@&ROLE_ID> to ping on qualifying posts"
+        },
+        {
+          "key": "PingKeywords",
+          "default": "[wipe, devblog, force]",
+          "note": "Only ping the role when title contains one of these"
+        }
       ],
-      "requires": ["Oxide or Carbon"]
+      "requires": [
+        "Oxide or Carbon"
+      ]
     },
     "misfitsui": {
       "features": [
@@ -817,16 +1890,37 @@
         "Admin commands reload image cache and show load status"
       ],
       "console_commands": [
-        { "cmd": "msfui.reloadimages", "description": "Reload all image URLs from config into ImageLibrary (admin only)" },
-        { "cmd": "msfui.status", "description": "Print cache status and list of missing images (admin only)" }
+        {
+          "cmd": "msfui.reloadimages",
+          "description": "Reload all image URLs from config into ImageLibrary (admin only)"
+        },
+        {
+          "cmd": "msfui.status",
+          "description": "Print cache status and list of missing images (admin only)"
+        }
       ],
       "permissions": [],
       "config_highlights": [
-        { "key": "ImageUrls", "default": "{...21 keys...}", "note": "URL per brand asset (panel_bg, buttons, icons, logos, textures)" },
-        { "key": "UseImageLibrary", "default": true, "note": "Cache PNGs via ImageLibrary for performance" },
-        { "key": "FallbackToUrl", "default": true, "note": "Fall back to raw URL images if ImageLibrary isn't installed" }
+        {
+          "key": "ImageUrls",
+          "default": "{...21 keys...}",
+          "note": "URL per brand asset (panel_bg, buttons, icons, logos, textures)"
+        },
+        {
+          "key": "UseImageLibrary",
+          "default": true,
+          "note": "Cache PNGs via ImageLibrary for performance"
+        },
+        {
+          "key": "FallbackToUrl",
+          "default": true,
+          "note": "Fall back to raw URL images if ImageLibrary isn't installed"
+        }
       ],
-      "requires": ["Oxide or Carbon", "ImageLibrary (recommended)"]
+      "requires": [
+        "Oxide or Carbon",
+        "ImageLibrary (recommended)"
+      ]
     },
     "misfitscommands": {
       "features": [
@@ -837,32 +1931,93 @@
         "Search, category filters, favorites, and pagination"
       ],
       "chat_commands": [
-        { "cmd": "/cmds", "description": "Open the command browser UI", "permission": "misfitscommands.use" }
+        {
+          "cmd": "/cmds",
+          "description": "Open the command browser UI",
+          "permission": "misfitscommands.use"
+        }
       ],
       "console_commands": [
-        { "cmd": "msfcmds.close", "description": "UI handler: close the panel" },
-        { "cmd": "msfcmds.tab", "description": "UI handler: switch tab" },
-        { "cmd": "msfcmds.filter", "description": "UI handler: apply a category filter" },
-        { "cmd": "msfcmds.page", "description": "UI handler: change page" },
-        { "cmd": "msfcmds.search", "description": "UI handler: search input" },
-        { "cmd": "msfcmds.toggleclose", "description": "UI handler: toggle close button" },
-        { "cmd": "msfcmds.sb", "description": "UI handler: toggle sidebar collapse" },
-        { "cmd": "msfcmds.sect", "description": "UI handler: toggle sidebar section" },
-        { "cmd": "msfcmds.grp", "description": "UI handler: toggle plugin group expand" },
-        { "cmd": "msfcmds.sel", "description": "UI handler: select a row into the detail drawer" },
-        { "cmd": "msfcmds.desel", "description": "UI handler: clear detail drawer" },
-        { "cmd": "msfcmds.fav", "description": "UI handler: toggle favorite on a row" },
-        { "cmd": "msfcmds.run", "description": "UI handler: run the selected chat command" },
-        { "cmd": "msfcmds.runconsole", "description": "UI handler: run the selected console command" },
-        { "cmd": "msfcmds.copyperm", "description": "UI handler: copy a permission string" },
-        { "cmd": "msfcmds.copyskin", "description": "UI handler: copy a skin ID" }
+        {
+          "cmd": "msfcmds.close",
+          "description": "UI handler: close the panel"
+        },
+        {
+          "cmd": "msfcmds.tab",
+          "description": "UI handler: switch tab"
+        },
+        {
+          "cmd": "msfcmds.filter",
+          "description": "UI handler: apply a category filter"
+        },
+        {
+          "cmd": "msfcmds.page",
+          "description": "UI handler: change page"
+        },
+        {
+          "cmd": "msfcmds.search",
+          "description": "UI handler: search input"
+        },
+        {
+          "cmd": "msfcmds.toggleclose",
+          "description": "UI handler: toggle close button"
+        },
+        {
+          "cmd": "msfcmds.sb",
+          "description": "UI handler: toggle sidebar collapse"
+        },
+        {
+          "cmd": "msfcmds.sect",
+          "description": "UI handler: toggle sidebar section"
+        },
+        {
+          "cmd": "msfcmds.grp",
+          "description": "UI handler: toggle plugin group expand"
+        },
+        {
+          "cmd": "msfcmds.sel",
+          "description": "UI handler: select a row into the detail drawer"
+        },
+        {
+          "cmd": "msfcmds.desel",
+          "description": "UI handler: clear detail drawer"
+        },
+        {
+          "cmd": "msfcmds.fav",
+          "description": "UI handler: toggle favorite on a row"
+        },
+        {
+          "cmd": "msfcmds.run",
+          "description": "UI handler: run the selected chat command"
+        },
+        {
+          "cmd": "msfcmds.runconsole",
+          "description": "UI handler: run the selected console command"
+        },
+        {
+          "cmd": "msfcmds.copyperm",
+          "description": "UI handler: copy a permission string"
+        },
+        {
+          "cmd": "msfcmds.copyskin",
+          "description": "UI handler: copy a skin ID"
+        }
       ],
       "permissions": [
-        { "name": "misfitscommands.use", "grants": "Open the command browser UI" },
-        { "name": "misfitscommands.showall", "grants": "See every command regardless of per-command permission gates" }
+        {
+          "name": "misfitscommands.use",
+          "grants": "Open the command browser UI"
+        },
+        {
+          "name": "misfitscommands.showall",
+          "grants": "See every command regardless of per-command permission gates"
+        }
       ],
       "config_highlights": [],
-      "requires": ["Oxide or Carbon", "MisfitsUI"]
+      "requires": [
+        "Oxide or Carbon",
+        "MisfitsUI"
+      ]
     }
   }
 }
