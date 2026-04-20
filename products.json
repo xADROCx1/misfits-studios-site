@@ -82,7 +82,8 @@
       },
       "assets": {
         "icon": "/assets/products/misfitsui.png"
-      }
+      },
+      "download_url": "/downloads/MisfitsUI.cs"
     },
     {
       "id": "misfitscommands",
@@ -1176,31 +1177,34 @@
       "status": "live",
       "tagline": "RCON chat + event ring buffer",
       "short_description": "Stores recent chat and events in a ring buffer, served via RCON for RustCON app backfill. Lightweight, zero-config.",
-      "price_usd": 2.99,
-      "price_label": "$2.99",
+      "price_usd": 0,
+      "price_label": "FREE",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
-        "overlay_enabled": true
+        "overlay_enabled": false,
+        "download_only": true
       },
       "tags": [
         "admin",
         "rcon",
         "chat",
         "utility",
-        "buffer"
+        "buffer",
+        "free"
       ],
       "cs_info_author": "xADROCx",
       "version": "1.0.1",
       "paddle": {
         "product_id": "pro_01kpm3ehkxemntjkks8zz912gp",
-        "price_id": "pri_01kpm3ehpp1qwdj23q3d8b4xed",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vs1yw6mw7vrzn5mey07p",
+        "price_id": null,
+        "checkout_url": null,
         "environment": "live"
       },
       "assets": {
         "icon": "/assets/products/rustconchat.jpg"
-      }
+      },
+      "download_url": "/downloads/RustconChat.cs"
     }
   ],
   "coming_soon": [

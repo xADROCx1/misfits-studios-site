@@ -31,10 +31,14 @@ const attr = (s) => esc(s);
 const jsonSafe = (s) => String(s == null ? '' : s).replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n/g, ' ');
 
 function buyButton(p) {
+  const isFreeDownload = (p.price_usd === 0) && !!p.download_url;
   const ls = p.lemonsqueezy && p.lemonsqueezy.buy_url;
   const pd = p.paddle && p.paddle.price_id;
   let buy = '';
-  if (ls) {
+  if (isFreeDownload) {
+    // Direct download link, no checkout overlay, no payment needed.
+    buy = `<a href="${attr(p.download_url)}" class="buy-btn" data-slug="${attr(p.slug)}" download>▸ DOWNLOAD · FREE</a>`;
+  } else if (ls) {
     buy = `<a href="${attr(p.lemonsqueezy.buy_url)}" class="lemonsqueezy-button buy-btn" data-slug="${attr(p.slug)}">▸ BUY NOW · ${esc(p.price_label)}</a>`;
   } else if (pd) {
     const items = JSON.stringify([{ priceId: p.paddle.price_id, quantity: 1 }]);

@@ -19,16 +19,22 @@
   }
 
   function cardHTML(p) {
+    // Free-with-download short-circuits paddle/lemon routing.
+    var isFreeDownload = (p.price_usd === 0) && !!p.download_url;
     // Prefer Paddle if wired; fall back to Lemon Squeezy. Cards render regardless.
     var paddlePriceId = p.paddle && p.paddle.price_id;
     var paddleUrl = p.paddle && p.paddle.checkout_url;
     var lsUrl = p.lemonsqueezy && p.lemonsqueezy.buy_url;
-    var hasBuyUrl = !!(paddleUrl || lsUrl);
-    var isPaddle = !!paddleUrl;
+    var hasBuyUrl = isFreeDownload || !!(paddleUrl || lsUrl);
+    var isPaddle = !isFreeDownload && !!paddleUrl;
 
     // Paddle.js attaches to class="paddle_button" with data-items; Lemon.js attaches to class="lemonsqueezy-button" with href.
     var classAttr, dataAttr = '', href;
-    if (isPaddle) {
+    if (isFreeDownload) {
+      classAttr = '';
+      dataAttr  = ' download';
+      href      = p.download_url;
+    } else if (isPaddle) {
       classAttr = 'paddle_button';
       dataAttr = ' data-display-mode="overlay" data-items=\'' + JSON.stringify([{ priceId: paddlePriceId, quantity: 1 }]).replace(/'/g, '&#39;') + '\'';
       href = paddleUrl;
