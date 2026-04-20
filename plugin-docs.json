@@ -1825,7 +1825,11 @@
       "console_commands": [
         {
           "cmd": "dev2discord.test",
-          "note": "Post a one-off test embed to your webhook now (admin/RCON)"
+          "note": "Post a one-off test embed to your webhook now. Optional: dev2discord.test \"Title\" \"Body\""
+        },
+        {
+          "cmd": "dev2discord.announce",
+          "note": "Post an ad-hoc admin announcement — dev2discord.announce \"Title\" \"Body\""
         },
         {
           "cmd": "dev2discord.poll",
