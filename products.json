@@ -1208,7 +1208,8 @@
       },
       "assets": {
         "icon": "/assets/products/neighborhoodwatch.png"
-      }
+      },
+      "source_file": "/downloads/NeighborhoodWatch.cs"
     }
   ],
   "coming_soon": [
@@ -1237,5 +1238,5 @@
       "eta": "TBD"
     }
   ],
-  "last_editor_update": "2026-04-20T22:02:52.530Z"
+  "last_editor_update": "2026-04-20T22:25:02.696Z"
 }
