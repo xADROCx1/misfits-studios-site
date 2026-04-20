@@ -152,7 +152,7 @@
         "environment": "live"
       },
       "assets": {
-        "icon": "/assets/products/airbags.png"
+        "icon": "/assets/products/airbags.jpg"
       }
     },
     {
@@ -250,7 +250,7 @@
         "environment": "live"
       },
       "assets": {
-        "icon": "/assets/products/boatnitro.png"
+        "icon": "/assets/products/boatnitro.jpg"
       }
     },
     {
@@ -347,7 +347,7 @@
         "environment": "live"
       },
       "assets": {
-        "icon": "/assets/products/chickenlover.png"
+        "icon": "/assets/products/chickenlover.jpg"
       }
     },
     {
@@ -379,7 +379,7 @@
         "environment": "live"
       },
       "assets": {
-        "icon": "/assets/products/compostsplitter.png"
+        "icon": "/assets/products/compostsplitter.jpg"
       }
     },
     {
@@ -412,7 +412,7 @@
         "environment": "live"
       },
       "assets": {
-        "icon": "/assets/products/deadmanslocker.png"
+        "icon": "/assets/products/deadmanslocker.jpg"
       }
     },
     {
@@ -509,7 +509,7 @@
         "environment": "live"
       },
       "assets": {
-        "icon": "/assets/products/entcount.png"
+        "icon": "/assets/products/entcount.jpg"
       }
     },
     {
@@ -804,7 +804,7 @@
         "environment": "live"
       },
       "assets": {
-        "icon": "/assets/products/loadedturrets.png"
+        "icon": "/assets/products/loadedturrets.jpg"
       }
     },
     {
@@ -836,7 +836,7 @@
         "environment": "live"
       },
       "assets": {
-        "icon": "/assets/products/maxarmorcraft.png"
+        "icon": "/assets/products/maxarmorcraft.jpg"
       }
     },
     {
@@ -934,7 +934,7 @@
         "environment": "live"
       },
       "assets": {
-        "icon": "/assets/products/nocratefire.png"
+        "icon": "/assets/products/nocratefire.jpg"
       }
     },
     {
@@ -999,7 +999,7 @@
         "environment": "live"
       },
       "assets": {
-        "icon": "/assets/products/sharkbaitcrate.png"
+        "icon": "/assets/products/sharkbaitcrate.jpg"
       }
     },
     {
@@ -1097,7 +1097,7 @@
         "environment": "live"
       },
       "assets": {
-        "icon": "/assets/products/teamid.png"
+        "icon": "/assets/products/teamid.jpg"
       }
     },
     {
@@ -1199,7 +1199,7 @@
         "environment": "live"
       },
       "assets": {
-        "icon": "/assets/products/rustconchat.png"
+        "icon": "/assets/products/rustconchat.jpg"
       }
     }
   ],
