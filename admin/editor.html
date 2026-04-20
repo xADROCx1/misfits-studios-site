@@ -578,6 +578,30 @@
   details.backup > summary { cursor: pointer; font-family: var(--font-mono); font-size: 11px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; list-style: none; }
   details.backup > summary::before { content: '▸ '; }
   details.backup[open] > summary::before { content: '▾ '; }
+
+  /* -------- Icon editor widget (real assets.icon) -------- */
+  .icon-editor { display: grid; grid-template-columns: 96px 1fr; gap: 10px; align-items: start; }
+  .icon-preview {
+    width: 96px; height: 96px; border: 1px solid var(--line); background: #05050c;
+    display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative;
+  }
+  .icon-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .icon-preview .empty { font-family: var(--font-mono); font-size: 10px; color: var(--muted); text-align: center; padding: 4px; }
+  .icon-preview.staged::after {
+    content: 'STAGED'; position: absolute; top: 4px; right: 4px;
+    background: var(--yellow); color: #000; font-family: var(--font-mono); font-size: 9px;
+    font-weight: 700; padding: 1px 5px; letter-spacing: 0.1em;
+  }
+  .icon-controls { display: flex; flex-direction: column; gap: 6px; }
+  .icon-upload-btn {
+    display: inline-block; padding: 6px 10px; border: 1px solid var(--line);
+    background: #0a0a14; color: var(--paper); font-family: var(--font-mono); font-size: 11px;
+    cursor: pointer; text-align: center; transition: border-color 0.15s;
+  }
+  .icon-upload-btn:hover { border-color: var(--cyan); }
+  .icon-upload-btn input { display: none; }
+  .icon-hint { font-family: var(--font-mono); font-size: 10px; color: var(--muted); }
+  .icon-hint.staged { color: var(--yellow); }
 </style>
 </head>
 <body>
@@ -743,7 +767,8 @@ window._editorState = {
   dirty: new Set(),     // product ids with pending changes
   baseline: new Map(),  // id -> stringified original
   history: [],          // undo stack (cap 20)
-  future: []            // redo stack
+  future: [],           // redo stack
+  stagedImages: new Map() // repoPath -> { base64Content, filename, dataUrl }
 };
 const S = window._editorState;
 
@@ -1081,9 +1106,26 @@ function renderSide() {
         </div>
       </div>
       <div class="field">
-        <label>Cover image URL</label>
-        <input class="inp" data-f="cover_image" value="${escapeHtml(p.cover_image || '')}" placeholder="https://... or /products/xyz/cover.png" />
-        <div class="drop-zone" id="drop-zone">&#11015; Drop image here to use its URL (optional)</div>
+        <label>Product Icon &mdash; assets.icon (what the site actually renders)</label>
+        <div class="icon-editor">
+          <div class="icon-preview" id="icon-preview">
+            ${p.assets && p.assets.icon
+              ? `<img id="icon-preview-img" src="${escapeHtml(p.assets.icon)}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="empty" style="display:none">missing</div>`
+              : `<div class="empty">no icon</div>`}
+          </div>
+          <div class="icon-controls">
+            <input class="inp" data-f="assets.icon" value="${escapeHtml((p.assets && p.assets.icon) || '')}" placeholder="/assets/products/slug.jpg" id="icon-path-input" />
+            <select class="sel" id="icon-picker">
+              <option value="">— pick existing file —</option>
+              ${[...new Set(S.products.map(x => x.assets && x.assets.icon).filter(Boolean))].sort().map(pt => `<option value="${escapeHtml(pt)}">${escapeHtml(pt)}</option>`).join('')}
+            </select>
+            <label class="icon-upload-btn">
+              &#11014; Upload new image
+              <input type="file" accept="image/*" id="icon-upload" />
+            </label>
+            <div class="icon-hint" id="icon-upload-hint">Accepts .jpg / .png / .webp. Uploaded image is staged; it commits with the next Publish.</div>
+          </div>
+        </div>
       </div>
       <div class="field">
         <label>Author &mdash; read-only</label>
@@ -1129,29 +1171,40 @@ function renderSide() {
     });
   }
 
-  // Drop zone
-  const dz = ed.querySelector('#drop-zone');
-  if (dz) {
-    dz.addEventListener('dragover', (e) => { e.preventDefault(); dz.classList.add('over'); });
-    dz.addEventListener('dragleave', () => dz.classList.remove('over'));
-    dz.addEventListener('drop', (e) => {
-      e.preventDefault(); dz.classList.remove('over');
-      const url = e.dataTransfer.getData('text/uri-list') || e.dataTransfer.getData('text/plain');
-      if (url && /^https?:\/\//i.test(url)) {
-        setField('cover_image', url);
-        const inp = ed.querySelector('[data-f="cover_image"]');
-        if (inp) inp.value = url;
-        toast('Pasted URL into cover_image', 'ok');
-        return;
-      }
-      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-        const f = e.dataTransfer.files[0];
-        const placeholder = '/products/' + (S.products.find(x => x.id === S.selectedId)?.slug || 'new') + '/' + f.name;
-        setField('cover_image', placeholder);
-        const inp = ed.querySelector('[data-f="cover_image"]');
-        if (inp) inp.value = placeholder;
-        toast('Set placeholder path (file not uploaded)', 'ok');
-      }
+  // Icon picker (dropdown of existing files)
+  const picker = ed.querySelector('#icon-picker');
+  if (picker) {
+    picker.addEventListener('change', (e) => {
+      const v = e.target.value;
+      if (!v) return;
+      setField('assets.icon', v);
+      const inp = document.getElementById('icon-path-input');
+      if (inp) inp.value = v;
+      refreshIconPreview();
+      toast('Icon set to ' + v, 'ok');
+      picker.value = ''; // reset for clarity
+    });
+  }
+
+  // Icon upload
+  const upload = ed.querySelector('#icon-upload');
+  if (upload) {
+    upload.addEventListener('change', (e) => {
+      const f = e.target.files && e.target.files[0];
+      if (f) stageIconUpload(f);
+      e.target.value = ''; // allow re-picking same file
+    });
+  }
+
+  // Drag-to-upload on the preview tile
+  const preview = ed.querySelector('#icon-preview');
+  if (preview) {
+    preview.addEventListener('dragover', (e) => { e.preventDefault(); preview.style.borderColor = 'var(--cyan)'; });
+    preview.addEventListener('dragleave', () => { preview.style.borderColor = ''; });
+    preview.addEventListener('drop', (e) => {
+      e.preventDefault(); preview.style.borderColor = '';
+      const f = e.dataTransfer.files && e.dataTransfer.files[0];
+      if (f) stageIconUpload(f);
     });
   }
 }
@@ -1168,6 +1221,16 @@ function tagHTML(t) {
 
 /* ---------- Field mutations ---------- */
 let slugManual = false;
+function setNestedField(obj, path, value) {
+  // path like "assets.icon" writes to obj.assets.icon, creating objects along the way.
+  const parts = String(path).split('.');
+  let cur = obj;
+  for (let i = 0; i < parts.length - 1; i++) {
+    if (cur[parts[i]] == null || typeof cur[parts[i]] !== 'object') cur[parts[i]] = {};
+    cur = cur[parts[i]];
+  }
+  cur[parts[parts.length - 1]] = value;
+}
 function onFieldChange(field, value, inputEl) {
   const p = S.products.find(x => x.id === S.selectedId);
   if (!p) return;
@@ -1187,6 +1250,9 @@ function onFieldChange(field, value, inputEl) {
     p.slug = slugify(value);
     slugManual = true;
     if (inputEl) inputEl.value = p.slug;
+  } else if (field.includes('.')) {
+    setNestedField(p, field, value);
+    if (field === 'assets.icon') refreshIconPreview();
   } else {
     p[field] = value;
   }
@@ -1199,9 +1265,72 @@ function setField(field, value) {
   const p = S.products.find(x => x.id === S.selectedId);
   if (!p) return;
   snapshot();
-  p[field] = value;
+  if (field.includes('.')) setNestedField(p, field, value);
+  else p[field] = value;
   markDirty(p.id);
   rerenderCard(p.id);
+}
+
+/* ---------- Icon editor helpers ---------- */
+function refreshIconPreview() {
+  const p = S.products.find(x => x.id === S.selectedId);
+  if (!p) return;
+  const preview = document.getElementById('icon-preview');
+  if (!preview) return;
+  const iconPath = (p.assets && p.assets.icon) || '';
+  const staged = S.stagedImages.get(iconPath);
+  preview.classList.toggle('staged', !!staged);
+  if (staged) {
+    preview.innerHTML = `<img src="${staged.dataUrl}" />`;
+  } else if (iconPath) {
+    preview.innerHTML = `<img src="${escapeHtml(iconPath)}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="empty" style="display:none">missing</div>`;
+  } else {
+    preview.innerHTML = `<div class="empty">no icon</div>`;
+  }
+}
+
+function stageIconUpload(file) {
+  const p = S.products.find(x => x.id === S.selectedId);
+  if (!p) return;
+  if (!/^image\//i.test(file.type)) { toast('Not an image file', 'err'); return; }
+  if (file.size > 4 * 1024 * 1024) { toast('Image too large (>4MB). Compress and retry.', 'err'); return; }
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    const dataUrl = reader.result;
+    // extract base64 portion after the "data:...;base64," prefix
+    const comma = dataUrl.indexOf(',');
+    const base64Content = dataUrl.slice(comma + 1);
+    // derive target repo path from slug + original extension
+    const ext = (file.name.split('.').pop() || 'jpg').toLowerCase();
+    const slug = p.slug || slugify(p.name || p.id || 'icon');
+    const targetPath = 'assets/products/' + slug + '.' + ext;
+    const publicPath = '/' + targetPath;
+
+    S.stagedImages.set(publicPath, {
+      repoPath: targetPath,      // path used when committing (no leading slash)
+      filename: file.name,
+      base64: base64Content,
+      dataUrl: dataUrl
+    });
+
+    // update products.json to point at the new path
+    snapshot();
+    p.assets = p.assets || {};
+    p.assets.icon = publicPath;
+    const pathInp = document.getElementById('icon-path-input');
+    if (pathInp) pathInp.value = publicPath;
+    const hint = document.getElementById('icon-upload-hint');
+    if (hint) {
+      hint.textContent = `✓ ${file.name} staged → ${publicPath}. Will commit on next Publish.`;
+      hint.classList.add('staged');
+    }
+    markDirty(p.id);
+    refreshIconPreview();
+    rerenderCard(p.id);
+    toast('Image staged for publish', 'ok');
+  };
+  reader.readAsDataURL(file);
 }
 function rerenderCard(id) {
   // simplest: redo full grid (48 items is trivial)
@@ -1475,8 +1604,47 @@ async function publishNow() {
     const meJ = await meR.json();
     setStep(1, 'done', '@' + meJ.login);
 
-    // STEP 2 — commit
+    // STEP 2 — commit (staged images first, then products.json)
     setStep(2, 'active');
+    const apiBase = `https://api.github.com/repos/${repo}/contents/`;
+
+    // 2a. Upload any staged images. We commit each as its own commit so if anything
+    //     trips midway, partial progress is still on main (idempotent-safe — next run
+    //     will just skip what's already there).
+    const stagedEntries = Array.from(S.stagedImages.values());
+    if (stagedEntries.length) {
+      let i = 0;
+      for (const img of stagedEntries) {
+        i++;
+        setStep(2, 'active', `uploading image ${i}/${stagedEntries.length} · ${img.filename}`);
+        // Check if the target path already exists so we can include its sha (update vs create)
+        let existingSha = null;
+        try {
+          const eR = await fetch(apiBase + encodeURIComponent(img.repoPath).replace(/%2F/gi, '/') + '?ref=' + branch, {
+            headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github+json' }
+          });
+          if (eR.ok) {
+            const eJ = await eR.json();
+            existingSha = eJ.sha || null;
+          }
+        } catch (_) { /* treat as create */ }
+
+        const imgBody = { message: 'editor: upload ' + img.repoPath, content: img.base64, branch: branch };
+        if (existingSha) imgBody.sha = existingSha;
+        const imgR = await fetch(apiBase + encodeURIComponent(img.repoPath).replace(/%2F/gi, '/'), {
+          method: 'PUT',
+          headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json' },
+          body: JSON.stringify(imgBody)
+        });
+        if (!imgR.ok) {
+          const t = await imgR.text();
+          throw new Error('image upload failed (' + imgR.status + ') for ' + img.repoPath + ': ' + t.slice(0, 160));
+        }
+      }
+    }
+
+    // 2b. Commit products.json with the updated assets.icon paths
+    setStep(2, 'active', 'committing products.json');
     const getR = await fetch(api + '?ref=' + branch, { headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github+json' } });
     if (!getR.ok) throw new Error('GET products.json failed (' + getR.status + ')');
     const getJ = await getR.json();
@@ -1494,7 +1662,9 @@ async function publishNow() {
     const putJ = await putR.json();
     const commitUrl = putJ.commit && putJ.commit.html_url || '';
     const commitSha = (putJ.commit && putJ.commit.sha || '').slice(0, 7);
-    setStep(2, 'done', commitSha);
+    setStep(2, 'done', commitSha + (stagedEntries.length ? ` · +${stagedEntries.length} image${stagedEntries.length>1?'s':''}` : ''));
+    // Clear staged images once all uploads succeeded
+    S.stagedImages.clear();
 
     // STEP 3 — wait for Cloudflare build (typical 30–60s)
     setStep(3, 'active');
