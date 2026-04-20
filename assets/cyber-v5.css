@@ -177,11 +177,12 @@
 
 .v5-hero-misfits {
   display: block;
-  font-size: clamp(56px, 12.5vw, 188px);
-  letter-spacing: -0.04em;
+  font-size: clamp(48px, 10.5vw, 156px);
+  letter-spacing: -0.05em;
   /* Parent .v5-hero-stack has word-break:break-word which was splitting MISFITS
-     into MISFIT + S. Force this span to only break at real word boundaries. */
-  word-break: normal;
+     into MISFIT + S. Force this span to stay on one line, period. */
+  white-space: nowrap;
+  word-break: keep-all;
   overflow-wrap: normal;
   background: linear-gradient(90deg, var(--v5-pink) 0%, var(--v5-purple) 50%, var(--v5-cyan) 100%);
   -webkit-background-clip: text;
