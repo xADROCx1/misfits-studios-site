@@ -1150,8 +1150,8 @@
       "status": "live",
       "tagline": "Right-click to remove trees & ore",
       "short_description": "Toggleable remover with crosshair UI. While enabled, right-click removes the targeted tree or ore node.",
-      "price_usd": 5.99,
-      "price_label": "$5.99",
+      "price_usd": 1.99,
+      "price_label": "$1.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -1236,5 +1236,5 @@
       "eta": "TBD"
     }
   ],
-  "last_editor_update": "2026-04-20T21:01:53.012Z"
+  "last_editor_update": "2026-04-20T21:04:11.433Z"
 }
