@@ -25,8 +25,8 @@
       "status": "live",
       "tagline": "Rust devblog RSS → Discord bridge",
       "short_description": "Auto-posts official Rust devblogs, patch notes, and news to your server's Discord channel. Digest or instant mode.",
-      "price_usd": 9.99,
-      "price_label": "$9.99",
+      "price_usd": 6.99,
+      "price_label": "$6.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -43,7 +43,7 @@
       "paddle": {
         "product_id": "pro_01kpm2ctd1k0ydn4s6dpjradg8",
         "price_id": "pri_01kpm2ctgvwbzvpvxjbx0fdxrx",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v2mqt92dtg2mx6r72pkc",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vxe4ng50e8sr2nhd5b7a",
         "environment": "live"
       }
     },
@@ -72,7 +72,7 @@
       ],
       "cs_info_author": "Misfits Studios",
       "paddle": {
-        "product_id": "pro_01kpm3egz0ryshxjzgax25kec0",
+        "product_id": "pro_01kpm2ctttg83y3gz1ntw7dbph",
         "price_id": null,
         "checkout_url": null,
         "environment": "live"
@@ -87,8 +87,8 @@
       "status": "live",
       "tagline": "Cyberpunk admin UI for every command",
       "short_description": "Terminal-inspired in-game browser for chat commands, console commands, permissions, and skin IDs across every loaded plugin.",
-      "price_usd": 14.99,
-      "price_label": "$14.99",
+      "price_usd": 9.99,
+      "price_label": "$9.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -108,7 +108,7 @@
       "paddle": {
         "product_id": "pro_01kpm2ctz626s06vg3hvkyxz9s",
         "price_id": "pri_01kpm2cv217k81hrmt0xt4zbfg",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v2gsn1cw38rphtf3fxhf",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vxaaf26cchxsrynf3n51",
         "environment": "live"
       }
     },
@@ -121,8 +121,8 @@
       "status": "live",
       "tagline": "Large Backpack + diving tank hybrid",
       "short_description": "Large Backpack + diving tank behavior: oxygen in water, drains air, refill via chat, compact O2 HUD.",
-      "price_usd": 9.99,
-      "price_label": "$9.99",
+      "price_usd": 6.99,
+      "price_label": "$6.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -139,7 +139,7 @@
       "paddle": {
         "product_id": "pro_01kpm2cvm2h63q3cspcr0a0p85",
         "price_id": "pri_01kpm2cvpn8z7dw3x15p13xmsf",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v28bxf9w1hqjnyt6gmv0",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vx6e8fy1r0x9qfdrh444",
         "environment": "live"
       }
     },
@@ -152,8 +152,8 @@
       "status": "live",
       "tagline": "NPC vendors never run out",
       "short_description": "NPC vending machines keep a high default stack and reset to it after every purchase. Includes timer and restock-all command.",
-      "price_usd": 4.99,
-      "price_label": "$4.99",
+      "price_usd": 2.99,
+      "price_label": "$2.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -169,7 +169,7 @@
       "paddle": {
         "product_id": "pro_01kpm2cvytzacwb696z60ner6p",
         "price_id": "pri_01kpm2cw2bxfgmgkgfgj56mv52",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v24mcvn1kavd7hyhqh7f",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vx2vf5yv49rgd7fzap8j",
         "environment": "live"
       }
     },
@@ -182,8 +182,8 @@
       "status": "live",
       "tagline": "Maxed armor insert slots on every piece",
       "short_description": "Improves armor-insert slot behavior across attire items with auto-detect and per-item overrides.",
-      "price_usd": 9.99,
-      "price_label": "$9.99",
+      "price_usd": 6.99,
+      "price_label": "$6.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -198,7 +198,7 @@
       "paddle": {
         "product_id": "pro_01kpm2cw9hrjk0qz4pxxm7knme",
         "price_id": "pri_01kpm2cwc625qaa5xjvef8qn9g",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v211rv16byka2n3m7tgf",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vwzea8wq9pkesr8xjb1x",
         "environment": "live"
       }
     },
@@ -211,8 +211,8 @@
       "status": "live",
       "tagline": "Shift-to-boost for every boat",
       "short_description": "Shift-only boat boost (rowboat / RHIB / PT + optional tug) and unified manual-eject for driver & passengers.",
-      "price_usd": 9.99,
-      "price_label": "$9.99",
+      "price_usd": 6.99,
+      "price_label": "$6.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -228,7 +228,7 @@
       "paddle": {
         "product_id": "pro_01kpm2cwnaardqzwy93jy26tam",
         "price_id": "pri_01kpm2cwqycjeq3kr1y7481vkr",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v1xan6a41tkt4rpg5kz5",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vwvmcda3ydc6brv8jypg",
         "environment": "live"
       }
     },
@@ -241,8 +241,8 @@
       "status": "live",
       "tagline": "Rifles that fire C4",
       "short_description": "Explosive 5.56 launches timed explosives (C4) when toggled on. Permission-gated.",
-      "price_usd": 4.99,
-      "price_label": "$4.99",
+      "price_usd": 2.99,
+      "price_label": "$2.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -257,7 +257,7 @@
       "paddle": {
         "product_id": "pro_01kpm2cwz788jxaem7r54yab0v",
         "price_id": "pri_01kpm2cx2c6egp29br63xf59b4",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v1stx347dy69yv6vkwan",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vwqyg7bwt3vaq5ryh8d3",
         "environment": "live"
       }
     },
@@ -270,8 +270,8 @@
       "status": "live",
       "tagline": "Gun that fires live chickens",
       "short_description": "Gun skin that fires physics-driven chickens (full-auto). No bullets, AI disabled, hover/floor protection, landing modes, caps, and Codefling-safe permission handling.",
-      "price_usd": 9.99,
-      "price_label": "$9.99",
+      "price_usd": 6.99,
+      "price_label": "$6.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -287,7 +287,7 @@
       "paddle": {
         "product_id": "pro_01kpm2cxkw728nhjqjvvj79g0a",
         "price_id": "pri_01kpm2cxpb6pq6z7y1y3jyh1rv",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v1j9xeqct9788w4gtgs3",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vwkkjpsw8p52mwfcn1f8",
         "environment": "live"
       }
     },
@@ -300,8 +300,8 @@
       "status": "live",
       "tagline": "One-click coop happiness",
       "short_description": "Adds a Chicken Lover button to Chicken Coop UI that satisfies only the chickens inside the coop you're currently looting.",
-      "price_usd": 4.99,
-      "price_label": "$4.99",
+      "price_usd": 2.99,
+      "price_label": "$2.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -316,7 +316,7 @@
       "paddle": {
         "product_id": "pro_01kpm2cxx7b0dd0v4g938gw411",
         "price_id": "pri_01kpm2cxzw9ypb5yzbv0tyd62m",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v1f0g6qtbzk7pev1t6nd",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vwgd3m7h1tb5r33zc6ke",
         "environment": "live"
       }
     },
@@ -329,8 +329,8 @@
       "status": "live",
       "tagline": "Auto-split compost across slots",
       "short_description": "Splits compostables evenly across open slots. Blocks when full. Persists composter stack layout across restarts.",
-      "price_usd": 4.99,
-      "price_label": "$4.99",
+      "price_usd": 2.99,
+      "price_label": "$2.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -345,7 +345,7 @@
       "paddle": {
         "product_id": "pro_01kpm2cy6s5bf2j7g41m12zkbt",
         "price_id": "pri_01kpm2cy97g86nk1eqsnn6enp0",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v1b26h5ysqs4z2mmqf7x",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vwc2tydb8ng2tcdt19bm",
         "environment": "live"
       }
     },
@@ -358,8 +358,8 @@
       "status": "live",
       "tagline": "Instant corpse loot retrieval",
       "short_description": "Adds a loot UI button on your own corpse to instantly retrieve items, with optional exact layout restore.",
-      "price_usd": 7.99,
-      "price_label": "$7.99",
+      "price_usd": 5.99,
+      "price_label": "$5.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -375,7 +375,7 @@
       "paddle": {
         "product_id": "pro_01kpm2cyghh1w2ew397h6xpdy7",
         "price_id": "pri_01kpm2cyjxdh6q0df0z306zm2j",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v1794gfy5z778e2b7bhs",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vw8epx2tynr2j6jnv240",
         "environment": "live"
       }
     },
@@ -388,8 +388,8 @@
       "status": "live",
       "tagline": "Modular boat speed + nitro",
       "short_description": "Speed boost and nitro system for modular boats.",
-      "price_usd": 9.99,
-      "price_label": "$9.99",
+      "price_usd": 6.99,
+      "price_label": "$6.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -405,7 +405,7 @@
       "paddle": {
         "product_id": "pro_01kpm2cytyffc6ss7djnnkmkx6",
         "price_id": "pri_01kpm2cyxcvx6n2d1fdc4030zj",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v13vssk5exmgf4xdba6t",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vw31nr3w0wa7n4qtv6ak",
         "environment": "live"
       }
     },
@@ -418,8 +418,8 @@
       "status": "live",
       "tagline": "One-click consume every food item",
       "short_description": "Adds a togglable EAT ALL button that consumes every food item in the player's inventory and applies the cumulative stat buffs.",
-      "price_usd": 4.99,
-      "price_label": "$4.99",
+      "price_usd": 2.99,
+      "price_label": "$2.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -434,7 +434,7 @@
       "paddle": {
         "product_id": "pro_01kpm2cz4p4zj2kptnyt8306zf",
         "price_id": "pri_01kpm2cz78fmd8bvzkddwq7jrp",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v101k3p5yjvvcnvdpsda",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vvzadptgqq1f5vhx8sp9",
         "environment": "live"
       }
     },
@@ -447,8 +447,8 @@
       "status": "live",
       "tagline": "Per-player entity counter",
       "short_description": "Counts Rust entities owned by online/offline players.",
-      "price_usd": 4.99,
-      "price_label": "$4.99",
+      "price_usd": 2.99,
+      "price_label": "$2.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -463,7 +463,7 @@
       "paddle": {
         "product_id": "pro_01kpm2czsc2p80maz8nz1r635v",
         "price_id": "pri_01kpm2czwa5fnca9tebepdw3zh",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v0r0xm79f3tn09syfke4",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vvv39sjgvj1nysh1j8bf",
         "environment": "live"
       }
     },
@@ -476,8 +476,8 @@
       "status": "live",
       "tagline": "Cap entities per player by tier",
       "short_description": "Limits total owned entities per player using 4 permissions: tier1, tier2, tier3, unlimited (-1 = infinite).",
-      "price_usd": 7.99,
-      "price_label": "$7.99",
+      "price_usd": 5.99,
+      "price_label": "$5.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -493,7 +493,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d03af9bn7j6mj5cedf50",
         "price_id": "pri_01kpm2d05y7zs7j7hn3j8a8yy2",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v0mak6t23t88crz9qsb1",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vvqb277yc7k57z02qrmf",
         "environment": "live"
       }
     },
@@ -506,8 +506,8 @@
       "status": "live",
       "tagline": "Jumping shark clusters",
       "short_description": "Periodically spawns a cluster of sharks that leap out of the water and splash back down. Fully configurable.",
-      "price_usd": 9.99,
-      "price_label": "$9.99",
+      "price_usd": 6.99,
+      "price_label": "$6.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -523,7 +523,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d0pwgtgsy2r2j4gmy489",
         "price_id": "pri_01kpm2d0spcvnbmbfn4k2zmztj",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v0czjyb596mmsax4rkkb",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vvkp09rf0qq3jsaba3wk",
         "environment": "live"
       }
     },
@@ -536,8 +536,8 @@
       "status": "live",
       "tagline": "Submarines that fly",
       "short_description": "Allows submarines to fly through the air. Use /flysub to toggle. Hold SHIFT to launch and thrust. Supports solo and duo subs.",
-      "price_usd": 7.99,
-      "price_label": "$7.99",
+      "price_usd": 5.99,
+      "price_label": "$5.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -553,7 +553,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d112hhyt0a3bp3q278fc",
         "price_id": "pri_01kpm2d13qtehrtfr7mf32ccd0",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v09gapgf7etd2hdyd2cs",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vvfb7r6hq1djm5mv9sk0",
         "environment": "live"
       }
     },
@@ -566,8 +566,8 @@
       "status": "live",
       "tagline": "One-click beehive satisfaction",
       "short_description": "Adds a 'Bee Happy' button to Beehive UI that satisfies the bees in the hive you are currently looting.",
-      "price_usd": 4.99,
-      "price_label": "$4.99",
+      "price_usd": 2.99,
+      "price_label": "$2.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -583,7 +583,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d1bbyw6ecmejfxa45wxn",
         "price_id": "pri_01kpm2d1dqsskm7hks00v49638",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v0697vkqh40x8t38jht2",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vvatxg9dh9q8s278yzzr",
         "environment": "live"
       }
     },
@@ -596,8 +596,8 @@
       "status": "live",
       "tagline": "Nitro boost for player helis",
       "short_description": "Nitro boost for player-driven helicopters (minicopter / scrap / attack) with cooldown and safety checks.",
-      "price_usd": 7.99,
-      "price_label": "$7.99",
+      "price_usd": 5.99,
+      "price_label": "$5.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -612,7 +612,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d1nfc9bspkwzvhamqw7z",
         "price_id": "pri_01kpm2d1rardk6pdxhk2c9vdpb",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v02m6qm94q40m9bk1kc6",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vv6tdw53eqat7r36zb7s",
         "environment": "live"
       }
     },
@@ -625,8 +625,8 @@
       "status": "live",
       "tagline": "Gun that fires horses",
       "short_description": "Gun skin shoots horses. Ground impact detected via ground polling, forces ragdoll/corpse, corpse despawns after 3 seconds.",
-      "price_usd": 9.99,
-      "price_label": "$9.99",
+      "price_usd": 6.99,
+      "price_label": "$6.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -642,7 +642,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d1zjn6e3z70x7f24aeya",
         "price_id": "pri_01kpm2d221haf8tj8mj8ev87df",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2tzyprfnebtetwpftfntc",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vv2qem7cmdprp8d6ktxt",
         "environment": "live"
       }
     },
@@ -655,8 +655,8 @@
       "status": "live",
       "tagline": "No spool-up delay",
       "short_description": "Instant engine startup for Minicopter, Scrap Transport Helicopter & Attack Helicopter + optional jump impulse.",
-      "price_usd": 4.99,
-      "price_label": "$4.99",
+      "price_usd": 2.99,
+      "price_label": "$2.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -671,7 +671,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d28k5c597j3vww1zgp2g",
         "price_id": "pri_01kpm2d2b993gehb8tr883tw7f",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2tzty64wmvtt9e350ywvr",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vtyrejgprwc8n3kz791j",
         "environment": "live"
       }
     },
@@ -684,8 +684,8 @@
       "status": "live",
       "tagline": "Chat keyword watcher",
       "short_description": "Logs chat messages containing configurable keywords to a file and optionally to Discord.",
-      "price_usd": 4.99,
-      "price_label": "$4.99",
+      "price_usd": 2.99,
+      "price_label": "$2.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -702,7 +702,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d2jdstr66m18dhsvnxkg",
         "price_id": "pri_01kpm2d2mtc6nqcyp1k4yrvw6p",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2tzq8tfg0sqyhp77e81ca",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vtte60nmah7shdqxd3st",
         "environment": "live"
       }
     },
@@ -715,8 +715,8 @@
       "status": "live",
       "tagline": "Turret presets on placement",
       "short_description": "Turret presets applied automatically on placement. Per-player loadouts and smart targeting.",
-      "price_usd": 12.99,
-      "price_label": "$12.99",
+      "price_usd": 8.99,
+      "price_label": "$8.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -731,7 +731,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d2w65crkdq839zx86yrk",
         "price_id": "pri_01kpm2d2z7tj3bzzt25cr58ws6",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2tzkr24xztpbtk150t506",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vtphyy0zaardt4mfetn1",
         "environment": "live"
       }
     },
@@ -744,8 +744,8 @@
       "status": "live",
       "tagline": "Max armor insert slots on craft",
       "short_description": "Forces maximum armor insert slots on attire items. Auto-detect + legacy per-item overrides.",
-      "price_usd": 4.99,
-      "price_label": "$4.99",
+      "price_usd": 2.99,
+      "price_label": "$2.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -760,7 +760,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d3gr3yg2t8qxpxp4mp7s",
         "price_id": "pri_01kpm2d3kkp8zq9ghpje44gkny",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2tzcraprknbfwypeayvfx",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vtjbpys4c6v5gebzv25b",
         "environment": "live"
       }
     },
@@ -773,8 +773,8 @@
       "status": "live",
       "tagline": "Shift = nitro, midair A/D steering",
       "short_description": "Hold Shift = nitro. In air = A/D steering only. Immortal bikes.",
-      "price_usd": 4.99,
-      "price_label": "$4.99",
+      "price_usd": 2.99,
+      "price_label": "$2.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -789,7 +789,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d3vwxnx7jefkf2004bb8",
         "price_id": "pri_01kpm2d3yn8hkvnepy58ejeccf",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2tz9ch5p64v84rxvxfk7h",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vteqjdsed2ghxxba2s4y",
         "environment": "live"
       }
     },
@@ -802,8 +802,8 @@
       "status": "live",
       "tagline": "Spawn & fetch your boats",
       "short_description": "Players can spawn and fetch boats and submarines via chat commands with permission-based access and configurable fuel.",
-      "price_usd": 9.99,
-      "price_label": "$9.99",
+      "price_usd": 6.99,
+      "price_label": "$6.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -819,7 +819,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d45ny7prh9zdzvy0r1tx",
         "price_id": "pri_01kpm2d485nw6yez77vkz784bz",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2tz585za47dj24g3hzxda",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vta3bfctdba3pkz2h5xr",
         "environment": "live"
       }
     },
@@ -832,8 +832,8 @@
       "status": "live",
       "tagline": "Kill the napalm fire on crates",
       "short_description": "Removes or shortens the napalm fire around loot crates (Patrol Heli + Bradley APC).",
-      "price_usd": 4.99,
-      "price_label": "$4.99",
+      "price_usd": 2.99,
+      "price_label": "$2.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -849,7 +849,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d4few3771471q2ea51m8",
         "price_id": "pri_01kpm2d4j55d8m1781cg3tnamh",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2tz1j4r12d254f1a3wqv2",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vt68xgrpvhd08ww27fsc",
         "environment": "live"
       }
     },
@@ -862,8 +862,8 @@
       "status": "live",
       "tagline": "Player activity logger",
       "short_description": "Logs player connections, sessions, and activity for admin review.",
-      "price_usd": 4.99,
-      "price_label": "$4.99",
+      "price_usd": 2.99,
+      "price_label": "$2.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -878,7 +878,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d53gqg67exmd1v9whbej",
         "price_id": "pri_01kpm2d5654zyhajems5teqxm0",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2tytabmzaq61ja13djf1a",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vt2epa29mq8rgjh6bwm0",
         "environment": "live"
       }
     },
@@ -891,8 +891,8 @@
       "status": "live",
       "tagline": "Ocean crate + shark event",
       "short_description": "Ultra-light ocean crate + sharks. Works on custom maps.",
-      "price_usd": 7.99,
-      "price_label": "$7.99",
+      "price_usd": 5.99,
+      "price_label": "$5.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -908,7 +908,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d60gbdq8788h276qbk7z",
         "price_id": "pri_01kpm2d630hpqcehq6r9rbtm9q",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2tydfx8341y65bq92n3rp",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vsy87pttm6545974q1wg",
         "environment": "live"
       }
     },
@@ -921,8 +921,8 @@
       "status": "live",
       "tagline": "MP5 that fires live sharks",
       "short_description": "MP5 skin shoots SimpleSharks. Bullets blocked, full-auto, corpse on ground impact, swim normally on water entry, Codefling-safe caps.",
-      "price_usd": 9.99,
-      "price_label": "$9.99",
+      "price_usd": 6.99,
+      "price_label": "$6.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -938,7 +938,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d6a0329wjaj63xtwk82e",
         "price_id": "pri_01kpm2d6cknpm09nnfm96meakj",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2ty9w26mfr5pxwywt20y1",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vsqzxbe60k12sh5s87fx",
         "environment": "live"
       }
     },
@@ -951,8 +951,8 @@
       "status": "live",
       "tagline": "One-shot everything",
       "short_description": "Permission-based super damage ammo multipliers with per-player toggle. One-shot animals, all scientists, heli, Bradley.",
-      "price_usd": 4.99,
-      "price_label": "$4.99",
+      "price_usd": 2.99,
+      "price_label": "$2.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -968,7 +968,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d766ex7z2wb4mrc3p5w1",
         "price_id": "pri_01kpm2d78pcgazfzey979mhccd",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2txyj8g4j1gjygmz35q3c",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vskw8xeq7zkjca3027za",
         "environment": "live"
       }
     },
@@ -981,8 +981,8 @@
       "status": "live",
       "tagline": "Lightweight team inspector",
       "short_description": "Lightweight team inspector — quick admin lookup of team rosters and IDs.",
-      "price_usd": 2.99,
-      "price_label": "$2.99",
+      "price_usd": 1.99,
+      "price_label": "$1.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -997,7 +997,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d7f9req4ktgwd5qzfq5t",
         "price_id": "pri_01kpm2d7hrbcc74b833smrxxk2",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2txtgdd9qncyed0f2d12f",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vsfdzahq253krdbm70kd",
         "environment": "live"
       }
     },
@@ -1010,8 +1010,8 @@
       "status": "live",
       "tagline": "Right-click to remove trees & ore",
       "short_description": "Toggleable remover with crosshair UI. While enabled, right-click removes the targeted tree or ore node.",
-      "price_usd": 7.99,
-      "price_label": "$7.99",
+      "price_usd": 5.99,
+      "price_label": "$5.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -1027,7 +1027,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d7rvk4qxgv0hanp4apt4",
         "price_id": "pri_01kpm2d7v7vjwnq88dpxhqy1vd",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2txq98yrh9xpc8cethdgt",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vsb7wrt38b49g7hvrgvg",
         "environment": "live"
       }
     },
@@ -1039,8 +1039,8 @@
       "status": "live",
       "tagline": "Server monitor: PvP, loot, raids → Discord",
       "short_description": "All-in-one server monitor: PvP kills, unauthorized looting/access, and comprehensive raid tracking — pushed live to Discord.",
-      "price_usd": 12.99,
-      "price_label": "$12.99",
+      "price_usd": 8.99,
+      "price_label": "$8.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -1059,7 +1059,7 @@
       "paddle": {
         "product_id": "pro_01kpm3eh4thv8zs0r1mdbfy9ne",
         "price_id": "pri_01kpm3eh8bvn4mbmzwqx23pqe6",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm3ehch2y48j79dsbn8ynhr",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vs6qpbfsp2jnc3bhsvsh",
         "environment": "live"
       }
     },
@@ -1071,8 +1071,8 @@
       "status": "live",
       "tagline": "RCON chat + event ring buffer",
       "short_description": "Stores recent chat and events in a ring buffer, served via RCON for RustCON app backfill. Lightweight, zero-config.",
-      "price_usd": 4.99,
-      "price_label": "$4.99",
+      "price_usd": 2.99,
+      "price_label": "$2.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -1090,7 +1090,7 @@
       "paddle": {
         "product_id": "pro_01kpm3ehkxemntjkks8zz912gp",
         "price_id": "pri_01kpm3ehpp1qwdj23q3d8b4xed",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm3eht7gtwznzb3m3s0dtt0",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vs1yw6mw7vrzn5mey07p",
         "environment": "live"
       }
     }
