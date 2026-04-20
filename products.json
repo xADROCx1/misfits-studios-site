@@ -58,7 +58,7 @@
       "slug": "misfitsui",
       "name": "MisfitsUI",
       "version": "2.0.0",
-      "category": "library",
+      "category": "plugin",
       "status": "live",
       "tagline": "Shared brand UI library",
       "short_description": "Free library — branded colors, ImageLibrary integration, reusable UI components. Dependency for the Misfits plugin stack.",
@@ -1236,5 +1236,5 @@
       "eta": "TBD"
     }
   ],
-  "last_editor_update": "2026-04-20T20:59:29.862Z"
+  "last_editor_update": "2026-04-20T21:01:53.012Z"
 }
