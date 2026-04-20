@@ -72,7 +72,7 @@
       ],
       "cs_info_author": "Misfits Studios",
       "paddle": {
-        "product_id": "pro_01kpm2ctttg83y3gz1ntw7dbph",
+        "product_id": "pro_01kpm3egz0ryshxjzgax25kec0",
         "price_id": null,
         "checkout_url": null,
         "environment": "live"
@@ -113,40 +113,10 @@
       }
     },
     {
-      "id": "adminmap",
-      "slug": "adminmap",
-      "name": "AdminMap",
-      "version": "2.2.4",
-      "category": "plugin",
-      "status": "live",
-      "tagline": "Advanced admin map & entity viewer",
-      "short_description": "Full-featured admin map with entity tracking, player positions, and server-wide visibility tools.",
-      "price_usd": 19.99,
-      "price_label": "$19.99",
-      "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
-        "overlay_enabled": true
-      },
-      "tags": [
-        "admin",
-        "map",
-        "monitoring",
-        "ui"
-      ],
-      "cs_info_author": "0xF",
-      "paddle": {
-        "product_id": "pro_01kpm2cv9mw9e101gtt2c869tk",
-        "price_id": "pri_01kpm2cvc7f3v0qav9bex1mjc8",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v2d2hnd7e49q93bzfmb8",
-        "environment": "live"
-      }
-    },
-    {
       "id": "airbags",
       "slug": "airbags",
       "name": "AirBags",
-      "version": "1.6.0",
+      "version": "1.6.1",
       "category": "plugin",
       "status": "live",
       "tagline": "Large Backpack + diving tank hybrid",
@@ -177,7 +147,7 @@
       "id": "alwaysstocked",
       "slug": "alwaysstocked",
       "name": "AlwaysStocked",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "category": "plugin",
       "status": "live",
       "tagline": "NPC vendors never run out",
@@ -207,7 +177,7 @@
       "id": "betterarmorinsert",
       "slug": "betterarmorinsert",
       "name": "BetterArmorInsert",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "category": "plugin",
       "status": "live",
       "tagline": "Maxed armor insert slots on every piece",
@@ -236,7 +206,7 @@
       "id": "boatnitro",
       "slug": "boatnitro",
       "name": "BoatNitro",
-      "version": "1.6.1",
+      "version": "1.6.2",
       "category": "plugin",
       "status": "live",
       "tagline": "Shift-to-boost for every boat",
@@ -266,7 +236,7 @@
       "id": "c4guns",
       "slug": "c4guns",
       "name": "C4Guns",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "category": "plugin",
       "status": "live",
       "tagline": "Rifles that fire C4",
@@ -292,39 +262,10 @@
       }
     },
     {
-      "id": "carnitro",
-      "slug": "carnitro",
-      "name": "CarNitro",
-      "version": "2.0.0",
-      "category": "plugin",
-      "status": "live",
-      "tagline": "Smooth car boost with midair steering",
-      "short_description": "Smooth car boost with midair steering, ground collision prevention, and improved physics.",
-      "price_usd": 9.99,
-      "price_label": "$9.99",
-      "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
-        "overlay_enabled": true
-      },
-      "tags": [
-        "car",
-        "nitro",
-        "vehicle"
-      ],
-      "cs_info_author": "xADROCx",
-      "paddle": {
-        "product_id": "pro_01kpm2cxa1441re4jvevqjrxks",
-        "price_id": "pri_01kpm2cxcpf80nhaxb0kethy5n",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v1npxkh640jgb29jgbtr",
-        "environment": "live"
-      }
-    },
-    {
       "id": "chickengun",
       "slug": "chickengun",
       "name": "ChickenGun",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "category": "plugin",
       "status": "live",
       "tagline": "Gun that fires live chickens",
@@ -354,7 +295,7 @@
       "id": "chickenlover",
       "slug": "chickenlover",
       "name": "ChickenLover",
-      "version": "1.9.0",
+      "version": "1.9.1",
       "category": "plugin",
       "status": "live",
       "tagline": "One-click coop happiness",
@@ -383,7 +324,7 @@
       "id": "compostsplitter",
       "slug": "compostsplitter",
       "name": "CompostSplitter",
-      "version": "1.6.3",
+      "version": "1.6.4",
       "category": "plugin",
       "status": "live",
       "tagline": "Auto-split compost across slots",
@@ -412,7 +353,7 @@
       "id": "deadmanslocker",
       "slug": "deadmanslocker",
       "name": "DeadMansLocker",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "category": "plugin",
       "status": "live",
       "tagline": "Instant corpse loot retrieval",
@@ -442,7 +383,7 @@
       "id": "deepseaspeed",
       "slug": "deepseaspeed",
       "name": "Deep Sea Speed",
-      "version": "2.3.0",
+      "version": "2.3.1",
       "category": "plugin",
       "status": "live",
       "tagline": "Modular boat speed + nitro",
@@ -472,7 +413,7 @@
       "id": "eatall",
       "slug": "eatall",
       "name": "EatAll",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "category": "plugin",
       "status": "live",
       "tagline": "One-click consume every food item",
@@ -498,40 +439,10 @@
       }
     },
     {
-      "id": "ecosystemtracker",
-      "slug": "ecosystemtracker",
-      "name": "EcosystemTracker",
-      "version": "1.0.0",
-      "category": "plugin",
-      "status": "live",
-      "tagline": "Living ecosystem on your server",
-      "short_description": "Tracks animal populations and broadcasts immersive ecosystem updates to the server. Toggle with /ecosystem.",
-      "price_usd": 9.99,
-      "price_label": "$9.99",
-      "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
-        "overlay_enabled": true
-      },
-      "tags": [
-        "ecosystem",
-        "animals",
-        "immersive",
-        "server"
-      ],
-      "cs_info_author": "xADROCx",
-      "paddle": {
-        "product_id": "pro_01kpm2czey2xzfwry14gtcr9ff",
-        "price_id": "pri_01kpm2czhmx4d0xhyaewyfhj63",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v0w2revs4yh3v4vnzs2s",
-        "environment": "live"
-      }
-    },
-    {
       "id": "entcount",
       "slug": "entcount",
       "name": "EntCount",
-      "version": "2.2.0",
+      "version": "2.2.1",
       "category": "plugin",
       "status": "live",
       "tagline": "Per-player entity counter",
@@ -560,7 +471,7 @@
       "id": "entitylimiter",
       "slug": "entitylimiter",
       "name": "EntityLimiter",
-      "version": "2.3.0",
+      "version": "2.4.0",
       "category": "plugin",
       "status": "live",
       "tagline": "Cap entities per player by tier",
@@ -587,40 +498,10 @@
       }
     },
     {
-      "id": "fireworkguns",
-      "slug": "fireworkguns",
-      "name": "FireworkGuns",
-      "version": "1.5.0",
-      "category": "plugin",
-      "status": "live",
-      "tagline": "Rifles fire fireworks",
-      "short_description": "When enabled (permission-gated), firing rifle ammo launches random firework ROCKET projectiles in the aimed direction.",
-      "price_usd": 4.99,
-      "price_label": "$4.99",
-      "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
-        "overlay_enabled": true
-      },
-      "tags": [
-        "weapons",
-        "fireworks",
-        "chaos",
-        "fun"
-      ],
-      "cs_info_author": "xADROCx",
-      "paddle": {
-        "product_id": "pro_01kpm2d0d1k73dfkhxrx8d1y7g",
-        "price_id": "pri_01kpm2d0fmjask1h0e3b5hhb8g",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2v0ghkb62vjb7knkze7e6",
-        "environment": "live"
-      }
-    },
-    {
       "id": "flyingfish",
       "slug": "flyingfish",
       "name": "FlyingFish",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "category": "plugin",
       "status": "live",
       "tagline": "Jumping shark clusters",
@@ -650,7 +531,7 @@
       "id": "flyingsubs",
       "slug": "flyingsubs",
       "name": "FlyingSubs",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "category": "plugin",
       "status": "live",
       "tagline": "Submarines that fly",
@@ -680,7 +561,7 @@
       "id": "happybee",
       "slug": "happybee",
       "name": "HappyBee",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "category": "plugin",
       "status": "live",
       "tagline": "One-click beehive satisfaction",
@@ -710,7 +591,7 @@
       "id": "helinitro",
       "slug": "helinitro",
       "name": "HeliNitro",
-      "version": "2.1.0",
+      "version": "2.1.1",
       "category": "plugin",
       "status": "live",
       "tagline": "Nitro boost for player helis",
@@ -739,7 +620,7 @@
       "id": "horsegun",
       "slug": "horsegun",
       "name": "HorseGun",
-      "version": "1.0.4",
+      "version": "1.0.5",
       "category": "plugin",
       "status": "live",
       "tagline": "Gun that fires horses",
@@ -769,7 +650,7 @@
       "id": "instanthelistartup",
       "slug": "instanthelistartup",
       "name": "InstantHeliStartup",
-      "version": "2.4.0",
+      "version": "2.4.1",
       "category": "plugin",
       "status": "live",
       "tagline": "No spool-up delay",
@@ -798,7 +679,7 @@
       "id": "keywordlog",
       "slug": "keywordlog",
       "name": "KeyWordLog",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "category": "plugin",
       "status": "live",
       "tagline": "Chat keyword watcher",
@@ -829,7 +710,7 @@
       "id": "loadedturrets",
       "slug": "loadedturrets",
       "name": "LoadedTurrets",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "category": "plugin",
       "status": "live",
       "tagline": "Turret presets on placement",
@@ -855,42 +736,10 @@
       }
     },
     {
-      "id": "logdiagnostics",
-      "slug": "logdiagnostics",
-      "name": "LogDiagnostics",
-      "version": "1.0.0",
-      "category": "plugin",
-      "status": "live",
-      "tagline": "AI-powered error diagnosis",
-      "short_description": "Captures console errors and sends them to Claude AI for plain-English diagnosis. First-of-its-kind for Rust servers.",
-      "price_usd": 14.99,
-      "price_label": "$14.99",
-      "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
-        "overlay_enabled": true
-      },
-      "tags": [
-        "ai",
-        "admin",
-        "debugging",
-        "errors",
-        "claude"
-      ],
-      "cs_info_author": "xADROCx",
-      "featured": true,
-      "paddle": {
-        "product_id": "pro_01kpm2d36vr9tr6fgkvwnh40c5",
-        "price_id": "pri_01kpm2d39exj0md86x7hthb4rr",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2tzg75sz9m3dbd9jv6qjn",
-        "environment": "live"
-      }
-    },
-    {
       "id": "maxarmorcraft",
       "slug": "maxarmorcraft",
       "name": "MaxArmorCraft",
-      "version": "1.0.6",
+      "version": "1.0.7",
       "category": "plugin",
       "status": "live",
       "tagline": "Max armor insert slots on craft",
@@ -919,7 +768,7 @@
       "id": "motorbikenitro",
       "slug": "motorbikenitro",
       "name": "MotorbikeNitro",
-      "version": "4.1.0",
+      "version": "4.1.1",
       "category": "plugin",
       "status": "live",
       "tagline": "Shift = nitro, midair A/D steering",
@@ -948,7 +797,7 @@
       "id": "myboat",
       "slug": "myboat",
       "name": "MyBoat",
-      "version": "1.3.0",
+      "version": "1.3.1",
       "category": "plugin",
       "status": "live",
       "tagline": "Spawn & fetch your boats",
@@ -1005,39 +854,10 @@
       }
     },
     {
-      "id": "oldrustheli",
-      "slug": "oldrustheli",
-      "name": "OldRustHeli",
-      "version": "1.0.0",
-      "category": "plugin",
-      "status": "live",
-      "tagline": "Classic heli behavior restorer",
-      "short_description": "Runs heli commands on server startup to restore old heli behavior.",
-      "price_usd": 2.99,
-      "price_label": "$2.99",
-      "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
-        "overlay_enabled": true
-      },
-      "tags": [
-        "heli",
-        "server",
-        "startup"
-      ],
-      "cs_info_author": "xADROCx",
-      "paddle": {
-        "product_id": "pro_01kpm2d4s52pjvqpy1r5smhxja",
-        "price_id": "pri_01kpm2d4vq7d6e61cbr1rcdm8k",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2tyxy2z6jvtm55p83c94f",
-        "environment": "live"
-      }
-    },
-    {
       "id": "playerlog",
       "slug": "playerlog",
       "name": "PlayerLog",
-      "version": "0.4.0",
+      "version": "0.4.1",
       "category": "plugin",
       "status": "live",
       "tagline": "Player activity logger",
@@ -1063,69 +883,10 @@
       }
     },
     {
-      "id": "plugincommands",
-      "slug": "plugincommands",
-      "name": "PluginCommands",
-      "version": "2.1.0",
-      "category": "plugin",
-      "status": "live",
-      "tagline": "Admin UI for every plugin's commands",
-      "short_description": "Browse chat/console commands, permissions, and skin IDs from all loaded plugins via a clean admin UI.",
-      "price_usd": 14.99,
-      "price_label": "$14.99",
-      "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
-        "overlay_enabled": true
-      },
-      "tags": [
-        "admin",
-        "commands",
-        "ui",
-        "discovery"
-      ],
-      "cs_info_author": "Modworks.gg - Sudo",
-      "paddle": {
-        "product_id": "pro_01kpm2d5dfemhk8w6e3hdfwfxp",
-        "price_id": "pri_01kpm2d5g5rsv20q9tm48gx19a",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2typfktkpmybzxb61hjft",
-        "environment": "live"
-      }
-    },
-    {
-      "id": "rocketguns",
-      "slug": "rocketguns",
-      "name": "RocketGuns",
-      "version": "1.2.4",
-      "category": "plugin",
-      "status": "live",
-      "tagline": "5.56 rifles fire rockets",
-      "short_description": "Allow 556 guns to fire rockets based on ammo type.",
-      "price_usd": 7.99,
-      "price_label": "$7.99",
-      "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
-        "overlay_enabled": true
-      },
-      "tags": [
-        "weapons",
-        "rockets",
-        "chaos"
-      ],
-      "cs_info_author": "Sapnu Puas #3696",
-      "paddle": {
-        "product_id": "pro_01kpm2d5q4a88pg4nzwqmmta07",
-        "price_id": "pri_01kpm2d5sj9d4q066hb04cskhx",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2tyjwr2bw5qw93a4s48rj",
-        "environment": "live"
-      }
-    },
-    {
       "id": "sharkbaitcrate",
       "slug": "sharkbaitcrate",
       "name": "SharkBaitCrate",
-      "version": "1.5.1",
+      "version": "1.5.2",
       "category": "plugin",
       "status": "live",
       "tagline": "Ocean crate + shark event",
@@ -1155,7 +916,7 @@
       "id": "sharkgun",
       "slug": "sharkgun",
       "name": "SharkGun",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "category": "plugin",
       "status": "live",
       "tagline": "MP5 that fires live sharks",
@@ -1182,69 +943,10 @@
       }
     },
     {
-      "id": "startupcommander",
-      "slug": "startupcommander",
-      "name": "StartupCommander",
-      "version": "1.0.0",
-      "category": "plugin",
-      "status": "live",
-      "tagline": "Run commands on startup",
-      "short_description": "Execute configured server commands after startup delay.",
-      "price_usd": 2.99,
-      "price_label": "$2.99",
-      "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
-        "overlay_enabled": true
-      },
-      "tags": [
-        "server",
-        "startup",
-        "automation"
-      ],
-      "cs_info_author": "xADROCx",
-      "paddle": {
-        "product_id": "pro_01kpm2d6k6c0y4mzqj16w062ff",
-        "price_id": "pri_01kpm2d6nqpy81dehjea2xmg6m",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2ty626mggp1krpqamhrqt",
-        "environment": "live"
-      }
-    },
-    {
-      "id": "statictrader",
-      "slug": "statictrader",
-      "name": "StaticTrader",
-      "version": "1.3.9",
-      "category": "plugin",
-      "status": "live",
-      "tagline": "Smart trading for friends & family",
-      "short_description": "A smart trading system for friends and family. Full-featured economy + trust tier system.",
-      "price_usd": 14.99,
-      "price_label": "$14.99",
-      "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
-        "overlay_enabled": true
-      },
-      "tags": [
-        "trading",
-        "economy",
-        "social",
-        "ui"
-      ],
-      "cs_info_author": "Raul-Sorin Sorban",
-      "paddle": {
-        "product_id": "pro_01kpm2d6x32qw4d9phdg5kremm",
-        "price_id": "pri_01kpm2d6zk8n5exhd3r3s6s8vg",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2ty25jppjq1mxsew91t2g",
-        "environment": "live"
-      }
-    },
-    {
       "id": "superammo",
       "slug": "superammo",
       "name": "SuperAmmo",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "category": "plugin",
       "status": "live",
       "tagline": "One-shot everything",
@@ -1274,7 +976,7 @@
       "id": "teamid",
       "slug": "teamid",
       "name": "TeamId",
-      "version": "1.0.3",
+      "version": "1.0.4",
       "category": "plugin",
       "status": "live",
       "tagline": "Lightweight team inspector",
@@ -1303,7 +1005,7 @@
       "id": "treeremover",
       "slug": "treeremover",
       "name": "TreeRemover",
-      "version": "1.3.2",
+      "version": "1.3.3",
       "category": "plugin",
       "status": "live",
       "tagline": "Right-click to remove trees & ore",
@@ -1330,14 +1032,45 @@
       }
     },
     {
-      "id": "fueldisplay",
-      "slug": "fueldisplay",
-      "name": "FuelDisplay",
-      "version": "2.6.0",
+      "id": "neighborhoodwatch",
+      "slug": "neighborhoodwatch",
+      "name": "NeighborhoodWatch",
       "category": "plugin",
       "status": "live",
-      "tagline": "Fuel gauge HUD in vehicles",
-      "short_description": "Displays a fuel gauge UI while a player is in a vehicle.",
+      "tagline": "Server monitor: PvP, loot, raids → Discord",
+      "short_description": "All-in-one server monitor: PvP kills, unauthorized looting/access, and comprehensive raid tracking — pushed live to Discord.",
+      "price_usd": 12.99,
+      "price_label": "$12.99",
+      "lemonsqueezy": {
+        "variant_id": null,
+        "buy_url": null,
+        "overlay_enabled": true
+      },
+      "tags": [
+        "admin",
+        "monitoring",
+        "discord",
+        "raid",
+        "alerts",
+        "pvp"
+      ],
+      "cs_info_author": "XADROCX",
+      "version": "1.1.0",
+      "paddle": {
+        "product_id": "pro_01kpm3eh4thv8zs0r1mdbfy9ne",
+        "price_id": "pri_01kpm3eh8bvn4mbmzwqx23pqe6",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm3ehch2y48j79dsbn8ynhr",
+        "environment": "live"
+      }
+    },
+    {
+      "id": "rustconchat",
+      "slug": "rustconchat",
+      "name": "RustconChat",
+      "category": "plugin",
+      "status": "live",
+      "tagline": "RCON chat + event ring buffer",
+      "short_description": "Stores recent chat and events in a ring buffer, served via RCON for RustCON app backfill. Lightweight, zero-config.",
       "price_usd": 4.99,
       "price_label": "$4.99",
       "lemonsqueezy": {
@@ -1346,132 +1079,18 @@
         "overlay_enabled": true
       },
       "tags": [
-        "vehicle",
-        "fuel",
-        "hud",
-        "ui"
+        "admin",
+        "rcon",
+        "chat",
+        "utility",
+        "buffer"
       ],
-      "cs_info_author": "RustFlash",
+      "cs_info_author": "xADROCx",
+      "version": "1.0.1",
       "paddle": {
-        "product_id": "pro_01kpm2d82430x2trj7jz60verd",
-        "price_id": "pri_01kpm2d84ws12mebqq9vtk2ccy",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2txky6pqxmckyza3gyjr9",
-        "environment": "live"
-      }
-    },
-    {
-      "id": "rustplane",
-      "slug": "rustplane",
-      "name": "RustPlane",
-      "version": "1.30.0",
-      "category": "plugin",
-      "status": "live",
-      "tagline": "Custom pilot-able plane",
-      "short_description": "Full plane vehicle for Rust — includes CustomEntities framework, Karuza common libraries, vehicle chat commands, horse towing, push, radio, and bullet projectile modules. Bundle.",
-      "price_usd": 24.99,
-      "price_label": "$24.99",
-      "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
-        "overlay_enabled": true
-      },
-      "tags": [
-        "vehicle",
-        "plane",
-        "flight",
-        "bundle",
-        "custom-entity"
-      ],
-      "cs_info_author": "Karuza",
-      "featured": true,
-      "bundle_files": [
-        "RustPlane.cs",
-        "BulletProjectile.cs",
-        "CustomEntities.cs",
-        "KaruzaEntitiesCommon.cs",
-        "KaruzaVehicleChatCommand.cs",
-        "KaruzaVehicleHorseTowing.cs",
-        "KaruzaVehicleItemManager.cs",
-        "KaruzaVehiclePush.cs",
-        "Radio.cs"
-      ],
-      "paddle": {
-        "product_id": "pro_01kpm2d8chnrcrxeddkdf2m2w4",
-        "price_id": "pri_01kpm2d8f0r6veh6hwefk2w5zz",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2txg7q20y7wmmtzywzhw9",
-        "environment": "live"
-      }
-    },
-    {
-      "id": "rusthelicopter",
-      "slug": "rusthelicopter",
-      "name": "RustHelicopter",
-      "version": "1.24.0",
-      "category": "plugin",
-      "status": "live",
-      "tagline": "Custom pilot-able helicopter",
-      "short_description": "Full helicopter vehicle for Rust — includes CustomEntities framework, Karuza common libraries, vehicle chat commands, horse towing, push, radio, and bullet projectile modules. Bundle.",
-      "price_usd": 24.99,
-      "price_label": "$24.99",
-      "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
-        "overlay_enabled": true
-      },
-      "tags": [
-        "vehicle",
-        "helicopter",
-        "flight",
-        "bundle",
-        "custom-entity"
-      ],
-      "cs_info_author": "Karuza",
-      "featured": true,
-      "bundle_files": [
-        "RustHelicopter.cs",
-        "BulletProjectile.cs",
-        "CustomEntities.cs",
-        "KaruzaEntitiesCommon.cs",
-        "KaruzaVehicleChatCommand.cs",
-        "KaruzaVehicleHorseTowing.cs",
-        "KaruzaVehicleItemManager.cs",
-        "KaruzaVehiclePush.cs",
-        "Radio.cs"
-      ],
-      "paddle": {
-        "product_id": "pro_01kpm2d8pc99dsn1sg160npta1",
-        "price_id": "pri_01kpm2d8rt3werehfyrf1fat7z",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2txcdrggc50c8c9ptt9qf",
-        "environment": "live"
-      }
-    },
-    {
-      "id": "vehiclelicence",
-      "slug": "vehiclelicence",
-      "name": "Vehicle Licence",
-      "version": "2.0.0",
-      "category": "plugin",
-      "status": "live",
-      "tagline": "Buy, spawn, store vehicles",
-      "short_description": "Allows players to buy vehicles and then spawn or store them.",
-      "price_usd": 9.99,
-      "price_label": "$9.99",
-      "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
-        "overlay_enabled": true
-      },
-      "tags": [
-        "vehicle",
-        "economy",
-        "spawn",
-        "qol"
-      ],
-      "cs_info_author": "Sorrow/TheDoc/Arainrr",
-      "paddle": {
-        "product_id": "pro_01kpm2d8zngewq8a694z7h521r",
-        "price_id": "pri_01kpm2d923db3g6e1bzpfmv5fr",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm2tx7shtrr2gca9tt455my",
+        "product_id": "pro_01kpm3ehkxemntjkks8zz912gp",
+        "price_id": "pri_01kpm3ehpp1qwdj23q3d8b4xed",
+        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm3eht7gtwznzb3m3s0dtt0",
         "environment": "live"
       }
     }
