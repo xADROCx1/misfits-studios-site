@@ -61,6 +61,31 @@
   .long-desc { font-size:16px; line-height:1.8; color:rgba(222,229,255,.92); margin-top:14px; }
   .related-card { background:#091328; border-left:3px solid #53ddfc; padding:18px 20px; transition:all .2s; text-decoration:none; }
   .related-card:hover { border-left-color:#ff86c3; background:#141f38; transform:translate(-2px,-2px); }
+
+  /* Plugin Reference documentation tables */
+  .doc-note { font-size:13px; color:#a3aac4; margin:0 0 14px; line-height:1.55; }
+  .doc-note code { background:#000; padding:2px 8px; border-radius:2px; color:#00ffa3; font-family:'JetBrains Mono',monospace; font-size:12px; }
+  .doc-table { display:flex; flex-direction:column; border-top:1px solid rgba(0,242,255,.15); }
+  .doc-row { display:grid; grid-template-columns:minmax(150px, 1fr) 2fr 1fr; gap:16px; padding:12px 4px; border-bottom:1px solid rgba(0,242,255,.08); font-size:13px; line-height:1.45; color:rgba(222,229,255,.88); }
+  .doc-row.doc-row-2 { grid-template-columns:minmax(150px, 1fr) 3fr; }
+  .doc-row.doc-head { font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.2em; color:#a3aac4; padding:10px 4px; border-bottom:2px solid rgba(0,242,255,.3); }
+  .doc-row:last-child { border-bottom:none; }
+  .doc-mono { font-family:'JetBrains Mono',monospace; font-size:12px; }
+  .doc-strong { color:#00ffa3; font-weight:700; }
+  .doc-dim { color:#8c95a8; }
+  @media (max-width:720px) {
+    .doc-row, .doc-row.doc-row-2 { grid-template-columns:1fr; gap:4px; padding:14px 4px; }
+    .doc-row.doc-head { display:none; }
+    .doc-row > span:first-child { color:#00ffa3; font-weight:700; }
+  }
+
+  /* Compact fulfillment block (smaller than other cards) */
+  .content-card--tight { padding:18px 22px; border-left-width:3px; border-left-color:#00ffa3; margin-top:28px; }
+  .content-card--tight h2 { font-size:15px; letter-spacing:.15em; color:#a3aac4; margin-bottom:10px; }
+  .included-list { list-style:none; padding:0; margin:0; }
+  .included-list li { display:flex; align-items:flex-start; gap:10px; font-size:13px; padding:5px 0; color:rgba(222,229,255,.85); }
+  .included-list li .dot { flex:0 0 6px; width:6px; height:6px; background:#00ffa3; margin-top:7px; border-radius:50%; box-shadow:0 0 6px #00ffa3; }
+  .included-list li code { background:#000; padding:2px 8px; color:#00f2ff; font-family:'JetBrains Mono',monospace; font-size:12px; border-radius:2px; }
   .tech-row { display:flex; justify-content:space-between; border-bottom:1px dashed #141f38; padding:10px 0; font-size:13px; }
   .tech-row .k { font-family:'Space Grotesk',sans-serif; text-transform:uppercase; letter-spacing:.15em; color:#a3aac4; font-size:11px; }
   .tech-row .v { font-family:'JetBrains Mono',monospace; color:#dee5ff; }
@@ -119,14 +144,62 @@
   </section>
 
   
-
   <section class="content-card">
-    <h2>What you get</h2>
-    <ul>
-      <li>The <code class="font-mono text-accent">MisfitsUI.cs</code> plugin file, ready to drop into <code class="font-mono">oxide/plugins/</code> or <code class="font-mono">carbon/plugins/</code>.</li>
-      <li>Lifetime updates — every future version, free.</li>
-      <li>Discord support from the Misfits Studios community.</li>
-      <li>Per-server license — install on all the servers you run.</li>
+    <h2>Features</h2>
+    <ul><li>Shared UI and image asset library referenced by every Misfits plugin</li><li>ImageLibrary integration caches branded PNG assets once for all plugins</li><li>Branded color palette, header lockup, panel builders, and toasts</li><li>URL fallback when ImageLibrary isn&#39;t installed</li><li>Admin commands reload image cache and show load status</li></ul>
+  </section>
+
+  
+  
+  <section class="content-card">
+    <h2>Console commands</h2>
+    <p class="doc-note">Run from the server console or RCON. Most are called by the UI &mdash; you rarely need to type them manually.</p>
+    <div class="doc-table">
+      <div class="doc-row doc-head doc-row-2"><span>Command</span><span>Does</span></div>
+      
+      <div class="doc-row doc-row-2">
+        <span class="doc-mono doc-strong">msfui.reloadimages</span>
+        <span>Reload all image URLs from config into ImageLibrary (admin only)</span>
+      </div>
+      <div class="doc-row doc-row-2">
+        <span class="doc-mono doc-strong">msfui.status</span>
+        <span>Print cache status and list of missing images (admin only)</span>
+      </div>
+    </div>
+  </section>
+  
+  
+  <section class="content-card">
+    <h2>Key configuration</h2>
+    <p class="doc-note">Tune in <code>oxide/config/MisfitsUI.json</code> after the plugin loads for the first time.</p>
+    <div class="doc-table">
+      <div class="doc-row doc-head"><span>Key</span><span>Default</span><span>What it does</span></div>
+      
+      <div class="doc-row">
+        <span class="doc-mono doc-strong">ImageUrls</span>
+        <span class="doc-mono doc-dim">{...21 keys...}</span>
+        <span>URL per brand asset (panel_bg, buttons, icons, logos, textures)</span>
+      </div>
+      <div class="doc-row">
+        <span class="doc-mono doc-strong">UseImageLibrary</span>
+        <span class="doc-mono doc-dim">true</span>
+        <span>Cache PNGs via ImageLibrary for performance</span>
+      </div>
+      <div class="doc-row">
+        <span class="doc-mono doc-strong">FallbackToUrl</span>
+        <span class="doc-mono doc-dim">true</span>
+        <span>Fall back to raw URL images if ImageLibrary isn&#39;t installed</span>
+      </div>
+    </div>
+  </section>
+  
+  <section class="content-card content-card--tight">
+    <h2>Included with purchase</h2>
+    <ul class="included-list">
+      <li><span class="dot"></span><code>MisfitsUI.cs</code> &mdash; drop into <code>oxide/plugins/</code> or <code>carbon/plugins/</code></li>
+      <li><span class="dot"></span>Lifetime updates &mdash; every future version, free</li>
+      <li><span class="dot"></span>Discord support from the Misfits Studios community</li>
+      <li><span class="dot"></span>Per-server license &mdash; use on every server you run</li>
     </ul>
   </section>
 

@@ -9,7 +9,17 @@ const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
 const PRODUCTS_JSON = path.join(ROOT, 'products.json');
+const PLUGIN_DOCS_JSON = path.join(ROOT, 'plugin-docs.json');
 const OUT_DIR = path.join(ROOT, 'products');
+
+// Load rich per-plugin documentation (commands, permissions, config) if available.
+// Docs structure: { docs: { "<product.id>": { features, chat_commands, console_commands, permissions, config_highlights, requires } } }
+let PLUGIN_DOCS = {};
+try {
+  if (fs.existsSync(PLUGIN_DOCS_JSON)) {
+    PLUGIN_DOCS = (JSON.parse(fs.readFileSync(PLUGIN_DOCS_JSON, 'utf8')) || {}).docs || {};
+  }
+} catch (_) { PLUGIN_DOCS = {}; }
 const SITEMAP_PATH = path.join(ROOT, 'sitemap.xml');
 const SITE = 'https://misfits-studios.com';
 const TODAY = new Date().toISOString().slice(0, 10);
@@ -61,11 +71,108 @@ function relatedCards(current, all) {
 }
 
 function featuresBlock(p) {
-  if (!p.features || !p.features.length) return '';
+  // Prefer extracted docs.features; fall back to p.features; skip entirely if neither.
+  const docs = PLUGIN_DOCS[p.id] || {};
+  const feats = (docs.features && docs.features.length) ? docs.features : (p.features || []);
+  if (!feats.length) return '';
   return `
   <section class="content-card">
     <h2>Features</h2>
-    <ul>${p.features.map(f => `<li>${esc(f)}</li>`).join('')}</ul>
+    <ul>${feats.map(f => `<li>${esc(f)}</li>`).join('')}</ul>
+  </section>`;
+}
+
+function chatCommandsBlock(p) {
+  const docs = PLUGIN_DOCS[p.id] || {};
+  const cmds = docs.chat_commands || [];
+  if (!cmds.length) return '';
+  return `
+  <section class="content-card">
+    <h2>Chat commands</h2>
+    <p class="doc-note">Type these in the in-game chat window (press <code>T</code>).</p>
+    <div class="doc-table">
+      <div class="doc-row doc-head"><span>Command</span><span>Does</span><span>Permission</span></div>
+      ${cmds.map(c => `
+      <div class="doc-row">
+        <span class="doc-mono doc-strong">${esc(c.cmd)}</span>
+        <span>${esc(c.description || '')}</span>
+        <span class="doc-mono doc-dim">${esc(c.permission || '—')}</span>
+      </div>`).join('')}
+    </div>
+  </section>`;
+}
+
+function consoleCommandsBlock(p) {
+  const docs = PLUGIN_DOCS[p.id] || {};
+  const cmds = docs.console_commands || [];
+  if (!cmds.length) return '';
+  return `
+  <section class="content-card">
+    <h2>Console commands</h2>
+    <p class="doc-note">Run from the server console or RCON. Most are called by the UI &mdash; you rarely need to type them manually.</p>
+    <div class="doc-table">
+      <div class="doc-row doc-head doc-row-2"><span>Command</span><span>Does</span></div>
+      ${cmds.map(c => `
+      <div class="doc-row doc-row-2">
+        <span class="doc-mono doc-strong">${esc(c.cmd)}</span>
+        <span>${esc(c.description || '')}</span>
+      </div>`).join('')}
+    </div>
+  </section>`;
+}
+
+function permissionsBlock(p) {
+  const docs = PLUGIN_DOCS[p.id] || {};
+  const perms = docs.permissions || [];
+  if (!perms.length) return '';
+  return `
+  <section class="content-card">
+    <h2>Permissions</h2>
+    <p class="doc-note">Grant with <code>oxide.grant &lt;user|group&gt; &lt;permission&gt;</code>.</p>
+    <div class="doc-table">
+      <div class="doc-row doc-head doc-row-2"><span>Permission</span><span>Grants</span></div>
+      ${perms.map(pm => `
+      <div class="doc-row doc-row-2">
+        <span class="doc-mono doc-strong">${esc(pm.name)}</span>
+        <span>${esc(pm.grants || '')}</span>
+      </div>`).join('')}
+    </div>
+  </section>`;
+}
+
+function configBlock(p) {
+  const docs = PLUGIN_DOCS[p.id] || {};
+  const cfg = docs.config_highlights || [];
+  if (!cfg.length) return '';
+  return `
+  <section class="content-card">
+    <h2>Key configuration</h2>
+    <p class="doc-note">Tune in <code>oxide/config/${esc(p.name)}.json</code> after the plugin loads for the first time.</p>
+    <div class="doc-table">
+      <div class="doc-row doc-head"><span>Key</span><span>Default</span><span>What it does</span></div>
+      ${cfg.map(c => `
+      <div class="doc-row">
+        <span class="doc-mono doc-strong">${esc(c.key)}</span>
+        <span class="doc-mono doc-dim">${esc(String(c.default))}</span>
+        <span>${esc(c.note || '')}</span>
+      </div>`).join('')}
+    </div>
+  </section>`;
+}
+
+function includedBlock(p) {
+  // The old "What you get" shrunk to a compact fulfillment badge so customers
+  // still see it but it doesn't bury the real plugin documentation above.
+  const fileName = `${p.name.replace(/\s+/g, '')}.cs`;
+  return `
+  <section class="content-card content-card--tight">
+    <h2>Included with purchase</h2>
+    <ul class="included-list">
+      <li><span class="dot"></span><code>${esc(fileName)}</code> &mdash; drop into <code>oxide/plugins/</code> or <code>carbon/plugins/</code></li>
+      <li><span class="dot"></span>Lifetime updates &mdash; every future version, free</li>
+      <li><span class="dot"></span>Discord support from the Misfits Studios community</li>
+      <li><span class="dot"></span>Per-server license &mdash; use on every server you run</li>
+    </ul>
   </section>`;
 }
 
@@ -163,6 +270,31 @@ function renderPage(p, all) {
   .long-desc { font-size:16px; line-height:1.8; color:rgba(222,229,255,.92); margin-top:14px; }
   .related-card { background:#091328; border-left:3px solid #53ddfc; padding:18px 20px; transition:all .2s; text-decoration:none; }
   .related-card:hover { border-left-color:#ff86c3; background:#141f38; transform:translate(-2px,-2px); }
+
+  /* Plugin Reference documentation tables */
+  .doc-note { font-size:13px; color:#a3aac4; margin:0 0 14px; line-height:1.55; }
+  .doc-note code { background:#000; padding:2px 8px; border-radius:2px; color:#00ffa3; font-family:'JetBrains Mono',monospace; font-size:12px; }
+  .doc-table { display:flex; flex-direction:column; border-top:1px solid rgba(0,242,255,.15); }
+  .doc-row { display:grid; grid-template-columns:minmax(150px, 1fr) 2fr 1fr; gap:16px; padding:12px 4px; border-bottom:1px solid rgba(0,242,255,.08); font-size:13px; line-height:1.45; color:rgba(222,229,255,.88); }
+  .doc-row.doc-row-2 { grid-template-columns:minmax(150px, 1fr) 3fr; }
+  .doc-row.doc-head { font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.2em; color:#a3aac4; padding:10px 4px; border-bottom:2px solid rgba(0,242,255,.3); }
+  .doc-row:last-child { border-bottom:none; }
+  .doc-mono { font-family:'JetBrains Mono',monospace; font-size:12px; }
+  .doc-strong { color:#00ffa3; font-weight:700; }
+  .doc-dim { color:#8c95a8; }
+  @media (max-width:720px) {
+    .doc-row, .doc-row.doc-row-2 { grid-template-columns:1fr; gap:4px; padding:14px 4px; }
+    .doc-row.doc-head { display:none; }
+    .doc-row > span:first-child { color:#00ffa3; font-weight:700; }
+  }
+
+  /* Compact fulfillment block (smaller than other cards) */
+  .content-card--tight { padding:18px 22px; border-left-width:3px; border-left-color:#00ffa3; margin-top:28px; }
+  .content-card--tight h2 { font-size:15px; letter-spacing:.15em; color:#a3aac4; margin-bottom:10px; }
+  .included-list { list-style:none; padding:0; margin:0; }
+  .included-list li { display:flex; align-items:flex-start; gap:10px; font-size:13px; padding:5px 0; color:rgba(222,229,255,.85); }
+  .included-list li .dot { flex:0 0 6px; width:6px; height:6px; background:#00ffa3; margin-top:7px; border-radius:50%; box-shadow:0 0 6px #00ffa3; }
+  .included-list li code { background:#000; padding:2px 8px; color:#00f2ff; font-family:'JetBrains Mono',monospace; font-size:12px; border-radius:2px; }
   .tech-row { display:flex; justify-content:space-between; border-bottom:1px dashed #141f38; padding:10px 0; font-size:13px; }
   .tech-row .k { font-family:'Space Grotesk',sans-serif; text-transform:uppercase; letter-spacing:.15em; color:#a3aac4; font-size:11px; }
   .tech-row .v { font-family:'JetBrains Mono',monospace; color:#dee5ff; }
@@ -226,15 +358,11 @@ function renderPage(p, all) {
 
   ${featuresBlock(p)}
 
-  <section class="content-card">
-    <h2>What you get</h2>
-    <ul>
-      <li>The <code class="font-mono text-accent">${esc(p.name)}.cs</code> plugin file, ready to drop into <code class="font-mono">oxide/plugins/</code> or <code class="font-mono">carbon/plugins/</code>.</li>
-      <li>Lifetime updates — every future version, free.</li>
-      <li>Discord support from the Misfits Studios community.</li>
-      <li>Per-server license — install on all the servers you run.</li>
-    </ul>
-  </section>
+  ${chatCommandsBlock(p)}
+  ${consoleCommandsBlock(p)}
+  ${permissionsBlock(p)}
+  ${configBlock(p)}
+  ${includedBlock(p)}
 
   <section class="content-card">
     <h2>Technical details</h2>
