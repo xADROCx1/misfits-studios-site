@@ -94,9 +94,20 @@
     });
   }
 
-  function renderInto(container, products) {
+  function renderInto(container, products, manifest) {
     var cat = container.getAttribute('data-category') || 'all';
-    var filtered = cat === 'all' ? products : products.filter(function (p) { return p.category === cat; });
+    var filtered;
+    if (cat === 'featured') {
+      // Pull the hand-picked IDs from the manifest in order; skip any that aren't live.
+      var ids = (manifest && Array.isArray(manifest.featured)) ? manifest.featured : [];
+      var byId = {};
+      products.forEach(function (p) { byId[p.id] = p; });
+      filtered = ids.map(function (id) { return byId[id]; }).filter(function (p) { return p && p.status === 'live'; });
+    } else if (cat === 'all') {
+      filtered = products;
+    } else {
+      filtered = products.filter(function (p) { return p.category === cat; });
+    }
     container.innerHTML = filtered.map(cardHTML).join('');
     // Re-initialize Lemon.js in case it loaded before our buttons rendered.
     if (window.createLemonSqueezy) { window.createLemonSqueezy(); }
@@ -114,7 +125,7 @@
       })
       .then(function (data) {
         var grids = document.querySelectorAll('[id="product-grid"], .product-grid');
-        grids.forEach(function (el) { renderInto(el, data.products || []); });
+        grids.forEach(function (el) { renderInto(el, data.products || [], data); });
         // Also expose the manifest for other scripts.
         window.MisfitsProducts = data;
         document.dispatchEvent(new CustomEvent('misfits:products-loaded', { detail: data }));

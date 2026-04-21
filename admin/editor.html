@@ -603,6 +603,31 @@
   .icon-hint { font-family: var(--font-mono); font-size: 10px; color: var(--muted); }
   .icon-hint.staged { color: var(--yellow); }
 
+  /* -------- Featured toggle -------- */
+  .featured-toggle {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 10px; background: #05050c; border: 1px solid var(--line);
+    cursor: pointer; font-family: var(--font-mono); font-size: 12px; color: var(--paper);
+    text-transform: none; letter-spacing: normal;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .featured-toggle:hover { border-color: rgba(255, 235, 0, 0.4); background: rgba(255, 235, 0, 0.05); }
+  .featured-toggle input { margin: 0; cursor: pointer; accent-color: var(--yellow); }
+  .featured-toggle input:checked + span { color: var(--yellow); }
+  .featured-position { color: var(--muted); font-size: 10px; margin-left: 4px; }
+
+  /* Star badge on grid cards that are featured */
+  .card { position: relative; }
+  .card .featured-star {
+    position: absolute; top: 6px; right: 6px; z-index: 2;
+    width: 20px; height: 20px;
+    background: var(--yellow); color: #000;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 900;
+    box-shadow: 0 0 10px rgba(255, 235, 0, 0.5);
+    pointer-events: none;
+  }
+
   /* -------- Sales report -------- */
   .sales-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px; padding: 10px 14px; border: 1px solid var(--line); background: #05050c; }
   .sales-bar-left, .sales-bar-right { display: flex; gap: 10px; align-items: center; }
@@ -1001,6 +1026,10 @@ function recomputeDirty() {
     const b = S.baseline.get(p.id);
     if (b === undefined || stableStringify(p) !== b) S.dirty.add(p.id);
   });
+  // Also detect changes to the top-level featured[] array.
+  const fBaseline = S.baseline.get('__featured__');
+  const fCurrent = JSON.stringify(getFeaturedList());
+  if (fBaseline !== undefined && fBaseline !== fCurrent) S.dirty.add('__manifest__');
   updateDirtyBadge();
 }
 
@@ -1015,6 +1044,8 @@ async function load() {
     S.products = data.products;
     // capture baselines
     S.products.forEach(p => S.baseline.set(p.id, stableStringify(p)));
+    // Baseline the top-level featured[] array so edits to it also mark dirty.
+    S.baseline.set('__featured__', JSON.stringify(getFeaturedList()));
     document.getElementById('count-total').textContent = S.products.length;
     rerenderAll();
   } catch (e) {
@@ -1088,6 +1119,7 @@ function renderGrid() {
     const isFree = Number(p.price_usd) === 0 || (p.price_label && /free/i.test(p.price_label));
 
     el.innerHTML = `
+      ${isFeatured(p.id) ? '<div class="featured-star" title="Featured on homepage">&#9733;</div>' : ''}
       <div class="card-row">
         <div class="card-name">${escapeHtml(p.name || '(untitled)')}</div>
         <span class="price-badge ${isFree ? 'free' : ''}">${escapeHtml(priceLabel)}</span>
@@ -1217,6 +1249,13 @@ function renderSide() {
           <label>Status</label>
           <select class="sel" data-f="status">${statusOpts}</select>
         </div>
+      </div>
+      <div class="field">
+        <label class="featured-toggle" title="Show this product in the Featured Plugins grid on the homepage">
+          <input type="checkbox" id="featured-checkbox" ${isFeatured(p.id) ? 'checked' : ''} onchange="toggleFeatured('${escapeHtml(p.id)}', this.checked)" />
+          <span>&#9733; Feature on homepage${isFeatured(p.id) ? ` <span class="featured-position">(slot ${featuredPosition(p.id)} of ${(S.raw && S.raw.featured ? S.raw.featured.length : 0)})</span>` : ''}</span>
+        </label>
+        <div class="hint">Order on homepage matches order added. Up to 6 look best in the grid. Reorder by clicking Feature again to move to end.</div>
       </div>
       <div class="field">
         <label>Tagline</label>
@@ -1420,6 +1459,45 @@ function featureRowHTML(val, i) {
 }
 function tagHTML(t) {
   return `<span class="tag">${escapeHtml(t)}<button onclick="removeTagByName('${escapeHtml(t).replace(/'/g, "\\'")}')" title="Remove">&times;</button></span>`;
+}
+
+/* ---------- Featured-products management ---------- */
+function getFeaturedList() {
+  if (!S.raw) return [];
+  if (!Array.isArray(S.raw.featured)) S.raw.featured = [];
+  return S.raw.featured;
+}
+function isFeatured(id) {
+  return getFeaturedList().indexOf(id) !== -1;
+}
+function featuredPosition(id) {
+  const idx = getFeaturedList().indexOf(id);
+  return idx === -1 ? '—' : String(idx + 1);
+}
+function toggleFeatured(id, shouldBeFeatured) {
+  snapshot();
+  const list = getFeaturedList();
+  const idx = list.indexOf(id);
+  if (shouldBeFeatured && idx === -1) {
+    list.push(id);
+    toast('Added to Featured Plugins on homepage (slot ' + list.length + ')', 'ok');
+  } else if (!shouldBeFeatured && idx !== -1) {
+    list.splice(idx, 1);
+    toast('Removed from Featured Plugins', 'ok');
+  } else if (shouldBeFeatured && idx !== -1) {
+    // Re-feature: move to end so the "click again to move to end" hint works
+    list.splice(idx, 1);
+    list.push(id);
+    toast('Moved to end of Featured Plugins (slot ' + list.length + ')', 'ok');
+  }
+  // This edit lives at the top level of products.json (S.raw), not on any product,
+  // but we still flag every currently-selected product as dirty so the publish flow
+  // picks it up. We also mark the "whole manifest" dirty via a sentinel.
+  S.dirty.add('__manifest__');
+  updateDirtyBadge();
+  renderGrid();
+  // Re-render side panel to update the slot indicator
+  renderSide();
 }
 
 /* ---------- Field mutations ---------- */
@@ -1776,6 +1854,7 @@ function markAllClean() {
   // refresh baselines from current so "dirty" resets
   S.baseline.clear();
   S.products.forEach(p => S.baseline.set(p.id, stableStringify(p)));
+  S.baseline.set('__featured__', JSON.stringify(getFeaturedList()));
   S.dirty.clear();
   updateDirtyBadge();
   renderGrid();
