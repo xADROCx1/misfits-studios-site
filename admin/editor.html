@@ -603,7 +603,91 @@
   .icon-hint { font-family: var(--font-mono); font-size: 10px; color: var(--muted); }
   .icon-hint.staged { color: var(--yellow); }
 
-  /* -------- Featured toggle -------- */
+  /* -------- Featured manager (dedicated view) -------- */
+  .featured-topbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 14px; margin-bottom: 14px;
+    border: 1px solid var(--line); background: #05050c;
+  }
+  .featured-topbar-left, .featured-topbar-right { display: flex; gap: 10px; align-items: center; }
+  .featured-meta { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+
+  .featured-row {
+    display: grid;
+    grid-template-columns: 24px 32px 52px 1fr auto auto 32px;
+    gap: 10px;
+    align-items: center;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    border: 1px solid var(--line);
+    background: #0a0a14;
+    font-family: var(--font-mono);
+    transition: border-color 0.15s, background 0.15s, transform 0.08s;
+  }
+  .featured-row:hover { border-color: rgba(255, 235, 0, 0.3); background: rgba(255, 235, 0, 0.03); }
+  .featured-row.dragging { opacity: 0.4; transform: scale(0.985); }
+  .featured-row.drop-above { border-top: 2px solid var(--yellow); margin-top: 6px; }
+  .featured-row.drop-below { border-bottom: 2px solid var(--yellow); margin-bottom: 10px; }
+  .featured-row.missing { border-color: rgba(255, 71, 87, 0.4); background: rgba(255, 71, 87, 0.05); }
+
+  .featured-grip {
+    cursor: grab; color: var(--muted); font-size: 18px; line-height: 1;
+    user-select: none; letter-spacing: -2px;
+  }
+  .featured-grip:active { cursor: grabbing; }
+  .featured-slot {
+    font-family: var(--font-head); font-weight: 900; font-size: 18px;
+    color: var(--yellow); text-align: center;
+  }
+  .featured-icon {
+    width: 52px; height: 52px; background: #000; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .featured-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .featured-icon .empty { font-size: 9px; color: var(--muted); text-align: center; }
+
+  .featured-main { min-width: 0; }
+  .featured-name {
+    font-family: var(--font-head); font-weight: 700; font-size: 14px; color: var(--paper);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .featured-desc {
+    font-size: 11px; color: var(--muted); margin-top: 2px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .featured-price {
+    font-family: var(--font-head); font-weight: 700; font-size: 14px; color: var(--mint);
+    text-align: right;
+  }
+  .featured-status {
+    display: inline-block; padding: 1px 6px; font-size: 9px; letter-spacing: 0.08em;
+    text-transform: uppercase; font-weight: 700;
+  }
+  .featured-status.live     { background: rgba(0, 255, 163, 0.12); color: var(--mint); }
+  .featured-status.draft    { background: rgba(0, 242, 255, 0.12); color: var(--cyan); }
+  .featured-status.archived { background: rgba(255, 71, 87, 0.12); color: var(--danger); }
+
+  .featured-remove {
+    width: 28px; height: 28px;
+    border: 1px solid var(--line); background: transparent;
+    color: var(--muted); cursor: pointer; font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
+  }
+  .featured-remove:hover { color: var(--danger); border-color: var(--danger); background: rgba(255, 71, 87, 0.08); }
+
+  .featured-empty-state {
+    padding: 40px; border: 1px dashed var(--line); color: var(--muted);
+    font-family: var(--font-mono); font-size: 12px; text-align: center; line-height: 1.6;
+  }
+  .featured-add-hint {
+    margin-top: 14px; padding: 10px 14px;
+    border: 1px solid var(--line); background: rgba(0, 242, 255, 0.04);
+    font-family: var(--font-mono); font-size: 11px; color: var(--muted); line-height: 1.6;
+  }
+  .featured-add-hint b { color: var(--paper); }
+
+  /* -------- Featured toggle (side-panel checkbox) -------- */
   .featured-toggle {
     display: flex; align-items: center; gap: 8px;
     padding: 8px 10px; background: #05050c; border: 1px solid var(--line);
@@ -745,6 +829,9 @@
     <div class="nav-add" id="add-new">&#43; New Product</div>
 
     <div class="nav-sec" style="margin-top:12px">Reports</div>
+    <div class="nav-item" data-view="featured">
+      <span>&#9733; Featured</span><span class="c" id="c-featured">0</span>
+    </div>
     <div class="nav-item" data-view="sales">
       <span>&#36; Sales</span><span class="c" id="c-sales"></span>
     </div>
@@ -765,6 +852,23 @@
     <div class="grid" id="grid">
       <div class="empty">Loading products.json...</div>
     </div>
+    <!-- Featured products manager (hidden by default, shown when Featured nav item clicked) -->
+    <div id="featured-panel" style="display:none">
+      <div class="featured-topbar">
+        <div class="featured-topbar-left">
+          <span class="featured-meta" id="featured-count-sub">— featured on homepage</span>
+        </div>
+        <div class="featured-topbar-right">
+          <span style="font-family:var(--font-mono);font-size:11px;color:var(--muted)">Drag rows to reorder · slot 1 renders top-left on homepage</span>
+        </div>
+      </div>
+      <div id="featured-rows"></div>
+      <div class="featured-add-hint">
+        Click any product card in the left-nav <b>Categories → Plugins / Apps / Libraries</b> list,
+        then toggle <b>★ Feature on homepage</b> in its side panel to add it here.
+      </div>
+    </div>
+
     <!-- Sales report (hidden by default, shown when Sales nav item clicked) -->
     <div id="sales-panel" style="display:none">
       <div class="sales-setup" id="sales-setup" style="display:none">
@@ -1077,6 +1181,7 @@ function renderCounts() {
     if (el) el.textContent = counts[k];
   });
   document.getElementById('count-total').textContent = S.products.length;
+  updateFeaturedCountBadge();
 }
 
 function visibleProducts() {
@@ -1485,19 +1590,145 @@ function toggleFeatured(id, shouldBeFeatured) {
     list.splice(idx, 1);
     toast('Removed from Featured Plugins', 'ok');
   } else if (shouldBeFeatured && idx !== -1) {
-    // Re-feature: move to end so the "click again to move to end" hint works
     list.splice(idx, 1);
     list.push(id);
     toast('Moved to end of Featured Plugins (slot ' + list.length + ')', 'ok');
   }
-  // This edit lives at the top level of products.json (S.raw), not on any product,
-  // but we still flag every currently-selected product as dirty so the publish flow
-  // picks it up. We also mark the "whole manifest" dirty via a sentinel.
   S.dirty.add('__manifest__');
   updateDirtyBadge();
   renderGrid();
-  // Re-render side panel to update the slot indicator
   renderSide();
+  if (document.getElementById('featured-panel').style.display !== 'none') renderFeaturedPanel();
+  updateFeaturedCountBadge();
+}
+function removeFromFeatured(id) {
+  toggleFeatured(id, false);
+}
+function updateFeaturedCountBadge() {
+  const el = document.getElementById('c-featured');
+  if (el) el.textContent = getFeaturedList().length;
+}
+
+/* Dedicated Featured view — renders rows with drag-to-reorder. */
+function showFeaturedView() {
+  document.getElementById('grid').style.display = 'none';
+  document.getElementById('sales-panel').style.display = 'none';
+  document.getElementById('featured-panel').style.display = '';
+  document.getElementById('canvas-title').textContent = 'Featured Plugins';
+  document.getElementById('canvas-sub').textContent = 'Homepage → Featured grid · drag to reorder';
+  renderFeaturedPanel();
+}
+
+function renderFeaturedPanel() {
+  const ids = getFeaturedList();
+  const byId = new Map(S.products.map(p => [p.id, p]));
+  const rowsEl = document.getElementById('featured-rows');
+  document.getElementById('featured-count-sub').textContent =
+    ids.length + ' featured · ' + ids.filter(id => {
+      const p = byId.get(id); return p && p.status === 'live';
+    }).length + ' live (others hidden on homepage)';
+
+  if (ids.length === 0) {
+    rowsEl.innerHTML = '<div class="featured-empty-state">No featured products yet.<br/>Pick a product from the left-nav Categories, then toggle ★ Feature on homepage in its side panel.</div>';
+    return;
+  }
+
+  rowsEl.innerHTML = ids.map((id, i) => {
+    const p = byId.get(id);
+    if (!p) {
+      return `<div class="featured-row missing" data-id="${escapeHtml(id)}">
+        <span class="featured-grip" title="(missing product, can't drag)">⋮⋮</span>
+        <span class="featured-slot">${i + 1}</span>
+        <div class="featured-icon"><span class="empty">missing</span></div>
+        <div class="featured-main">
+          <div class="featured-name" style="color:var(--danger)">Orphan: ${escapeHtml(id)}</div>
+          <div class="featured-desc">Product ID is in featured[] but doesn't exist in products[]</div>
+        </div>
+        <div class="featured-price">—</div>
+        <span class="featured-status archived">missing</span>
+        <button class="featured-remove" onclick="removeFromFeatured('${escapeHtml(id)}')" title="Remove from featured">&times;</button>
+      </div>`;
+    }
+    const iconHTML = (p.assets && p.assets.icon)
+      ? `<img src="${escapeHtml(p.assets.icon)}" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'empty',textContent:'no icon'}))" />`
+      : '<span class="empty">no icon</span>';
+    const priceLabel = p.price_label || fmtPrice(p.price_usd) || '—';
+    const desc = p.tagline || p.short_description || '';
+    return `<div class="featured-row" draggable="true" data-id="${escapeHtml(p.id)}">
+      <span class="featured-grip" title="Drag to reorder">⋮⋮</span>
+      <span class="featured-slot">${i + 1}</span>
+      <div class="featured-icon">${iconHTML}</div>
+      <div class="featured-main">
+        <div class="featured-name">${escapeHtml(p.name)}</div>
+        <div class="featured-desc">${escapeHtml(desc)}</div>
+      </div>
+      <div class="featured-price">${escapeHtml(priceLabel)}</div>
+      <span class="featured-status ${escapeHtml(p.status || 'draft')}">${escapeHtml(p.status || 'draft')}</span>
+      <button class="featured-remove" onclick="removeFromFeatured('${escapeHtml(p.id)}')" title="Remove from featured">&times;</button>
+    </div>`;
+  }).join('');
+
+  attachFeaturedDnD();
+}
+
+function attachFeaturedDnD() {
+  const rows = document.querySelectorAll('#featured-rows .featured-row[draggable="true"]');
+  rows.forEach(row => {
+    row.addEventListener('dragstart', (e) => {
+      e.dataTransfer.setData('text/plain', row.dataset.id);
+      e.dataTransfer.effectAllowed = 'move';
+      row.classList.add('dragging');
+    });
+    row.addEventListener('dragend', () => {
+      row.classList.remove('dragging');
+      rows.forEach(r => { r.classList.remove('drop-above'); r.classList.remove('drop-below'); });
+    });
+    row.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      // Highlight above or below depending on mouse position
+      const rect = row.getBoundingClientRect();
+      const below = (e.clientY - rect.top) > rect.height / 2;
+      rows.forEach(r => { r.classList.remove('drop-above'); r.classList.remove('drop-below'); });
+      row.classList.add(below ? 'drop-below' : 'drop-above');
+    });
+    row.addEventListener('dragleave', () => {
+      // Only remove if we actually left the row (not just entered a child)
+      // Skip — dragover fires again on re-entry anyway
+    });
+    row.addEventListener('drop', (e) => {
+      e.preventDefault();
+      const draggedId = e.dataTransfer.getData('text/plain');
+      const targetId = row.dataset.id;
+      rows.forEach(r => { r.classList.remove('drop-above'); r.classList.remove('drop-below'); });
+      if (!draggedId || draggedId === targetId) return;
+
+      const rect = row.getBoundingClientRect();
+      const dropBelow = (e.clientY - rect.top) > rect.height / 2;
+      reorderFeatured(draggedId, targetId, dropBelow);
+    });
+  });
+}
+
+function reorderFeatured(draggedId, targetId, placeBelow) {
+  snapshot();
+  const list = getFeaturedList();
+  const from = list.indexOf(draggedId);
+  if (from === -1) return;
+  list.splice(from, 1);
+  let to = list.indexOf(targetId);
+  if (to === -1) { list.push(draggedId); }
+  else {
+    if (placeBelow) to += 1;
+    list.splice(to, 0, draggedId);
+  }
+  S.dirty.add('__manifest__');
+  updateDirtyBadge();
+  renderFeaturedPanel();
+  renderGrid();          // to refresh slot numbers shown on star badges (future)
+  renderSide();          // to refresh slot # in product side panel if open
+  updateFeaturedCountBadge();
+  toast('Reordered — now slot ' + (list.indexOf(draggedId) + 1) + ' of ' + list.length, 'ok');
 }
 
 /* ---------- Field mutations ---------- */
@@ -1812,7 +2043,8 @@ function setFilter(cat) {
 }
 function setView(view) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.view === view));
-  if (view === 'sales') showSalesView();
+  if (view === 'sales')    showSalesView();
+  if (view === 'featured') showFeaturedView();
 }
 
 /* ---------- Save modal ---------- */
@@ -2211,6 +2443,8 @@ function clearSalesSecret() {
 
 function showSalesView() {
   document.getElementById('grid').style.display = 'none';
+  const fp = document.getElementById('featured-panel');
+  if (fp) fp.style.display = 'none';
   document.getElementById('sales-panel').style.display = '';
   document.getElementById('canvas-title').textContent = 'Sales Report';
   document.getElementById('canvas-sub').textContent = 'Live Paddle transactions';
@@ -2224,6 +2458,8 @@ function showSalesView() {
 function showProductGrid() {
   document.getElementById('grid').style.display = '';
   document.getElementById('sales-panel').style.display = 'none';
+  const fp = document.getElementById('featured-panel');
+  if (fp) fp.style.display = 'none';
   // canvas-title is set by renderGrid via setFilter; no extra action needed here
 }
 
