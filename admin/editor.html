@@ -180,6 +180,40 @@
       #030308;
     position: relative;
   }
+
+  /* -------- Full-width view mode: hide the right side panel + reclaim its width
+     so Settings / Homepage / Pages / Health / Discounts / History / Featured / Sales
+     all get the full canvas to breathe in. -------- */
+  .app[data-mode="full"] {
+    grid-template-columns: 220px 1fr;
+    grid-template-areas: "top top" "nav canvas";
+  }
+  .app[data-mode="full"] .side { display: none; }
+
+  /* -------- Back-to-products bar, shown in every non-product view -------- */
+  .view-back-bar {
+    display: flex; align-items: center; gap: 12px;
+    margin: -24px -28px 20px;
+    padding: 10px 28px;
+    background: linear-gradient(180deg, rgba(0,242,255,0.06), transparent);
+    border-bottom: 1px solid var(--line);
+    position: sticky; top: 0; z-index: 5;
+  }
+  .view-back-bar button {
+    background: transparent; border: 1px solid var(--line);
+    color: var(--paper); font-family: var(--font-mono); font-size: 11px;
+    padding: 6px 12px; cursor: pointer; letter-spacing: 0.08em;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
+  }
+  .view-back-bar button:hover {
+    color: var(--cyan); border-color: var(--cyan);
+    background: rgba(0, 242, 255, 0.05);
+  }
+  .view-back-bar .view-crumb {
+    font-family: var(--font-mono); font-size: 11px; color: var(--muted);
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .view-back-bar .view-crumb b { color: var(--paper); font-weight: 600; }
   .canvas-head {
     display: flex; align-items: baseline; gap: 12px;
     margin-bottom: 18px;
@@ -3672,6 +3706,9 @@ function updateFeaturedCountBadge() {
 
 /* Dedicated Featured view — renders rows with drag-to-reorder. */
 function showFeaturedView() {
+  // WAVES:view-mode:showFeaturedView
+  setLayoutMode("full", "Featured Plugins");
+
   document.getElementById('grid').style.display = 'none';
   document.getElementById('sales-panel').style.display = 'none';
   document.getElementById('featured-panel').style.display = '';
@@ -4603,6 +4640,9 @@ function clearSalesSecret() {
 }
 
 function showSalesView() {
+  // WAVES:view-mode:showSalesView
+  setLayoutMode("full", "Sales Report");
+
   document.getElementById('grid').style.display = 'none';
   const fp = document.getElementById('featured-panel');
   if (fp) fp.style.display = 'none';
@@ -4625,6 +4665,9 @@ function showSalesView() {
 }
 
 function showProductGrid() {
+  // WAVES:view-mode:showProductGrid
+  setLayoutMode("product", null);
+
   document.getElementById('grid').style.display = '';
   document.getElementById('sales-panel').style.display = 'none';
   const fp = document.getElementById('featured-panel');
@@ -4791,6 +4834,9 @@ function renderSales(txs) {
 
 /* ---------- View switching ---------- */
 function showSettingsView() {
+  // WAVES:view-mode:showSettingsView
+  setLayoutMode("full", "Site Settings");
+
   // WAVES:sibling-hide:showSettingsView
   { const g = document.getElementById('grid'); if (g) g.style.display = 'none'; }
   { const el = document.getElementById('sales-panel'); if (el) el.style.display = 'none'; }
@@ -5377,6 +5423,9 @@ function setHomepagePath(path, val) {
 }
 
 function showHomepageView() {
+  // WAVES:view-mode:showHomepageView
+  setLayoutMode("full", "Homepage Editor");
+
   // WAVES:sibling-hide:showHomepageView
   { const g = document.getElementById('grid'); if (g) g.style.display = 'none'; }
   { const el = document.getElementById('sales-panel'); if (el) el.style.display = 'none'; }
@@ -5513,6 +5562,9 @@ var __healthLastIssues = [];
 
 /* ---------- View switching ---------- */
 function showHealthView() {
+  // WAVES:view-mode:showHealthView
+  setLayoutMode("full", "Product Health");
+
   // WAVES:sibling-hide:showHealthView
   { const g = document.getElementById('grid'); if (g) g.style.display = 'none'; }
   { const el = document.getElementById('sales-panel'); if (el) el.style.display = 'none'; }
@@ -5867,6 +5919,9 @@ function ensurePagesInRaw() {
 
 /* Hide the product grid / featured / sales and show the pages panel. */
 function showPagesView() {
+  // WAVES:view-mode:showPagesView
+  setLayoutMode("full", "Prose Pages");
+
   // WAVES:sibling-hide:showPagesView
   { const g = document.getElementById('grid'); if (g) g.style.display = 'none'; }
   { const el = document.getElementById('sales-panel'); if (el) el.style.display = 'none'; }
@@ -6174,6 +6229,9 @@ const DISCOUNTS_STATE = {
 // to hide this panel when switching to other views.
 
 function showDiscountsView() {
+  // WAVES:view-mode:showDiscountsView
+  setLayoutMode("full", "Discount Codes");
+
   // WAVES:sibling-hide:showDiscountsView
   { const g = document.getElementById('grid'); if (g) g.style.display = 'none'; }
   { const el = document.getElementById('sales-panel'); if (el) el.style.display = 'none'; }
@@ -6554,6 +6612,9 @@ const HIST = {
  * ---------------------------------------------------------- */
 
 function showHistoryView() {
+  // WAVES:view-mode:showHistoryView
+  setLayoutMode("full", "Version History");
+
   // WAVES:sibling-hide:showHistoryView
   { const g = document.getElementById('grid'); if (g) g.style.display = 'none'; }
   { const el = document.getElementById('sales-panel'); if (el) el.style.display = 'none'; }
@@ -7045,6 +7106,53 @@ function reorderScreenshots(from, to) {
   markDirty(p.id);
   refreshGalleryGrid();
   toast('Reordered', 'ok');
+}
+
+/* ============================================================
+ *  LAYOUT MODE — hide the right side panel in non-product views
+ *  so Settings / Homepage / Pages / Health / Discounts / History /
+ *  Featured / Sales get the full canvas width. Also renders a
+ *  sticky back bar at the top of every non-product panel.
+ * ============================================================ */
+function setLayoutMode(mode, viewLabel) {
+  const app = document.getElementById('app');
+  if (app) {
+    if (mode === 'full') app.setAttribute('data-mode', 'full');
+    else app.removeAttribute('data-mode');
+  }
+  // Render/remove a sticky "Back to products" bar on each non-product panel.
+  const panels = [
+    { id: 'settings-panel',  label: 'Site Settings'     },
+    { id: 'homepage-panel',  label: 'Homepage Editor'   },
+    { id: 'health-panel',    label: 'Product Health'    },
+    { id: 'pages-panel',     label: 'Prose Pages'       },
+    { id: 'discounts-panel', label: 'Discount Codes'    },
+    { id: 'history-panel',   label: 'Version History'   },
+    { id: 'sales-panel',     label: 'Sales Report'      },
+    { id: 'featured-panel',  label: 'Featured Plugins'  },
+  ];
+  for (const t of panels) {
+    const panel = document.getElementById(t.id);
+    if (!panel) continue;
+    let bar = panel.querySelector(':scope > .view-back-bar');
+    const isVisible = panel.style.display !== 'none';
+    if (!isVisible) { if (bar) bar.remove(); continue; }
+    if (!bar) {
+      bar = document.createElement('div');
+      bar.className = 'view-back-bar';
+      bar.innerHTML =
+        '<button type="button" onclick="backToProducts()" title="Back to product grid">&larr; Back to products</button>' +
+        '<div class="view-crumb">Viewing <b>' + (viewLabel || t.label) + '</b></div>';
+      panel.insertBefore(bar, panel.firstChild);
+    }
+  }
+}
+
+function backToProducts() {
+  const allNav = document.querySelector('.nav-item[data-cat="all"]');
+  if (allNav) { allNav.click(); return; }
+  if (typeof setFilter === 'function') setFilter('all');
+  else if (typeof showProductGrid === 'function') showProductGrid();
 }
 
 wireGate();
