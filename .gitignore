@@ -24,3 +24,9 @@ stitch/
 stitch_misfits_studios_marketplace/
 universal_upscale_0_*.png
 SETUP-LEGACY-gumroad.md
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example
