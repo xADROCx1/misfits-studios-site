@@ -531,8 +531,8 @@
       "status": "live",
       "tagline": "Auto-split compost across slots",
       "short_description": "Splits compostables evenly across open slots. Blocks when full. Persists composter stack layout across restarts.",
-      "price_usd": 2.99,
-      "price_label": "$2.99",
+      "price_usd": 0,
+      "price_label": "FREE",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -1238,5 +1238,5 @@
       "eta": "TBD"
     }
   ],
-  "last_editor_update": "2026-04-20T22:25:02.696Z"
+  "last_editor_update": "2026-04-21T02:58:16.215Z"
 }
