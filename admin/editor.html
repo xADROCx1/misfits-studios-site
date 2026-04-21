@@ -603,6 +603,49 @@
   .icon-hint { font-family: var(--font-mono); font-size: 10px; color: var(--muted); }
   .icon-hint.staged { color: var(--yellow); }
 
+  /* -------- Sales report -------- */
+  .sales-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px; padding: 10px 14px; border: 1px solid var(--line); background: #05050c; }
+  .sales-bar-left, .sales-bar-right { display: flex; gap: 10px; align-items: center; }
+  .sales-meta { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+  .sales-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 18px; }
+  .sales-card { border: 1px solid var(--line); padding: 14px 16px; background: #0a0a14; position: relative; overflow: hidden; }
+  .sales-card::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background: var(--muted); }
+  .sales-card.green::before  { background: var(--mint); }
+  .sales-card.orange::before { background: var(--yellow); }
+  .sales-card.mint::before   { background: var(--cyan); }
+  .sales-card-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .sales-card-value { font-family: var(--font-head); font-size: 26px; font-weight: 900; color: var(--paper); line-height: 1.1; }
+  .sales-card-sub { font-family: var(--font-mono); font-size: 10px; color: var(--muted); margin-top: 4px; }
+  .sales-card.green  .sales-card-value { color: var(--mint); }
+  .sales-card.orange .sales-card-value { color: var(--yellow); }
+  .sales-card.mint   .sales-card-value { color: var(--cyan); }
+
+  .sales-table-wrap { border: 1px solid var(--line); background: #05050c; }
+  .sales-table-head { padding: 10px 14px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--line); }
+  .sales-table { width: 100%; border-collapse: collapse; }
+  .sales-table th { padding: 8px 12px; text-align: left; background: transparent; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--line); }
+  .sales-table th.num { text-align: right; }
+  .sales-table td { padding: 9px 12px; font-family: var(--font-mono); font-size: 12px; color: var(--paper); border-bottom: 1px solid var(--line); }
+  .sales-table td.num { text-align: right; }
+  .sales-table tr:last-child td { border-bottom: none; }
+  .sales-table tr:hover td { background: rgba(0, 242, 255, 0.03); }
+  .sales-empty { text-align: center; color: var(--muted); padding: 24px !important; font-size: 12px; }
+  .sales-status { display: inline-block; padding: 1px 6px; font-family: var(--font-mono); font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+  .sales-status.completed { background: rgba(0, 255, 163, 0.12); color: var(--mint); }
+  .sales-status.billed    { background: rgba(0, 242, 255, 0.12); color: var(--cyan); }
+  .sales-status.ready     { background: rgba(255, 235, 0, 0.12); color: var(--yellow); }
+  .sales-status.canceled, .sales-status.past_due { background: rgba(255, 71, 87, 0.12); color: var(--danger); }
+
+  .sales-setup { border: 1px solid rgba(255, 235, 0, 0.3); background: rgba(255, 235, 0, 0.04); padding: 18px; }
+  .sales-setup-title { font-family: var(--font-head); font-weight: 900; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--yellow); margin-bottom: 10px; }
+  .sales-setup-body { font-family: var(--font-mono); font-size: 12px; color: var(--paper); line-height: 1.55; }
+  .sales-setup-body ol { margin: 10px 0 10px 20px; }
+  .sales-setup-body ul { margin: 4px 0 4px 20px; }
+  .sales-setup-body code { background: #000; padding: 1px 5px; color: var(--cyan); font-family: var(--font-mono); font-size: 11px; }
+  .sales-setup-input { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: end; margin-top: 10px; }
+  .sales-setup-input label { display: block; font-family: var(--font-mono); font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+  .sales-setup-input input { background: #05050c; border: 1px solid var(--line); color: var(--paper); padding: 8px 10px; font-family: var(--font-mono); font-size: 12px; }
+
   /* -------- Plugin source file editor -------- */
   .src-box {
     border: 1px solid var(--line); background: #05050c; padding: 10px; display: flex; flex-direction: column; gap: 6px; position: relative;
@@ -675,6 +718,12 @@
       <span>Unsorted</span><span class="c" id="c-unsorted">0</span>
     </div>
     <div class="nav-add" id="add-new">&#43; New Product</div>
+
+    <div class="nav-sec" style="margin-top:12px">Reports</div>
+    <div class="nav-item" data-view="sales">
+      <span>&#36; Sales</span><span class="c" id="c-sales"></span>
+    </div>
+
     <div class="nav-spacer"></div>
     <div class="nav-tools">
       <button class="btn" id="undo-btn" title="Undo (Ctrl+Z)">&#8630; Undo</button>
@@ -690,6 +739,86 @@
     </div>
     <div class="grid" id="grid">
       <div class="empty">Loading products.json...</div>
+    </div>
+    <!-- Sales report (hidden by default, shown when Sales nav item clicked) -->
+    <div id="sales-panel" style="display:none">
+      <div class="sales-setup" id="sales-setup" style="display:none">
+        <div class="sales-setup-title">Sales report — one-time setup</div>
+        <div class="sales-setup-body">
+          This report calls Paddle's API through a server-side proxy so your secret key never touches the browser. Set up takes ~60 seconds:
+          <ol>
+            <li>In Cloudflare Pages → your <code>misfits-studios-site</code> project → <b>Settings → Environment variables</b>, add two secrets (Production scope):
+              <ul>
+                <li><code>PADDLE_API_KEY</code> = your Paddle server API key (<code>pdl_live_apikey_...</code>)</li>
+                <li><code>EDITOR_ADMIN_SECRET</code> = any random string you choose, e.g. <code>xyz-2026-random</code></li>
+              </ul>
+            </li>
+            <li>Redeploy (Pages auto-redeploys when env vars change, or trigger manually)</li>
+            <li>Paste the same <code>EDITOR_ADMIN_SECRET</code> below and hit Save</li>
+          </ol>
+          <div class="sales-setup-input">
+            <label>Editor Admin Secret</label>
+            <input type="password" id="sales-secret-input" placeholder="same value you put in Cloudflare" autocomplete="off" />
+            <button class="btn btn-primary" onclick="saveSalesSecret()">Save</button>
+          </div>
+        </div>
+      </div>
+      <div id="sales-body">
+        <div class="sales-bar">
+          <div class="sales-bar-left">
+            <span class="sales-meta" id="sales-last-sync">Not synced yet</span>
+          </div>
+          <div class="sales-bar-right">
+            <select class="inp" id="sales-range" style="width:auto" onchange="loadSales()">
+              <option value="30">Last 30 days</option>
+              <option value="90" selected>Last 90 days</option>
+              <option value="365">Last 12 months</option>
+              <option value="0">All time</option>
+            </select>
+            <button class="btn" onclick="clearSalesSecret()" title="Reset the saved admin secret">✕ Reset</button>
+            <button class="btn btn-primary" onclick="loadSales()" id="sales-refresh-btn">↻ Refresh</button>
+          </div>
+        </div>
+
+        <div class="sales-stats">
+          <div class="sales-card">
+            <div class="sales-card-label">Sales Count</div>
+            <div class="sales-card-value" id="sales-count">—</div>
+            <div class="sales-card-sub" id="sales-count-sub"></div>
+          </div>
+          <div class="sales-card green">
+            <div class="sales-card-label">Gross Revenue</div>
+            <div class="sales-card-value" id="sales-gross">—</div>
+            <div class="sales-card-sub">Before Paddle fees</div>
+          </div>
+          <div class="sales-card orange">
+            <div class="sales-card-label">Paddle Fees</div>
+            <div class="sales-card-value" id="sales-fees">—</div>
+            <div class="sales-card-sub" id="sales-fees-sub">Payment processing</div>
+          </div>
+          <div class="sales-card mint">
+            <div class="sales-card-label">Net Revenue</div>
+            <div class="sales-card-value" id="sales-net">—</div>
+            <div class="sales-card-sub">What you keep</div>
+          </div>
+        </div>
+
+        <div class="sales-table-wrap">
+          <div class="sales-table-head">Purchase log</div>
+          <table class="sales-table">
+            <thead><tr>
+              <th>Date</th>
+              <th>Product</th>
+              <th>Customer</th>
+              <th class="num">Gross</th>
+              <th class="num">Fee</th>
+              <th class="num">Net</th>
+              <th>Status</th>
+            </tr></thead>
+            <tbody id="sales-rows"><tr><td colspan="7" class="sales-empty">Click Refresh to load transactions from Paddle.</td></tr></tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1600,7 +1729,12 @@ function addNew() {
 function setFilter(cat) {
   S.filter = cat;
   document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.cat === cat));
+  showProductGrid();
   renderGrid();
+}
+function setView(view) {
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.view === view));
+  if (view === 'sales') showSalesView();
 }
 
 /* ---------- Save modal ---------- */
@@ -1959,7 +2093,10 @@ function wireGate() {
 function bootEditor() {
   /* ---------- Wire up ---------- */
   document.querySelectorAll('.nav-item').forEach(n => {
-    n.addEventListener('click', () => setFilter(n.dataset.cat));
+    n.addEventListener('click', () => {
+      if (n.dataset.view) setView(n.dataset.view);
+      else setFilter(n.dataset.cat);
+    });
   });
   document.getElementById('add-new').addEventListener('click', addNew);
   document.getElementById('undo-btn').addEventListener('click', undo);
@@ -1969,6 +2106,153 @@ function bootEditor() {
   document.getElementById('search').addEventListener('input', (e) => { S.query = e.target.value; renderGrid(); });
   syncPATUI();
   load();
+}
+
+/* ============================================================
+ *  SALES REPORT — Paddle data via Cloudflare Function proxy
+ * ============================================================ */
+const SALES_SECRET_KEY = '__misfits_editor_sales_secret_v1';
+function getSalesSecret() {
+  try { const v = localStorage.getItem(SALES_SECRET_KEY); return v ? atob(v) : ''; } catch (_) { return ''; }
+}
+function setSalesSecret(v) { try { localStorage.setItem(SALES_SECRET_KEY, btoa(v)); } catch (_) {} }
+function saveSalesSecret() {
+  const inp = document.getElementById('sales-secret-input');
+  const v = (inp.value || '').trim();
+  if (!v) { toast('Enter the secret first', 'err'); return; }
+  setSalesSecret(v);
+  toast('Admin secret saved', 'ok');
+  showSalesView();
+}
+function clearSalesSecret() {
+  try { localStorage.removeItem(SALES_SECRET_KEY); } catch (_) {}
+  toast('Admin secret cleared', 'ok');
+  showSalesView();
+}
+
+function showSalesView() {
+  document.getElementById('grid').style.display = 'none';
+  document.getElementById('sales-panel').style.display = '';
+  document.getElementById('canvas-title').textContent = 'Sales Report';
+  document.getElementById('canvas-sub').textContent = 'Live Paddle transactions';
+  // Toggle the setup panel vs the main body based on whether we have a secret stored
+  const hasSecret = !!getSalesSecret();
+  document.getElementById('sales-setup').style.display = hasSecret ? 'none' : '';
+  document.getElementById('sales-body').style.display = hasSecret ? '' : 'none';
+  if (hasSecret) loadSales();
+}
+
+function showProductGrid() {
+  document.getElementById('grid').style.display = '';
+  document.getElementById('sales-panel').style.display = 'none';
+  // canvas-title is set by renderGrid via setFilter; no extra action needed here
+}
+
+function fmtUSD(cents) {
+  const n = Number(cents) / 100;
+  if (isNaN(n)) return '—';
+  return (n < 0 ? '-' : '') + '$' + Math.abs(n).toFixed(2);
+}
+function fmtDate(iso) {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  if (isNaN(d)) return iso;
+  return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: '2-digit' });
+}
+function safe(v) { return v == null ? '—' : v; }
+
+async function loadSales() {
+  const secret = getSalesSecret();
+  if (!secret) { showSalesView(); return; }
+  const btn = document.getElementById('sales-refresh-btn');
+  btn.disabled = true; btn.textContent = '↻ Loading...';
+
+  try {
+    const range = document.getElementById('sales-range').value;
+    const afterIso = range === '0' ? null : new Date(Date.now() - Number(range) * 86400000).toISOString();
+
+    // Paginate through /transactions. Include customer so we can show email.
+    const all = [];
+    let url = '/api/paddle/transactions?per_page=100&include=customer';
+    if (afterIso) url += '&billed_at[GTE]=' + encodeURIComponent(afterIso);
+    while (url) {
+      const r = await fetch(url, { headers: { 'x-admin-secret': secret, 'Accept': 'application/json' } });
+      if (r.status === 401) throw new Error('admin secret rejected — check it matches EDITOR_ADMIN_SECRET in Cloudflare');
+      if (r.status === 403) throw new Error('endpoint blocked by proxy whitelist');
+      if (!r.ok) {
+        const t = await r.text();
+        throw new Error('Paddle API ' + r.status + ': ' + t.slice(0, 200));
+      }
+      const j = await r.json();
+      all.push(...(j.data || []));
+      // Paddle pagination: meta.pagination.next is a full URL; if we're past the first page we need to switch to proxying through /api/paddle/
+      const next = j.meta && j.meta.pagination && j.meta.pagination.next;
+      if (next) {
+        // next is like https://api.paddle.com/transactions?after=xxx — map to our proxy
+        const parsed = new URL(next);
+        url = '/api/paddle' + parsed.pathname.replace(/^\//, '/').replace('transactions', 'transactions') + parsed.search;
+        // Cleaner: strip the api.paddle.com prefix and replace with /api/paddle
+        url = '/api/paddle' + parsed.pathname + parsed.search;
+      } else {
+        url = null;
+      }
+    }
+
+    renderSales(all);
+    document.getElementById('sales-last-sync').textContent = 'Last synced ' + new Date().toLocaleString();
+  } catch (e) {
+    document.getElementById('sales-rows').innerHTML = '<tr><td colspan="7" class="sales-empty" style="color:var(--danger)">Failed: ' + (e.message || e) + '</td></tr>';
+    toast('Sales load failed: ' + e.message, 'err');
+  } finally {
+    btn.disabled = false; btn.textContent = '↻ Refresh';
+  }
+}
+
+function renderSales(txs) {
+  // Count only revenue-producing transactions; Paddle statuses:
+  //   completed / billed = money captured; canceled / past_due / draft / ready = not yet paid
+  const paid = txs.filter(t => t.status === 'completed' || t.status === 'billed');
+
+  let gross = 0, fee = 0, net = 0;
+  for (const t of paid) {
+    const d = t.details && t.details.totals;
+    if (!d) continue;
+    gross += Number(d.grand_total || 0);
+    fee   += Number(d.fee || 0);
+    net   += Number(d.earnings || 0);
+  }
+
+  document.getElementById('sales-count').textContent = paid.length;
+  document.getElementById('sales-count-sub').textContent = (txs.length - paid.length) + ' other txns in range';
+  document.getElementById('sales-gross').textContent = fmtUSD(gross);
+  document.getElementById('sales-fees').textContent  = fmtUSD(fee);
+  const pct = gross > 0 ? ((fee / gross) * 100).toFixed(1) : '—';
+  document.getElementById('sales-fees-sub').textContent = pct === '—' ? 'Payment processing' : pct + '% of gross';
+  document.getElementById('sales-net').textContent   = fmtUSD(net);
+
+  // Rows — newest first
+  const sorted = txs.slice().sort((a, b) => String(b.billed_at || b.created_at || '').localeCompare(String(a.billed_at || a.created_at || '')));
+  if (!sorted.length) {
+    document.getElementById('sales-rows').innerHTML = '<tr><td colspan="7" class="sales-empty">No transactions in the selected range.</td></tr>';
+    return;
+  }
+  document.getElementById('sales-rows').innerHTML = sorted.map(t => {
+    const d = (t.details && t.details.totals) || {};
+    const items = t.items || [];
+    const productName = items.length ? (items[0].price && items[0].price.name) || (items[0].product && items[0].product.name) || '—' : '—';
+    const cust = t.customer;
+    const custLabel = cust && (cust.email || cust.name) ? (cust.email || cust.name) : (t.customer_id || '—');
+    const status = (t.status || '').toLowerCase();
+    return '<tr>' +
+      '<td>' + escapeHtml(fmtDate(t.billed_at || t.created_at)) + '</td>' +
+      '<td>' + escapeHtml(productName) + (items.length > 1 ? ' <span style="color:var(--muted)">+' + (items.length - 1) + '</span>' : '') + '</td>' +
+      '<td>' + escapeHtml(String(custLabel).slice(0, 32)) + '</td>' +
+      '<td class="num">' + fmtUSD(d.grand_total || 0) + '</td>' +
+      '<td class="num" style="color:var(--yellow)">' + fmtUSD(d.fee || 0) + '</td>' +
+      '<td class="num" style="color:var(--mint)">' + fmtUSD(d.earnings || 0) + '</td>' +
+      '<td><span class="sales-status ' + escapeHtml(status) + '">' + escapeHtml(status || '—') + '</span></td>' +
+    '</tr>';
+  }).join('');
 }
 
 wireGate();
