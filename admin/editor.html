@@ -2487,10 +2487,14 @@ async function loadSales() {
     const afterIso = range === '0' ? null : new Date(Date.now() - Number(range) * 86400000).toISOString();
 
     // Paginate through /transactions. Include customer so we can show email.
+    // Paddle's meta.pagination.next is ALWAYS set even on the last page — must use has_more.
     const all = [];
     let url = '/api/paddle/transactions?per_page=100&include=customer';
     if (afterIso) url += '&billed_at[GTE]=' + encodeURIComponent(afterIso);
-    while (url) {
+    const MAX_PAGES = 20; // safety cap — 20 * 100 = 2000 transactions is plenty
+    let page = 0;
+    while (url && page < MAX_PAGES) {
+      page++;
       const r = await fetch(url, { headers: { 'x-admin-secret': secret, 'Accept': 'application/json' } });
       if (r.status === 401) throw new Error('admin secret rejected — check it matches EDITOR_ADMIN_SECRET in Cloudflare');
       if (r.status === 403) throw new Error('endpoint blocked by proxy whitelist');
@@ -2499,18 +2503,19 @@ async function loadSales() {
         throw new Error('Paddle API ' + r.status + ': ' + t.slice(0, 200));
       }
       const j = await r.json();
-      all.push(...(j.data || []));
-      // Paddle pagination: meta.pagination.next is a full URL; if we're past the first page we need to switch to proxying through /api/paddle/
-      const next = j.meta && j.meta.pagination && j.meta.pagination.next;
-      if (next) {
-        // next is like https://api.paddle.com/transactions?after=xxx — map to our proxy
-        const parsed = new URL(next);
-        url = '/api/paddle' + parsed.pathname.replace(/^\//, '/').replace('transactions', 'transactions') + parsed.search;
-        // Cleaner: strip the api.paddle.com prefix and replace with /api/paddle
+      const pageData = Array.isArray(j.data) ? j.data : [];
+      all.push(...pageData);
+      btn.textContent = '↻ Loading... (' + all.length + ')';
+
+      const pag = j.meta && j.meta.pagination;
+      const hasMore = pag && pag.has_more === true;
+      if (!hasMore || pageData.length === 0 || !pag.next) { url = null; break; }
+
+      // Map the full api.paddle.com URL back to our proxy path.
+      try {
+        const parsed = new URL(pag.next);
         url = '/api/paddle' + parsed.pathname + parsed.search;
-      } else {
-        url = null;
-      }
+      } catch (_) { url = null; }
     }
 
     renderSales(all);
