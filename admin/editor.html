@@ -687,6 +687,85 @@
   }
   .featured-add-hint b { color: var(--paper); }
 
+  /* -------- Featured picker modal -------- */
+  .featured-picker-overlay {
+    position: fixed; inset: 0; z-index: 9000;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(3px);
+    display: flex; align-items: center; justify-content: center;
+    animation: fpi-fade 0.15s;
+  }
+  @keyframes fpi-fade { from { opacity: 0; } }
+  .featured-picker-box {
+    width: 640px; max-width: calc(100vw - 40px); max-height: 80vh;
+    background: #0a0a14; border: 1px solid var(--line);
+    display: flex; flex-direction: column;
+    box-shadow: 0 0 60px rgba(255, 235, 0, 0.15);
+  }
+  .featured-picker-head {
+    padding: 16px 18px; border-bottom: 1px solid var(--line);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .featured-picker-title {
+    font-family: var(--font-head); font-weight: 900; font-size: 16px;
+    letter-spacing: 0.04em; color: var(--paper);
+  }
+  .featured-picker-sub { font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .featured-picker-close {
+    width: 32px; height: 32px;
+    background: transparent; border: 1px solid var(--line);
+    color: var(--muted); font-size: 18px; cursor: pointer;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .featured-picker-close:hover { color: var(--paper); border-color: var(--paper); }
+
+  .featured-picker-search { padding: 12px 18px; border-bottom: 1px solid var(--line); }
+  .featured-picker-search input {
+    width: 100%; background: #05050c; border: 1px solid var(--line); color: var(--paper);
+    padding: 8px 10px; font-family: var(--font-mono); font-size: 13px; outline: none;
+    transition: border-color 0.15s;
+  }
+  .featured-picker-search input:focus { border-color: var(--yellow); }
+  .featured-picker-filters { display: flex; gap: 6px; margin-top: 8px; }
+  .featured-pfilter {
+    padding: 4px 10px; background: transparent; border: 1px solid var(--line);
+    color: var(--muted); font-family: var(--font-mono); font-size: 11px;
+    cursor: pointer; text-transform: uppercase; letter-spacing: 0.08em;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
+  }
+  .featured-pfilter:hover { color: var(--paper); border-color: var(--paper); }
+  .featured-pfilter.active { color: #000; background: var(--yellow); border-color: var(--yellow); }
+
+  .featured-picker-list {
+    flex: 1; overflow-y: auto; padding: 8px 12px;
+    min-height: 240px;
+  }
+  .featured-pick-row {
+    display: grid; grid-template-columns: 48px 1fr auto auto; gap: 10px;
+    align-items: center; padding: 8px 10px; margin-bottom: 4px;
+    border: 1px solid transparent; background: #05050c;
+    cursor: pointer; transition: border-color 0.1s, background 0.1s;
+    font-family: var(--font-mono);
+  }
+  .featured-pick-row:hover { border-color: var(--yellow); background: rgba(255, 235, 0, 0.05); }
+  .featured-pick-row .icon { width: 48px; height: 48px; background: #000; overflow: hidden; }
+  .featured-pick-row .icon img { width: 100%; height: 100%; object-fit: cover; }
+  .featured-pick-row .icon .empty { display: flex; align-items: center; justify-content: center; height: 100%; font-size: 9px; color: var(--muted); }
+  .featured-pick-row .main .name { font-family: var(--font-head); font-weight: 700; font-size: 13px; color: var(--paper); }
+  .featured-pick-row .main .desc { font-size: 10px; color: var(--muted); margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 360px; }
+  .featured-pick-row .price { font-family: var(--font-head); font-weight: 700; font-size: 13px; color: var(--mint); }
+  .featured-pick-row .add {
+    width: 28px; height: 28px; background: transparent; border: 1px solid var(--muted);
+    color: var(--muted); font-size: 14px; line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .featured-pick-row:hover .add { border-color: var(--yellow); color: var(--yellow); }
+  .featured-picker-empty { padding: 40px; text-align: center; font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+  .featured-picker-foot {
+    padding: 10px 18px; border-top: 1px solid var(--line);
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  }
+
   /* -------- Featured toggle (side-panel checkbox) -------- */
   .featured-toggle {
     display: flex; align-items: center; gap: 8px;
@@ -859,13 +938,40 @@
           <span class="featured-meta" id="featured-count-sub">— featured on homepage</span>
         </div>
         <div class="featured-topbar-right">
-          <span style="font-family:var(--font-mono);font-size:11px;color:var(--muted)">Drag rows to reorder · slot 1 renders top-left on homepage</span>
+          <span style="font-family:var(--font-mono);font-size:11px;color:var(--muted)">Drag rows to reorder</span>
+          <button class="btn btn-primary" onclick="openFeaturedPicker()">+ Add Product</button>
         </div>
       </div>
       <div id="featured-rows"></div>
       <div class="featured-add-hint">
-        Click any product card in the left-nav <b>Categories → Plugins / Apps / Libraries</b> list,
-        then toggle <b>★ Feature on homepage</b> in its side panel to add it here.
+        <b>Two ways to add:</b> click <b>+ Add Product</b> above for a searchable list, OR open any product in the main grid and toggle <b>★ Feature on homepage</b> in its side panel.
+      </div>
+    </div>
+
+    <!-- Featured-picker modal -->
+    <div id="featured-picker" class="featured-picker-overlay" style="display:none" onclick="closeFeaturedPicker(event)">
+      <div class="featured-picker-box" onclick="event.stopPropagation()">
+        <div class="featured-picker-head">
+          <div>
+            <div class="featured-picker-title">Add to Featured Plugins</div>
+            <div class="featured-picker-sub" id="featured-picker-sub">— available products</div>
+          </div>
+          <button class="featured-picker-close" onclick="closeFeaturedPicker()" title="Close (Esc)">&times;</button>
+        </div>
+        <div class="featured-picker-search">
+          <input type="text" id="featured-picker-q" placeholder="Search by name, tag, or ID..." autocomplete="off" />
+          <div class="featured-picker-filters" id="featured-picker-filters">
+            <button class="featured-pfilter active" data-cat="all">All</button>
+            <button class="featured-pfilter" data-cat="plugin">Plugins</button>
+            <button class="featured-pfilter" data-cat="app">Apps</button>
+            <button class="featured-pfilter" data-cat="library">Libraries</button>
+          </div>
+        </div>
+        <div class="featured-picker-list" id="featured-picker-list"></div>
+        <div class="featured-picker-foot">
+          <span id="featured-picker-count" style="font-family:var(--font-mono);font-size:11px;color:var(--muted)">— products</span>
+          <span style="font-family:var(--font-mono);font-size:11px;color:var(--muted)">Only live products shown · click a row to add to end of featured list</span>
+        </div>
       </div>
     </div>
 
@@ -1709,6 +1815,91 @@ function attachFeaturedDnD() {
     });
   });
 }
+
+/* ---------- Featured PICKER modal ---------- */
+const FP_STATE = { query: '', cat: 'all' };
+
+function openFeaturedPicker() {
+  FP_STATE.query = '';
+  FP_STATE.cat = 'all';
+  document.getElementById('featured-picker-q').value = '';
+  document.querySelectorAll('.featured-pfilter').forEach(b => b.classList.toggle('active', b.dataset.cat === 'all'));
+  document.getElementById('featured-picker').style.display = '';
+  renderFeaturedPicker();
+  // focus search
+  setTimeout(() => { const q = document.getElementById('featured-picker-q'); if (q) q.focus(); }, 20);
+}
+function closeFeaturedPicker(e) {
+  // Only close if clicking the overlay itself (not inside the box)
+  if (e && e.target && e.target.id !== 'featured-picker') return;
+  document.getElementById('featured-picker').style.display = 'none';
+}
+function renderFeaturedPicker() {
+  const featured = new Set(getFeaturedList());
+  const q = (FP_STATE.query || '').trim().toLowerCase();
+  const cat = FP_STATE.cat;
+
+  const candidates = S.products.filter(p => {
+    if (p.status !== 'live') return false;
+    if (featured.has(p.id)) return false;
+    if (cat !== 'all' && (p.category || 'unsorted') !== cat) return false;
+    if (!q) return true;
+    const hay = (p.id + ' ' + (p.name||'') + ' ' + (p.tagline||'') + ' ' + (p.short_description||'') + ' ' + ((p.tags||[]).join(' '))).toLowerCase();
+    return hay.includes(q);
+  });
+
+  document.getElementById('featured-picker-sub').textContent = featured.size + ' already featured · showing ' + candidates.length + ' available';
+  document.getElementById('featured-picker-count').textContent = candidates.length + ' product' + (candidates.length === 1 ? '' : 's') + ' available';
+
+  const listEl = document.getElementById('featured-picker-list');
+  if (candidates.length === 0) {
+    listEl.innerHTML = '<div class="featured-picker-empty">' + (q ? 'No live products match "' + escapeHtml(q) + '".' : 'No more live products to add.') + '</div>';
+    return;
+  }
+  listEl.innerHTML = candidates.map(p => {
+    const iconHTML = (p.assets && p.assets.icon)
+      ? `<img src="${escapeHtml(p.assets.icon)}" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'empty',textContent:'·'}))" />`
+      : '<span class="empty">no icon</span>';
+    const priceLabel = p.price_label || fmtPrice(p.price_usd) || '—';
+    const desc = p.tagline || p.short_description || '';
+    return `<div class="featured-pick-row" onclick="addFromPicker('${escapeHtml(p.id)}')">
+      <div class="icon">${iconHTML}</div>
+      <div class="main">
+        <div class="name">${escapeHtml(p.name)}</div>
+        <div class="desc">${escapeHtml(desc)}</div>
+      </div>
+      <div class="price">${escapeHtml(priceLabel)}</div>
+      <button class="add" title="Add to featured">+</button>
+    </div>`;
+  }).join('');
+}
+function addFromPicker(id) {
+  toggleFeatured(id, true);
+  renderFeaturedPicker(); // refresh the picker so the just-added product drops out of the list
+}
+
+/* ---------- Featured picker keyboard + search wiring ---------- */
+(function wireFeaturedPicker() {
+  // Defer wiring until DOM is ready. bootEditor() calls this via load().
+  document.addEventListener('keydown', (e) => {
+    const overlay = document.getElementById('featured-picker');
+    if (!overlay || overlay.style.display === 'none') return;
+    if (e.key === 'Escape') { e.preventDefault(); closeFeaturedPicker({ target: overlay }); }
+  });
+  document.addEventListener('input', (e) => {
+    if (e.target && e.target.id === 'featured-picker-q') {
+      FP_STATE.query = e.target.value || '';
+      renderFeaturedPicker();
+    }
+  });
+  document.addEventListener('click', (e) => {
+    if (e.target && e.target.classList && e.target.classList.contains('featured-pfilter')) {
+      FP_STATE.cat = e.target.dataset.cat || 'all';
+      document.querySelectorAll('.featured-pfilter').forEach(b => b.classList.toggle('active', b === e.target));
+      renderFeaturedPicker();
+    }
+  });
+})();
 
 function reorderFeatured(draggedId, targetId, placeBelow) {
   snapshot();
