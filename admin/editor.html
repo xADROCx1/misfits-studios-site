@@ -191,12 +191,23 @@
 
   /* -------- Full-width view mode: hide the right side panel + reclaim its width
      so Settings / Homepage / Pages / Health / Discounts / History / Featured / Sales
-     all get the full canvas to breathe in. -------- */
+     all get the full canvas to breathe in.
+     Using !important to win over the 1100px media-query override that otherwise
+     resurrects the 3-column layout with a 340px side panel. -------- */
   .app[data-mode="full"] {
-    grid-template-columns: 220px 1fr;
-    grid-template-areas: "top top" "nav canvas";
+    grid-template-columns: 200px 1fr !important;
+    grid-template-areas: "top top" "nav canvas" !important;
   }
-  .app[data-mode="full"] .side { display: none; }
+  .app[data-mode="full"] .side { display: none !important; }
+
+  /* -------- Panels should ALWAYS fill the canvas width -------- */
+  .canvas > #grid,
+  #settings-panel, #homepage-panel, #health-panel, #pages-panel,
+  #discounts-panel, #history-panel, #sales-panel, #featured-panel {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
 
   /* -------- Back-to-products bar, shown in every non-product view -------- */
   .view-back-bar {
