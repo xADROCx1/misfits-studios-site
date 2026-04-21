@@ -3,6 +3,10 @@
   "store": {
     "name": "Misfits Studios",
     "tagline": "Rust plugins & desktop tools. Built solo.",
+    "contact_email": "misfits.support@proton.me",
+    "discord_url": "",
+    "twitter_url": "",
+    "github_url": "https://github.com/xADROCx1",
     "lemonsqueezy_store_slug": "REPLACE_ME_STORE_SLUG",
     "lemonsqueezy_store_id": "REPLACE_ME_STORE_ID"
   },
@@ -1246,5 +1250,80 @@
       "eta": "TBD"
     }
   ],
-  "last_editor_update": "2026-04-21T02:58:16.215Z"
+  "last_editor_update": "2026-04-21T02:58:16.215Z",
+  "announcement": {
+    "enabled": false,
+    "text": "",
+    "link": "",
+    "link_label": "",
+    "style": "neon"
+  },
+  "homepage": {
+    "hero": {
+      "crafted": "CRAFTED",
+      "for": "FOR",
+      "misfits": "MISFITS.",
+      "subtitle": "48 weaponized Rust plugins. Per-server license. Lifetime updates. Oxide + Carbon compatible. Built direct from the keyboard that wrote them — no middlemen, no reseller markup."
+    },
+    "tagline_strip": [
+      ">>  ONE DEV",
+      "EVERY LINE",
+      "ZERO FILLER  <<"
+    ],
+    "ticker_strip": [
+      "OXIDE + CARBON COMPATIBLE",
+      "ORIGINAL WORK",
+      "SOLO DEV",
+      "DIRECT DISCORD SUPPORT",
+      "NO RESELLING",
+      "V.1.0_STUDIO_PROTOCOL"
+    ],
+    "sections": {
+      "featured_title": "Featured Plugins",
+      "featured_sub": "// hand-picked from the catalog",
+      "featured_cta_label": "VIEW ALL →"
+    },
+    "footer": {
+      "tile_about_title": "About",
+      "tile_about_body": "The promise behind Misfits Studios — original work, direct support from the dev who wrote it.",
+      "tile_support_title": "Support",
+      "tile_support_body": "Bug report, pre-sale question, or just want to chat? Talk directly to the person who wrote the code.",
+      "tile_terms_title": "Terms",
+      "tile_terms_body": "Licensing, refunds, updates, privacy — plain English, no legalese. Read before you buy.",
+      "copyright": "(c) 2026 MISFITS STUDIOS",
+      "disclaimer": "NOT AFFILIATED WITH FACEPUNCH / OXIDE / CARBON"
+    }
+  },
+  "pages": {
+    "about": {
+      "title": "About",
+      "last_updated": "2026-04-21",
+      "body_md": "# The Promise\n\n*The hub for everything we build.*\n\nMisfits Studios is the home base for every digital thing we create. Rust plugins today. Desktop apps next. Whatever comes after that. No resold work, no white-labeled junk — if it ships from here, we wrote it.\n\n## 01 · Built Here, Shipped Here\n\nEvery plugin and every app on this site is our own original work. No bundled reseller code. No forks of other devs' plugins slapped with a new name.\n\n## 02 · Oxide & Carbon Ready\n\nEvery Rust plugin is tested against both frameworks before release. Compatibility is listed clearly on every product card so you know what you're installing.\n\n## 03 · Direct Support\n\nTalk to the person who actually wrote the code. No ticket farm, no outsourced reply bot. Hit the Discord or email below.\n\n---\n\n**Not affiliated with Facepunch / Oxide / Carbon.**\n"
+    },
+    "support": {
+      "title": "Support",
+      "last_updated": "2026-04-21",
+      "body_md": "# Talk To The Dev\n\n*Need help or want to buy?*\n\nReady to pick up a plugin, ask a pre-sale question, or report a bug? Ping us directly. Every message lands in front of the person who wrote the code.\n\n- **Email:** [misfits.support@proton.me](mailto:misfits.support@proton.me)\n- **Discord:** (TBD)\n\n> Response within 24h. Solo dev, but we don't ghost.\n\n## Send A Message\n\nUse the contact form on the live site, or email us directly. Subject lines we watch for:\n\n- Pre-sale question\n- Bug report\n- Feature request\n- Plugin collaboration\n- Other\n\nCode snippets and logs always welcome — they cut the back-and-forth in half.\n\n## Join The Misfits List\n\nLow volume, no spam. New plugin releases, patch notes when Facepunch breaks something, and the occasional deep dive on a system we're building. No marketing blasts. Unsubscribe any time.\n"
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "last_updated": "2026-04-21",
+      "body_md": "# Terms & Policy\n\n*Read before you buy. Digital goods, plain English.*\n\n## 01 · What You Get\n\nA downloadable `.cs` plugin file (or Windows binary for desktop apps), install instructions, and access to all future updates for that product. Plugins are delivered after purchase via email or Discord DM.\n\n## 02 · License\n\nYou are granted a **non-exclusive, non-transferable** license to use the plugin on servers you own or operate. One purchase = one server group. You may **not** resell, rehost, rebrand, decompile, or redistribute the file. Reverse engineering and sharing to leak sites voids your license immediately.\n\n## 03 · Refunds\n\nBecause these are digital goods delivered instantly, all sales are final. Exception: if a plugin is fundamentally broken on a current Oxide or Carbon build and we can't fix it within 7 days of your report, we'll refund it. Buyer's remorse is not a refund reason. See the full [Refund Policy](refund.html).\n\n## 04 · Updates & Breakage\n\nRust updates can and will break plugins. We patch breakages as fast as we can verify the fix — usually within 24–72 hours of a forced wipe. Updates are **free for the life of the plugin**. Subscribe to the Discord for patch alerts.\n\n## 05 · Liability\n\nPlugins are provided *as-is*. We are not liable for server downtime, data loss, or any indirect damages arising from plugin use. Back up your server data.\n\n## 06 · Contact\n\nQuestions about these terms: [misfits.support@proton.me](mailto:misfits.support@proton.me).\n"
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "last_updated": "2026-04-21",
+      "body_md": "# Privacy Policy\n\n*How we handle your data.*\n\n## 01 · Who We Are\n\nMisfits Studios is a solo development studio operated by the owner of [xADROCx1](https://github.com/xADROCx1). Contact: [misfits.support@proton.me](mailto:misfits.support@proton.me). This policy covers the website **misfits-studios.com** and the digital products sold through it.\n\n## 02 · What We Collect\n\nWe try to collect as little as possible. In practice we handle:\n\n- **Standard web-server logs** — IP address, browser user-agent, referring URL, and timestamps. Collected automatically by our hosting provider (Cloudflare) and retained for up to 30 days for security and debugging.\n- **Purchase data** — when you buy a product, our payment processor (Lemon Squeezy or Paddle, both merchants of record) collects your name, email, billing country, and payment details. We receive the order record (name, email, country, what you bought) but never your full card number.\n- **Support conversations** — if you email us or message us on Discord, we keep those messages to provide support and improve the products.\n- **Product analytics** — we may run privacy-focused, cookieless analytics that measure anonymous page views and conversion events. No personally identifying information is collected by analytics.\n\n## 03 · What We Don't Collect\n\n- We don't sell or rent your data to anyone, ever.\n- We don't use third-party advertising trackers.\n- We don't run A/B-testing scripts that fingerprint your browser.\n- We don't combine data across platforms to build a profile of you.\n\n## 04 · How We Use It\n\n- Deliver the products you buy and provide support.\n- Send update notifications about plugins you've purchased (and only those — not marketing blasts).\n- Debug errors, monitor site uptime, and prevent abuse.\n- Comply with tax law — our payment processor handles VAT / GST / sales tax as the merchant of record, which requires keeping purchase records for the legally mandated retention period (typically 7–10 years depending on jurisdiction).\n\n## 05 · Third Parties We Use\n\n- **Cloudflare** — website hosting, CDN, DDoS protection.\n- **Lemon Squeezy** — payment processor, merchant of record, file delivery, license keys.\n- **Paddle** — alternative payment processor / merchant of record.\n- **GitHub** — source code hosting; does not process customer data.\n- **Proton Mail** — our support inbox.\n- **Discord** — community and direct support chat.\n\n## 06 · Your Rights (GDPR / CCPA / UK-GDPR)\n\nIf you're in the EU, UK, California, or any jurisdiction with a personal-data law, you can request:\n\n- **Access** — a copy of the data we hold on you.\n- **Correction** — fix anything incorrect.\n- **Deletion** — remove your data, subject to legal retention requirements for purchase records.\n- **Portability** — your data in a machine-readable format.\n- **Objection** — stop us using your data for any non-essential purpose.\n\nEmail [misfits.support@proton.me](mailto:misfits.support@proton.me) with the subject line `DATA REQUEST`. We'll respond within 30 days.\n\n## 07 · Cookies\n\nThis website currently uses essential cookies only — nothing for advertising, no cross-site tracking. Our payment processor may set cookies during checkout to maintain your cart and verify the transaction.\n\n## 08 · Children\n\nOur products are aimed at server administrators of the game Rust. We don't knowingly collect data from anyone under 13 (or under 16 where GDPR requires). If you believe we have, email us and we'll delete it immediately.\n\n## 09 · Data Security\n\nPayment data is handled by our processors' PCI-compliant infrastructure, not by us. Our site is served over HTTPS. Support emails are in Proton Mail, which is end-to-end encrypted where both parties use it. No system is perfectly secure — if you suspect a breach, email us.\n\n## 10 · Changes To This Policy\n\nIf we change this policy materially, we'll update the 'last updated' date at the top and post a notice in our Discord. Continued use of the site after changes means you accept the new version.\n\n## 11 · Contact\n\nQuestions, data requests, or complaints:\n\n- Email: [misfits.support@proton.me](mailto:misfits.support@proton.me)\n- GitHub: [xADROCx1](https://github.com/xADROCx1)\n"
+    },
+    "refund": {
+      "title": "Refund Policy",
+      "last_updated": "2026-04-21",
+      "body_md": "# Refund Policy\n\n*Digital goods, fair rules.*\n\n## 01 · Short Version\n\nDigital goods delivered instantly. All sales final. **Exception:** if a plugin is fundamentally broken on the current Oxide or Carbon build and we can't fix it within 7 days of your report, we'll refund the purchase. Buyer's remorse is not a refund reason.\n\n## 02 · When You Are Entitled To A Refund\n\n- The plugin does not function on a current, supported Oxide or Carbon build for reasons unrelated to your server setup, AND we have been unable to resolve it within 7 calendar days of your written report (email or Discord).\n- You were charged twice for the same product (duplicate transaction).\n- A purchase was made without your authorization (fraud) — report to us AND your payment provider.\n- You are protected by a statutory consumer right that overrides this policy (for example, certain EU or UK consumer protections for non-downloaded goods).\n\n## 03 · When You Are Not Entitled To A Refund\n\n- **Change of mind.** Because plugins are downloadable and you get full value at the moment of delivery, we don't refund regret.\n- **Conflicts with other plugins.** Rust's modding ecosystem has thousands of plugins; we cannot guarantee compatibility with every combination.\n- **Custom or heavily modified server setups** where the root cause is outside our plugin.\n- **Misuse or permission issues** after you were given documentation showing how to configure correctly.\n- **Facepunch breaking the game with an update** — we will fix the plugin as fast as we reasonably can, but Facepunch's schedule is not ours.\n\n## 04 · How To Request A Refund\n\nEmail [misfits.support@proton.me](mailto:misfits.support@proton.me) with:\n\n- Subject line: `REFUND REQUEST — [plugin name]`\n- The email address and order number from your purchase (Lemon Squeezy or Paddle receipt)\n- A description of the issue, a screenshot or log excerpt, and the Oxide/Carbon build you're running\n\nWe respond within 3 business days. If eligible, the refund is processed back to the original payment method by our payment processor (Lemon Squeezy or Paddle) — typically 5–10 business days to appear on your statement.\n\n## 05 · License Revocation On Refund\n\nIf a refund is issued, your license to use the plugin terminates immediately. You agree to uninstall the plugin from all servers under your control within 48 hours of the refund being processed.\n\n## 06 · Chargebacks\n\nPlease contact us first — we'd rather fix a problem than see you pay chargeback fees. Opening a chargeback without first attempting resolution may result in your account being denied future purchases.\n\n## 07 · Contact\n\nEmail [misfits.support@proton.me](mailto:misfits.support@proton.me) or message on Discord.\n"
+    },
+    "changelog": {
+      "title": "Changelog",
+      "last_updated": "2026-04-21",
+      "body_md": "# Changelog\n\n*Release history.*\n\nEvery Misfits Studios plugin ships with a version. This page shows the current version of every plugin in the catalog, pulled live from our products manifest. Detailed release notes per plugin live on each product page.\n\n> Currently tracking the full catalog, versioned via SemVer.\n\n## How Versioning Works\n\nWe follow **SemVer** — `MAJOR.MINOR.PATCH`:\n\n- `PATCH` — bug fixes, no behavior change for config files.\n- `MINOR` — new features, additive config keys, backwards compatible.\n- `MAJOR` — breaking config or behavior change. Read the release notes before upgrading.\n\n## Where To Find Release Notes\n\nOpen any product page — the version history is inline on each one. For patch alerts immediately after Rust forced wipes, subscribe to the Discord.\n\n## Recent Studio-Wide Changes\n\n- **2026-04** — Editor UI: prose pages are now editable from the admin (`/admin/editor.html` → Pages).\n- **2026-04** — All plugins verified against the April forced wipe.\n- **2026-03** — Misfits brand aesthetic rolled out across the storefront.\n"
+    }
+  }
 }

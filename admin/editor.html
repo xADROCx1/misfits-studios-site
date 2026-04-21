@@ -851,6 +851,1212 @@
     font-family: var(--font-mono); font-size: 10px; color: var(--yellow); background: rgba(255, 235, 0, 0.05);
     border: 1px solid rgba(255, 235, 0, 0.25); padding: 6px 8px; line-height: 1.45;
   }
+
+  /* --- WAVES CSS: 1-site-settings --- */
+/* ============================================================
+ *  Site Settings (Wave 1) — all classes prefixed `.settings-`
+ * ============================================================ */
+.settings-topbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 14px; margin-bottom: 14px;
+  border: 1px solid var(--line); background: #05050c;
+}
+.settings-topbar-left, .settings-topbar-right { display: flex; gap: 10px; align-items: center; }
+.settings-meta { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+
+/* Sections are native <details> so browser handles open/close + a11y. */
+.settings-section {
+  border: 1px solid var(--line);
+  background: #0a0a14;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+.settings-section[open] { box-shadow: inset 0 1px 0 rgba(0, 242, 255, 0.08); }
+.settings-section summary { list-style: none; cursor: pointer; outline: none; }
+.settings-section summary::-webkit-details-marker { display: none; }
+
+.settings-sec-head {
+  display: grid;
+  grid-template-columns: auto auto 1fr auto;
+  gap: 12px; align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s, background 0.15s;
+}
+.settings-section[open] .settings-sec-head {
+  border-bottom-color: var(--line);
+  background: linear-gradient(180deg, rgba(0, 242, 255, 0.04), transparent);
+}
+.settings-sec-head:hover { background: rgba(0, 242, 255, 0.04); }
+.settings-sec-chip {
+  --chip: var(--cyan);
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 36px; padding: 4px 8px;
+  font-family: var(--font-mono); font-weight: 700; font-size: 11px; letter-spacing: 0.08em;
+  color: var(--chip); border: 1px solid var(--chip);
+  background: rgba(0, 0, 0, 0.4);
+}
+.settings-sec-title {
+  font-family: var(--font-head); font-weight: 700; font-size: 15px;
+  letter-spacing: 0.04em; color: var(--paper);
+}
+.settings-sec-sub {
+  font-family: var(--font-mono); font-size: 11px; color: var(--muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.settings-sec-chev {
+  font-size: 12px; color: var(--muted);
+  transition: transform 0.15s;
+}
+.settings-section[open] .settings-sec-chev { transform: rotate(180deg); color: var(--cyan); }
+
+.settings-sec-body {
+  padding: 16px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+
+/* Fields */
+.settings-field { display: flex; flex-direction: column; gap: 6px; }
+.settings-label {
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted);
+}
+.settings-input {
+  background: #05050c; border: 1px solid var(--line); color: var(--paper);
+  padding: 9px 12px; font-family: var(--font-mono); font-size: 13px;
+  outline: none; border-radius: 3px;
+  transition: border-color 0.12s, box-shadow 0.12s;
+}
+.settings-input:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 2px rgba(0, 242, 255, 0.15);
+}
+.settings-hint {
+  font-family: var(--font-mono); font-size: 10px; color: var(--muted);
+}
+.settings-grid-2 {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+}
+@media (max-width: 900px) {
+  .settings-grid-2 { grid-template-columns: 1fr; }
+}
+
+/* Toggle (checkbox) */
+.settings-toggle {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px; background: #05050c; border: 1px solid var(--line);
+  cursor: pointer; font-family: var(--font-mono); font-size: 12px; color: var(--paper);
+  transition: border-color 0.12s, background 0.12s;
+}
+.settings-toggle:hover { border-color: rgba(255, 26, 143, 0.45); background: rgba(255, 26, 143, 0.04); }
+.settings-toggle input { margin: 0; cursor: pointer; accent-color: var(--pink); }
+.settings-toggle input:checked ~ span { color: var(--pink); }
+
+/* Pricing tiers grid */
+.settings-tiers-note {
+  font-family: var(--font-mono); font-size: 11px; color: var(--muted); line-height: 1.55;
+  padding: 10px 12px; background: rgba(0, 255, 163, 0.04); border: 1px solid rgba(0, 255, 163, 0.2);
+}
+.settings-tiers-note code {
+  background: #000; padding: 1px 5px; color: var(--mint);
+  font-family: var(--font-mono); font-size: 11px;
+}
+.settings-tiers-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px;
+}
+.settings-tier {
+  display: grid; grid-template-rows: auto auto; gap: 4px;
+  padding: 10px 12px; background: #05050c; border: 1px solid var(--line);
+  transition: border-color 0.12s;
+}
+.settings-tier:focus-within { border-color: var(--mint); }
+.settings-tier-key {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--mint);
+}
+.settings-tier-input-wrap {
+  display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 6px;
+}
+.settings-tier-dollar {
+  font-family: var(--font-head); font-weight: 700; font-size: 15px; color: var(--muted);
+}
+.settings-tier-input {
+  background: transparent; border: 0; color: var(--paper);
+  font-family: var(--font-head); font-weight: 700; font-size: 17px;
+  padding: 2px 0; outline: none; width: 100%;
+}
+
+/* Coming Soon list */
+.settings-cs-toolbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-bottom: 4px;
+}
+.settings-cs-count { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+.settings-cs-list { display: flex; flex-direction: column; gap: 8px; }
+.settings-cs-row {
+  display: grid;
+  grid-template-columns: 24px 36px 1.2fr 2fr 1fr 0.7fr 32px;
+  gap: 8px; align-items: center;
+  padding: 8px 10px; background: #05050c; border: 1px solid var(--line);
+  transition: border-color 0.12s, transform 0.08s, background 0.12s;
+}
+.settings-cs-row:hover { border-color: rgba(204, 151, 255, 0.4); background: rgba(204, 151, 255, 0.04); }
+.settings-cs-row.dragging { opacity: 0.4; transform: scale(0.985); }
+.settings-cs-row.drop-above { border-top: 2px solid var(--purple); }
+.settings-cs-row.drop-below { border-bottom: 2px solid var(--purple); }
+.settings-cs-grip {
+  cursor: grab; color: var(--muted); font-size: 16px; letter-spacing: -2px;
+  user-select: none; text-align: center;
+}
+.settings-cs-grip:active { cursor: grabbing; }
+.settings-cs-slot {
+  font-family: var(--font-head); font-weight: 900; font-size: 14px;
+  color: var(--purple); text-align: center;
+}
+.settings-cs-row input, .settings-cs-row select {
+  background: transparent; border: 1px solid transparent; color: var(--paper);
+  padding: 6px 8px; font-family: var(--font-mono); font-size: 12px;
+  outline: none; border-radius: 2px;
+  transition: border-color 0.12s, background 0.12s;
+}
+.settings-cs-row input:focus, .settings-cs-row select:focus {
+  border-color: var(--purple); background: rgba(204, 151, 255, 0.05);
+}
+.settings-cs-row input::placeholder { color: rgba(204, 151, 255, 0.35); }
+.settings-cs-remove {
+  width: 28px; height: 28px;
+  border: 1px solid var(--line); background: transparent;
+  color: var(--muted); cursor: pointer; font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+  transition: color 0.12s, border-color 0.12s, background 0.12s;
+}
+.settings-cs-remove:hover { color: var(--danger); border-color: var(--danger); background: rgba(255, 71, 87, 0.08); }
+.settings-cs-empty {
+  padding: 28px; border: 1px dashed var(--line); color: var(--muted);
+  font-family: var(--font-mono); font-size: 12px; text-align: center; line-height: 1.6;
+}
+@media (max-width: 1100px) {
+  .settings-cs-row { grid-template-columns: 24px 36px 1fr 1.6fr 0.9fr 0.6fr 32px; }
+}
+
+/* Announcement style picker */
+.settings-style-picker {
+  display: flex; gap: 8px; flex-wrap: wrap;
+}
+.settings-style-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 14px; background: #05050c; border: 1px solid var(--line);
+  color: var(--paper); cursor: pointer;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em;
+  transition: border-color 0.12s, background 0.12s;
+}
+.settings-style-btn:hover { border-color: var(--paper); }
+.settings-style-btn.active {
+  border-color: var(--cyan); color: var(--cyan);
+  background: rgba(0, 242, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(0, 242, 255, 0.3);
+}
+.settings-style-swatch {
+  width: 14px; height: 14px; border-radius: 3px; display: inline-block;
+}
+.settings-style-swatch--neon  { background: linear-gradient(90deg, var(--pink), var(--cyan)); }
+.settings-style-swatch--alert { background: var(--danger); }
+.settings-style-swatch--info  { background: #0c0c18; border: 1px solid var(--cyan); }
+
+/* Live preview */
+.settings-preview-wrap { display: flex; flex-direction: column; gap: 6px; }
+.settings-preview-label {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--muted);
+}
+.settings-preview-frame {
+  border: 1px dashed var(--line); padding: 14px;
+  background: repeating-linear-gradient(45deg, #000 0 8px, #03030a 8px 16px);
+}
+.settings-preview-ribbon {
+  position: relative;
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  padding: 10px 44px 10px 16px;
+  font-family: var(--font-head); font-size: 13px; letter-spacing: 0.02em;
+  text-align: center;
+  /* default = neon */
+  background: linear-gradient(90deg, var(--pink), var(--cyan));
+  color: #000; font-weight: 700;
+}
+.settings-preview-ribbon.is-alert { background: var(--danger); color: #fff; font-weight: 700; }
+.settings-preview-ribbon.is-info  { background: #0c0c18; color: var(--cyan); border-bottom: 1px solid rgba(0, 242, 255, 0.35); font-weight: 600; }
+.settings-preview-ribbon.is-disabled { opacity: 0.35; filter: grayscale(0.6); }
+.settings-preview-text { overflow: hidden; text-overflow: ellipsis; max-width: 72ch; }
+.settings-preview-cta {
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;
+  padding: 4px 10px; border: 1px solid currentColor; border-radius: 3px;
+  text-decoration: none; color: inherit;
+}
+.settings-preview-close {
+  position: absolute; top: 50%; right: 10px; transform: translateY(-50%);
+  width: 22px; height: 22px; background: transparent;
+  border: 1px solid currentColor; border-radius: 3px; color: inherit;
+  font-size: 11px; cursor: default; opacity: 0.6;
+}
+.settings-preview-hint {
+  font-family: var(--font-mono); font-size: 10px; color: var(--muted);
+  margin-top: 4px;
+}
+
+  /* --- WAVES CSS: 2-deploy-preview --- */
+/* ---------- Deploy status indicator (top bar) ---------- */
+.deploy-indicator {
+  position: relative;
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 12px 5px 10px;
+  cursor: pointer;
+  transition: border-color 140ms ease, color 140ms ease, background 140ms ease;
+}
+.deploy-indicator:hover {
+  border-color: var(--line-2);
+  color: var(--paper);
+  background: rgba(255, 255, 255, 0.03);
+}
+.deploy-indicator:focus-visible {
+  outline: 1px solid var(--cyan);
+  outline-offset: 2px;
+}
+.deploy-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: #6b6b78;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  transition: background 200ms ease, box-shadow 200ms ease;
+  flex: none;
+}
+.deploy-label { line-height: 1; }
+
+/* Status color states — driven by data-status on .deploy-indicator */
+.deploy-indicator[data-status="live"]     .deploy-dot { background: var(--mint);  box-shadow: 0 0 10px rgba(0, 255, 163, 0.75); animation: deploy-pulse 2.4s ease-in-out infinite; }
+.deploy-indicator[data-status="live"]                 { color: var(--mint); border-color: rgba(0, 255, 163, 0.35); }
+.deploy-indicator[data-status="building"] .deploy-dot { background: var(--yellow); box-shadow: 0 0 10px rgba(255, 217, 0, 0.75); animation: deploy-pulse 1.1s ease-in-out infinite; }
+.deploy-indicator[data-status="building"]             { color: var(--yellow); border-color: rgba(255, 217, 0, 0.45); }
+.deploy-indicator[data-status="failed"]   .deploy-dot { background: var(--danger); box-shadow: 0 0 10px rgba(255, 71, 87, 0.85); animation: deploy-pulse 0.9s ease-in-out infinite; }
+.deploy-indicator[data-status="failed"]               { color: var(--danger); border-color: rgba(255, 71, 87, 0.5); }
+.deploy-indicator[data-status="unknown"]  .deploy-dot { background: #6b6b78; }
+.deploy-indicator[data-status="unknown"]              { color: var(--muted); border-color: var(--line); }
+
+@keyframes deploy-pulse {
+  0%, 100% { transform: scale(1);    opacity: 1; }
+  50%      { transform: scale(1.25); opacity: 0.7; }
+}
+
+/* Tooltip */
+.deploy-tooltip {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 240px;
+  padding: 10px 12px;
+  background: #0a0a14;
+  border: 1px solid var(--line-2);
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--paper);
+  opacity: 0; pointer-events: none; transform: translateY(-4px);
+  transition: opacity 120ms ease, transform 120ms ease;
+  z-index: 300;
+  text-align: left;
+}
+.deploy-indicator.tip-open .deploy-tooltip {
+  opacity: 1; transform: translateY(0);
+}
+.deploy-tip-row {
+  display: flex; justify-content: space-between; gap: 14px;
+  padding: 3px 0;
+}
+.deploy-tip-row .k { color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; font-size: 9px; align-self: center; }
+.deploy-tip-row .v { color: var(--paper); text-align: right; word-break: break-all; max-width: 160px; }
+.deploy-tip-hint {
+  margin-top: 6px; padding-top: 6px;
+  border-top: 1px dashed var(--line);
+  font-size: 10px; color: var(--cyan); letter-spacing: 0.05em;
+}
+
+/* ---------- Preview button — grid card (icon-only, top-left corner) ---------- */
+.card { /* ensure positioning context if not already present; cards already use it for featured-star */ }
+.preview-btn-card {
+  position: absolute;
+  top: 8px; left: 8px;
+  width: 26px; height: 26px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--muted);
+  font-size: 13px; line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 140ms ease, color 140ms ease, border-color 140ms ease, background 140ms ease, transform 140ms ease;
+  z-index: 3;
+}
+.card:hover .preview-btn-card,
+.card.selected .preview-btn-card,
+.preview-btn-card:focus-visible { opacity: 1; }
+.preview-btn-card:hover {
+  color: var(--cyan);
+  border-color: var(--cyan);
+  background: rgba(0, 229, 255, 0.08);
+  transform: translateY(-1px);
+}
+
+/* ---------- Preview button — side panel (labeled) ---------- */
+.preview-btn-side {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  background: transparent;
+  border: 1px solid var(--line-2);
+  border-radius: 4px;
+  color: var(--muted);
+  padding: 5px 9px;
+  cursor: pointer;
+  transition: color 120ms ease, border-color 120ms ease, background 120ms ease;
+}
+.preview-btn-side:hover {
+  color: var(--cyan);
+  border-color: var(--cyan);
+  background: rgba(0, 229, 255, 0.06);
+}
+
+  /* --- WAVES CSS: 3-homepage --- */
+#homepage-panel {
+  padding: 24px;
+  max-width: 960px;
+  margin: 0 auto;
+  font-family: var(--font-mono);
+  color: var(--paper);
+}
+.homepage-intro {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+  padding: 12px 14px;
+  border: 1px dashed var(--line);
+  border-radius: 6px;
+  margin-bottom: 18px;
+}
+.homepage-intro code {
+  color: var(--cyan);
+  background: rgba(83,221,252,.08);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+/* Live preview card */
+.homepage-preview {
+  background: linear-gradient(135deg, rgba(204,151,255,.05), rgba(83,221,252,.04));
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 22px 24px;
+  margin-bottom: 22px;
+  text-align: center;
+}
+.homepage-preview-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .25em;
+  color: var(--cyan);
+  margin-bottom: 10px;
+}
+.homepage-preview-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .12em;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+.homepage-preview-stack {
+  font-family: var(--font-head, 'Space Grotesk', sans-serif);
+  font-weight: 900;
+  line-height: 0.95;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  margin-bottom: 14px;
+}
+.homepage-preview-crafted,
+.homepage-preview-for,
+.homepage-preview-misfits {
+  display: inline-block;
+  font-size: 40px;
+}
+.homepage-preview-crafted { color: var(--pink); }
+.homepage-preview-for     { color: var(--yellow); margin: 0 10px; }
+.homepage-preview-misfits { color: var(--cyan); }
+.homepage-preview-sub {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.55;
+}
+
+/* Section accordion */
+.homepage-section {
+  background: rgba(255,255,255,.02);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+.homepage-section > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 12px 16px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .15em;
+  color: var(--cyan);
+  user-select: none;
+}
+.homepage-section > summary::-webkit-details-marker { display: none; }
+.homepage-section > summary::before {
+  content: '▸ ';
+  color: var(--muted);
+  margin-right: 6px;
+}
+.homepage-section[open] > summary::before { content: '▾ '; color: var(--cyan); }
+.homepage-section > *:not(summary) {
+  padding: 14px 16px 18px;
+  border-top: 1px solid var(--line);
+}
+
+.homepage-subhead {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .22em;
+  color: var(--muted);
+  margin: 14px 0 8px;
+}
+.homepage-subhead:first-child { margin-top: 0; }
+
+/* Input grids */
+.homepage-grid-2,
+.homepage-grid-3 {
+  display: grid;
+  gap: 12px;
+}
+.homepage-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.homepage-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.homepage-field-full { grid-column: 1 / -1; }
+
+.homepage-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.homepage-field > span {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .15em;
+  color: var(--muted);
+}
+.homepage-field input,
+.homepage-field textarea {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 8px 10px;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color .15s ease, box-shadow .15s ease;
+  box-sizing: border-box;
+  resize: vertical;
+}
+.homepage-field input:focus,
+.homepage-field textarea:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 2px rgba(83,221,252,.15);
+}
+
+/* Ticker editable list */
+.homepage-ticker-hint {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.homepage-ticker-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.homepage-ticker-row {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  gap: 8px;
+  align-items: center;
+}
+.homepage-ticker-row .idx {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+  text-align: right;
+}
+.homepage-ticker-row input {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  outline: none;
+}
+.homepage-ticker-row input:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 2px rgba(83,221,252,.15);
+}
+.homepage-ticker-row .rm {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.homepage-ticker-row .rm:hover {
+  color: var(--pink);
+  border-color: var(--pink);
+}
+
+  /* --- WAVES CSS: 4-health --- */
+/* ============================================================
+ *  HEALTH DASHBOARD — catalog diagnostics
+ * ============================================================ */
+.health-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px; padding: 10px 14px; border: 1px solid var(--line); background: #05050c; }
+.health-bar-left, .health-bar-right { display: flex; gap: 10px; align-items: center; }
+.health-meta { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+
+.health-filters { display: inline-flex; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+.health-fbtn {
+  background: transparent;
+  border: 0;
+  border-right: 1px solid var(--line);
+  padding: 6px 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.health-fbtn:last-child { border-right: 0; }
+.health-fbtn:hover { color: var(--paper); background: rgba(0, 242, 255, 0.05); }
+.health-fbtn.active { color: var(--bg); background: var(--cyan); }
+
+.health-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 18px; }
+.health-card { border: 1px solid var(--line); padding: 14px 16px; background: #0a0a14; position: relative; overflow: hidden; }
+.health-card::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background: var(--muted); }
+.health-card.total::before { background: var(--cyan); }
+.health-card.high::before  { background: var(--danger); }
+.health-card.med::before   { background: var(--yellow); }
+.health-card.low::before   { background: var(--mint); }
+.health-card-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.health-card-value { font-family: var(--font-head); font-size: 26px; font-weight: 900; color: var(--paper); line-height: 1.1; }
+.health-card-sub { font-family: var(--font-mono); font-size: 10px; color: var(--muted); margin-top: 4px; }
+.health-card.total .health-card-value { color: var(--cyan); }
+.health-card.high  .health-card-value { color: var(--danger); }
+.health-card.med   .health-card-value { color: var(--yellow); }
+.health-card.low   .health-card-value { color: var(--mint); }
+
+.health-table-wrap { border: 1px solid var(--line); background: #05050c; }
+.health-table-head {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 14px;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+  border-bottom: 1px solid var(--line);
+}
+
+.health-group { border-bottom: 1px solid var(--line); }
+.health-group:last-child { border-bottom: none; }
+.health-group-head {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px;
+  background: rgba(0, 242, 255, 0.03);
+  font-family: var(--font-mono); font-size: 11px; color: var(--paper);
+  border-bottom: 1px solid var(--line-2);
+  cursor: pointer;
+}
+.health-group-head:hover { background: rgba(0, 242, 255, 0.07); }
+.health-group-name { color: var(--paper); font-weight: 600; }
+.health-group-id   { color: var(--muted); font-size: 10px; }
+.health-group-count {
+  margin-left: auto;
+  padding: 1px 8px;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700;
+  border: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.health-row {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--line-2);
+  transition: background 0.15s;
+}
+.health-row:last-child { border-bottom: none; }
+.health-row:hover { background: rgba(0, 242, 255, 0.04); }
+.health-sev {
+  display: inline-block;
+  padding: 2px 8px;
+  font-family: var(--font-mono); font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  text-align: center;
+}
+.health-sev.high { background: rgba(255, 71, 87, 0.14); color: var(--danger); border: 1px solid rgba(255, 71, 87, 0.4); }
+.health-sev.med  { background: rgba(255, 235, 0, 0.12); color: var(--yellow); border: 1px solid rgba(255, 235, 0, 0.4); }
+.health-sev.low  { background: rgba(0, 255, 163, 0.10); color: var(--mint); border: 1px solid rgba(0, 255, 163, 0.4); }
+.health-msg { font-family: var(--font-mono); font-size: 12px; color: var(--paper); line-height: 1.45; }
+.health-msg .hkey { color: var(--cyan); }
+.health-fix {
+  font-family: var(--font-head); font-size: 11px; letter-spacing: 0.10em; text-transform: uppercase; font-weight: 700;
+  padding: 6px 12px;
+  background: transparent;
+  color: var(--pink);
+  border: 1px solid var(--pink);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.health-fix:hover { background: var(--pink); color: var(--bg); }
+
+.health-empty {
+  border: 1px dashed var(--line);
+  padding: 48px 24px;
+  text-align: center;
+  background: #05050c;
+}
+.health-empty-icon { font-size: 42px; margin-bottom: 8px; }
+.health-empty-title { font-family: var(--font-head); font-size: 18px; font-weight: 700; color: var(--mint); margin-bottom: 4px; }
+.health-empty-sub   { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+
+.health-nav-count[data-health="high"] { color: var(--danger); }
+.health-nav-count[data-health="med"]  { color: var(--yellow); }
+.health-nav-count[data-health="low"]  { color: var(--mint); }
+
+  /* --- WAVES CSS: 5-prose --- */
+/* ---------- Prose pages editor ---------- */
+#pages-panel {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  overflow: hidden;
+}
+.pages-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  width: 100%;
+  height: 100%;
+  gap: 0;
+}
+
+/* Left sidebar */
+.pages-sidebar {
+  border-right: 1px solid var(--line);
+  background: #05050c;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.pages-sidebar-head {
+  padding: 16px 14px 12px;
+  border-bottom: 1px solid var(--line-2);
+}
+.pages-sidebar-title {
+  font-family: var(--font-head);
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 4px;
+}
+.pages-sidebar-sub {
+  font-family: var(--font-mono);
+  font-size: 10px; color: var(--muted); letter-spacing: 0.08em;
+}
+.pages-list {
+  flex: 1; overflow-y: auto; padding: 6px 0;
+}
+.pages-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 14px; margin: 1px 8px; border-radius: 5px;
+  cursor: pointer; user-select: none;
+  transition: background 0.1s, color 0.1s;
+  border: 1px solid transparent;
+}
+.pages-row:hover { background: rgba(0, 242, 255, 0.06); }
+.pages-row.active {
+  background: linear-gradient(90deg, rgba(0, 242, 255, 0.12), transparent);
+  border-color: rgba(0, 242, 255, 0.25);
+}
+.pages-row-main {
+  display: flex; flex-direction: column; gap: 2px; min-width: 0;
+}
+.pages-row-title {
+  font-family: var(--font-head);
+  font-size: 13px; color: var(--paper);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.pages-row-key {
+  font-family: var(--font-mono);
+  font-size: 10px; color: var(--muted); letter-spacing: 0.08em;
+}
+.pages-row-dirty {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--pink);
+  box-shadow: 0 0 6px rgba(255, 26, 143, 0.7);
+  flex-shrink: 0;
+}
+.pages-sidebar-foot {
+  padding: 10px 14px;
+  border-top: 1px solid var(--line-2);
+  font-family: var(--font-mono);
+  font-size: 10px; color: var(--muted);
+}
+.pages-foot-hint code {
+  color: var(--mint);
+  background: rgba(0, 255, 163, 0.05);
+  padding: 1px 5px; border-radius: 3px;
+}
+
+/* Right editor */
+.pages-editor { display: flex; flex-direction: column; overflow: hidden; }
+.pages-editor-empty {
+  margin: auto;
+  text-align: center;
+  max-width: 420px;
+  padding: 40px 24px;
+  color: var(--muted);
+}
+.pages-editor-empty-icon { font-size: 48px; margin-bottom: 12px; opacity: 0.5; }
+.pages-editor-empty-title {
+  font-family: var(--font-head);
+  font-size: 18px; color: var(--paper); margin-bottom: 8px;
+}
+.pages-editor-empty-sub {
+  font-size: 13px; line-height: 1.5;
+}
+.pages-editor-empty-sub code {
+  color: var(--mint);
+  background: rgba(0, 255, 163, 0.06);
+  padding: 1px 5px; border-radius: 3px;
+  font-size: 11px;
+}
+.pages-editor-body {
+  flex: 1; display: flex; flex-direction: column; overflow: hidden;
+}
+
+.pages-editor-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--line);
+  background: #07070e;
+  flex-wrap: wrap;
+}
+.pages-head-left {
+  display: flex; align-items: center; gap: 10px; flex: 1; min-width: 200px;
+}
+.pages-key-chip {
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--cyan);
+  background: rgba(0, 242, 255, 0.05);
+}
+.pages-title-input {
+  flex: 1; min-width: 0;
+  background: #0a0a14;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-family: var(--font-head);
+  font-size: 15px;
+  color: var(--paper);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.pages-title-input:focus { border-color: var(--cyan); box-shadow: 0 0 0 2px rgba(0, 242, 255, 0.15); }
+.pages-head-right {
+  display: flex; align-items: center; gap: 10px;
+}
+.pages-last-updated {
+  font-family: var(--font-mono);
+  font-size: 10px; color: var(--muted); letter-spacing: 0.06em;
+}
+
+/* Split edit/preview */
+.pages-editor-split {
+  flex: 1; display: grid; grid-template-columns: 1fr; overflow: hidden;
+}
+.pages-editor-split.with-preview {
+  grid-template-columns: 1fr 1fr;
+}
+.pages-md-input {
+  width: 100%; height: 100%;
+  background: #05050c;
+  border: 0;
+  padding: 18px 22px;
+  font-family: var(--font-mono);
+  font-size: 13px; line-height: 1.6;
+  color: var(--paper);
+  outline: none;
+  resize: none;
+}
+.pages-md-input:focus { background: #06060e; }
+.pages-preview {
+  border-left: 1px solid var(--line);
+  overflow-y: auto;
+  background: #07070e;
+}
+.pages-preview-inner {
+  padding: 24px 28px;
+}
+
+/* Cheatsheet */
+.pages-cheatsheet {
+  border-top: 1px solid var(--line);
+  background: #06060e;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+}
+.pages-cheatsheet summary {
+  padding: 10px 20px;
+  cursor: pointer;
+  user-select: none;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 10px;
+  color: var(--cyan);
+}
+.pages-cheatsheet summary:hover { color: var(--paper); }
+.pages-cheatsheet-body {
+  padding: 10px 20px 16px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 4px 20px;
+  line-height: 1.8;
+}
+.pages-cheatsheet-body code {
+  color: var(--mint);
+  background: rgba(0, 255, 163, 0.05);
+  padding: 1px 5px; border-radius: 3px;
+}
+
+/* Prose preview — matches what prose.js will render on the live pages */
+.prose-container {
+  max-width: 720px;
+  margin: 0 auto;
+  font-family: var(--font-body);
+  font-size: 15px; line-height: 1.7;
+  color: var(--paper);
+}
+.prose-container h1, .prose-container h2, .prose-container h3, .prose-container h4 {
+  font-family: var(--font-head);
+  color: var(--cyan);
+  letter-spacing: -0.01em;
+  margin: 1.6em 0 0.6em;
+}
+.prose-container h1 { font-size: 28px; color: var(--pink); }
+.prose-container h2 { font-size: 22px; color: var(--cyan); border-bottom: 1px solid rgba(0,242,255,0.18); padding-bottom: 6px; }
+.prose-container h3 { font-size: 17px; color: var(--mint); }
+.prose-container h4 { font-size: 14px; color: var(--yellow); text-transform: uppercase; letter-spacing: 0.14em; }
+.prose-container p { margin: 0 0 1em; }
+.prose-container a { color: var(--cyan); text-decoration: none; border-bottom: 1px solid rgba(0,242,255,0.3); }
+.prose-container a:hover { color: var(--pink); border-bottom-color: var(--pink); }
+.prose-container ul, .prose-container ol { margin: 0 0 1em; padding-left: 1.4em; }
+.prose-container li { margin: 0.3em 0; }
+.prose-container code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  color: var(--mint);
+  background: rgba(0, 255, 163, 0.06);
+  padding: 1px 6px; border-radius: 3px;
+}
+.prose-container pre {
+  background: #05050c;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 14px 16px;
+  overflow-x: auto;
+  margin: 0 0 1.2em;
+}
+.prose-container pre code { background: transparent; color: var(--paper); padding: 0; }
+.prose-container blockquote {
+  margin: 0 0 1em;
+  padding: 8px 16px;
+  border-left: 3px solid var(--pink);
+  background: rgba(255, 26, 143, 0.05);
+  color: var(--paper);
+}
+.prose-container hr {
+  border: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  margin: 2em 0;
+}
+.prose-container strong { color: var(--paper); }
+.prose-container em { color: var(--yellow); }
+
+  /* --- WAVES CSS: 6-discounts --- */
+/* Insert inside the main <style> block, near the other .sales- rules (after line ~835). */
+.discounts-banner { padding: 10px 14px; margin-bottom: 14px; font-family: var(--font-mono); font-size: 12px; border: 1px solid var(--danger); background: rgba(255, 71, 87, 0.08); color: var(--danger); }
+.discounts-banner.ok { border-color: var(--mint); background: rgba(0, 255, 163, 0.08); color: var(--mint); }
+
+.discounts-setup { border: 1px solid rgba(255, 235, 0, 0.3); background: rgba(255, 235, 0, 0.04); padding: 18px; }
+.discounts-setup-title { font-family: var(--font-head); font-weight: 900; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--yellow); margin-bottom: 10px; }
+.discounts-setup-body { font-family: var(--font-mono); font-size: 12px; color: var(--paper); line-height: 1.55; }
+
+.discounts-create { border: 1px solid var(--line); background: #05050c; padding: 16px 18px; margin-bottom: 18px; }
+.discounts-create-head { margin-bottom: 14px; }
+.discounts-create-title { font-family: var(--font-head); font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--paper); margin-bottom: 4px; }
+.discounts-create-sub { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+.discounts-create-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.dc-field { display: flex; flex-direction: column; gap: 4px; }
+.dc-field-wide { grid-column: span 2; }
+.dc-field label { font-family: var(--font-mono); font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+.dc-field .dc-opt { text-transform: none; color: var(--muted); opacity: 0.7; letter-spacing: 0; }
+.dc-field input, .dc-field select { background: #0a0a14; border: 1px solid var(--line); color: var(--paper); padding: 8px 10px; font-family: var(--font-mono); font-size: 12px; outline: none; }
+.dc-field input:focus, .dc-field select:focus { border-color: var(--cyan); box-shadow: 0 0 0 2px rgba(0, 242, 255, 0.12); }
+.dc-field input[type="datetime-local"] { color-scheme: dark; }
+.dc-field input[disabled], .dc-field select[disabled] { opacity: 0.5; cursor: not-allowed; }
+.dc-hint { font-family: var(--font-mono); font-size: 10px; color: var(--muted); margin-top: 2px; }
+.dc-radios { display: flex; gap: 10px; padding-top: 4px; }
+.dc-radio { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 12px; color: var(--paper); cursor: pointer; }
+.dc-radio input { accent-color: var(--cyan); }
+
+.discounts-create-foot { display: flex; gap: 10px; align-items: center; margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--line); }
+.dc-meta { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+
+.discounts-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; padding: 10px 14px; border: 1px solid var(--line); background: #05050c; }
+.discounts-bar-left, .discounts-bar-right { display: flex; gap: 10px; align-items: center; }
+
+.discounts-section { margin-bottom: 18px; }
+.discounts-section-head { padding: 10px 14px; background: #07070e; border: 1px solid var(--line); border-bottom: none; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--paper); display: flex; align-items: center; gap: 8px; }
+.discounts-section-toggle { cursor: pointer; user-select: none; }
+.discounts-section-toggle:hover { background: #0a0a14; color: var(--cyan); }
+.discounts-table-wrap { border: 1px solid var(--line); background: #05050c; }
+.discounts-table { width: 100%; border-collapse: collapse; }
+.discounts-table th { padding: 8px 12px; text-align: left; background: transparent; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--line); }
+.discounts-table th.num { text-align: right; }
+.discounts-table th.actions { text-align: right; width: 120px; }
+.discounts-table td { padding: 9px 12px; font-family: var(--font-mono); font-size: 12px; color: var(--paper); border-bottom: 1px solid var(--line); vertical-align: top; }
+.discounts-table td.num { text-align: right; }
+.discounts-table td.actions { text-align: right; }
+.discounts-table tr:last-child td { border-bottom: none; }
+.discounts-table tr.dc-row-main { cursor: pointer; }
+.discounts-table tr.dc-row-main:hover td { background: rgba(0, 242, 255, 0.04); }
+.discounts-table tr.dc-row-detail td { background: #07070e; padding: 12px; font-size: 11px; color: var(--muted); }
+.discounts-table tr.dc-row-detail .dc-detail-block { display: grid; grid-template-columns: 160px 1fr; gap: 6px 14px; }
+.discounts-table tr.dc-row-detail .dc-detail-block b { color: var(--paper); font-weight: 600; }
+.discounts-table tr.dc-row-detail .dc-scope-list { color: var(--cyan); word-break: break-all; }
+.discounts-empty { text-align: center; color: var(--muted); padding: 20px !important; font-size: 12px; }
+
+.dc-code { font-family: var(--font-mono); font-weight: 700; color: var(--cyan); letter-spacing: 0.06em; }
+.dc-type { display: inline-block; padding: 1px 6px; font-family: var(--font-mono); font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.dc-type.percentage { background: rgba(0, 242, 255, 0.12); color: var(--cyan); }
+.dc-type.flat { background: rgba(255, 26, 143, 0.12); color: var(--pink); }
+.dc-status { display: inline-block; padding: 1px 6px; font-family: var(--font-mono); font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.dc-status.active { background: rgba(0, 255, 163, 0.12); color: var(--mint); }
+.dc-status.archived { background: rgba(106, 115, 136, 0.18); color: var(--muted); }
+.dc-status.expired { background: rgba(255, 71, 87, 0.12); color: var(--danger); }
+.dc-deactivate { font-family: var(--font-head); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 10px; background: transparent; border: 1px solid var(--danger); color: var(--danger); cursor: pointer; }
+.dc-deactivate:hover { background: var(--danger); color: #000; }
+.dc-deactivate:disabled { opacity: 0.5; cursor: not-allowed; }
+
+@media (max-width: 1200px) {
+  .discounts-create-grid { grid-template-columns: repeat(2, 1fr); }
+  .dc-field-wide { grid-column: span 2; }
+}
+
+  /* --- WAVES CSS: 7-history --- */
+/* Add near the sales-* styles (~line 794). Keep the cyberpunk / skull-punk aesthetic — cyan / pink / yellow on black. */
+  .history-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px; padding: 10px 14px; border: 1px solid var(--line); background: #05050c; }
+  .history-bar-left, .history-bar-right { display: flex; gap: 10px; align-items: center; }
+  .history-meta { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; }
+  .history-toggle { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; user-select: none; }
+  .history-toggle input { accent-color: var(--cyan); cursor: pointer; }
+
+  .history-table-wrap { border: 1px solid var(--line); background: #05050c; }
+  .history-table-head { padding: 10px 14px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--line); }
+  .history-table { width: 100%; border-collapse: collapse; }
+  .history-table th { padding: 8px 12px; text-align: left; background: transparent; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--line); }
+  .history-table th.num { text-align: right; }
+  .history-table td { padding: 9px 12px; font-family: var(--font-mono); font-size: 12px; color: var(--paper); border-bottom: 1px solid var(--line); vertical-align: top; }
+  .history-table td.num { text-align: right; }
+  .history-table tr:last-child > td { border-bottom: none; }
+  .history-table tr.history-row:hover td { background: rgba(0, 242, 255, 0.03); }
+
+  .history-sha { font-family: var(--font-mono); font-size: 12px; color: var(--cyan); letter-spacing: 0.04em; }
+  .history-sha.head { color: var(--mint); }
+  .history-sha.head::after { content: ' HEAD'; font-size: 9px; color: var(--mint); letter-spacing: 0.1em; }
+  .history-msg { color: var(--paper); white-space: pre-wrap; word-break: break-word; max-width: 640px; }
+  .history-author { color: var(--muted); font-family: var(--font-mono); font-size: 11px; }
+  .history-when { color: var(--muted); font-family: var(--font-mono); font-size: 11px; white-space: nowrap; }
+  .history-actions { display: flex; gap: 6px; justify-content: flex-end; flex-wrap: wrap; }
+  .history-actions .btn { padding: 6px 10px; font-size: 10px; }
+  .history-actions .btn-danger { border-color: rgba(255, 60, 60, 0.5); color: var(--danger, #ff3c3c); }
+  .history-actions .btn-danger:hover { background: rgba(255, 60, 60, 0.08); }
+
+  .history-diff-row td { padding: 0; border-bottom: 1px solid var(--line); background: #08080f; }
+  .history-diff-box { padding: 12px 14px; font-family: var(--font-mono); font-size: 11px; color: var(--paper); line-height: 1.55; }
+  .history-diff-title { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--pink); margin-bottom: 8px; }
+  .history-diff-file { display: grid; grid-template-columns: 1fr auto auto; gap: 12px; padding: 4px 0; border-bottom: 1px dashed var(--line); }
+  .history-diff-file:last-child { border-bottom: none; }
+  .history-diff-fn { color: var(--cyan); word-break: break-all; }
+  .history-diff-add { color: var(--mint); }
+  .history-diff-del { color: var(--danger, #ff3c3c); }
+  .history-compare { margin-top: 12px; padding: 10px 12px; border: 1px dashed var(--line); background: #05050c; }
+  .history-compare-title { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--yellow); margin-bottom: 6px; }
+  .history-compare-row { display: flex; gap: 18px; flex-wrap: wrap; }
+  .history-compare-row span { color: var(--muted); }
+  .history-compare-row b { font-family: var(--font-head); }
+  .history-compare-row .add b { color: var(--mint); }
+  .history-compare-row .del b { color: var(--danger, #ff3c3c); }
+  .history-compare-row .mod b { color: var(--yellow); }
+
+  .history-empty { text-align: center; padding: 20px; color: var(--muted); font-style: italic; }
+  .history-error { text-align: center; padding: 20px; color: var(--danger, #ff3c3c); font-family: var(--font-mono); font-size: 12px; }
+
+  /* Skeleton rows while fetching */
+  .history-skel { height: 14px; background: linear-gradient(90deg, #0a0a14 0%, #15152a 50%, #0a0a14 100%); background-size: 200% 100%; animation: history-skel-pulse 1.2s linear infinite; }
+  @keyframes history-skel-pulse { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+  .history-setup { border: 1px solid rgba(255, 23, 191, 0.3); background: rgba(255, 23, 191, 0.04); padding: 18px; }
+  .history-setup-title { font-family: var(--font-head); font-weight: 900; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--pink); margin-bottom: 10px; }
+  .history-setup-body { font-family: var(--font-mono); font-size: 12px; color: var(--paper); line-height: 1.55; }
+  .history-setup-body ol { margin: 10px 0 10px 20px; }
+  .history-setup-body code { background: #000; padding: 1px 5px; color: var(--cyan); font-family: var(--font-mono); font-size: 11px; }
+  .history-setup-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+
+  /* --- WAVES CSS: 8-gallery --- */
+/* Screenshot gallery editor widget */
+.gallery-editor { display: flex; flex-direction: column; gap: 8px; border: 1px dashed transparent; padding: 4px; border-radius: 4px; transition: border-color .15s, background .15s; }
+.gallery-editor.drop-hot { border-color: var(--cyan); background: rgba(83,221,252,0.06); }
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 72px;
+  gap: 6px;
+  min-height: 72px;
+}
+@media (max-width: 520px) {
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+}
+.gallery-thumb {
+  position: relative;
+  background: #000;
+  border: 1px solid var(--line);
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+  transition: border-color .15s, transform .15s, box-shadow .15s;
+}
+.gallery-thumb:hover { border-color: var(--cyan); }
+.gallery-thumb.dragging { opacity: 0.4; cursor: grabbing; }
+.gallery-thumb.drop-target { border-color: var(--pink); box-shadow: 0 0 0 2px var(--pink) inset; }
+.gallery-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+.gallery-thumb .slot-badge {
+  position: absolute; top: 2px; left: 2px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  padding: 1px 5px;
+  background: rgba(0,0,0,0.7);
+  color: var(--mint);
+  letter-spacing: 0.1em;
+  pointer-events: none;
+}
+.gallery-thumb .primary-badge {
+  position: absolute; bottom: 2px; left: 2px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  padding: 1px 5px;
+  background: var(--pink);
+  color: #000;
+  letter-spacing: 0.1em;
+  pointer-events: none;
+  font-weight: 700;
+}
+.gallery-thumb .remove-x {
+  position: absolute; top: 2px; right: 2px;
+  width: 20px; height: 20px;
+  border: 0;
+  background: rgba(255,60,60,0.85);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity .15s, background .15s;
+  border-radius: 2px;
+}
+.gallery-thumb:hover .remove-x { opacity: 1; }
+.gallery-thumb .remove-x:hover { background: #ff3c3c; }
+.gallery-thumb.staged::after {
+  content: "STAGED";
+  position: absolute; bottom: 2px; right: 2px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  padding: 1px 4px;
+  background: var(--yellow);
+  color: #000;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  pointer-events: none;
+}
+.gallery-empty {
+  grid-column: 1 / -1;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--muted);
+  border: 1px dashed var(--line);
+  padding: 12px;
+  text-align: center;
+}
+.gallery-upload-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 8px 12px;
+  border: 1px dashed var(--line);
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--paper);
+  cursor: pointer;
+  transition: border-color .15s, color .15s;
+}
+.gallery-upload-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+.gallery-upload-btn input { display: none; }
+.gallery-hint {
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.gallery-hint.staged { color: var(--mint); }
 </style>
 </head>
 <body>
@@ -881,6 +2087,29 @@
       <input id="search" placeholder="Search products, tags, descriptions..." />
     </div>
     <div class="count-pill">PRODUCTS <b id="count-total">0</b></div>
+    <!-- WAVES:topbar -->
+    # Insert this fragment inside the existing <div class="top"> block (around line 874),
+# immediately BEFORE the <button class="btn btn-primary save-btn" id="save-btn" ...> element.
+# Placement puts the deploy dot between the PRODUCTS count-pill and the Save button.
+
+    <button type="button"
+            class="deploy-indicator"
+            id="deploy-indicator"
+            data-status="unknown"
+            title="Deploy status — click to open Cloudflare dashboard"
+            onclick="openDeployDashboard()"
+            onmouseenter="showDeployTooltip()"
+            onmouseleave="hideDeployTooltip()">
+      <span class="deploy-dot" id="deploy-dot"></span>
+      <span class="deploy-label" id="deploy-label">DEPLOY</span>
+      <div class="deploy-tooltip" id="deploy-tooltip" role="tooltip">
+        <div class="deploy-tip-row"><span class="k">status</span><span class="v" id="deploy-tip-status">unknown</span></div>
+        <div class="deploy-tip-row"><span class="k">commit</span><span class="v" id="deploy-tip-sha">—</span></div>
+        <div class="deploy-tip-row"><span class="k">stamp</span><span class="v" id="deploy-tip-stamp">—</span></div>
+        <div class="deploy-tip-row"><span class="k">checked</span><span class="v" id="deploy-tip-checked">—</span></div>
+        <div class="deploy-tip-hint">click to open Cloudflare deployments →</div>
+      </div>
+    </button>
     <button class="btn btn-primary save-btn" id="save-btn" disabled>
       <span>&#11042;</span> Save
       <span class="dirty-badge" id="dirty-badge" style="display:none">0</span>
@@ -907,12 +2136,34 @@
     </div>
     <div class="nav-add" id="add-new">&#43; New Product</div>
 
+    <div class="nav-sec" style="margin-top:12px">Site</div>
+    <div class="nav-item" data-view="settings">
+      <span>&#9881; Settings</span><span class="c" id="c-settings-dirty" style="display:none;color:var(--pink)">&bull;</span>
+    </div>
+    <div class="nav-item" data-view="homepage">
+      <span>&#127969; Homepage</span>
+    </div>
+
+    <div class="nav-sec" style="margin-top:12px">Content</div>
+    <div class="nav-item" data-view="pages">
+      <span>&#128196; Pages</span><span class="c" id="c-pages">6</span>
+    </div>
+
     <div class="nav-sec" style="margin-top:12px">Reports</div>
     <div class="nav-item" data-view="featured">
       <span>&#9733; Featured</span><span class="c" id="c-featured">0</span>
     </div>
     <div class="nav-item" data-view="sales">
       <span>&#36; Sales</span><span class="c" id="c-sales"></span>
+    </div>
+    <div class="nav-item" data-view="health">
+      <span>&#129657; Health</span><span class="c health-nav-count" id="c-health">0</span>
+    </div>
+    <div class="nav-item" data-view="discounts">
+      <span>&#37; Discounts</span><span class="c" id="c-discounts"></span>
+    </div>
+    <div class="nav-item" data-view="history" title="Version history of products.json — restore any past commit">
+      <span>&#9201; History</span>
     </div>
 
     <div class="nav-spacer"></div>
@@ -1056,6 +2307,668 @@
       </div>
     </div>
   </div>
+
+
+    <!-- WAVES:panel:1-site-settings -->
+    <!-- Settings panel. Parent integration should place this inside the .canvas
+     container alongside #grid / #featured-panel / #sales-panel (the existing
+     view panels all sit as siblings). showSettingsView() handles the display
+     toggle the same way showFeaturedView/showSalesView do. -->
+<div id="settings-panel" style="display:none">
+
+  <!-- Topbar -->
+  <div class="settings-topbar">
+    <div class="settings-topbar-left">
+      <span class="settings-meta" id="settings-meta">Site-wide configuration · affects every page</span>
+    </div>
+    <div class="settings-topbar-right">
+      <span style="font-family:var(--font-mono);font-size:11px;color:var(--muted)">Changes ride along on next Save</span>
+      <button class="btn" id="settings-expand-all" onclick="settingsToggleAll(true)">Expand all</button>
+      <button class="btn" id="settings-collapse-all" onclick="settingsToggleAll(false)">Collapse all</button>
+    </div>
+  </div>
+
+  <!-- =================== Section 1 — Brand & Contact =================== -->
+  <details class="settings-section" id="settings-sec-brand" open>
+    <summary class="settings-sec-head">
+      <span class="settings-sec-chip" style="--chip:var(--cyan)">01</span>
+      <span class="settings-sec-title">Brand &amp; Contact</span>
+      <span class="settings-sec-sub">Store identity &amp; public contact channels</span>
+      <span class="settings-sec-chev">&#9662;</span>
+    </summary>
+    <div class="settings-sec-body">
+      <div class="settings-grid-2">
+        <label class="settings-field">
+          <span class="settings-label">Store name</span>
+          <input type="text" class="settings-input" id="set-store-name"
+                 oninput="settingsOnStoreField('name', this.value)"
+                 placeholder="Misfits Studios" />
+          <span class="settings-hint">Shown in &lt;title&gt; and footer.</span>
+        </label>
+        <label class="settings-field">
+          <span class="settings-label">Tagline</span>
+          <input type="text" class="settings-input" id="set-store-tagline"
+                 oninput="settingsOnStoreField('tagline', this.value)"
+                 placeholder="Rust plugins &amp; desktop tools. Built solo." />
+          <span class="settings-hint">Subtitle / homepage hero strapline.</span>
+        </label>
+      </div>
+
+      <div class="settings-grid-2">
+        <label class="settings-field">
+          <span class="settings-label">Contact email</span>
+          <input type="email" class="settings-input" id="set-store-email"
+                 oninput="settingsOnStoreField('contact_email', this.value)"
+                 placeholder="misfits.support@proton.me" />
+        </label>
+        <label class="settings-field">
+          <span class="settings-label">Discord URL</span>
+          <input type="url" class="settings-input" id="set-store-discord"
+                 oninput="settingsOnStoreField('discord_url', this.value)"
+                 placeholder="https://discord.gg/..." />
+        </label>
+      </div>
+
+      <div class="settings-grid-2">
+        <label class="settings-field">
+          <span class="settings-label">Twitter / X URL</span>
+          <input type="url" class="settings-input" id="set-store-twitter"
+                 oninput="settingsOnStoreField('twitter_url', this.value)"
+                 placeholder="https://x.com/..." />
+        </label>
+        <label class="settings-field">
+          <span class="settings-label">GitHub URL</span>
+          <input type="url" class="settings-input" id="set-store-github"
+                 oninput="settingsOnStoreField('github_url', this.value)"
+                 placeholder="https://github.com/..." />
+        </label>
+      </div>
+    </div>
+  </details>
+
+  <!-- =================== Section 2 — Pricing Tiers =================== -->
+  <details class="settings-section" id="settings-sec-tiers" open>
+    <summary class="settings-sec-head">
+      <span class="settings-sec-chip" style="--chip:var(--mint)">02</span>
+      <span class="settings-sec-title">Pricing Tiers</span>
+      <span class="settings-sec-sub">Canonical price points referenced across products</span>
+      <span class="settings-sec-chev">&#9662;</span>
+    </summary>
+    <div class="settings-sec-body">
+      <div class="settings-tiers-note">
+        Tiers are suggested price points (USD). Products still carry their own <code>price_usd</code>,
+        but tiers keep your catalog consistent — and future widgets can snap to them.
+      </div>
+      <div class="settings-tiers-grid" id="settings-tiers-grid">
+        <!-- rendered by settingsRenderTiers() -->
+      </div>
+    </div>
+  </details>
+
+  <!-- =================== Section 3 — Coming Soon =================== -->
+  <details class="settings-section" id="settings-sec-cs" open>
+    <summary class="settings-sec-head">
+      <span class="settings-sec-chip" style="--chip:var(--purple)">03</span>
+      <span class="settings-sec-title">Coming Soon</span>
+      <span class="settings-sec-sub">Teaser shelf on the homepage</span>
+      <span class="settings-sec-chev">&#9662;</span>
+    </summary>
+    <div class="settings-sec-body">
+      <div class="settings-cs-toolbar">
+        <span class="settings-cs-count" id="settings-cs-count">0 items</span>
+        <button class="btn btn-primary" onclick="settingsAddComingSoon()">+ Add item</button>
+      </div>
+      <div class="settings-cs-list" id="settings-cs-list">
+        <!-- rendered by settingsRenderComingSoon() -->
+      </div>
+    </div>
+  </details>
+
+  <!-- =================== Section 4 — Announcement Bar =================== -->
+  <details class="settings-section" id="settings-sec-anno" open>
+    <summary class="settings-sec-head">
+      <span class="settings-sec-chip" style="--chip:var(--pink)">04</span>
+      <span class="settings-sec-title">Announcement Bar</span>
+      <span class="settings-sec-sub">Sitewide ribbon above the header</span>
+      <span class="settings-sec-chev">&#9662;</span>
+    </summary>
+    <div class="settings-sec-body">
+      <label class="settings-toggle">
+        <input type="checkbox" id="set-anno-enabled"
+               onchange="settingsOnAnnouncementField('enabled', this.checked)" />
+        <span>Enable announcement ribbon</span>
+      </label>
+
+      <label class="settings-field">
+        <span class="settings-label">Text</span>
+        <input type="text" class="settings-input" id="set-anno-text"
+               oninput="settingsOnAnnouncementField('text', this.value)"
+               placeholder="Spring sale — 25% off all plugins with code NEONWAVE" />
+      </label>
+
+      <div class="settings-grid-2">
+        <label class="settings-field">
+          <span class="settings-label">Link URL (optional)</span>
+          <input type="url" class="settings-input" id="set-anno-link"
+                 oninput="settingsOnAnnouncementField('link', this.value)"
+                 placeholder="/plugins.html or https://..." />
+        </label>
+        <label class="settings-field">
+          <span class="settings-label">Link label</span>
+          <input type="text" class="settings-input" id="set-anno-link-label"
+                 oninput="settingsOnAnnouncementField('link_label', this.value)"
+                 placeholder="Shop now" />
+        </label>
+      </div>
+
+      <div class="settings-field">
+        <span class="settings-label">Style</span>
+        <div class="settings-style-picker" id="settings-style-picker">
+          <button type="button" class="settings-style-btn" data-style="neon"
+                  onclick="settingsOnAnnouncementField('style', 'neon')">
+            <span class="settings-style-swatch settings-style-swatch--neon"></span>Neon
+          </button>
+          <button type="button" class="settings-style-btn" data-style="alert"
+                  onclick="settingsOnAnnouncementField('style', 'alert')">
+            <span class="settings-style-swatch settings-style-swatch--alert"></span>Alert
+          </button>
+          <button type="button" class="settings-style-btn" data-style="info"
+                  onclick="settingsOnAnnouncementField('style', 'info')">
+            <span class="settings-style-swatch settings-style-swatch--info"></span>Info
+          </button>
+        </div>
+      </div>
+
+      <div class="settings-preview-wrap">
+        <div class="settings-preview-label">Live preview</div>
+        <div class="settings-preview-frame">
+          <div class="settings-preview-ribbon" id="settings-anno-preview">
+            <span class="settings-preview-text" id="settings-anno-preview-text">Announcement text will appear here.</span>
+            <a class="settings-preview-cta" id="settings-anno-preview-cta" style="display:none"></a>
+            <button class="settings-preview-close" type="button" tabindex="-1" aria-hidden="true">&#10005;</button>
+          </div>
+          <div class="settings-preview-hint">(Visitors will see a dismiss button in the real ribbon.)</div>
+        </div>
+      </div>
+    </div>
+  </details>
+
+</div>
+
+    <!-- WAVES:panel:2-deploy-preview -->
+    (empty — no new panels)
+
+    <!-- WAVES:panel:3-homepage -->
+    <div id="homepage-panel" style="display:none">
+  <div class="homepage-intro">
+    Edit every user-facing string on the homepage. Saves into
+    <code>products.json &rarr; homepage</code>. Empty fields fall back
+    to the hardcoded defaults shipped in <code>index.html</code>.
+  </div>
+
+  <!-- Live preview card -->
+  <div class="homepage-preview" id="homepage-preview">
+    <div class="homepage-preview-label">// LIVE PREVIEW</div>
+    <div class="homepage-preview-eyebrow" id="hp-prev-eyebrow">&gt;&gt; ONE DEV &middot; EVERY LINE &middot; ZERO FILLER &lt;&lt;</div>
+    <div class="homepage-preview-stack">
+      <span class="homepage-preview-crafted" id="hp-prev-crafted">CRAFTED</span>
+      <span class="homepage-preview-for" id="hp-prev-for">FOR</span>
+      <span class="homepage-preview-misfits" id="hp-prev-misfits">MISFITS.</span>
+    </div>
+    <div class="homepage-preview-sub" id="hp-prev-sub">48 weaponized Rust plugins...</div>
+  </div>
+
+  <!-- HERO -->
+  <details class="homepage-section" open>
+    <summary>Hero</summary>
+    <div class="homepage-grid-2">
+      <label class="homepage-field">
+        <span>Word 1 (CRAFTED)</span>
+        <input type="text" data-hp-key="hero.crafted" placeholder="CRAFTED" />
+      </label>
+      <label class="homepage-field">
+        <span>Word 2 (FOR)</span>
+        <input type="text" data-hp-key="hero.for" placeholder="FOR" />
+      </label>
+      <label class="homepage-field homepage-field-full">
+        <span>Word 3 (MISFITS.)</span>
+        <input type="text" data-hp-key="hero.misfits" placeholder="MISFITS." />
+      </label>
+      <label class="homepage-field homepage-field-full">
+        <span>Subtitle paragraph</span>
+        <textarea rows="3" data-hp-key="hero.subtitle" placeholder="48 weaponized Rust plugins..."></textarea>
+      </label>
+    </div>
+  </details>
+
+  <!-- TAGLINE STRIP -->
+  <details class="homepage-section" open>
+    <summary>Tagline strip (eyebrow, 3 slots)</summary>
+    <div class="homepage-grid-3">
+      <label class="homepage-field">
+        <span>Slot 1</span>
+        <input type="text" data-hp-key="tagline_strip.0" placeholder=">> ONE DEV" />
+      </label>
+      <label class="homepage-field">
+        <span>Slot 2</span>
+        <input type="text" data-hp-key="tagline_strip.1" placeholder="EVERY LINE" />
+      </label>
+      <label class="homepage-field">
+        <span>Slot 3</span>
+        <input type="text" data-hp-key="tagline_strip.2" placeholder="ZERO FILLER <<" />
+      </label>
+    </div>
+  </details>
+
+  <!-- TICKER STRIP -->
+  <details class="homepage-section" open>
+    <summary>HUD ticker strip (top marquee)</summary>
+    <div class="homepage-ticker-hint">Add one line per item. They cycle in the black bar at the top of every page.</div>
+    <div id="homepage-ticker-list" class="homepage-ticker-list"></div>
+    <button class="btn" type="button" onclick="addTickerItem()">+ Add ticker item</button>
+  </details>
+
+  <!-- FEATURED SECTION HEADINGS -->
+  <details class="homepage-section">
+    <summary>Featured section (homepage grid headings)</summary>
+    <div class="homepage-grid-2">
+      <label class="homepage-field">
+        <span>Title</span>
+        <input type="text" data-hp-key="sections.featured_title" placeholder="Featured Plugins" />
+      </label>
+      <label class="homepage-field">
+        <span>Subline</span>
+        <input type="text" data-hp-key="sections.featured_sub" placeholder="// hand-picked from the catalog" />
+      </label>
+      <label class="homepage-field homepage-field-full">
+        <span>CTA button label (links to /plugins.html)</span>
+        <input type="text" data-hp-key="sections.featured_cta_label" placeholder="VIEW ALL →" />
+      </label>
+    </div>
+  </details>
+
+  <!-- FOOTER -->
+  <details class="homepage-section">
+    <summary>Footer tiles &amp; copyright</summary>
+    <div class="homepage-subhead">About tile</div>
+    <div class="homepage-grid-2">
+      <label class="homepage-field">
+        <span>Title</span>
+        <input type="text" data-hp-key="footer.tile_about_title" placeholder="About" />
+      </label>
+      <label class="homepage-field">
+        <span>Body</span>
+        <input type="text" data-hp-key="footer.tile_about_body" placeholder="The promise behind Misfits Studios..." />
+      </label>
+    </div>
+
+    <div class="homepage-subhead">Support tile</div>
+    <div class="homepage-grid-2">
+      <label class="homepage-field">
+        <span>Title</span>
+        <input type="text" data-hp-key="footer.tile_support_title" placeholder="Support" />
+      </label>
+      <label class="homepage-field">
+        <span>Body</span>
+        <input type="text" data-hp-key="footer.tile_support_body" placeholder="Bug report, pre-sale question..." />
+      </label>
+    </div>
+
+    <div class="homepage-subhead">Terms tile</div>
+    <div class="homepage-grid-2">
+      <label class="homepage-field">
+        <span>Title</span>
+        <input type="text" data-hp-key="footer.tile_terms_title" placeholder="Terms" />
+      </label>
+      <label class="homepage-field">
+        <span>Body</span>
+        <input type="text" data-hp-key="footer.tile_terms_body" placeholder="Licensing, refunds..." />
+      </label>
+    </div>
+
+    <div class="homepage-subhead">Legal line</div>
+    <div class="homepage-grid-2">
+      <label class="homepage-field">
+        <span>Copyright</span>
+        <input type="text" data-hp-key="footer.copyright" placeholder="(c) 2026 MISFITS STUDIOS" />
+      </label>
+      <label class="homepage-field">
+        <span>Disclaimer</span>
+        <input type="text" data-hp-key="footer.disclaimer" placeholder="NOT AFFILIATED WITH FACEPUNCH / OXIDE / CARBON" />
+      </label>
+    </div>
+  </details>
+</div>
+
+    <!-- WAVES:panel:4-health -->
+    <!-- Insert inside the CANVAS (#canvas), sibling to #grid / #sales-panel / #featured-panel. Hidden by default. -->
+<div id="health-panel" style="display:none">
+  <div class="health-bar">
+    <div class="health-bar-left">
+      <span class="health-meta" id="health-last-scan">Not scanned yet</span>
+    </div>
+    <div class="health-bar-right">
+      <div class="health-filters" role="tablist" aria-label="Severity filter">
+        <button class="health-fbtn active" data-sev="all">All</button>
+        <button class="health-fbtn" data-sev="high_med">High + Med</button>
+        <button class="health-fbtn" data-sev="high">High only</button>
+      </div>
+      <button class="btn" onclick="exportHealthMarkdown()" title="Download issue list as markdown">&#11123; Export .md</button>
+      <button class="btn btn-primary" id="health-refresh-btn" onclick="scanCatalog(true)">&#8635; Re-scan</button>
+    </div>
+  </div>
+
+  <div class="health-stats">
+    <div class="health-card total">
+      <div class="health-card-label">Total Issues</div>
+      <div class="health-card-value" id="health-total">—</div>
+      <div class="health-card-sub" id="health-total-sub"></div>
+    </div>
+    <div class="health-card high">
+      <div class="health-card-label">High</div>
+      <div class="health-card-value" id="health-high">—</div>
+      <div class="health-card-sub">breaks cards, checkout, fulfillment</div>
+    </div>
+    <div class="health-card med">
+      <div class="health-card-label">Medium</div>
+      <div class="health-card-value" id="health-med">—</div>
+      <div class="health-card-sub">missing copy, fulfillment warnings</div>
+    </div>
+    <div class="health-card low">
+      <div class="health-card-label">Low</div>
+      <div class="health-card-value" id="health-low">—</div>
+      <div class="health-card-sub">polish, taglines, versions</div>
+    </div>
+  </div>
+
+  <div class="health-table-wrap" id="health-table-wrap">
+    <div class="health-table-head">
+      <span>Scan results</span>
+      <span class="health-meta" id="health-shown-count">— issues shown</span>
+    </div>
+    <div id="health-rows"></div>
+  </div>
+
+  <div class="health-empty" id="health-empty" style="display:none">
+    <div class="health-empty-icon">&#127881;</div>
+    <div class="health-empty-title">Catalog is clean.</div>
+    <div class="health-empty-sub" id="health-empty-sub">— products, all checked.</div>
+  </div>
+</div>
+
+    
+    <!-- WAVES:panel:5-prose -->
+    <!-- Prose pages editor (hidden by default, shown when Pages nav item clicked) -->
+    <div id="pages-panel" style="display:none">
+      <div class="pages-layout">
+
+        <!-- Left: list of pages -->
+        <aside class="pages-sidebar">
+          <div class="pages-sidebar-head">
+            <div class="pages-sidebar-title">Prose Pages</div>
+            <div class="pages-sidebar-sub">6 editable pages</div>
+          </div>
+          <div class="pages-list" id="pages-list">
+            <!-- Rows injected by renderPagesList() -->
+          </div>
+          <div class="pages-sidebar-foot">
+            <span class="pages-foot-hint">Stored in <code>products.json</code> under <code>pages</code></span>
+          </div>
+        </aside>
+
+        <!-- Right: editor -->
+        <section class="pages-editor" id="pages-editor">
+          <div class="pages-editor-empty" id="pages-editor-empty">
+            <div class="pages-editor-empty-icon">&#128196;</div>
+            <div class="pages-editor-empty-title">Pick a page to edit</div>
+            <div class="pages-editor-empty-sub">Titles &amp; body markdown are stored in products.json under <code>pages</code> and ship with the normal publish flow.</div>
+          </div>
+
+          <div class="pages-editor-body" id="pages-editor-body" style="display:none">
+            <div class="pages-editor-head">
+              <div class="pages-head-left">
+                <span class="pages-key-chip" id="pages-key-chip">key</span>
+                <input type="text" class="pages-title-input" id="pages-title-input" placeholder="Page title" />
+              </div>
+              <div class="pages-head-right">
+                <span class="pages-last-updated" id="pages-last-updated">Last updated: —</span>
+                <button class="btn" id="pages-preview-toggle" onclick="togglePagesPreview()" title="Toggle live preview">&#128065; Preview</button>
+              </div>
+            </div>
+
+            <div class="pages-editor-split" id="pages-editor-split">
+              <textarea class="pages-md-input" id="pages-md-input"
+                        spellcheck="false"
+                        placeholder="# Page title\n\nWrite markdown here..."></textarea>
+              <div class="pages-preview" id="pages-preview" style="display:none">
+                <div class="pages-preview-inner prose-container" id="pages-preview-inner"></div>
+              </div>
+            </div>
+
+            <details class="pages-cheatsheet">
+              <summary>Markdown cheatsheet</summary>
+              <div class="pages-cheatsheet-body">
+                <div><code># H1</code> · <code>## H2</code> · <code>### H3</code></div>
+                <div><code>**bold**</code> · <code>*italic*</code> · <code>`code`</code></div>
+                <div><code>[link text](https://example.com)</code></div>
+                <div><code>- item</code> for unordered lists · <code>1. item</code> for ordered</div>
+                <div><code>&gt; quote</code> for blockquotes · <code>---</code> for a divider</div>
+                <div><code>```</code> on its own line to open/close a code block</div>
+              </div>
+            </details>
+          </div>
+        </section>
+      </div>
+    </div>
+    <!-- WAVES:panel:6-discounts -->
+    <!-- Insert inside .canvas, AFTER the closing </div> of #sales-panel and BEFORE the canvas closes (around line 1062). -->
+    <!-- Discount code manager (hidden by default, shown when Discounts nav item clicked) -->
+    <div id="discounts-panel" style="display:none">
+      <div class="discounts-setup" id="discounts-setup" style="display:none">
+        <div class="discounts-setup-title">Discount manager — admin secret required</div>
+        <div class="discounts-setup-body">
+          This panel creates and deactivates Paddle discount codes via the server-side proxy. It uses the same
+          admin secret as the Sales report — set it up there first.
+          <div style="margin-top:10px">
+            <button class="btn btn-primary" onclick="setView('sales')">&rarr; Go to Sales setup</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="discounts-body">
+        <!-- Error / status banner -->
+        <div class="discounts-banner" id="discounts-banner" style="display:none"></div>
+
+        <!-- Create form -->
+        <div class="discounts-create">
+          <div class="discounts-create-head">
+            <div class="discounts-create-title">Create discount code</div>
+            <div class="discounts-create-sub">Applies instantly at Paddle checkout. Codes are CASE-SENSITIVE — uppercase is conventional.</div>
+          </div>
+
+          <div class="discounts-create-grid">
+            <div class="dc-field">
+              <label>Code</label>
+              <input type="text" id="dc-code" placeholder="SUMMER30" maxlength="40" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9_-]/g,'')" />
+              <div class="dc-hint">3–40 chars · A–Z, 0–9, _, -</div>
+            </div>
+
+            <div class="dc-field">
+              <label>Type</label>
+              <div class="dc-radios">
+                <label class="dc-radio"><input type="radio" name="dc-type" value="percentage" checked onchange="updateDiscountTypeUI()" /><span>Percent off</span></label>
+                <label class="dc-radio"><input type="radio" name="dc-type" value="flat" onchange="updateDiscountTypeUI()" /><span>Flat amount off</span></label>
+              </div>
+            </div>
+
+            <div class="dc-field">
+              <label id="dc-amount-label">Amount (%)</label>
+              <input type="number" id="dc-amount" min="1" step="1" placeholder="30" />
+              <div class="dc-hint" id="dc-amount-hint">1–100 (percent)</div>
+            </div>
+
+            <div class="dc-field">
+              <label>Currency <span class="dc-opt">(flat only)</span></label>
+              <select id="dc-currency" disabled>
+                <option value="USD" selected>USD</option>
+                <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+                <option value="AUD">AUD</option>
+                <option value="CAD">CAD</option>
+              </select>
+            </div>
+
+            <div class="dc-field dc-field-wide">
+              <label>Description <span class="dc-opt">(internal)</span></label>
+              <input type="text" id="dc-desc" placeholder="Summer 30% off — blog promo" maxlength="200" />
+            </div>
+
+            <div class="dc-field">
+              <label>Starts at <span class="dc-opt">(optional)</span></label>
+              <input type="datetime-local" id="dc-starts" />
+            </div>
+
+            <div class="dc-field">
+              <label>Expires at <span class="dc-opt">(optional)</span></label>
+              <input type="datetime-local" id="dc-expires" />
+            </div>
+
+            <div class="dc-field">
+              <label>Usage limit <span class="dc-opt">(blank = unlimited)</span></label>
+              <input type="number" id="dc-usage-limit" min="1" step="1" placeholder="100" />
+            </div>
+
+            <div class="dc-field">
+              <label>Applies to</label>
+              <select id="dc-scope" onchange="updateDiscountScopeUI()">
+                <option value="all" selected>All products</option>
+                <option value="specific">Specific products</option>
+              </select>
+            </div>
+
+            <div class="dc-field dc-field-wide" id="dc-products-wrap" style="display:none">
+              <label>Products <span class="dc-opt">(ctrl/cmd-click to multi-select)</span></label>
+              <select id="dc-products" multiple size="6"></select>
+              <div class="dc-hint">Paddle product IDs are fetched live from /api/paddle/products</div>
+            </div>
+          </div>
+
+          <div class="discounts-create-foot">
+            <button class="btn btn-primary" onclick="createDiscount()" id="dc-create-btn">+ Create discount</button>
+            <button class="btn" onclick="resetDiscountForm()">Reset form</button>
+            <span class="dc-meta" id="dc-create-meta"></span>
+          </div>
+        </div>
+
+        <!-- Active discounts -->
+        <div class="discounts-bar">
+          <div class="discounts-bar-left">
+            <span class="dc-meta" id="discounts-last-sync">Not synced yet</span>
+          </div>
+          <div class="discounts-bar-right">
+            <button class="btn btn-primary" onclick="loadDiscounts()" id="discounts-refresh-btn">&#8635; Refresh</button>
+          </div>
+        </div>
+
+        <div class="discounts-section">
+          <div class="discounts-section-head">Active discounts <span id="discounts-active-count" class="dc-meta"></span></div>
+          <div class="discounts-table-wrap">
+            <table class="discounts-table">
+              <thead><tr>
+                <th>Code</th>
+                <th>Type</th>
+                <th class="num">Amount</th>
+                <th>Expires</th>
+                <th class="num">Uses</th>
+                <th>Scope</th>
+                <th class="actions">Actions</th>
+              </tr></thead>
+              <tbody id="discounts-active-rows">
+                <tr><td colspan="7" class="discounts-empty">Click Refresh to load.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Archived / expired (collapsible) -->
+        <div class="discounts-section">
+          <div class="discounts-section-head discounts-section-toggle" onclick="toggleArchivedDiscounts()">
+            <span id="discounts-archived-caret">&#9656;</span>
+            <span>Archived &amp; expired <span id="discounts-archived-count" class="dc-meta"></span></span>
+          </div>
+          <div class="discounts-table-wrap" id="discounts-archived-wrap" style="display:none">
+            <table class="discounts-table">
+              <thead><tr>
+                <th>Code</th>
+                <th>Type</th>
+                <th class="num">Amount</th>
+                <th>Expired</th>
+                <th class="num">Uses</th>
+                <th>Status</th>
+                <th class="actions">Actions</th>
+              </tr></thead>
+              <tbody id="discounts-archived-rows">
+                <tr><td colspan="7" class="discounts-empty">—</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WAVES:panel:7-history -->
+    <!-- Add inside <div class="canvas" id="canvas">, as a sibling of #sales-panel (after the sales-panel closing </div> near line 1062, before the closing </div> of .canvas). -->
+    <div id="history-panel" style="display:none">
+      <!-- Setup card (shown when no PAT is stored) -->
+      <div class="history-setup" id="history-setup" style="display:none">
+        <div class="history-setup-title">Version history needs your GitHub token</div>
+        <div class="history-setup-body">
+          This view reads commits of <code>products.json</code> from GitHub. It reuses the same Personal Access Token the <b>Publish</b> flow uses — save one there and it unlocks automatically here.
+          <ol>
+            <li>Click <b>&#9656; Publish</b> in the top bar.</li>
+            <li>Paste a GitHub PAT (classic, <code>repo</code> scope) and keep <b>Remember on this browser</b> checked.</li>
+            <li>Close the modal and return here.</li>
+          </ol>
+          <div class="history-setup-actions">
+            <button class="btn btn-primary" onclick="openModal()">&#9656; Open Publish modal</button>
+            <button class="btn" onclick="loadHistory()">&#8635; I've saved it — retry</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main body (shown when PAT is present) -->
+      <div id="history-body" style="display:none">
+        <div class="history-bar">
+          <div class="history-bar-left">
+            <span class="history-meta" id="history-meta">Last 30 commits that touched products.json</span>
+          </div>
+          <div class="history-bar-right">
+            <label class="history-toggle" title="When viewing a diff, also compute a top-level key diff vs your current editor state">
+              <input type="checkbox" id="history-compare-toggle" onchange="onHistoryCompareToggle()" />
+              <span>Compare to current</span>
+            </label>
+            <button class="btn" onclick="forgetPAT();syncHistoryView()" title="Reset the saved GitHub token">&#10005; Reset PAT</button>
+            <button class="btn btn-primary" id="history-refresh-btn" onclick="loadHistory()">&#8635; Refresh</button>
+          </div>
+        </div>
+
+        <div class="history-table-wrap">
+          <div class="history-table-head">Commit log</div>
+          <table class="history-table">
+            <thead><tr>
+              <th style="width:96px">SHA</th>
+              <th>Message</th>
+              <th style="width:160px">Author</th>
+              <th style="width:110px">When</th>
+              <th style="width:260px" class="num">Actions</th>
+            </tr></thead>
+            <tbody id="history-rows">
+              <tr><td colspan="5" class="history-empty">Loading commits…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
 
   <!-- SIDE -->
   <div class="side" id="side">
@@ -1258,6 +3171,8 @@ async function load() {
     S.baseline.set('__featured__', JSON.stringify(getFeaturedList()));
     document.getElementById('count-total').textContent = S.products.length;
     rerenderAll();
+    // WAVES:deploy-init
+    try { if (typeof initDeployMonitor === 'function') initDeployMonitor(); } catch(_){}
   } catch (e) {
     console.error(e);
     document.getElementById('grid').innerHTML = '<div class="empty" style="color:var(--danger)">Failed to load /products.json<br/><span style="font-size:11px">' + e.message + '</span></div>';
@@ -1288,6 +3203,8 @@ function renderCounts() {
   });
   document.getElementById('count-total').textContent = S.products.length;
   updateFeaturedCountBadge();
+  // WAVES:health-recompute
+  try { if (typeof scanCatalog === 'function') scanCatalog(false); } catch(_){}
 }
 
 function visibleProducts() {
@@ -1331,6 +3248,8 @@ function renderGrid() {
 
     el.innerHTML = `
       ${isFeatured(p.id) ? '<div class="featured-star" title="Featured on homepage">&#9733;</div>' : ''}
+      <button type="button" class="preview-btn-card" title="Preview live product page"
+              onclick="event.stopPropagation(); openPreview('${escapeHtml(p.slug || p.id || '')}')">&#128269;</button>
       <div class="card-row">
         <div class="card-name">${escapeHtml(p.name || '(untitled)')}</div>
         <span class="price-badge ${isFree ? 'free' : ''}">${escapeHtml(priceLabel)}</span>
@@ -1439,6 +3358,8 @@ function renderSide() {
   ed.innerHTML = `
     <div class="side-head">
       <div class="title">Editing &rsaquo; ${escapeHtml(p.id)}</div>
+      <button class="preview-btn-side" type="button" title="Open live product page in a new tab"
+              onclick="openPreview('${escapeHtml(p.slug || p.id || '')}')">&#128269; Preview live</button>
       <button class="close" title="Close (Esc)" onclick="closeSide()">&times;</button>
     </div>
     <div class="side-body">
@@ -1547,6 +3468,19 @@ function renderSide() {
           </label>
           <div class="icon-hint" id="src-upload-hint">Max 10MB. Staged on upload; commits on next Publish.</div>
           ${p.price_usd > 0 ? '<div class="src-warn">⚠ PAID PRODUCT — files dropped in /downloads/ are PUBLICLY downloadable by anyone with the URL. For paid plugins, either change the path above to a non-public folder, or handle fulfillment via Paddle post-purchase emails.</div>' : ''}
+        </div>
+      </div>
+      <div class="field">
+        <label>Screenshots / gallery <span style="color:var(--muted);text-transform:none">(<span id="ss-count">0</span>/6)</span></label>
+        <div class="gallery-editor" id="gallery-editor">
+          <div class="gallery-grid" id="gallery-grid">
+            ${renderScreenshotWidget(p)}
+          </div>
+          <label class="gallery-upload-btn" id="gallery-upload-btn">
+            &#11014; Upload screenshot(s) &mdash; up to 6, jpg/png/webp
+            <input type="file" accept="image/*" id="gallery-upload" multiple />
+          </label>
+          <div class="gallery-hint" id="gallery-hint">Drag thumbs to reorder. Slot 1 is the primary. Max 4 MB each. Staged on upload; commits on next Publish.</div>
         </div>
       </div>
       <div class="field">
@@ -1659,6 +3593,34 @@ function renderSide() {
       if (f) stagePluginUpload(f);
     });
   }
+
+  // Gallery upload (multi-file)
+  const gUpload = ed.querySelector('#gallery-upload');
+  if (gUpload) {
+    gUpload.addEventListener('change', (e) => {
+      const files = Array.from(e.target.files || []);
+      files.forEach(f => stageScreenshotUpload(f));
+      e.target.value = '';
+    });
+  }
+  // Drag-to-upload on the whole gallery editor
+  const gEd = ed.querySelector('#gallery-editor');
+  if (gEd) {
+    gEd.addEventListener('dragover', (e) => {
+      if (e.dataTransfer && e.dataTransfer.types && [...e.dataTransfer.types].includes('Files')) {
+        e.preventDefault(); gEd.classList.add('drop-hot');
+      }
+    });
+    gEd.addEventListener('dragleave', () => { gEd.classList.remove('drop-hot'); });
+    gEd.addEventListener('drop', (e) => {
+      if (!e.dataTransfer || !e.dataTransfer.files || !e.dataTransfer.files.length) return;
+      e.preventDefault(); gEd.classList.remove('drop-hot');
+      Array.from(e.dataTransfer.files).forEach(f => stageScreenshotUpload(f));
+    });
+  }
+  if (typeof wireGalleryDnD === 'function') wireGalleryDnD();
+  if (typeof refreshScreenshotCount === 'function') refreshScreenshotCount();
+
   refreshSourceMeta();
 }
 
@@ -1723,6 +3685,14 @@ function showFeaturedView() {
   document.getElementById('canvas-title').textContent = 'Featured Plugins';
   document.getElementById('canvas-sub').textContent = 'Homepage → Featured grid · drag to reorder';
   renderFeaturedPanel();
+
+  // WAVES:hide:showFeaturedView
+  { const el = document.getElementById('settings-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('homepage-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('health-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('pages-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('discounts-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('history-panel'); if (el) el.style.display = 'none'; }
 }
 
 function renderFeaturedPanel() {
@@ -2236,6 +4206,13 @@ function setView(view) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.view === view));
   if (view === 'sales')    showSalesView();
   if (view === 'featured') showFeaturedView();
+  // WAVES:setView
+  if (view === 'settings')   showSettingsView();
+  if (view === 'homepage')   showHomepageView();
+  if (view === 'health')   showHealthView();
+  if (view === 'pages')   showPagesView();
+  if (view === 'discounts')   showDiscountsView();
+  if (view === 'history')   showHistoryView();
 }
 
 /* ---------- Save modal ---------- */
@@ -2644,6 +4621,14 @@ function showSalesView() {
   document.getElementById('sales-setup').style.display = hasSecret ? 'none' : '';
   document.getElementById('sales-body').style.display = hasSecret ? '' : 'none';
   if (hasSecret) loadSales();
+
+  // WAVES:hide:showSalesView
+  { const el = document.getElementById('settings-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('homepage-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('health-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('pages-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('discounts-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('history-panel'); if (el) el.style.display = 'none'; }
 }
 
 function showProductGrid() {
@@ -2652,6 +4637,14 @@ function showProductGrid() {
   const fp = document.getElementById('featured-panel');
   if (fp) fp.style.display = 'none';
   // canvas-title is set by renderGrid via setFilter; no extra action needed here
+
+  // WAVES:hide:showProductGrid
+  { const el = document.getElementById('settings-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('homepage-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('health-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('pages-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('discounts-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('history-panel'); if (el) el.style.display = 'none'; }
 }
 
 function fmtUSD(cents) {
@@ -2764,6 +4757,2301 @@ function renderSales(txs) {
       '<td><span class="sales-status ' + escapeHtml(status) + '">' + escapeHtml(status || '—') + '</span></td>' +
     '</tr>';
   }).join('');
+}
+
+
+/* === WAVES JS: 1-site-settings === */
+/* ============================================================
+ *  SITE SETTINGS (Wave 1)
+ *
+ *  INTEGRATION NOTES FOR THE MAIN EDITOR (editor.html):
+ *  ----------------------------------------------------------
+ *  1) setView() already routes data-view="settings" — add:
+ *         if (view === 'settings') showSettingsView();
+ *     alongside the existing sales / featured branches.
+ *
+ *  2) showProductGrid() hides #grid and toggles the other
+ *     panels off. Add a line:
+ *         const sp = document.getElementById('settings-panel');
+ *         if (sp) sp.style.display = 'none';
+ *     …and add the mirrored line inside showSalesView() /
+ *     showFeaturedView() so they also hide #settings-panel.
+ *
+ *  3) In load() — right after the featured[] baseline line
+ *     ( S.baseline.set('__featured__', …) ) — add:
+ *         S.baseline.set('__settings__', settingsSnapshotString());
+ *
+ *  4) In markAllClean() — after the featured baseline line —
+ *     add the same:
+ *         S.baseline.set('__settings__', settingsSnapshotString());
+ *
+ *  5) In recomputeDirty() — after the featured-diff block — add:
+ *         const sBaseline = S.baseline.get('__settings__');
+ *         const sCurrent  = settingsSnapshotString();
+ *         if (sBaseline !== undefined && sBaseline !== sCurrent) {
+ *           S.dirty.add('__manifest__');
+ *         }
+ *
+ *  6) bootEditor() — no change required; .nav-item wiring
+ *     already calls setView(dataset.view).
+ * ============================================================ */
+
+/* ---------- View switching ---------- */
+function showSettingsView() {
+  // WAVES:sibling-hide:showSettingsView
+  { const g = document.getElementById('grid'); if (g) g.style.display = 'none'; }
+  { const el = document.getElementById('sales-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('featured-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('homepage-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('health-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('pages-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('discounts-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('history-panel'); if (el) el.style.display = 'none'; }
+  document.getElementById('grid').style.display = 'none';
+  const fp = document.getElementById('featured-panel'); if (fp) fp.style.display = 'none';
+  const sp = document.getElementById('sales-panel');    if (sp) sp.style.display = 'none';
+  document.getElementById('settings-panel').style.display = '';
+  document.getElementById('canvas-title').textContent = 'Site Settings';
+  document.getElementById('canvas-sub').textContent = 'Brand · Pricing · Coming Soon · Announcement';
+  renderSettingsPanel();
+}
+
+/* ---------- Ensure schema exists (defensive — products.json already has these) ---------- */
+function settingsEnsureSchema() {
+  if (!S.raw) return;
+  if (!S.raw.store || typeof S.raw.store !== 'object') S.raw.store = {};
+  if (!S.raw.pricing_tiers || typeof S.raw.pricing_tiers !== 'object') S.raw.pricing_tiers = {};
+  if (!Array.isArray(S.raw.coming_soon)) S.raw.coming_soon = [];
+  if (!S.raw.announcement || typeof S.raw.announcement !== 'object') {
+    S.raw.announcement = { enabled: false, text: '', link: '', link_label: '', style: 'neon' };
+  }
+}
+
+/* ---------- Snapshot string used for dirty detection by host ---------- */
+function settingsSnapshotString() {
+  if (!S.raw) return '';
+  return JSON.stringify({
+    store: S.raw.store || {},
+    pricing_tiers: S.raw.pricing_tiers || {},
+    coming_soon: S.raw.coming_soon || [],
+    announcement: S.raw.announcement || {}
+  });
+}
+
+/* ---------- Master render ---------- */
+function renderSettingsPanel() {
+  settingsEnsureSchema();
+  settingsRenderBrand();
+  settingsRenderTiers();
+  settingsRenderComingSoon();
+  settingsRenderAnnouncement();
+}
+
+/* ---------- Collapse / expand all ---------- */
+function settingsToggleAll(open) {
+  document.querySelectorAll('#settings-panel .settings-section').forEach(d => {
+    d.open = !!open;
+  });
+}
+
+/* ---------- Section 1: Brand & Contact ---------- */
+function settingsRenderBrand() {
+  const s = S.raw.store || {};
+  const set = (id, v) => { const el = document.getElementById(id); if (el) el.value = v == null ? '' : v; };
+  set('set-store-name',    s.name);
+  set('set-store-tagline', s.tagline);
+  set('set-store-email',   s.contact_email);
+  set('set-store-discord', s.discord_url);
+  set('set-store-twitter', s.twitter_url);
+  set('set-store-github',  s.github_url);
+}
+function settingsOnStoreField(key, value) {
+  settingsEnsureSchema();
+  if (typeof snapshot === 'function') snapshot();
+  S.raw.store[key] = value;
+  S.dirty.add('__manifest__');
+  updateDirtyBadge();
+  // No grid re-render needed — nothing in the product grid depends on store.*
+}
+
+/* ---------- Section 2: Pricing Tiers ---------- */
+const SETTINGS_TIER_ORDER = ['micro', 'small', 'medium', 'large', 'pro', 'flagship', 'bundle'];
+function settingsRenderTiers() {
+  settingsEnsureSchema();
+  const tiers = S.raw.pricing_tiers || {};
+  // Make sure every canonical key exists with at least 0
+  SETTINGS_TIER_ORDER.forEach(k => { if (tiers[k] == null) tiers[k] = 0; });
+
+  const grid = document.getElementById('settings-tiers-grid');
+  if (!grid) return;
+  grid.innerHTML = SETTINGS_TIER_ORDER.map(key => {
+    const val = Number(tiers[key] || 0);
+    return `<div class="settings-tier">
+      <span class="settings-tier-key">${escapeHtml(key)}</span>
+      <span class="settings-tier-input-wrap">
+        <span class="settings-tier-dollar">$</span>
+        <input class="settings-tier-input" type="number" min="0" step="0.01"
+               value="${val.toFixed(2)}"
+               oninput="settingsOnTierChange('${escapeHtml(key)}', this.value)" />
+      </span>
+    </div>`;
+  }).join('');
+}
+function settingsOnTierChange(key, raw) {
+  settingsEnsureSchema();
+  if (typeof snapshot === 'function') snapshot();
+  const n = raw === '' ? 0 : Number(raw);
+  S.raw.pricing_tiers[key] = isNaN(n) ? 0 : n;
+  S.dirty.add('__manifest__');
+  updateDirtyBadge();
+}
+
+/* ---------- Section 3: Coming Soon ---------- */
+function settingsRenderComingSoon() {
+  settingsEnsureSchema();
+  const list = S.raw.coming_soon;
+  const count = document.getElementById('settings-cs-count');
+  if (count) count.textContent = list.length + ' item' + (list.length === 1 ? '' : 's');
+
+  const listEl = document.getElementById('settings-cs-list');
+  if (!listEl) return;
+  if (!list.length) {
+    listEl.innerHTML = '<div class="settings-cs-empty">No "coming soon" items yet.<br/>Click <b>+ Add item</b> above to tease an upcoming plugin.</div>';
+    return;
+  }
+  listEl.innerHTML = list.map((item, i) => {
+    const name     = item.name     || '';
+    const tagline  = item.tagline  || '';
+    const category = item.category || 'plugin';
+    const eta      = item.eta      || '';
+    return `<div class="settings-cs-row" draggable="true" data-idx="${i}">
+      <span class="settings-cs-grip" title="Drag to reorder">&#x22EE;&#x22EE;</span>
+      <span class="settings-cs-slot">${i + 1}</span>
+      <input type="text" placeholder="Name" value="${escapeHtml(name)}"
+             oninput="settingsOnComingSoonField(${i}, 'name', this.value)" />
+      <input type="text" placeholder="Tagline — one-liner pitch" value="${escapeHtml(tagline)}"
+             oninput="settingsOnComingSoonField(${i}, 'tagline', this.value)" />
+      <select onchange="settingsOnComingSoonField(${i}, 'category', this.value)">
+        <option value="plugin"   ${category === 'plugin'   ? 'selected' : ''}>plugin</option>
+        <option value="app"      ${category === 'app'      ? 'selected' : ''}>app</option>
+        <option value="library"  ${category === 'library'  ? 'selected' : ''}>library</option>
+        <option value="unsorted" ${category === 'unsorted' ? 'selected' : ''}>unsorted</option>
+      </select>
+      <input type="text" placeholder="ETA (e.g. TBD, Q2 2026)" value="${escapeHtml(eta)}"
+             oninput="settingsOnComingSoonField(${i}, 'eta', this.value)" />
+      <button class="settings-cs-remove" onclick="settingsRemoveComingSoon(${i})" title="Remove">&times;</button>
+    </div>`;
+  }).join('');
+  settingsAttachComingSoonDnD();
+}
+function settingsAddComingSoon() {
+  settingsEnsureSchema();
+  if (typeof snapshot === 'function') snapshot();
+  S.raw.coming_soon.push({ name: '', tagline: '', category: 'plugin', eta: 'TBD' });
+  S.dirty.add('__manifest__');
+  updateDirtyBadge();
+  settingsRenderComingSoon();
+  toast('Added coming-soon item — fill in the name', 'ok');
+}
+function settingsRemoveComingSoon(i) {
+  settingsEnsureSchema();
+  const list = S.raw.coming_soon;
+  if (i < 0 || i >= list.length) return;
+  if (typeof snapshot === 'function') snapshot();
+  const removed = list.splice(i, 1)[0];
+  S.dirty.add('__manifest__');
+  updateDirtyBadge();
+  settingsRenderComingSoon();
+  toast('Removed: ' + (removed && removed.name ? removed.name : 'item'), 'ok');
+}
+function settingsOnComingSoonField(i, key, value) {
+  settingsEnsureSchema();
+  const list = S.raw.coming_soon;
+  if (i < 0 || i >= list.length) return;
+  if (typeof snapshot === 'function') snapshot();
+  list[i][key] = value;
+  S.dirty.add('__manifest__');
+  updateDirtyBadge();
+  // Don't re-render on every keystroke — it would blow away focus.
+}
+function settingsAttachComingSoonDnD() {
+  const rows = document.querySelectorAll('#settings-cs-list .settings-cs-row');
+  rows.forEach(row => {
+    row.addEventListener('dragstart', (e) => {
+      e.dataTransfer.setData('text/plain', row.dataset.idx);
+      e.dataTransfer.effectAllowed = 'move';
+      row.classList.add('dragging');
+    });
+    row.addEventListener('dragend', () => {
+      row.classList.remove('dragging');
+      rows.forEach(r => { r.classList.remove('drop-above'); r.classList.remove('drop-below'); });
+    });
+    row.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      const rect = row.getBoundingClientRect();
+      const below = (e.clientY - rect.top) > rect.height / 2;
+      rows.forEach(r => { r.classList.remove('drop-above'); r.classList.remove('drop-below'); });
+      row.classList.add(below ? 'drop-below' : 'drop-above');
+    });
+    row.addEventListener('drop', (e) => {
+      e.preventDefault();
+      const fromIdx = Number(e.dataTransfer.getData('text/plain'));
+      const toIdx   = Number(row.dataset.idx);
+      rows.forEach(r => { r.classList.remove('drop-above'); r.classList.remove('drop-below'); });
+      if (Number.isNaN(fromIdx) || Number.isNaN(toIdx) || fromIdx === toIdx) return;
+      const rect = row.getBoundingClientRect();
+      const dropBelow = (e.clientY - rect.top) > rect.height / 2;
+      settingsReorderComingSoon(fromIdx, toIdx, dropBelow);
+    });
+  });
+}
+function settingsReorderComingSoon(fromIdx, targetIdx, placeBelow) {
+  settingsEnsureSchema();
+  const list = S.raw.coming_soon;
+  if (fromIdx < 0 || fromIdx >= list.length) return;
+  if (typeof snapshot === 'function') snapshot();
+
+  const [moving] = list.splice(fromIdx, 1);
+  // Compute fresh target index after splice.
+  let insertAt = targetIdx;
+  if (fromIdx < targetIdx) insertAt -= 1;
+  if (placeBelow) insertAt += 1;
+  if (insertAt < 0) insertAt = 0;
+  if (insertAt > list.length) insertAt = list.length;
+  list.splice(insertAt, 0, moving);
+
+  S.dirty.add('__manifest__');
+  updateDirtyBadge();
+  settingsRenderComingSoon();
+  toast('Reordered coming-soon list', 'ok');
+}
+
+/* ---------- Section 4: Announcement Bar ---------- */
+const SETTINGS_VALID_STYLES = ['neon', 'alert', 'info'];
+function settingsRenderAnnouncement() {
+  settingsEnsureSchema();
+  const a = S.raw.announcement;
+  const set = (id, v, prop = 'value') => { const el = document.getElementById(id); if (el) el[prop] = v == null ? '' : v; };
+  set('set-anno-enabled',   !!a.enabled, 'checked');
+  set('set-anno-text',       a.text       || '');
+  set('set-anno-link',       a.link       || '');
+  set('set-anno-link-label', a.link_label || '');
+
+  const style = SETTINGS_VALID_STYLES.includes(a.style) ? a.style : 'neon';
+  document.querySelectorAll('#settings-style-picker .settings-style-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.style === style);
+  });
+  settingsUpdateAnnouncementPreview();
+}
+function settingsOnAnnouncementField(key, value) {
+  settingsEnsureSchema();
+  if (typeof snapshot === 'function') snapshot();
+  const a = S.raw.announcement;
+  if (key === 'style' && !SETTINGS_VALID_STYLES.includes(value)) value = 'neon';
+  a[key] = value;
+  S.dirty.add('__manifest__');
+  updateDirtyBadge();
+
+  // For the style picker we need to flip the active button classes.
+  if (key === 'style') {
+    document.querySelectorAll('#settings-style-picker .settings-style-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.style === value);
+    });
+  }
+  settingsUpdateAnnouncementPreview();
+}
+function settingsUpdateAnnouncementPreview() {
+  const a = S.raw.announcement || {};
+  const ribbon = document.getElementById('settings-anno-preview');
+  const textEl = document.getElementById('settings-anno-preview-text');
+  const ctaEl  = document.getElementById('settings-anno-preview-cta');
+  if (!ribbon || !textEl || !ctaEl) return;
+
+  const style = SETTINGS_VALID_STYLES.includes(a.style) ? a.style : 'neon';
+  ribbon.classList.toggle('is-alert', style === 'alert');
+  ribbon.classList.toggle('is-info',  style === 'info');
+  ribbon.classList.toggle('is-disabled', !a.enabled);
+
+  const text = (a.text || '').trim();
+  textEl.textContent = text || 'Announcement text will appear here.';
+  textEl.style.opacity = text ? '1' : '0.55';
+
+  if (a.link && a.link_label) {
+    ctaEl.style.display = '';
+    ctaEl.textContent = a.link_label;
+    // Make sure it's not actually navigable from the preview.
+    ctaEl.href = 'javascript:void(0)';
+    ctaEl.title = a.link;
+  } else {
+    ctaEl.style.display = 'none';
+  }
+}
+
+/* === WAVES JS: 2-deploy-preview === */
+/* ============================================================
+ * WAVE 1.5 — Deploy Status Indicator + Preview Buttons
+ * ----------------------------------------------------------------
+ * Exposes:
+ *   initDeployMonitor()   — call once from load() AFTER S.raw is populated.
+ *                           Captures the current last_editor_update as baseline.
+ *   notifyDeployPending(newStamp)
+ *                         — optional hook: call from publishNow() right after
+ *                           the commit lands. Flips dot to yellow and polls
+ *                           every 5s until products.json.last_editor_update
+ *                           matches newStamp (then flips to green).
+ *   openPreview(slug)     — opens /products/<slug>.html?_=<ts> in a new tab.
+ *   openDeployDashboard() — onclick handler for the deploy dot.
+ *   showDeployTooltip() / hideDeployTooltip() — hover handlers.
+ * ============================================================ */
+
+// Shared deploy-monitor state
+const DEPLOY = {
+  baselineStamp: null,       // captured at load; last_editor_update from products.json
+  lastSeenStamp: null,       // most recent stamp observed on the live CDN
+  latestCommitSha: null,     // from GitHub commits API
+  latestCommitTimeMs: null,  // epoch ms of the latest main commit
+  status: 'unknown',         // live | building | failed | unknown
+  checkedAtMs: null,
+  pollTimer: null,           // setTimeout handle for idle 30s poll
+  fastTimer: null,           // setTimeout handle for 5s post-publish poll
+  pendingStamp: null,        // stamp we just committed; green when CDN matches
+  fastDeadlineMs: null,      // when to give up fast-polling
+  FAST_INTERVAL_MS: 5000,
+  IDLE_INTERVAL_MS: 30000,
+  FAST_MAX_MS: 300000,       // stop fast-polling after 5 min; fall back to idle
+  STALE_BUILD_MS: 180000,    // if commit is this old and CDN hasn't caught up → failed
+  CF_DASH_URL: 'https://dash.cloudflare.com/0603e115e818770b40acbf0e449cc241/workers/services/view/misfits-studios-site/production/deployments',
+  REPO: 'xADROCx1/misfits-studios-site'
+};
+
+function initDeployMonitor() {
+  // Baseline: whatever last_editor_update was when the editor loaded.
+  // The caller (load()) has already populated S.raw from /products.json.
+  try {
+    if (window.S && S.raw && S.raw.last_editor_update) {
+      DEPLOY.baselineStamp = S.raw.last_editor_update;
+      DEPLOY.lastSeenStamp = S.raw.last_editor_update;
+    }
+  } catch (_) { /* keep null baseline */ }
+
+  updateDeployDot('unknown', { note: 'initializing' });
+  // Kick off first poll immediately, then every 30s.
+  pollDeployStatus();
+}
+
+function schedulePoll(delayMs) {
+  if (DEPLOY.pollTimer) clearTimeout(DEPLOY.pollTimer);
+  DEPLOY.pollTimer = setTimeout(pollDeployStatus, delayMs);
+}
+
+async function pollDeployStatus() {
+  // Run the two probes in parallel: CDN products.json + GitHub latest commit.
+  const cdnP = fetchLiveProducts();
+  const ghP  = fetchLatestCommit();
+  const [cdn, gh] = await Promise.all([cdnP, ghP]);
+
+  DEPLOY.checkedAtMs = Date.now();
+  if (cdn && cdn.stamp) DEPLOY.lastSeenStamp = cdn.stamp;
+  if (gh) {
+    DEPLOY.latestCommitSha = gh.sha;
+    DEPLOY.latestCommitTimeMs = gh.timeMs;
+  }
+
+  // Decide status
+  let status = 'unknown';
+
+  if (DEPLOY.pendingStamp) {
+    // A publish is in-flight — we care only whether the CDN caught up.
+    if (cdn && cdn.stamp === DEPLOY.pendingStamp) {
+      status = 'live';
+      DEPLOY.pendingStamp = null;
+      DEPLOY.baselineStamp = cdn.stamp;
+      clearFastTimer();
+    } else {
+      status = 'building';
+    }
+  } else if (cdn && cdn.stamp) {
+    // Idle monitoring
+    if (DEPLOY.baselineStamp && cdn.stamp !== DEPLOY.baselineStamp) {
+      // Someone else pushed a new stamp since we loaded — treat as live and adopt.
+      status = 'live';
+      DEPLOY.baselineStamp = cdn.stamp;
+    } else if (gh && gh.sha && DEPLOY.baselineStamp && !stampMatchesSha(DEPLOY.baselineStamp, gh)) {
+      // A newer commit exists on main but the CDN stamp hasn't advanced.
+      const age = Date.now() - (gh.timeMs || Date.now());
+      if (age > DEPLOY.STALE_BUILD_MS) {
+        status = 'failed';
+      } else {
+        status = 'building';
+      }
+    } else {
+      status = 'live';
+    }
+  } else if (gh && gh.sha) {
+    // CDN unreachable but GitHub responded — can't confirm live, but not clearly failed.
+    status = 'unknown';
+  } else {
+    status = 'unknown';
+  }
+
+  updateDeployDot(status, {
+    sha: DEPLOY.latestCommitSha,
+    stamp: DEPLOY.lastSeenStamp,
+    checkedAtMs: DEPLOY.checkedAtMs
+  });
+
+  // Re-schedule
+  if (DEPLOY.pendingStamp) {
+    // Fast polling during a publish
+    if (DEPLOY.fastDeadlineMs && Date.now() > DEPLOY.fastDeadlineMs) {
+      // Give up the fast cadence, drop back to idle 30s.
+      DEPLOY.pendingStamp = null;
+      DEPLOY.fastDeadlineMs = null;
+      schedulePoll(DEPLOY.IDLE_INTERVAL_MS);
+    } else {
+      schedulePoll(DEPLOY.FAST_INTERVAL_MS);
+    }
+  } else {
+    schedulePoll(DEPLOY.IDLE_INTERVAL_MS);
+  }
+}
+
+// If the CDN's last_editor_update is older than the latest GitHub commit's timestamp,
+// the build hasn't caught up. (We can't directly compare stamp↔sha, we compare times.)
+function stampMatchesSha(stamp, gh) {
+  if (!stamp || !gh || !gh.timeMs) return true; // can't tell → assume ok
+  const stampMs = Date.parse(stamp);
+  if (isNaN(stampMs)) return true;
+  // Consider "caught up" if the CDN stamp is within 90s of (or after) the commit time.
+  return stampMs >= (gh.timeMs - 90000);
+}
+
+async function fetchLiveProducts() {
+  try {
+    const base = (location.origin.includes('localhost') || location.origin.startsWith('file:'))
+      ? 'https://misfits-studios.com'
+      : location.origin;
+    const r = await fetch(base + '/products.json?_=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) return null;
+    const j = await r.json();
+    return { stamp: (j && j.last_editor_update) || null };
+  } catch (_) {
+    return null;
+  }
+}
+
+async function fetchLatestCommit() {
+  try {
+    const r = await fetch('https://api.github.com/repos/' + DEPLOY.REPO + '/commits/main', {
+      headers: { 'Accept': 'application/vnd.github+json' },
+      cache: 'no-store'
+    });
+    if (!r.ok) return null;
+    const j = await r.json();
+    const sha = (j && j.sha || '').slice(0, 7);
+    const dateStr = j && j.commit && j.commit.committer && j.commit.committer.date;
+    const timeMs = dateStr ? Date.parse(dateStr) : null;
+    return { sha: sha || null, timeMs: timeMs || null };
+  } catch (_) {
+    return null;
+  }
+}
+
+function updateDeployDot(status, meta) {
+  DEPLOY.status = status;
+  const host = document.getElementById('deploy-indicator');
+  if (!host) return;
+  host.setAttribute('data-status', status);
+
+  const labelMap = { live: 'LIVE', building: 'BUILDING', failed: 'FAILED', unknown: 'DEPLOY' };
+  const lbl = document.getElementById('deploy-label');
+  if (lbl) lbl.textContent = labelMap[status] || 'DEPLOY';
+
+  const statusEl = document.getElementById('deploy-tip-status');
+  if (statusEl) statusEl.textContent = status;
+
+  const shaEl = document.getElementById('deploy-tip-sha');
+  if (shaEl) shaEl.textContent = (meta && meta.sha) ? meta.sha : (DEPLOY.latestCommitSha || '—');
+
+  const stampEl = document.getElementById('deploy-tip-stamp');
+  if (stampEl) stampEl.textContent = (meta && meta.stamp) ? meta.stamp : (DEPLOY.lastSeenStamp || '—');
+
+  const checkedEl = document.getElementById('deploy-tip-checked');
+  if (checkedEl) {
+    const ts = (meta && meta.checkedAtMs) || DEPLOY.checkedAtMs;
+    checkedEl.textContent = ts ? new Date(ts).toLocaleTimeString() : '—';
+  }
+
+  // Also refresh the host title for browsers that show the native tooltip.
+  const titleBits = [
+    'Deploy: ' + status,
+    DEPLOY.latestCommitSha ? ('commit ' + DEPLOY.latestCommitSha) : null,
+    DEPLOY.checkedAtMs ? ('checked ' + new Date(DEPLOY.checkedAtMs).toLocaleTimeString()) : null
+  ].filter(Boolean);
+  host.setAttribute('title', titleBits.join(' · ') + ' — click to open Cloudflare dashboard');
+}
+
+function showDeployTooltip() {
+  const host = document.getElementById('deploy-indicator');
+  if (host) host.classList.add('tip-open');
+}
+function hideDeployTooltip() {
+  const host = document.getElementById('deploy-indicator');
+  if (host) host.classList.remove('tip-open');
+}
+function openDeployDashboard() {
+  window.open(DEPLOY.CF_DASH_URL, '_blank', 'noopener,noreferrer');
+}
+
+function clearFastTimer() {
+  DEPLOY.fastDeadlineMs = null;
+}
+
+/**
+ * Call this from publishNow() right after the commit lands with the stamp
+ * that was just written into S.raw.last_editor_update. This makes the dot
+ * go yellow immediately and flip green the moment the CDN catches up.
+ * Optional — if you never call it, the 30s idle poll will still eventually
+ * detect the new stamp and flip green.
+ */
+function notifyDeployPending(newStamp) {
+  if (!newStamp) return;
+  DEPLOY.pendingStamp = newStamp;
+  DEPLOY.fastDeadlineMs = Date.now() + DEPLOY.FAST_MAX_MS;
+  updateDeployDot('building', { stamp: newStamp });
+  // Kick a poll right away; it will re-schedule itself at the fast cadence.
+  if (DEPLOY.pollTimer) { clearTimeout(DEPLOY.pollTimer); DEPLOY.pollTimer = null; }
+  pollDeployStatus();
+}
+
+/* ---------- Preview button (grid card + side panel) ---------- */
+function openPreview(slug) {
+  if (!slug) { toast('No slug on this product yet — save first', 'err'); return; }
+  const base = (location.origin.includes('localhost') || location.origin.startsWith('file:'))
+    ? 'https://misfits-studios.com'
+    : location.origin;
+  const url = base + '/products/' + encodeURIComponent(slug) + '.html?_=' + Date.now();
+  window.open(url, '_blank', 'noopener,noreferrer');
+}
+
+/* === WAVES JS: 3-homepage === */
+/* ============================================================
+ * Wave 3 — Homepage editor view
+ * ============================================================ */
+
+function ensureHomepageObject() {
+  if (!S.raw) S.raw = {};
+  if (!S.raw.homepage || typeof S.raw.homepage !== 'object') {
+    S.raw.homepage = {};
+  }
+  var hp = S.raw.homepage;
+  if (!hp.hero || typeof hp.hero !== 'object') hp.hero = {};
+  if (!Array.isArray(hp.tagline_strip)) hp.tagline_strip = [];
+  if (!Array.isArray(hp.ticker_strip)) hp.ticker_strip = [];
+  if (!hp.sections || typeof hp.sections !== 'object') hp.sections = {};
+  if (!hp.footer || typeof hp.footer !== 'object') hp.footer = {};
+  return hp;
+}
+
+/* Dotted path get/set on an object, supporting numeric indices ("a.0"). */
+function getHomepagePath(path) {
+  var hp = ensureHomepageObject();
+  var parts = String(path).split('.');
+  var cur = hp;
+  for (var i = 0; i < parts.length; i++) {
+    if (cur == null) return undefined;
+    cur = cur[parts[i]];
+  }
+  return cur;
+}
+
+function setHomepagePath(path, val) {
+  var hp = ensureHomepageObject();
+  var parts = String(path).split('.');
+  var cur = hp;
+  for (var i = 0; i < parts.length - 1; i++) {
+    var k = parts[i];
+    var next = parts[i + 1];
+    var nextIsIndex = /^\d+$/.test(next);
+    if (cur[k] == null) {
+      cur[k] = nextIsIndex ? [] : {};
+    }
+    cur = cur[k];
+  }
+  var leaf = parts[parts.length - 1];
+  cur[leaf] = val;
+}
+
+function showHomepageView() {
+  // WAVES:sibling-hide:showHomepageView
+  { const g = document.getElementById('grid'); if (g) g.style.display = 'none'; }
+  { const el = document.getElementById('sales-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('featured-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('settings-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('health-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('pages-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('discounts-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('history-panel'); if (el) el.style.display = 'none'; }
+  document.getElementById('grid').style.display = 'none';
+  var fp = document.getElementById('featured-panel');
+  if (fp) fp.style.display = 'none';
+  var sp = document.getElementById('sales-panel');
+  if (sp) sp.style.display = 'none';
+  document.getElementById('homepage-panel').style.display = '';
+  document.getElementById('canvas-title').textContent = 'Homepage';
+  document.getElementById('canvas-sub').textContent = 'Hero, tagline, ticker, section heads, footer tiles';
+  renderHomepagePanel();
+}
+
+function renderHomepagePanel() {
+  ensureHomepageObject();
+  var panel = document.getElementById('homepage-panel');
+  if (!panel) return;
+
+  // Fill every [data-hp-key] input/textarea with its current value.
+  panel.querySelectorAll('[data-hp-key]').forEach(function (el) {
+    var key = el.getAttribute('data-hp-key');
+    var val = getHomepagePath(key);
+    el.value = (val == null) ? '' : String(val);
+
+    // Wire change events once.
+    if (!el.__hpBound) {
+      el.__hpBound = true;
+      el.addEventListener('input', onHomepageFieldChange);
+    }
+  });
+
+  renderTickerList();
+  updateHomepagePreview();
+}
+
+function onHomepageFieldChange(ev) {
+  var el = ev.currentTarget;
+  var key = el.getAttribute('data-hp-key');
+  if (!key) return;
+  var v = el.value;
+  // Strip trailing empty -> delete path so fallback wins.
+  if (v === '') {
+    setHomepagePath(key, '');
+  } else {
+    setHomepagePath(key, v);
+  }
+  S.dirty.add('__manifest__');
+  updateDirtyBadge && updateDirtyBadge();
+  updateHomepagePreview();
+}
+
+/* ---- Ticker dynamic list ---- */
+function renderTickerList() {
+  var hp = ensureHomepageObject();
+  var list = document.getElementById('homepage-ticker-list');
+  if (!list) return;
+  list.innerHTML = '';
+  hp.ticker_strip.forEach(function (item, i) {
+    var row = document.createElement('div');
+    row.className = 'homepage-ticker-row';
+    row.innerHTML =
+      '<div class="idx">' + (i + 1) + '.</div>' +
+      '<input type="text" value="" />' +
+      '<button class="rm" type="button" title="Remove">&times;</button>';
+    var input = row.querySelector('input');
+    input.value = item == null ? '' : String(item);
+    input.addEventListener('input', function () {
+      var hp2 = ensureHomepageObject();
+      hp2.ticker_strip[i] = input.value;
+      S.dirty.add('__manifest__');
+      updateDirtyBadge && updateDirtyBadge();
+    });
+    row.querySelector('.rm').addEventListener('click', function () {
+      var hp2 = ensureHomepageObject();
+      hp2.ticker_strip.splice(i, 1);
+      S.dirty.add('__manifest__');
+      updateDirtyBadge && updateDirtyBadge();
+      renderTickerList();
+    });
+    list.appendChild(row);
+  });
+}
+
+function addTickerItem() {
+  var hp = ensureHomepageObject();
+  hp.ticker_strip.push('');
+  S.dirty.add('__manifest__');
+  updateDirtyBadge && updateDirtyBadge();
+  renderTickerList();
+}
+
+/* ---- Live preview ---- */
+function updateHomepagePreview() {
+  var hp = ensureHomepageObject();
+  var $ = function (id) { return document.getElementById(id); };
+
+  if ($('hp-prev-crafted')) $('hp-prev-crafted').textContent = hp.hero.crafted || 'CRAFTED';
+  if ($('hp-prev-for'))     $('hp-prev-for').textContent     = hp.hero.for     || 'FOR';
+  if ($('hp-prev-misfits')) $('hp-prev-misfits').textContent = hp.hero.misfits || 'MISFITS.';
+  if ($('hp-prev-sub'))     $('hp-prev-sub').textContent     = hp.hero.subtitle || '48 weaponized Rust plugins...';
+
+  if ($('hp-prev-eyebrow')) {
+    var t = hp.tagline_strip || [];
+    var a = t[0] || '>> ONE DEV';
+    var b = t[1] || 'EVERY LINE';
+    var c = t[2] || 'ZERO FILLER <<';
+    $('hp-prev-eyebrow').textContent = a + '  ·  ' + b + '  ·  ' + c;
+  }
+}
+
+/* Hook into the existing view dispatcher. Add this line to the
+   existing switch / if-chain that handles data-view clicks:
+
+       if (view === 'homepage') showHomepageView();
+
+   (See editor.html line ~2242 — next to the sales/featured cases.) */
+
+/* === WAVES JS: 4-health === */
+/* ============================================================
+ *  HEALTH DASHBOARD — catalog diagnostics
+ * ============================================================ */
+
+/* Current severity filter: 'all' | 'high_med' | 'high' */
+var __healthFilter = 'all';
+/* Last scan result, cached so filters/export don't re-scan */
+var __healthLastIssues = [];
+
+/* ---------- View switching ---------- */
+function showHealthView() {
+  // WAVES:sibling-hide:showHealthView
+  { const g = document.getElementById('grid'); if (g) g.style.display = 'none'; }
+  { const el = document.getElementById('sales-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('featured-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('settings-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('homepage-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('pages-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('discounts-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('history-panel'); if (el) el.style.display = 'none'; }
+  document.getElementById('grid').style.display = 'none';
+  var fp = document.getElementById('featured-panel'); if (fp) fp.style.display = 'none';
+  var sp = document.getElementById('sales-panel');    if (sp) sp.style.display = 'none';
+  document.getElementById('health-panel').style.display = '';
+  document.getElementById('canvas-title').textContent = 'Product Health';
+  document.getElementById('canvas-sub').textContent = 'Catalog diagnostics & fulfillment checks';
+  scanCatalog(false);
+}
+
+/* ---------- Core scanner ---------- */
+/**
+ * Walks S.products and returns an array of issue objects:
+ *   { productId, productName, severity: 'high'|'med'|'low', code, message }
+ * Only live products are checked (status === 'live'), except check #12 which
+ * specifically flags non-live products that appear in the featured list.
+ */
+function scanCatalog(announce) {
+  var issues = [];
+  var products = Array.isArray(S.products) ? S.products : [];
+  var featured = (S.raw && Array.isArray(S.raw.featured)) ? S.raw.featured : [];
+
+  /* Pre-compute slug duplicates across ALL products (any status) */
+  var slugCounts = {};
+  products.forEach(function (p) {
+    var s = (p.slug || '').trim().toLowerCase();
+    if (!s) return;
+    slugCounts[s] = (slugCounts[s] || 0) + 1;
+  });
+
+  products.forEach(function (p) {
+    if ((p.status || 'draft') !== 'live') return;
+    var pid = p.id;
+    var name = p.name || '(untitled)';
+    var push = function (severity, code, message) {
+      issues.push({ productId: pid, productName: name, severity: severity, code: code, message: message });
+    };
+
+    /* 1. Missing icon */
+    if (!(p.assets && p.assets.icon)) {
+      push('high', 'missing_icon', 'Missing <span class="hkey">assets.icon</span> — card will render broken.');
+    }
+    /* 2. Missing short_description */
+    if (!p.short_description || !String(p.short_description).trim()) {
+      push('med', 'missing_short_desc', 'Missing <span class="hkey">short_description</span>.');
+    }
+    /* 3. Missing tagline */
+    if (!p.tagline || !String(p.tagline).trim()) {
+      push('low', 'missing_tagline', 'Missing <span class="hkey">tagline</span>.');
+    }
+    /* 4. No features */
+    if (!Array.isArray(p.features) || p.features.length === 0) {
+      push('low', 'no_features', 'No <span class="hkey">features</span> listed.');
+    }
+    /* 5. No tags */
+    if (!Array.isArray(p.tags) || p.tags.length === 0) {
+      push('low', 'no_tags', 'No <span class="hkey">tags</span> set — hurts discoverability.');
+    }
+    /* 6. Not buyable (paid product without a Paddle hookup) */
+    var price = Number(p.price_usd) || 0;
+    var pdl = p.paddle || {};
+    if (price > 0 && !pdl.price_id && !pdl.checkout_url) {
+      push('high', 'not_buyable', 'Paid product but no <span class="hkey">paddle.price_id</span> or <span class="hkey">paddle.checkout_url</span> — checkout will fail.');
+    }
+    /* 7. Not downloadable (free product without a download_url) */
+    if (price === 0 && !p.download_url) {
+      push('high', 'not_downloadable', 'Free product but no <span class="hkey">download_url</span> — button does nothing.');
+    }
+    /* 8. No source file attached at all */
+    if (!p.source_file && !p.download_url) {
+      push('med', 'no_source_file', 'No <span class="hkey">source_file</span> or <span class="hkey">download_url</span> — fulfillment is unconfigured.');
+    }
+    /* 9. Suspiciously low price (below Paddle min) */
+    if (price > 0 && price < 0.99) {
+      push('high', 'price_below_paddle_min', 'Price <span class="hkey">$' + price.toFixed(2) + '</span> is below Paddle\'s $0.99 minimum.');
+    }
+    /* 10. Stale-looking version */
+    var ver = String(p.version || '').trim();
+    if (ver && (/^0\./.test(ver) || ver === '1.0.0')) {
+      push('low', 'version_stale', 'Version <span class="hkey">' + escapeHtml(ver) + '</span> looks like a placeholder — bump before launch.');
+    }
+    /* 11. Duplicate slug */
+    var slug = (p.slug || '').trim().toLowerCase();
+    if (slug && slugCounts[slug] > 1) {
+      push('high', 'duplicate_slug', 'Duplicate slug <span class="hkey">' + escapeHtml(slug) + '</span> — URL collisions on the live site.');
+    }
+  });
+
+  /* 12. Orphan featured (product id in featured[] but not live) */
+  featured.forEach(function (fid) {
+    var p = products.find(function (x) { return x.id === fid; });
+    if (!p) return; /* missing product entirely is handled by the Featured view */
+    if ((p.status || 'draft') !== 'live') {
+      issues.push({
+        productId: fid,
+        productName: p.name || '(untitled)',
+        severity: 'med',
+        code: 'orphan_featured',
+        message: 'Featured on homepage but status is <span class="hkey">' + escapeHtml(p.status || 'draft') + '</span> — hidden for visitors.'
+      });
+    }
+  });
+
+  __healthLastIssues = issues;
+
+  /* Update summary + nav chip */
+  var counts = { high: 0, med: 0, low: 0 };
+  issues.forEach(function (i) { counts[i.severity]++; });
+  var total = issues.length;
+  document.getElementById('health-total').textContent = total;
+  document.getElementById('health-high').textContent  = counts.high;
+  document.getElementById('health-med').textContent   = counts.med;
+  document.getElementById('health-low').textContent   = counts.low;
+  document.getElementById('health-total-sub').textContent =
+    total === 0
+      ? 'nothing to fix'
+      : 'across ' + new Set(issues.map(function (i) { return i.productId; })).size + ' products';
+  document.getElementById('health-last-scan').textContent =
+    'Last scanned ' + new Date().toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+  var navChip = document.getElementById('c-health');
+  if (navChip) {
+    navChip.textContent = total;
+    var worst = counts.high ? 'high' : (counts.med ? 'med' : (counts.low ? 'low' : ''));
+    if (worst) navChip.setAttribute('data-health', worst);
+    else       navChip.removeAttribute('data-health');
+  }
+
+  renderHealthPanel();
+  if (announce) toast('Scanned ' + products.length + ' products, found ' + total + ' issue' + (total === 1 ? '' : 's'), total ? 'warn' : 'ok');
+}
+
+/* ---------- Renderer ---------- */
+function renderHealthPanel() {
+  var issues = __healthLastIssues.slice();
+  var filter = __healthFilter;
+
+  /* Apply severity filter */
+  var filtered = issues.filter(function (i) {
+    if (filter === 'all') return true;
+    if (filter === 'high') return i.severity === 'high';
+    if (filter === 'high_med') return i.severity !== 'low';
+    return true;
+  });
+
+  /* Empty state — show only when there are ZERO real issues (ignore filter) */
+  var emptyEl = document.getElementById('health-empty');
+  var wrapEl  = document.getElementById('health-table-wrap');
+  if (issues.length === 0) {
+    wrapEl.style.display = 'none';
+    emptyEl.style.display = '';
+    var liveCount = (S.products || []).filter(function (p) { return (p.status || 'draft') === 'live'; }).length;
+    document.getElementById('health-empty-sub').textContent =
+      liveCount + ' live product' + (liveCount === 1 ? '' : 's') + ', all checked.';
+    return;
+  }
+  emptyEl.style.display = 'none';
+  wrapEl.style.display = '';
+
+  /* Sort: severity DESC (high > med > low), then product name ASC */
+  var sevRank = { high: 0, med: 1, low: 2 };
+  filtered.sort(function (a, b) {
+    var r = sevRank[a.severity] - sevRank[b.severity];
+    if (r !== 0) return r;
+    var n = (a.productName || '').localeCompare(b.productName || '');
+    if (n !== 0) return n;
+    return (a.code || '').localeCompare(b.code || '');
+  });
+
+  /* Group by product (preserving sorted order — each product's worst severity dictates its position) */
+  var groups = [];
+  var groupIndex = {};
+  filtered.forEach(function (issue) {
+    var key = issue.productId;
+    if (!(key in groupIndex)) {
+      groupIndex[key] = groups.length;
+      groups.push({ productId: key, productName: issue.productName, items: [] });
+    }
+    groups[groupIndex[key]].items.push(issue);
+  });
+
+  var html = groups.map(function (g) {
+    var rowsHtml = g.items.map(function (i) {
+      return (
+        '<div class="health-row">' +
+          '<span class="health-sev ' + i.severity + '">' + i.severity + '</span>' +
+          '<div class="health-msg">' + i.message + '</div>' +
+          '<button class="health-fix" onclick="jumpToFix(\'' + encodeURIComponent(i.productId) + '\')">Fix now &rsaquo;</button>' +
+        '</div>'
+      );
+    }).join('');
+    return (
+      '<div class="health-group">' +
+        '<div class="health-group-head" onclick="jumpToFix(\'' + encodeURIComponent(g.productId) + '\')">' +
+          '<span class="health-group-name">' + escapeHtml(g.productName) + '</span>' +
+          '<span class="health-group-id">' + escapeHtml(g.productId) + '</span>' +
+          '<span class="health-group-count">' + g.items.length + ' issue' + (g.items.length === 1 ? '' : 's') + '</span>' +
+        '</div>' +
+        rowsHtml +
+      '</div>'
+    );
+  }).join('');
+
+  document.getElementById('health-rows').innerHTML = html;
+  document.getElementById('health-shown-count').textContent =
+    filtered.length + ' of ' + issues.length + ' issue' + (issues.length === 1 ? '' : 's') + ' shown';
+}
+
+/* ---------- Filter buttons ---------- */
+function setHealthFilter(sev) {
+  __healthFilter = sev;
+  document.querySelectorAll('#health-panel .health-fbtn').forEach(function (b) {
+    b.classList.toggle('active', b.dataset.sev === sev);
+  });
+  renderHealthPanel();
+}
+
+/* ---------- "Fix now" — navigate to the product in the main grid ---------- */
+function jumpToFix(encId) {
+  var id = decodeURIComponent(encId);
+  var p = (S.products || []).find(function (x) { return x.id === id; });
+  if (!p) { toast('Product not found: ' + id, 'err'); return; }
+  /* Clear the current report view, jump to the "All" category, then open the product */
+  setFilter('all');
+  showProductGrid();
+  selectProduct(id);
+}
+
+/* ---------- Export issue list as markdown ---------- */
+function exportHealthMarkdown() {
+  var issues = __healthLastIssues;
+  if (!issues.length) { toast('Nothing to export — catalog is clean', 'ok'); return; }
+
+  var stripTags = function (s) { return String(s || '').replace(/<[^>]+>/g, ''); };
+  var now = new Date();
+  var counts = { high: 0, med: 0, low: 0 };
+  issues.forEach(function (i) { counts[i.severity]++; });
+
+  var lines = [];
+  lines.push('# Misfits Store — Catalog Health Report');
+  lines.push('');
+  lines.push('_Scanned ' + now.toISOString() + '_');
+  lines.push('');
+  lines.push('**' + issues.length + ' issues** — ' + counts.high + ' high, ' + counts.med + ' medium, ' + counts.low + ' low');
+  lines.push('');
+
+  /* Group by product, same sort as the panel */
+  var sevRank = { high: 0, med: 1, low: 2 };
+  var sorted = issues.slice().sort(function (a, b) {
+    var r = sevRank[a.severity] - sevRank[b.severity];
+    if (r !== 0) return r;
+    return (a.productName || '').localeCompare(b.productName || '');
+  });
+  var byProduct = {};
+  var order = [];
+  sorted.forEach(function (i) {
+    if (!(i.productId in byProduct)) { byProduct[i.productId] = { name: i.productName, items: [] }; order.push(i.productId); }
+    byProduct[i.productId].items.push(i);
+  });
+
+  order.forEach(function (pid) {
+    var g = byProduct[pid];
+    lines.push('## ' + g.name + '  `' + pid + '`');
+    lines.push('');
+    g.items.forEach(function (i) {
+      lines.push('- [ ] **[' + i.severity.toUpperCase() + ']** ' + stripTags(i.message) + '  _(' + i.code + ')_');
+    });
+    lines.push('');
+  });
+
+  var md = lines.join('\n');
+  var blob = new Blob([md], { type: 'text/markdown' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  var stamp = now.toISOString().slice(0, 10);
+  a.href = url;
+  a.download = 'catalog-health-' + stamp + '.md';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(function () { URL.revokeObjectURL(url); }, 500);
+  toast('Exported ' + issues.length + ' issues to markdown', 'ok');
+}
+
+/* ---------- Wire filter buttons + hook setView ----------
+ * Required edits to existing code:
+ *
+ * 1) In setView(view) — extend with the health branch:
+ *      if (view === 'health')   showHealthView();
+ *
+ * 2) In bootEditor() — after the existing nav-item wiring, add:
+ *      document.querySelectorAll('#health-panel .health-fbtn').forEach(function (b) {
+ *        b.addEventListener('click', function () { setHealthFilter(b.dataset.sev); });
+ *      });
+ *
+ * 3) After any save/load that rebuilds S.products, optionally call scanCatalog(false)
+ *    so the nav chip stays fresh. Safe to omit — chip refreshes on view open.
+ */
+
+/* === WAVES JS: 5-prose === */
+/* ============================================================
+ *  PROSE PAGES EDITOR
+ * ============================================================ */
+
+/* Hardcoded list so the editor can render the sidebar before products.json loads. */
+const PAGE_KEYS = ['about', 'support', 'terms', 'privacy', 'refund', 'changelog'];
+const PAGE_DEFAULT_TITLES = {
+  about: 'About',
+  support: 'Support',
+  terms: 'Terms of Service',
+  privacy: 'Privacy Policy',
+  refund: 'Refund Policy',
+  changelog: 'Changelog'
+};
+
+/* Editor runtime state for the pages view. */
+const PagesS = {
+  selectedKey: null,
+  previewOn: false,
+  baseline: new Map(),   // key -> stableStringify of last saved page
+  dirty: new Set()       // keys with unsaved changes
+};
+
+/* Ensure S.raw.pages exists and has all 6 keys. Called after products.json loads
+ * (hook into the existing afterDataLoaded / init flow, OR lazily on first showPagesView). */
+function ensurePagesInRaw() {
+  if (!S.raw) S.raw = {};
+  if (!S.raw.pages || typeof S.raw.pages !== 'object') S.raw.pages = {};
+  const today = new Date().toISOString().slice(0, 10);
+  PAGE_KEYS.forEach(k => {
+    if (!S.raw.pages[k]) {
+      S.raw.pages[k] = {
+        title: PAGE_DEFAULT_TITLES[k],
+        body_md: '',
+        last_updated: today
+      };
+    }
+  });
+  // Seed baselines (only first time we see the key)
+  PAGE_KEYS.forEach(k => {
+    if (!PagesS.baseline.has(k)) {
+      PagesS.baseline.set(k, JSON.stringify(S.raw.pages[k]));
+    }
+  });
+}
+
+/* Hide the product grid / featured / sales and show the pages panel. */
+function showPagesView() {
+  // WAVES:sibling-hide:showPagesView
+  { const g = document.getElementById('grid'); if (g) g.style.display = 'none'; }
+  { const el = document.getElementById('sales-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('featured-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('settings-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('homepage-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('health-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('discounts-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('history-panel'); if (el) el.style.display = 'none'; }
+  ensurePagesInRaw();
+  document.getElementById('grid').style.display = 'none';
+  document.getElementById('sales-panel').style.display = 'none';
+  const fp = document.getElementById('featured-panel');
+  if (fp) fp.style.display = 'none';
+  document.getElementById('pages-panel').style.display = '';
+  document.getElementById('canvas-title').textContent = 'Prose Pages';
+  document.getElementById('canvas-sub').textContent =
+    '6 pages · ships with products.json · rendered by /assets/prose.js';
+  renderPagesList();
+  // Keep previously selected page, or default to 'about'
+  selectPage(PagesS.selectedKey || 'about');
+}
+
+/* Render the left sidebar list of pages with dirty dots. */
+function renderPagesList() {
+  const wrap = document.getElementById('pages-list');
+  if (!wrap) return;
+  wrap.innerHTML = PAGE_KEYS.map(k => {
+    const p = (S.raw && S.raw.pages && S.raw.pages[k]) || {};
+    const title = p.title || PAGE_DEFAULT_TITLES[k];
+    const isActive = k === PagesS.selectedKey;
+    const isDirty = PagesS.dirty.has(k);
+    return `<div class="pages-row ${isActive ? 'active' : ''}" data-key="${escapeHtml(k)}" onclick="selectPage('${escapeHtml(k)}')">
+      <div class="pages-row-main">
+        <div class="pages-row-title">${escapeHtml(title)}</div>
+        <div class="pages-row-key">${escapeHtml(k)}.html</div>
+      </div>
+      ${isDirty ? '<span class="pages-row-dirty" title="Unsaved changes"></span>' : ''}
+    </div>`;
+  }).join('');
+}
+
+/* Select a page for editing. */
+function selectPage(key) {
+  if (!PAGE_KEYS.includes(key)) return;
+  ensurePagesInRaw();
+  // Persist in-flight edits from the currently-active page before switching
+  if (PagesS.selectedKey && PagesS.selectedKey !== key) {
+    commitPageEditorToRaw(PagesS.selectedKey);
+  }
+  PagesS.selectedKey = key;
+  const page = S.raw.pages[key];
+
+  document.getElementById('pages-editor-empty').style.display = 'none';
+  document.getElementById('pages-editor-body').style.display = '';
+
+  document.getElementById('pages-key-chip').textContent = key;
+  document.getElementById('pages-title-input').value = page.title || '';
+  document.getElementById('pages-md-input').value = page.body_md || '';
+  document.getElementById('pages-last-updated').textContent =
+    'Last updated: ' + (page.last_updated || '—');
+
+  renderPagesList();
+  if (PagesS.previewOn) updatePagesPreview();
+}
+
+/* Copy the editor inputs back into S.raw.pages[key] and recompute dirty state. */
+function commitPageEditorToRaw(key) {
+  if (!key || !S.raw || !S.raw.pages || !S.raw.pages[key]) return;
+  const titleEl = document.getElementById('pages-title-input');
+  const mdEl = document.getElementById('pages-md-input');
+  if (!titleEl || !mdEl) return;
+  const page = S.raw.pages[key];
+  const nextTitle = titleEl.value;
+  const nextBody = mdEl.value;
+  const changed = (nextTitle !== page.title) || (nextBody !== page.body_md);
+  if (changed) {
+    page.title = nextTitle;
+    page.body_md = nextBody;
+    page.last_updated = new Date().toISOString().slice(0, 10);
+  }
+  // Compare against baseline to set/clear dirty state
+  const now = JSON.stringify(page);
+  const base = PagesS.baseline.get(key);
+  if (now !== base) {
+    PagesS.dirty.add(key);
+    S.dirty.add('__pages__');
+  } else {
+    PagesS.dirty.delete(key);
+    if (PagesS.dirty.size === 0) S.dirty.delete('__pages__');
+  }
+  updateDirtyBadge && updateDirtyBadge();
+}
+
+/* Fired by oninput on title + textarea. */
+function onPageChange() {
+  if (!PagesS.selectedKey) return;
+  commitPageEditorToRaw(PagesS.selectedKey);
+  // Refresh only what's cheap
+  document.getElementById('pages-last-updated').textContent =
+    'Last updated: ' + (S.raw.pages[PagesS.selectedKey].last_updated || '—');
+  renderPagesList();
+  if (PagesS.previewOn) updatePagesPreview();
+}
+
+/* Wire up inputs after first render. Called once from init. */
+function initPagesEditor() {
+  const titleEl = document.getElementById('pages-title-input');
+  const mdEl = document.getElementById('pages-md-input');
+  if (titleEl) titleEl.addEventListener('input', onPageChange);
+  if (mdEl) mdEl.addEventListener('input', onPageChange);
+}
+
+/* Preview toggle */
+function togglePagesPreview() {
+  PagesS.previewOn = !PagesS.previewOn;
+  const split = document.getElementById('pages-editor-split');
+  const prev = document.getElementById('pages-preview');
+  const btn = document.getElementById('pages-preview-toggle');
+  if (PagesS.previewOn) {
+    split.classList.add('with-preview');
+    prev.style.display = '';
+    btn.classList.add('btn-primary');
+    updatePagesPreview();
+  } else {
+    split.classList.remove('with-preview');
+    prev.style.display = 'none';
+    btn.classList.remove('btn-primary');
+  }
+}
+function updatePagesPreview() {
+  const key = PagesS.selectedKey; if (!key) return;
+  const md = document.getElementById('pages-md-input').value || '';
+  const html = miniMarkdown(md);
+  document.getElementById('pages-preview-inner').innerHTML = html;
+}
+
+/* ---------- Tiny markdown parser (shared shape with /assets/prose.js) ----------
+ * Supports: H1-H4, paragraphs, ul/ol, links, bold/italic, inline code, code
+ * blocks (```), hr, blockquotes. Not CommonMark — good enough for policy pages.
+ */
+function miniMarkdown(src) {
+  if (!src) return '';
+  const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const lines = String(src).replace(/\r\n?/g, '\n').split('\n');
+  const out = [];
+  let i = 0, inCode = false, codeBuf = [], listType = null, listBuf = [], paraBuf = [], inQuote = false, quoteBuf = [];
+
+  const flushPara = () => {
+    if (paraBuf.length) {
+      out.push('<p>' + inline(paraBuf.join(' ').trim()) + '</p>');
+      paraBuf = [];
+    }
+  };
+  const flushList = () => {
+    if (listBuf.length) {
+      const tag = listType === 'ol' ? 'ol' : 'ul';
+      out.push('<' + tag + '>' + listBuf.map(t => '<li>' + inline(t) + '</li>').join('') + '</' + tag + '>');
+      listBuf = []; listType = null;
+    }
+  };
+  const flushQuote = () => {
+    if (quoteBuf.length) {
+      out.push('<blockquote>' + quoteBuf.map(t => '<p>' + inline(t) + '</p>').join('') + '</blockquote>');
+      quoteBuf = []; inQuote = false;
+    }
+  };
+  const inline = (s) => {
+    // Order matters: escape first, then re-inject safe tokens
+    s = esc(s);
+    // Inline code
+    s = s.replace(/`([^`]+)`/g, (_, c) => '<code>' + c + '</code>');
+    // Links [text](url)
+    s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g,
+      (_, t, u) => '<a href="' + u.replace(/"/g, '&quot;') + '" rel="noopener">' + t + '</a>');
+    // Bold then italic
+    s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    s = s.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+    return s;
+  };
+
+  for (i = 0; i < lines.length; i++) {
+    const raw = lines[i];
+    const line = raw.replace(/\s+$/, '');
+
+    // Code fence
+    if (/^```/.test(line)) {
+      if (inCode) {
+        out.push('<pre><code>' + esc(codeBuf.join('\n')) + '</code></pre>');
+        codeBuf = []; inCode = false;
+      } else {
+        flushPara(); flushList(); flushQuote();
+        inCode = true;
+      }
+      continue;
+    }
+    if (inCode) { codeBuf.push(raw); continue; }
+
+    // Blank line
+    if (!line.trim()) { flushPara(); flushList(); flushQuote(); continue; }
+
+    // HR
+    if (/^---+\s*$/.test(line) || /^\*\*\*+\s*$/.test(line)) {
+      flushPara(); flushList(); flushQuote();
+      out.push('<hr/>');
+      continue;
+    }
+
+    // Headings
+    const h = /^(#{1,4})\s+(.+)$/.exec(line);
+    if (h) {
+      flushPara(); flushList(); flushQuote();
+      const lvl = h[1].length;
+      out.push('<h' + lvl + '>' + inline(h[2].trim()) + '</h' + lvl + '>');
+      continue;
+    }
+
+    // Blockquote
+    const bq = /^>\s?(.*)$/.exec(line);
+    if (bq) {
+      flushPara(); flushList();
+      inQuote = true;
+      quoteBuf.push(bq[1]);
+      continue;
+    } else if (inQuote) {
+      flushQuote();
+    }
+
+    // Unordered list
+    const ul = /^[-*+]\s+(.+)$/.exec(line);
+    if (ul) {
+      flushPara(); flushQuote();
+      if (listType && listType !== 'ul') flushList();
+      listType = 'ul';
+      listBuf.push(ul[1]);
+      continue;
+    }
+
+    // Ordered list
+    const ol = /^\d+\.\s+(.+)$/.exec(line);
+    if (ol) {
+      flushPara(); flushQuote();
+      if (listType && listType !== 'ol') flushList();
+      listType = 'ol';
+      listBuf.push(ol[1]);
+      continue;
+    } else if (listType) {
+      flushList();
+    }
+
+    // Default: paragraph line
+    paraBuf.push(line.trim());
+  }
+  // End of input — flush everything
+  if (inCode) out.push('<pre><code>' + esc(codeBuf.join('\n')) + '</code></pre>');
+  flushPara(); flushList(); flushQuote();
+  return out.join('\n');
+}
+
+/* ---------- Hook-ins required elsewhere in editor.html ----------
+ *
+ * 1. setView(): add `if (view === 'pages') showPagesView();`
+ *
+ * 2. After products.json loads (inside the existing load() / init flow, AFTER
+ *    S.raw is assigned), call:  ensurePagesInRaw();
+ *
+ * 3. After first DOMContentLoaded (once), call:  initPagesEditor();
+ *
+ * 4. serializedJSON() already does `{ ...S.raw, products: S.products }` so
+ *    S.raw.pages is automatically included in the publish payload. No change
+ *    needed there.
+ *
+ * 5. markAllClean() — after the existing resets, also do:
+ *       PagesS.baseline.clear();
+ *       PAGE_KEYS.forEach(k => {
+ *         if (S.raw && S.raw.pages && S.raw.pages[k]) {
+ *           PagesS.baseline.set(k, JSON.stringify(S.raw.pages[k]));
+ *         }
+ *       });
+ *       PagesS.dirty.clear();
+ *       renderPagesList();
+ *
+ * 6. showProductGrid(): also hide the pages-panel:
+ *       const pp = document.getElementById('pages-panel');
+ *       if (pp) pp.style.display = 'none';
+ */
+
+/* === WAVES JS: 6-discounts === */
+/* ============================================================
+ *  DISCOUNT CODE MANAGER — Paddle /discounts via server proxy
+ * ============================================================ */
+
+// -------- State --------
+const DISCOUNTS_STATE = {
+  all: [],              // full list fetched from Paddle (active + archived)
+  expandedId: null,     // which row has its detail drawer open
+  archivedOpen: false,
+};
+
+// -------- Route wiring --------
+// Add this branch to setView() (do NOT duplicate the function — just add the line):
+//   if (view === 'discounts') showDiscountsView();
+// And in showProductGrid() / showSalesView() / showFeaturedView(), add:
+//   document.getElementById('discounts-panel').style.display = 'none';
+// to hide this panel when switching to other views.
+
+function showDiscountsView() {
+  // WAVES:sibling-hide:showDiscountsView
+  { const g = document.getElementById('grid'); if (g) g.style.display = 'none'; }
+  { const el = document.getElementById('sales-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('featured-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('settings-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('homepage-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('health-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('pages-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('history-panel'); if (el) el.style.display = 'none'; }
+  document.getElementById('grid').style.display = 'none';
+  const fp = document.getElementById('featured-panel');
+  if (fp) fp.style.display = 'none';
+  document.getElementById('sales-panel').style.display = 'none';
+  document.getElementById('discounts-panel').style.display = '';
+  document.getElementById('canvas-title').textContent = 'Discount Codes';
+  document.getElementById('canvas-sub').textContent = 'Paddle discount management';
+
+  const hasSecret = !!getSalesSecret();
+  document.getElementById('discounts-setup').style.display = hasSecret ? 'none' : '';
+  document.getElementById('discounts-body').style.display = hasSecret ? '' : 'none';
+  if (hasSecret) {
+    populateDiscountProductPicker();
+    loadDiscounts();
+  }
+}
+
+// -------- UI helpers --------
+function updateDiscountTypeUI() {
+  const type = document.querySelector('input[name="dc-type"]:checked').value;
+  const amountLabel = document.getElementById('dc-amount-label');
+  const amountHint = document.getElementById('dc-amount-hint');
+  const amountInp = document.getElementById('dc-amount');
+  const ccy = document.getElementById('dc-currency');
+  if (type === 'percentage') {
+    amountLabel.textContent = 'Amount (%)';
+    amountHint.textContent = '1–100 (percent)';
+    amountInp.min = '1'; amountInp.max = '100'; amountInp.placeholder = '30';
+    ccy.disabled = true;
+  } else {
+    amountLabel.textContent = 'Amount (cents)';
+    amountHint.textContent = 'Cents — e.g. 500 = $5.00 off';
+    amountInp.min = '1'; amountInp.removeAttribute('max'); amountInp.placeholder = '500';
+    ccy.disabled = false;
+  }
+}
+
+function updateDiscountScopeUI() {
+  const scope = document.getElementById('dc-scope').value;
+  document.getElementById('dc-products-wrap').style.display = scope === 'specific' ? '' : 'none';
+}
+
+function populateDiscountProductPicker() {
+  // Fill the <select multiple> from currently-loaded catalog (S.products).
+  // Paddle's product_id lives on each p.paddle.product_id — fall back to p.id when absent.
+  const sel = document.getElementById('dc-products');
+  if (!sel) return;
+  const opts = [];
+  const list = (typeof S !== 'undefined' && Array.isArray(S.products)) ? S.products : [];
+  for (const p of list) {
+    const pid = (p && p.paddle && p.paddle.product_id) ? p.paddle.product_id : null;
+    if (!pid) continue; // only products actually mapped to a Paddle product
+    opts.push('<option value="' + escapeHtml(pid) + '">' + escapeHtml(p.name || p.id) + ' — ' + escapeHtml(pid) + '</option>');
+  }
+  sel.innerHTML = opts.length
+    ? opts.join('')
+    : '<option disabled>No products with paddle.product_id set in products.json</option>';
+}
+
+function resetDiscountForm() {
+  document.getElementById('dc-code').value = '';
+  document.getElementById('dc-amount').value = '';
+  document.getElementById('dc-desc').value = '';
+  document.getElementById('dc-starts').value = '';
+  document.getElementById('dc-expires').value = '';
+  document.getElementById('dc-usage-limit').value = '';
+  document.getElementById('dc-scope').value = 'all';
+  document.querySelector('input[name="dc-type"][value="percentage"]').checked = true;
+  const psel = document.getElementById('dc-products');
+  if (psel) [...psel.options].forEach(o => (o.selected = false));
+  updateDiscountTypeUI();
+  updateDiscountScopeUI();
+  showDiscountBanner('', null);
+}
+
+function showDiscountBanner(msg, kind) {
+  const b = document.getElementById('discounts-banner');
+  if (!b) return;
+  if (!msg) { b.style.display = 'none'; b.textContent = ''; b.classList.remove('ok'); return; }
+  b.textContent = msg;
+  b.classList.toggle('ok', kind === 'ok');
+  b.style.display = '';
+}
+
+// -------- Create --------
+async function createDiscount() {
+  const secret = getSalesSecret();
+  if (!secret) { showDiscountBanner('Admin secret missing — set it up in Sales view first.', 'err'); return; }
+
+  const code = (document.getElementById('dc-code').value || '').trim();
+  const type = document.querySelector('input[name="dc-type"]:checked').value;
+  const amountRaw = (document.getElementById('dc-amount').value || '').trim();
+  const desc = (document.getElementById('dc-desc').value || '').trim();
+  const starts = (document.getElementById('dc-starts').value || '').trim();
+  const expires = (document.getElementById('dc-expires').value || '').trim();
+  const usageLimitRaw = (document.getElementById('dc-usage-limit').value || '').trim();
+  const scope = document.getElementById('dc-scope').value;
+  const ccy = document.getElementById('dc-currency').value;
+
+  // Validate
+  if (code.length < 3 || code.length > 40) { showDiscountBanner('Code must be 3–40 characters.', 'err'); return; }
+  if (!amountRaw) { showDiscountBanner('Amount is required.', 'err'); return; }
+  const amountNum = Number(amountRaw);
+  if (!isFinite(amountNum) || amountNum <= 0) { showDiscountBanner('Amount must be a positive number.', 'err'); return; }
+  if (type === 'percentage' && amountNum > 100) { showDiscountBanner('Percent amount cannot exceed 100.', 'err'); return; }
+
+  const body = {
+    code,
+    type,
+    amount: String(amountNum),
+    enabled_for_checkout: true,
+  };
+  if (desc) body.description = desc;
+  if (type === 'flat') body.currency_code = ccy;
+  if (starts) body.starts_at = new Date(starts).toISOString();
+  if (expires) body.expires_at = new Date(expires).toISOString();
+  if (usageLimitRaw) {
+    const u = parseInt(usageLimitRaw, 10);
+    if (isFinite(u) && u > 0) body.usage_limit = u;
+  }
+  if (scope === 'specific') {
+    const sel = document.getElementById('dc-products');
+    const pids = [...sel.selectedOptions].map(o => o.value).filter(v => !!v);
+    if (!pids.length) { showDiscountBanner('Pick at least one product, or change scope to "All products".', 'err'); return; }
+    body.restrict_to = pids;
+  }
+
+  const btn = document.getElementById('dc-create-btn');
+  btn.disabled = true; btn.textContent = 'Creating...';
+  showDiscountBanner('', null);
+
+  try {
+    const r = await fetch('/api/paddle/discounts', {
+      method: 'POST',
+      headers: {
+        'x-admin-secret': secret,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+    const txt = await r.text();
+    let j = null; try { j = JSON.parse(txt); } catch (_) {}
+    if (!r.ok) {
+      const errMsg = (j && j.error && (j.error.detail || j.error.message)) || txt.slice(0, 300);
+      throw new Error('Paddle ' + r.status + ': ' + errMsg);
+    }
+    showDiscountBanner('Created discount ' + code + '.', 'ok');
+    toast('Discount ' + code + ' created', 'ok');
+    resetDiscountForm();
+    loadDiscounts();
+  } catch (e) {
+    showDiscountBanner('Create failed: ' + (e.message || e), 'err');
+    toast('Create failed', 'err');
+  } finally {
+    btn.disabled = false; btn.textContent = '+ Create discount';
+  }
+}
+
+// -------- List --------
+async function loadDiscounts() {
+  const secret = getSalesSecret();
+  if (!secret) { showDiscountsView(); return; }
+  const btn = document.getElementById('discounts-refresh-btn');
+  btn.disabled = true; btn.textContent = '⟳ Loading...';
+  showDiscountBanner('', null);
+
+  try {
+    // Paddle paginates; grab every discount (active + archived + expired) in one call set.
+    const all = [];
+    let url = '/api/paddle/discounts?per_page=100';
+    const MAX_PAGES = 20;
+    let page = 0;
+    while (url && page < MAX_PAGES) {
+      page++;
+      const r = await fetch(url, { headers: { 'x-admin-secret': secret, 'Accept': 'application/json' } });
+      if (r.status === 401) throw new Error('admin secret rejected — reset in Sales view');
+      if (r.status === 403) throw new Error('proxy refused /discounts — worker whitelist may be out of date');
+      if (!r.ok) throw new Error('Paddle ' + r.status + ': ' + (await r.text()).slice(0, 200));
+      const j = await r.json();
+      const chunk = Array.isArray(j.data) ? j.data : [];
+      all.push(...chunk);
+      btn.textContent = '⟳ Loading... (' + all.length + ')';
+      const pag = j.meta && j.meta.pagination;
+      const hasMore = pag && pag.has_more === true;
+      if (!hasMore || chunk.length === 0 || !pag.next) { url = null; break; }
+      try {
+        const parsed = new URL(pag.next);
+        url = '/api/paddle' + parsed.pathname + parsed.search;
+      } catch (_) { url = null; }
+    }
+
+    DISCOUNTS_STATE.all = all;
+    renderDiscountsTable();
+    document.getElementById('discounts-last-sync').textContent = 'Last synced ' + new Date().toLocaleString();
+    const badge = document.getElementById('c-discounts');
+    if (badge) badge.textContent = all.filter(d => d.status === 'active').length;
+  } catch (e) {
+    showDiscountBanner('Load failed: ' + (e.message || e), 'err');
+    document.getElementById('discounts-active-rows').innerHTML =
+      '<tr><td colspan="7" class="discounts-empty" style="color:var(--danger)">Failed: ' + escapeHtml(e.message || String(e)) + '</td></tr>';
+  } finally {
+    btn.disabled = false; btn.textContent = '⟳ Refresh';
+  }
+}
+
+// -------- Render --------
+function renderDiscountsTable() {
+  const all = DISCOUNTS_STATE.all || [];
+  const now = Date.now();
+  const isExpired = (d) => d.expires_at && new Date(d.expires_at).getTime() < now;
+
+  const active = all.filter(d => d.status === 'active' && !isExpired(d));
+  const archived = all.filter(d => d.status !== 'active' || isExpired(d));
+
+  const activeEl = document.getElementById('discounts-active-rows');
+  const archivedEl = document.getElementById('discounts-archived-rows');
+
+  document.getElementById('discounts-active-count').textContent = '· ' + active.length;
+  document.getElementById('discounts-archived-count').textContent = '· ' + archived.length;
+
+  activeEl.innerHTML = active.length
+    ? active.map(d => renderDiscountRow(d, false)).join('')
+    : '<tr><td colspan="7" class="discounts-empty">No active discounts.</td></tr>';
+
+  archivedEl.innerHTML = archived.length
+    ? archived.map(d => renderDiscountRow(d, true)).join('')
+    : '<tr><td colspan="7" class="discounts-empty">—</td></tr>';
+}
+
+function renderDiscountRow(d, isArchived) {
+  const expired = d.expires_at && new Date(d.expires_at).getTime() < Date.now();
+  const statusLabel = expired && d.status === 'active' ? 'expired' : (d.status || '—');
+  const statusClass = (statusLabel === 'active') ? 'active'
+    : (statusLabel === 'expired') ? 'expired'
+    : 'archived';
+
+  const amount = d.type === 'percentage'
+    ? (d.amount + '%')
+    : fmtCurrencyAmount(d.amount, d.currency_code);
+
+  const uses = (d.times_used != null ? d.times_used : 0) + (d.usage_limit ? ' / ' + d.usage_limit : '');
+
+  const scope = (Array.isArray(d.restrict_to) && d.restrict_to.length)
+    ? d.restrict_to.length + ' product' + (d.restrict_to.length === 1 ? '' : 's')
+    : 'All products';
+
+  const expiresCol = d.expires_at ? fmtDate(d.expires_at) : (isArchived ? '—' : 'Never');
+
+  const actionCell = isArchived
+    ? '<span class="dc-status ' + escapeHtml(statusClass) + '">' + escapeHtml(statusLabel) + '</span>'
+    : '<button class="dc-deactivate" onclick="event.stopPropagation();deactivateDiscount(\'' + escapeHtml(d.id) + '\', \'' + escapeHtml(d.code || '') + '\')">Deactivate</button>';
+
+  const mainRow = '<tr class="dc-row-main" onclick="toggleDiscountDetail(\'' + escapeHtml(d.id) + '\')">' +
+    '<td><span class="dc-code">' + escapeHtml(d.code || d.id) + '</span></td>' +
+    '<td><span class="dc-type ' + escapeHtml(d.type || '') + '">' + escapeHtml(d.type || '—') + '</span></td>' +
+    '<td class="num">' + escapeHtml(amount) + '</td>' +
+    '<td>' + escapeHtml(expiresCol) + '</td>' +
+    '<td class="num">' + escapeHtml(uses) + '</td>' +
+    (isArchived
+      ? '<td>' + escapeHtml(statusLabel) + '</td>'
+      : '<td>' + escapeHtml(scope) + '</td>') +
+    '<td class="actions">' + actionCell + '</td>' +
+  '</tr>';
+
+  if (DISCOUNTS_STATE.expandedId !== d.id) return mainRow;
+
+  // Detail row
+  const restrictStr = (Array.isArray(d.restrict_to) && d.restrict_to.length)
+    ? d.restrict_to.map(escapeHtml).join(', ')
+    : 'All products';
+  const detail =
+    '<tr class="dc-row-detail"><td colspan="7">' +
+      '<div class="dc-detail-block">' +
+        '<div>ID</div><div><b>' + escapeHtml(d.id) + '</b></div>' +
+        '<div>Description</div><div>' + escapeHtml(d.description || '—') + '</div>' +
+        '<div>Starts at</div><div>' + escapeHtml(d.starts_at ? fmtDate(d.starts_at) : '—') + '</div>' +
+        '<div>Expires at</div><div>' + escapeHtml(d.expires_at ? fmtDate(d.expires_at) : 'Never') + '</div>' +
+        '<div>Usage limit</div><div>' + (d.usage_limit != null ? escapeHtml(String(d.usage_limit)) : 'Unlimited') + '</div>' +
+        '<div>Times used</div><div>' + escapeHtml(String(d.times_used != null ? d.times_used : 0)) + '</div>' +
+        '<div>Enabled for checkout</div><div>' + (d.enabled_for_checkout ? 'Yes' : 'No') + '</div>' +
+        '<div>Restricted to</div><div class="dc-scope-list">' + restrictStr + '</div>' +
+        '<div>Created</div><div>' + escapeHtml(d.created_at ? fmtDate(d.created_at) : '—') + '</div>' +
+      '</div>' +
+    '</td></tr>';
+
+  return mainRow + detail;
+}
+
+function fmtCurrencyAmount(cents, ccy) {
+  const n = Number(cents) / 100;
+  if (!isFinite(n)) return String(cents);
+  try {
+    return new Intl.NumberFormat(undefined, { style: 'currency', currency: ccy || 'USD' }).format(n);
+  } catch (_) {
+    return (ccy || 'USD') + ' ' + n.toFixed(2);
+  }
+}
+
+function toggleDiscountDetail(id) {
+  DISCOUNTS_STATE.expandedId = (DISCOUNTS_STATE.expandedId === id) ? null : id;
+  renderDiscountsTable();
+}
+
+function toggleArchivedDiscounts() {
+  DISCOUNTS_STATE.archivedOpen = !DISCOUNTS_STATE.archivedOpen;
+  document.getElementById('discounts-archived-wrap').style.display = DISCOUNTS_STATE.archivedOpen ? '' : 'none';
+  document.getElementById('discounts-archived-caret').innerHTML = DISCOUNTS_STATE.archivedOpen ? '&#9662;' : '&#9656;';
+}
+
+// -------- Deactivate --------
+async function deactivateDiscount(id, code) {
+  if (!confirm('Deactivate discount ' + (code || id) + '? Customers will no longer be able to use it.')) return;
+  const secret = getSalesSecret();
+  if (!secret) { showDiscountBanner('Admin secret missing.', 'err'); return; }
+
+  try {
+    const r = await fetch('/api/paddle/discounts/' + encodeURIComponent(id), {
+      method: 'PATCH',
+      headers: {
+        'x-admin-secret': secret,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({ status: 'archived' }),
+    });
+    const txt = await r.text();
+    let j = null; try { j = JSON.parse(txt); } catch (_) {}
+    if (!r.ok) {
+      const errMsg = (j && j.error && (j.error.detail || j.error.message)) || txt.slice(0, 200);
+      throw new Error('Paddle ' + r.status + ': ' + errMsg);
+    }
+    toast('Deactivated ' + (code || id), 'ok');
+    showDiscountBanner('Deactivated ' + (code || id) + '.', 'ok');
+    loadDiscounts();
+  } catch (e) {
+    showDiscountBanner('Deactivate failed: ' + (e.message || e), 'err');
+    toast('Deactivate failed', 'err');
+  }
+}
+
+/* === WAVES JS: 7-history === */
+/* ============================================================
+ *  WAVE 4 — VERSION HISTORY + ROLLBACK
+ *  Lists git commits that touched products.json and lets the
+ *  user restore any past version. Restoring only loads the old
+ *  content into the editor (dirty) — Publish still required.
+ * ============================================================ */
+
+/* State for the history view. Lazy-hydrated by loadHistory(). */
+const HIST = {
+  repo: 'xADROCx1/misfits-studios-site',
+  branch: 'main',
+  path: 'products.json',
+  commits: [],        // [{ sha, message, author, date, expanded, details }]
+  loading: false,
+  error: '',
+  compareMode: false, // "Compare to current" toggle
+};
+
+/* -- REQUIRED WIRING INTO EXISTING CODE ---------------------
+ * 1) In setView(view) (around line 2240), add:
+ *       if (view === 'history')  showHistoryView();
+ * 2) In showProductGrid() (around line 2654), also hide the panel:
+ *       const hp = document.getElementById('history-panel');
+ *       if (hp) hp.style.display = 'none';
+ * 3) In showSalesView() and showFeaturedView() add the same hide line
+ *    so switching views doesn't double-show panels.
+ * ---------------------------------------------------------- */
+
+function showHistoryView() {
+  // WAVES:sibling-hide:showHistoryView
+  { const g = document.getElementById('grid'); if (g) g.style.display = 'none'; }
+  { const el = document.getElementById('sales-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('featured-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('settings-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('homepage-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('health-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('pages-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('discounts-panel'); if (el) el.style.display = 'none'; }
+  document.getElementById('grid').style.display = 'none';
+  const fp = document.getElementById('featured-panel');      if (fp) fp.style.display = 'none';
+  const sp = document.getElementById('sales-panel');         if (sp) sp.style.display = 'none';
+  document.getElementById('history-panel').style.display = '';
+  document.getElementById('canvas-title').textContent = 'Version History';
+  document.getElementById('canvas-sub').textContent = 'Commits of products.json · click Restore to rewind';
+  syncHistoryView();
+}
+
+/* Toggle setup card vs body based on whether a PAT is stored. */
+function syncHistoryView() {
+  const hasPAT = !!getStoredPAT();
+  document.getElementById('history-setup').style.display = hasPAT ? 'none' : '';
+  document.getElementById('history-body').style.display  = hasPAT ? '' : 'none';
+  if (hasPAT && HIST.commits.length === 0 && !HIST.loading) {
+    loadHistory();
+  } else if (hasPAT) {
+    renderHistoryTable();
+  }
+}
+
+/* Fetch the last 30 commits that touched products.json. */
+async function loadHistory() {
+  const token = getStoredPAT();
+  if (!token) { syncHistoryView(); return; }
+
+  HIST.loading = true;
+  HIST.error = '';
+  renderHistorySkeleton();
+
+  const btn = document.getElementById('history-refresh-btn');
+  if (btn) { btn.disabled = true; btn.textContent = '↻ Loading...'; }
+
+  try {
+    const url = `https://api.github.com/repos/${HIST.repo}/commits`
+              + `?path=${encodeURIComponent(HIST.path)}&per_page=30&sha=${HIST.branch}`;
+    const res = await fetch(url, {
+      headers: {
+        'Authorization': 'token ' + token,
+        'Accept': 'application/vnd.github+json',
+      },
+    });
+    if (res.status === 401 || res.status === 403) {
+      const j = await res.json().catch(() => ({}));
+      const rate = res.headers.get('X-RateLimit-Remaining');
+      if (rate === '0') throw new Error('GitHub rate-limit hit. Wait a few minutes or use a different token.');
+      throw new Error('GitHub rejected the token (' + res.status + '). ' + (j.message || 'Check scope/expiry.'));
+    }
+    if (!res.ok) throw new Error('GitHub ' + res.status + ' ' + res.statusText);
+    const data = await res.json();
+    HIST.commits = data.map(c => ({
+      sha: c.sha,
+      message: (c.commit && c.commit.message) || '',
+      author: (c.commit && c.commit.author && c.commit.author.name)
+            || (c.author && c.author.login) || 'unknown',
+      date: (c.commit && c.commit.author && c.commit.author.date) || '',
+      expanded: false,
+      details: null,
+    }));
+    HIST.loading = false;
+    renderHistoryTable();
+  } catch (e) {
+    HIST.loading = false;
+    HIST.error = (e && e.message) || String(e);
+    renderHistoryTable();
+    toast('History: ' + HIST.error, 'err');
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = '↻ Refresh'; }
+  }
+}
+
+function renderHistorySkeleton() {
+  const tbody = document.getElementById('history-rows');
+  if (!tbody) return;
+  let html = '';
+  for (let i = 0; i < 8; i++) {
+    html += '<tr><td><div class="history-skel" style="width:70px"></div></td>'
+         +  '<td><div class="history-skel" style="width:80%"></div></td>'
+         +  '<td><div class="history-skel" style="width:90px"></div></td>'
+         +  '<td><div class="history-skel" style="width:60px"></div></td>'
+         +  '<td><div class="history-skel" style="width:180px;margin-left:auto"></div></td></tr>';
+  }
+  tbody.innerHTML = html;
+}
+
+function renderHistoryTable() {
+  const tbody = document.getElementById('history-rows');
+  if (!tbody) return;
+  if (HIST.error) {
+    tbody.innerHTML = `<tr><td colspan="5" class="history-error">${escapeHtml(HIST.error)}<br/><span style="color:var(--muted);font-size:11px;">Click Refresh to retry.</span></td></tr>`;
+    return;
+  }
+  if (HIST.commits.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="5" class="history-empty">No commits found that touched ${escapeHtml(HIST.path)}.</td></tr>`;
+    return;
+  }
+
+  const metaEl = document.getElementById('history-meta');
+  if (metaEl) metaEl.textContent = HIST.commits.length + ' commits that touched ' + HIST.path;
+
+  let html = '';
+  HIST.commits.forEach((c, idx) => {
+    const short = c.sha.slice(0, 7);
+    const firstLine = (c.message || '').split('\n')[0];
+    const msgTrunc = firstLine.length > 80 ? firstLine.slice(0, 77) + '…' : firstLine;
+    const isHead = idx === 0;
+    html += `<tr class="history-row" data-sha="${escapeHtml(c.sha)}">
+      <td><span class="history-sha${isHead ? ' head' : ''}" title="${escapeHtml(c.sha)}">${short}</span></td>
+      <td><div class="history-msg" title="${escapeHtml(firstLine)}">${escapeHtml(msgTrunc)}</div></td>
+      <td><span class="history-author">${escapeHtml(c.author)}</span></td>
+      <td><span class="history-when" title="${escapeHtml(c.date)}">${escapeHtml(relativeTime(c.date))}</span></td>
+      <td class="num"><div class="history-actions">
+        <button class="btn" onclick="viewDiff('${c.sha}')">${c.expanded ? '▴ Hide diff' : '▾ View diff'}</button>
+        <button class="btn btn-danger" onclick="restoreVersion('${c.sha}')" ${isHead ? 'disabled title="This IS the current live version"' : ''}>&#8630; Restore</button>
+      </div></td>
+    </tr>`;
+    if (c.expanded) {
+      html += `<tr class="history-diff-row"><td colspan="5">${renderDiffBox(c)}</td></tr>`;
+    }
+  });
+  tbody.innerHTML = html;
+}
+
+/* Toggle-expand a row and lazy-fetch the per-commit files[] payload. */
+async function viewDiff(sha) {
+  const c = HIST.commits.find(x => x.sha === sha);
+  if (!c) return;
+  c.expanded = !c.expanded;
+  renderHistoryTable();
+  if (!c.expanded || c.details) return;
+
+  const token = getStoredPAT();
+  if (!token) { toast('No GitHub token saved', 'err'); return; }
+
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${HIST.repo}/commits/${sha}`,
+      { headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github+json' } }
+    );
+    if (!res.ok) throw new Error('GitHub ' + res.status);
+    const data = await res.json();
+    c.details = {
+      stats: data.stats || { additions: 0, deletions: 0, total: 0 },
+      files: (data.files || []).map(f => ({
+        filename: f.filename,
+        status: f.status,
+        additions: f.additions || 0,
+        deletions: f.deletions || 0,
+      })),
+    };
+    // If Compare-to-current is on and this is the selected commit, also fetch content for the key diff.
+    if (HIST.compareMode) await hydrateCompareFor(sha);
+    renderHistoryTable();
+  } catch (e) {
+    toast('Diff fetch failed: ' + e.message, 'err');
+    c.expanded = false;
+    renderHistoryTable();
+  }
+}
+
+function renderDiffBox(c) {
+  if (!c.details) {
+    return `<div class="history-diff-box"><div class="history-diff-title">Loading diff…</div><div class="history-skel" style="width:40%"></div></div>`;
+  }
+  const s = c.details.stats;
+  let files = '';
+  c.details.files.forEach(f => {
+    files += `<div class="history-diff-file">
+      <span class="history-diff-fn">${escapeHtml(f.filename)} <span style="color:var(--muted)">(${escapeHtml(f.status)})</span></span>
+      <span class="history-diff-add">+${f.additions}</span>
+      <span class="history-diff-del">-${f.deletions}</span>
+    </div>`;
+  });
+  let compare = '';
+  if (HIST.compareMode && c.compare) {
+    compare = `<div class="history-compare">
+      <div class="history-compare-title">Top-level key diff vs your current editor state</div>
+      <div class="history-compare-row">
+        <span class="add">Added keys: <b>${c.compare.added.length}</b>${c.compare.added.length ? ' · ' + c.compare.added.slice(0, 5).map(escapeHtml).join(', ') + (c.compare.added.length > 5 ? '…' : '') : ''}</span>
+        <span class="del">Removed keys: <b>${c.compare.removed.length}</b>${c.compare.removed.length ? ' · ' + c.compare.removed.slice(0, 5).map(escapeHtml).join(', ') + (c.compare.removed.length > 5 ? '…' : '') : ''}</span>
+        <span class="mod">Modified keys: <b>${c.compare.modified.length}</b>${c.compare.modified.length ? ' · ' + c.compare.modified.slice(0, 5).map(escapeHtml).join(', ') + (c.compare.modified.length > 5 ? '…' : '') : ''}</span>
+      </div>
+    </div>`;
+  } else if (HIST.compareMode && c.compareError) {
+    compare = `<div class="history-compare"><div class="history-compare-title" style="color:var(--danger)">Compare failed</div><div style="color:var(--muted)">${escapeHtml(c.compareError)}</div></div>`;
+  }
+  return `<div class="history-diff-box">
+    <div class="history-diff-title">Commit totals · +${s.additions} −${s.deletions} across ${c.details.files.length} file(s)</div>
+    ${files}
+    ${compare}
+  </div>`;
+}
+
+/* "Compare to current" — fetch this commit's products.json and diff top-level product
+   ids + manifest keys against the current editor S.raw / S.products. Kept intentionally
+   simple: added/removed/modified product-id counts + raw top-level key counts. */
+async function hydrateCompareFor(sha) {
+  const c = HIST.commits.find(x => x.sha === sha);
+  if (!c) return;
+  if (c.compare || c.compareError) return;
+  const token = getStoredPAT();
+  if (!token) return;
+  try {
+    const contentRes = await fetch(
+      `https://api.github.com/repos/${HIST.repo}/contents/${encodeURIComponent(HIST.path)}?ref=${sha}`,
+      { headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github+json' } }
+    );
+    if (!contentRes.ok) throw new Error('GitHub ' + contentRes.status);
+    const ct = await contentRes.json();
+    const past = JSON.parse(atob((ct.content || '').replace(/\n/g, '')));
+    c.compare = diffAgainstCurrent(past);
+  } catch (e) {
+    c.compareError = e.message || String(e);
+  }
+}
+
+/* Simple per-product-id diff + top-level key diff. Intentionally shallow. */
+function diffAgainstCurrent(pastRaw) {
+  const cur = S.raw || { products: S.products || [] };
+  const curIds = new Set((cur.products || []).map(p => p.id));
+  const pastIds = new Set((pastRaw.products || []).map(p => p.id));
+  const added = [];     // in past, not in current  (would be restored)
+  const removed = [];   // in current, not in past  (would disappear on restore)
+  const modified = [];  // same id, different content
+  pastIds.forEach(id => { if (!curIds.has(id)) added.push(id); });
+  curIds.forEach(id => { if (!pastIds.has(id)) removed.push(id); });
+  const curById = new Map((cur.products || []).map(p => [p.id, JSON.stringify(p)]));
+  (pastRaw.products || []).forEach(p => {
+    if (curIds.has(p.id) && curById.get(p.id) !== JSON.stringify(p)) modified.push(p.id);
+  });
+  return { added, removed, modified };
+}
+
+function onHistoryCompareToggle() {
+  HIST.compareMode = document.getElementById('history-compare-toggle').checked;
+  // Re-hydrate for any already-expanded rows.
+  const expanded = HIST.commits.filter(c => c.expanded);
+  Promise.all(expanded.map(c => hydrateCompareFor(c.sha))).then(() => renderHistoryTable());
+  renderHistoryTable();
+}
+
+/* Fetch a past version of products.json and load it into the editor as dirty state.
+   We deliberately DO NOT call markAllClean — the user needs to Publish to make it live. */
+async function restoreVersion(sha) {
+  const c = HIST.commits.find(x => x.sha === sha);
+  const short = sha.slice(0, 7);
+  const msg = (c && c.message.split('\n')[0]) || '';
+
+  const ok = confirm(
+    `Restore products.json from commit ${short}?\n\n` +
+    (msg ? `"${msg}"\n\n` : '') +
+    `Your current unsaved changes will be lost. This loads the old content into the editor — ` +
+    `you still need to Publish to make it live.`
+  );
+  if (!ok) return;
+
+  const token = getStoredPAT();
+  if (!token) { toast('No GitHub token saved — open Publish to save one', 'err'); return; }
+
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${HIST.repo}/contents/${encodeURIComponent(HIST.path)}?ref=${sha}`,
+      { headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github+json' } }
+    );
+    if (!res.ok) throw new Error('GitHub ' + res.status + ' ' + res.statusText);
+    const data = await res.json();
+    if (!data.content) throw new Error('No content returned for that commit');
+    // GitHub returns base64 with embedded newlines.
+    const decoded = atob(data.content.replace(/\n/g, ''));
+    let parsed;
+    try { parsed = JSON.parse(decoded); }
+    catch (pe) { throw new Error('That version is not valid JSON: ' + pe.message); }
+    if (!parsed.products || !Array.isArray(parsed.products)) {
+      throw new Error('That version has no "products" array — refusing to load.');
+    }
+
+    // Swap editor state to the restored snapshot.
+    S.raw = parsed;
+    S.products = parsed.products;
+    S.selectedId = null;
+
+    // Re-render every view with the restored data.
+    rerenderAll();
+
+    // DO NOT markAllClean — we want the user to see "unsaved changes" and Publish.
+    // Instead, flag every product + the manifest dirty so the badge + grid tint both fire.
+    if (!S.dirty) S.dirty = new Set();
+    S.dirty.clear();
+    S.products.forEach(p => S.dirty.add(p.id));
+    S.dirty.add('__manifest__');
+    updateDirtyBadge();
+    renderGrid();
+
+    toast('Restored version ' + short + ' — review and hit Publish to make it live', 'ok');
+  } catch (e) {
+    toast('Restore failed: ' + (e.message || e), 'err');
+  }
+}
+
+/* Relative-time formatter — small, no-deps. */
+function relativeTime(iso) {
+  if (!iso) return '—';
+  const then = new Date(iso).getTime();
+  if (isNaN(then)) return '—';
+  const diff = Math.max(0, Date.now() - then);
+  const s = Math.floor(diff / 1000);
+  if (s < 60)   return s + 's ago';
+  const m = Math.floor(s / 60);
+  if (m < 60)   return m + 'm ago';
+  const h = Math.floor(m / 60);
+  if (h < 24)   return h + 'h ago';
+  const d = Math.floor(h / 24);
+  if (d < 7)    return d + 'd ago';
+  if (d < 30)   return Math.floor(d / 7) + 'w ago';
+  if (d < 365)  return Math.floor(d / 30) + 'mo ago';
+  return Math.floor(d / 365) + 'y ago';
+}
+
+/* === WAVES JS: 8-gallery === */
+/* ---------- Gallery / screenshots ---------- */
+
+// Build the inner HTML for the screenshot grid for a given product.
+// Exposed so the renderSide() template literal can call it inline.
+function renderScreenshotWidget(p) {
+  const shots = Array.isArray(p && p.screenshots) ? p.screenshots : [];
+  if (!shots.length) {
+    return `<div class="gallery-empty">no screenshots &mdash; upload or drop up to 6 images</div>`;
+  }
+  return shots.map((path, i) => {
+    const staged = S.stagedImages && S.stagedImages.get(path);
+    const src = staged ? staged.dataUrl : path;
+    return `
+      <div class="gallery-thumb${staged ? ' staged' : ''}" draggable="true" data-i="${i}">
+        <img src="${escapeHtml(src)}" alt="screenshot ${i + 1}" onerror="this.style.opacity=0.3" />
+        <span class="slot-badge">#${i + 1}</span>
+        ${i === 0 ? '<span class="primary-badge">PRIMARY</span>' : ''}
+        <button type="button" class="remove-x" title="Remove" onclick="removeScreenshot(${i})">&times;</button>
+      </div>`;
+  }).join('');
+}
+
+// Redraw just the gallery area (cheaper than full renderSide()).
+function refreshGalleryGrid() {
+  const p = S.products.find(x => x.id === S.selectedId);
+  if (!p) return;
+  const grid = document.getElementById('gallery-grid');
+  if (!grid) return;
+  grid.innerHTML = renderScreenshotWidget(p);
+  wireGalleryDnD();
+  refreshScreenshotCount();
+}
+
+function refreshScreenshotCount() {
+  const p = S.products.find(x => x.id === S.selectedId);
+  if (!p) return;
+  const el = document.getElementById('ss-count');
+  if (el) el.textContent = (Array.isArray(p.screenshots) ? p.screenshots.length : 0);
+}
+
+// Wire native HTML5 drag-and-drop on each thumb for reorder.
+function wireGalleryDnD() {
+  const grid = document.getElementById('gallery-grid');
+  if (!grid) return;
+  const thumbs = grid.querySelectorAll('.gallery-thumb');
+  let fromIdx = null;
+  thumbs.forEach(th => {
+    th.addEventListener('dragstart', (e) => {
+      fromIdx = parseInt(th.dataset.i, 10);
+      th.classList.add('dragging');
+      // Use a transparent payload so it's treated as same-origin move, not a file drop
+      try { e.dataTransfer.setData('text/plain', 'gallery:' + fromIdx); } catch (_) {}
+      if (e.dataTransfer) e.dataTransfer.effectAllowed = 'move';
+    });
+    th.addEventListener('dragend', () => {
+      th.classList.remove('dragging');
+      grid.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('drop-target'));
+      fromIdx = null;
+    });
+    th.addEventListener('dragover', (e) => {
+      // Only act on internal gallery drags (not file drops onto the thumb)
+      if (fromIdx == null) return;
+      e.preventDefault();
+      if (e.dataTransfer) e.dataTransfer.dropEffect = 'move';
+      grid.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('drop-target'));
+      th.classList.add('drop-target');
+    });
+    th.addEventListener('dragleave', () => {
+      th.classList.remove('drop-target');
+    });
+    th.addEventListener('drop', (e) => {
+      if (fromIdx == null) return;
+      e.preventDefault();
+      e.stopPropagation();
+      const toIdx = parseInt(th.dataset.i, 10);
+      if (fromIdx !== toIdx) reorderScreenshots(fromIdx, toIdx);
+    });
+  });
+}
+
+// Stage one uploaded image at the next available slot (or targetIndex if given).
+function stageScreenshotUpload(file, targetIndex) {
+  const p = S.products.find(x => x.id === S.selectedId);
+  if (!p) return;
+  if (!/^image\//i.test(file.type)) { toast('Not an image file', 'err'); return; }
+  if (file.size > 4 * 1024 * 1024) { toast('Image too large (>4MB). Compress and retry.', 'err'); return; }
+
+  p.screenshots = Array.isArray(p.screenshots) ? p.screenshots : [];
+  if (p.screenshots.length >= 6 && targetIndex == null) {
+    toast('Max 6 screenshots per product', 'err');
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    const dataUrl = reader.result;
+    const comma = dataUrl.indexOf(',');
+    const base64Content = dataUrl.slice(comma + 1);
+    const ext = (file.name.split('.').pop() || 'jpg').toLowerCase().replace(/[^a-z0-9]/g, '') || 'jpg';
+    const slug = p.slug || slugify(p.name || p.id || 'product');
+    const slotIndex = (typeof targetIndex === 'number') ? targetIndex : p.screenshots.length;
+    const humanIndex = slotIndex + 1; // 1-based in filename for clarity
+    const targetPath = 'assets/products/' + slug + '-ss-' + humanIndex + '.' + ext;
+    const publicPath = '/' + targetPath;
+
+    S.stagedImages.set(publicPath, {
+      repoPath: targetPath,
+      filename: file.name,
+      base64: base64Content,
+      dataUrl: dataUrl
+    });
+
+    snapshot();
+    // If target was given and a slot existed, replace; otherwise append
+    if (typeof targetIndex === 'number' && p.screenshots[targetIndex] != null) {
+      // clear stale staged entry if present for the old path
+      const oldPath = p.screenshots[targetIndex];
+      if (oldPath && S.stagedImages.has(oldPath) && oldPath !== publicPath) {
+        S.stagedImages.delete(oldPath);
+      }
+      p.screenshots[targetIndex] = publicPath;
+    } else {
+      p.screenshots.push(publicPath);
+    }
+
+    markDirty(p.id);
+    refreshGalleryGrid();
+    const hint = document.getElementById('gallery-hint');
+    if (hint) {
+      hint.textContent = `Staged ${file.name} to slot #${humanIndex}. Commits on next Publish.`;
+      hint.classList.add('staged');
+    }
+    toast('Screenshot staged', 'ok');
+  };
+  reader.readAsDataURL(file);
+}
+
+function removeScreenshot(index) {
+  const p = S.products.find(x => x.id === S.selectedId);
+  if (!p || !Array.isArray(p.screenshots)) return;
+  if (index < 0 || index >= p.screenshots.length) return;
+  snapshot();
+  const removed = p.screenshots.splice(index, 1)[0];
+  // If it was staged-but-not-yet-committed, drop the staged blob to free memory
+  // and prevent the publish flow from pushing an orphan file.
+  if (removed && S.stagedImages && S.stagedImages.has(removed)) {
+    S.stagedImages.delete(removed);
+  }
+  markDirty(p.id);
+  refreshGalleryGrid();
+  toast('Screenshot removed', 'ok');
+}
+
+function reorderScreenshots(from, to) {
+  const p = S.products.find(x => x.id === S.selectedId);
+  if (!p || !Array.isArray(p.screenshots)) return;
+  if (from === to || from < 0 || to < 0 || from >= p.screenshots.length || to >= p.screenshots.length) return;
+  snapshot();
+  const [moved] = p.screenshots.splice(from, 1);
+  p.screenshots.splice(to, 0, moved);
+  markDirty(p.id);
+  refreshGalleryGrid();
+  toast('Reordered', 'ok');
 }
 
 wireGate();

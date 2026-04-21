@@ -1,0 +1,609 @@
+WAVE 3 — HOMEPAGE EDITOR
+========================
+Adds a Homepage view to the editor so the user can edit hero copy,
+tagline strip, HUD ticker, featured section headings, and the footer
+tiles/CTAs without touching HTML. All edits land in
+S.raw.homepage and mark __manifest__ dirty so Save writes products.json.
+
+Insertion points (editor.html):
+  NAV    -> inside the Site nav section (near data-view="settings")
+  PANEL  -> inside the canvas body, next to #sales-panel / #featured-panel
+  CSS    -> bottom of <style> block (all selectors .homepage-* prefixed)
+  JS     -> end of <script> block, next to showFeaturedView()
+  Also add to onViewChange-style dispatcher:
+     if (view === 'homepage') showHomepageView();
+
+
+=== NAV ===
+<div class="nav-item" data-view="homepage">
+  <span>&#127969; Homepage</span>
+</div>
+
+
+=== PANEL ===
+<div id="homepage-panel" style="display:none">
+  <div class="homepage-intro">
+    Edit every user-facing string on the homepage. Saves into
+    <code>products.json &rarr; homepage</code>. Empty fields fall back
+    to the hardcoded defaults shipped in <code>index.html</code>.
+  </div>
+
+  <!-- Live preview card -->
+  <div class="homepage-preview" id="homepage-preview">
+    <div class="homepage-preview-label">// LIVE PREVIEW</div>
+    <div class="homepage-preview-eyebrow" id="hp-prev-eyebrow">&gt;&gt; ONE DEV &middot; EVERY LINE &middot; ZERO FILLER &lt;&lt;</div>
+    <div class="homepage-preview-stack">
+      <span class="homepage-preview-crafted" id="hp-prev-crafted">CRAFTED</span>
+      <span class="homepage-preview-for" id="hp-prev-for">FOR</span>
+      <span class="homepage-preview-misfits" id="hp-prev-misfits">MISFITS.</span>
+    </div>
+    <div class="homepage-preview-sub" id="hp-prev-sub">48 weaponized Rust plugins...</div>
+  </div>
+
+  <!-- HERO -->
+  <details class="homepage-section" open>
+    <summary>Hero</summary>
+    <div class="homepage-grid-2">
+      <label class="homepage-field">
+        <span>Word 1 (CRAFTED)</span>
+        <input type="text" data-hp-key="hero.crafted" placeholder="CRAFTED" />
+      </label>
+      <label class="homepage-field">
+        <span>Word 2 (FOR)</span>
+        <input type="text" data-hp-key="hero.for" placeholder="FOR" />
+      </label>
+      <label class="homepage-field homepage-field-full">
+        <span>Word 3 (MISFITS.)</span>
+        <input type="text" data-hp-key="hero.misfits" placeholder="MISFITS." />
+      </label>
+      <label class="homepage-field homepage-field-full">
+        <span>Subtitle paragraph</span>
+        <textarea rows="3" data-hp-key="hero.subtitle" placeholder="48 weaponized Rust plugins..."></textarea>
+      </label>
+    </div>
+  </details>
+
+  <!-- TAGLINE STRIP -->
+  <details class="homepage-section" open>
+    <summary>Tagline strip (eyebrow, 3 slots)</summary>
+    <div class="homepage-grid-3">
+      <label class="homepage-field">
+        <span>Slot 1</span>
+        <input type="text" data-hp-key="tagline_strip.0" placeholder=">> ONE DEV" />
+      </label>
+      <label class="homepage-field">
+        <span>Slot 2</span>
+        <input type="text" data-hp-key="tagline_strip.1" placeholder="EVERY LINE" />
+      </label>
+      <label class="homepage-field">
+        <span>Slot 3</span>
+        <input type="text" data-hp-key="tagline_strip.2" placeholder="ZERO FILLER <<" />
+      </label>
+    </div>
+  </details>
+
+  <!-- TICKER STRIP -->
+  <details class="homepage-section" open>
+    <summary>HUD ticker strip (top marquee)</summary>
+    <div class="homepage-ticker-hint">Add one line per item. They cycle in the black bar at the top of every page.</div>
+    <div id="homepage-ticker-list" class="homepage-ticker-list"></div>
+    <button class="btn" type="button" onclick="addTickerItem()">+ Add ticker item</button>
+  </details>
+
+  <!-- FEATURED SECTION HEADINGS -->
+  <details class="homepage-section">
+    <summary>Featured section (homepage grid headings)</summary>
+    <div class="homepage-grid-2">
+      <label class="homepage-field">
+        <span>Title</span>
+        <input type="text" data-hp-key="sections.featured_title" placeholder="Featured Plugins" />
+      </label>
+      <label class="homepage-field">
+        <span>Subline</span>
+        <input type="text" data-hp-key="sections.featured_sub" placeholder="// hand-picked from the catalog" />
+      </label>
+      <label class="homepage-field homepage-field-full">
+        <span>CTA button label (links to /plugins.html)</span>
+        <input type="text" data-hp-key="sections.featured_cta_label" placeholder="VIEW ALL →" />
+      </label>
+    </div>
+  </details>
+
+  <!-- FOOTER -->
+  <details class="homepage-section">
+    <summary>Footer tiles &amp; copyright</summary>
+    <div class="homepage-subhead">About tile</div>
+    <div class="homepage-grid-2">
+      <label class="homepage-field">
+        <span>Title</span>
+        <input type="text" data-hp-key="footer.tile_about_title" placeholder="About" />
+      </label>
+      <label class="homepage-field">
+        <span>Body</span>
+        <input type="text" data-hp-key="footer.tile_about_body" placeholder="The promise behind Misfits Studios..." />
+      </label>
+    </div>
+
+    <div class="homepage-subhead">Support tile</div>
+    <div class="homepage-grid-2">
+      <label class="homepage-field">
+        <span>Title</span>
+        <input type="text" data-hp-key="footer.tile_support_title" placeholder="Support" />
+      </label>
+      <label class="homepage-field">
+        <span>Body</span>
+        <input type="text" data-hp-key="footer.tile_support_body" placeholder="Bug report, pre-sale question..." />
+      </label>
+    </div>
+
+    <div class="homepage-subhead">Terms tile</div>
+    <div class="homepage-grid-2">
+      <label class="homepage-field">
+        <span>Title</span>
+        <input type="text" data-hp-key="footer.tile_terms_title" placeholder="Terms" />
+      </label>
+      <label class="homepage-field">
+        <span>Body</span>
+        <input type="text" data-hp-key="footer.tile_terms_body" placeholder="Licensing, refunds..." />
+      </label>
+    </div>
+
+    <div class="homepage-subhead">Legal line</div>
+    <div class="homepage-grid-2">
+      <label class="homepage-field">
+        <span>Copyright</span>
+        <input type="text" data-hp-key="footer.copyright" placeholder="(c) 2026 MISFITS STUDIOS" />
+      </label>
+      <label class="homepage-field">
+        <span>Disclaimer</span>
+        <input type="text" data-hp-key="footer.disclaimer" placeholder="NOT AFFILIATED WITH FACEPUNCH / OXIDE / CARBON" />
+      </label>
+    </div>
+  </details>
+</div>
+
+
+=== CSS ===
+#homepage-panel {
+  padding: 24px;
+  max-width: 960px;
+  margin: 0 auto;
+  font-family: var(--font-mono);
+  color: var(--paper);
+}
+.homepage-intro {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+  padding: 12px 14px;
+  border: 1px dashed var(--line);
+  border-radius: 6px;
+  margin-bottom: 18px;
+}
+.homepage-intro code {
+  color: var(--cyan);
+  background: rgba(83,221,252,.08);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+/* Live preview card */
+.homepage-preview {
+  background: linear-gradient(135deg, rgba(204,151,255,.05), rgba(83,221,252,.04));
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 22px 24px;
+  margin-bottom: 22px;
+  text-align: center;
+}
+.homepage-preview-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .25em;
+  color: var(--cyan);
+  margin-bottom: 10px;
+}
+.homepage-preview-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .12em;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+.homepage-preview-stack {
+  font-family: var(--font-head, 'Space Grotesk', sans-serif);
+  font-weight: 900;
+  line-height: 0.95;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  margin-bottom: 14px;
+}
+.homepage-preview-crafted,
+.homepage-preview-for,
+.homepage-preview-misfits {
+  display: inline-block;
+  font-size: 40px;
+}
+.homepage-preview-crafted { color: var(--pink); }
+.homepage-preview-for     { color: var(--yellow); margin: 0 10px; }
+.homepage-preview-misfits { color: var(--cyan); }
+.homepage-preview-sub {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.55;
+}
+
+/* Section accordion */
+.homepage-section {
+  background: rgba(255,255,255,.02);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+.homepage-section > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 12px 16px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .15em;
+  color: var(--cyan);
+  user-select: none;
+}
+.homepage-section > summary::-webkit-details-marker { display: none; }
+.homepage-section > summary::before {
+  content: '▸ ';
+  color: var(--muted);
+  margin-right: 6px;
+}
+.homepage-section[open] > summary::before { content: '▾ '; color: var(--cyan); }
+.homepage-section > *:not(summary) {
+  padding: 14px 16px 18px;
+  border-top: 1px solid var(--line);
+}
+
+.homepage-subhead {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .22em;
+  color: var(--muted);
+  margin: 14px 0 8px;
+}
+.homepage-subhead:first-child { margin-top: 0; }
+
+/* Input grids */
+.homepage-grid-2,
+.homepage-grid-3 {
+  display: grid;
+  gap: 12px;
+}
+.homepage-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.homepage-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.homepage-field-full { grid-column: 1 / -1; }
+
+.homepage-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.homepage-field > span {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .15em;
+  color: var(--muted);
+}
+.homepage-field input,
+.homepage-field textarea {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 8px 10px;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color .15s ease, box-shadow .15s ease;
+  box-sizing: border-box;
+  resize: vertical;
+}
+.homepage-field input:focus,
+.homepage-field textarea:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 2px rgba(83,221,252,.15);
+}
+
+/* Ticker editable list */
+.homepage-ticker-hint {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.homepage-ticker-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.homepage-ticker-row {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  gap: 8px;
+  align-items: center;
+}
+.homepage-ticker-row .idx {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+  text-align: right;
+}
+.homepage-ticker-row input {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  outline: none;
+}
+.homepage-ticker-row input:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 2px rgba(83,221,252,.15);
+}
+.homepage-ticker-row .rm {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.homepage-ticker-row .rm:hover {
+  color: var(--pink);
+  border-color: var(--pink);
+}
+
+
+=== JS ===
+/* ============================================================
+ * Wave 3 — Homepage editor view
+ * ============================================================ */
+
+function ensureHomepageObject() {
+  if (!S.raw) S.raw = {};
+  if (!S.raw.homepage || typeof S.raw.homepage !== 'object') {
+    S.raw.homepage = {};
+  }
+  var hp = S.raw.homepage;
+  if (!hp.hero || typeof hp.hero !== 'object') hp.hero = {};
+  if (!Array.isArray(hp.tagline_strip)) hp.tagline_strip = [];
+  if (!Array.isArray(hp.ticker_strip)) hp.ticker_strip = [];
+  if (!hp.sections || typeof hp.sections !== 'object') hp.sections = {};
+  if (!hp.footer || typeof hp.footer !== 'object') hp.footer = {};
+  return hp;
+}
+
+/* Dotted path get/set on an object, supporting numeric indices ("a.0"). */
+function getHomepagePath(path) {
+  var hp = ensureHomepageObject();
+  var parts = String(path).split('.');
+  var cur = hp;
+  for (var i = 0; i < parts.length; i++) {
+    if (cur == null) return undefined;
+    cur = cur[parts[i]];
+  }
+  return cur;
+}
+
+function setHomepagePath(path, val) {
+  var hp = ensureHomepageObject();
+  var parts = String(path).split('.');
+  var cur = hp;
+  for (var i = 0; i < parts.length - 1; i++) {
+    var k = parts[i];
+    var next = parts[i + 1];
+    var nextIsIndex = /^\d+$/.test(next);
+    if (cur[k] == null) {
+      cur[k] = nextIsIndex ? [] : {};
+    }
+    cur = cur[k];
+  }
+  var leaf = parts[parts.length - 1];
+  cur[leaf] = val;
+}
+
+function showHomepageView() {
+  document.getElementById('grid').style.display = 'none';
+  var fp = document.getElementById('featured-panel');
+  if (fp) fp.style.display = 'none';
+  var sp = document.getElementById('sales-panel');
+  if (sp) sp.style.display = 'none';
+  document.getElementById('homepage-panel').style.display = '';
+  document.getElementById('canvas-title').textContent = 'Homepage';
+  document.getElementById('canvas-sub').textContent = 'Hero, tagline, ticker, section heads, footer tiles';
+  renderHomepagePanel();
+}
+
+function renderHomepagePanel() {
+  ensureHomepageObject();
+  var panel = document.getElementById('homepage-panel');
+  if (!panel) return;
+
+  // Fill every [data-hp-key] input/textarea with its current value.
+  panel.querySelectorAll('[data-hp-key]').forEach(function (el) {
+    var key = el.getAttribute('data-hp-key');
+    var val = getHomepagePath(key);
+    el.value = (val == null) ? '' : String(val);
+
+    // Wire change events once.
+    if (!el.__hpBound) {
+      el.__hpBound = true;
+      el.addEventListener('input', onHomepageFieldChange);
+    }
+  });
+
+  renderTickerList();
+  updateHomepagePreview();
+}
+
+function onHomepageFieldChange(ev) {
+  var el = ev.currentTarget;
+  var key = el.getAttribute('data-hp-key');
+  if (!key) return;
+  var v = el.value;
+  // Strip trailing empty -> delete path so fallback wins.
+  if (v === '') {
+    setHomepagePath(key, '');
+  } else {
+    setHomepagePath(key, v);
+  }
+  S.dirty.add('__manifest__');
+  updateDirtyBadge && updateDirtyBadge();
+  updateHomepagePreview();
+}
+
+/* ---- Ticker dynamic list ---- */
+function renderTickerList() {
+  var hp = ensureHomepageObject();
+  var list = document.getElementById('homepage-ticker-list');
+  if (!list) return;
+  list.innerHTML = '';
+  hp.ticker_strip.forEach(function (item, i) {
+    var row = document.createElement('div');
+    row.className = 'homepage-ticker-row';
+    row.innerHTML =
+      '<div class="idx">' + (i + 1) + '.</div>' +
+      '<input type="text" value="" />' +
+      '<button class="rm" type="button" title="Remove">&times;</button>';
+    var input = row.querySelector('input');
+    input.value = item == null ? '' : String(item);
+    input.addEventListener('input', function () {
+      var hp2 = ensureHomepageObject();
+      hp2.ticker_strip[i] = input.value;
+      S.dirty.add('__manifest__');
+      updateDirtyBadge && updateDirtyBadge();
+    });
+    row.querySelector('.rm').addEventListener('click', function () {
+      var hp2 = ensureHomepageObject();
+      hp2.ticker_strip.splice(i, 1);
+      S.dirty.add('__manifest__');
+      updateDirtyBadge && updateDirtyBadge();
+      renderTickerList();
+    });
+    list.appendChild(row);
+  });
+}
+
+function addTickerItem() {
+  var hp = ensureHomepageObject();
+  hp.ticker_strip.push('');
+  S.dirty.add('__manifest__');
+  updateDirtyBadge && updateDirtyBadge();
+  renderTickerList();
+}
+
+/* ---- Live preview ---- */
+function updateHomepagePreview() {
+  var hp = ensureHomepageObject();
+  var $ = function (id) { return document.getElementById(id); };
+
+  if ($('hp-prev-crafted')) $('hp-prev-crafted').textContent = hp.hero.crafted || 'CRAFTED';
+  if ($('hp-prev-for'))     $('hp-prev-for').textContent     = hp.hero.for     || 'FOR';
+  if ($('hp-prev-misfits')) $('hp-prev-misfits').textContent = hp.hero.misfits || 'MISFITS.';
+  if ($('hp-prev-sub'))     $('hp-prev-sub').textContent     = hp.hero.subtitle || '48 weaponized Rust plugins...';
+
+  if ($('hp-prev-eyebrow')) {
+    var t = hp.tagline_strip || [];
+    var a = t[0] || '>> ONE DEV';
+    var b = t[1] || 'EVERY LINE';
+    var c = t[2] || 'ZERO FILLER <<';
+    $('hp-prev-eyebrow').textContent = a + '  ·  ' + b + '  ·  ' + c;
+  }
+}
+
+/* Hook into the existing view dispatcher. Add this line to the
+   existing switch / if-chain that handles data-view clicks:
+
+       if (view === 'homepage') showHomepageView();
+
+   (See editor.html line ~2242 — next to the sales/featured cases.) */
+
+
+=== PRODUCTS_JSON_PATCH ===
+{
+  "homepage": {
+    "hero": {
+      "crafted": "CRAFTED",
+      "for": "FOR",
+      "misfits": "MISFITS.",
+      "subtitle": "48 weaponized Rust plugins. Per-server license. Lifetime updates. Oxide + Carbon compatible. Built direct from the keyboard that wrote them — no middlemen, no reseller markup."
+    },
+    "tagline_strip": [
+      ">>  ONE DEV",
+      "EVERY LINE",
+      "ZERO FILLER  <<"
+    ],
+    "ticker_strip": [
+      "OXIDE + CARBON COMPATIBLE",
+      "ORIGINAL WORK",
+      "SOLO DEV",
+      "DIRECT DISCORD SUPPORT",
+      "NO RESELLING",
+      "V.1.0_STUDIO_PROTOCOL"
+    ],
+    "sections": {
+      "featured_title": "Featured Plugins",
+      "featured_sub": "// hand-picked from the catalog",
+      "featured_cta_label": "VIEW ALL →"
+    },
+    "footer": {
+      "tile_about_title": "About",
+      "tile_about_body": "The promise behind Misfits Studios — original work, direct support from the dev who wrote it.",
+      "tile_support_title": "Support",
+      "tile_support_body": "Bug report, pre-sale question, or just want to chat? Talk directly to the person who wrote the code.",
+      "tile_terms_title": "Terms",
+      "tile_terms_body": "Licensing, refunds, updates, privacy — plain English, no legalese. Read before you buy.",
+      "copyright": "(c) 2026 MISFITS STUDIOS",
+      "disclaimer": "NOT AFFILIATED WITH FACEPUNCH / OXIDE / CARBON"
+    }
+  }
+}
+
+
+=== OTHER_FILES_MODIFIED ===
+assets/homepage.js: created, ~115 lines
+  Standalone runtime renderer. Fetches /products.json (or reuses
+  window.MisfitsProducts from store.js), finds [data-hp="key.path"]
+  elements, swaps textContent. Special-cases ticker_strip (rebuilds
+  the duplicated marquee spans from an array). Empty/missing values
+  leave the hardcoded fallback HTML intact.
+
+index.html: added data-hp attributes + <script> include
+  - <head>: +  <script src="/assets/homepage.js" defer></script>
+  - HUD ticker .animate-marquee: + data-hp="ticker_strip"
+  - Hero eyebrow: wrapped the 3 tokens in <span data-hp="tagline_strip.0..2">
+  - .v5-hero-crafted: + data-hp="hero.crafted"
+  - .v5-hero-for:     + data-hp="hero.for"
+  - .v5-hero-misfits: + data-hp="hero.misfits"
+  - .v5-hero-body:    + data-hp="hero.subtitle"
+  - Featured h2:   + data-hp="sections.featured_title"
+  - Featured sub:  + data-hp="sections.featured_sub"
+  - Featured CTA:  + data-hp="sections.featured_cta_label"
+  - About tile  (h3/p): + data-hp="footer.tile_about_title" / "..._body"
+  - Support tile (h3/p): + data-hp="footer.tile_support_title" / "..._body"
+  - Terms tile  (h3/p): + data-hp="footer.tile_terms_title" / "..._body"
+  - Footer copyright line: + data-hp="footer.copyright"
+  - Footer disclaimer line: + data-hp="footer.disclaimer"
+  All hardcoded fallback text preserved for first paint and JS-off safety.

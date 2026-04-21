@@ -1,0 +1,459 @@
+=== NAV ===
+(empty — no new nav items for this wave)
+
+=== PANEL ===
+(empty — no new panels)
+
+=== TOPBAR_ADDITIONS ===
+# Insert this fragment inside the existing <div class="top"> block (around line 874),
+# immediately BEFORE the <button class="btn btn-primary save-btn" id="save-btn" ...> element.
+# Placement puts the deploy dot between the PRODUCTS count-pill and the Save button.
+
+    <button type="button"
+            class="deploy-indicator"
+            id="deploy-indicator"
+            data-status="unknown"
+            title="Deploy status — click to open Cloudflare dashboard"
+            onclick="openDeployDashboard()"
+            onmouseenter="showDeployTooltip()"
+            onmouseleave="hideDeployTooltip()">
+      <span class="deploy-dot" id="deploy-dot"></span>
+      <span class="deploy-label" id="deploy-label">DEPLOY</span>
+      <div class="deploy-tooltip" id="deploy-tooltip" role="tooltip">
+        <div class="deploy-tip-row"><span class="k">status</span><span class="v" id="deploy-tip-status">unknown</span></div>
+        <div class="deploy-tip-row"><span class="k">commit</span><span class="v" id="deploy-tip-sha">—</span></div>
+        <div class="deploy-tip-row"><span class="k">stamp</span><span class="v" id="deploy-tip-stamp">—</span></div>
+        <div class="deploy-tip-row"><span class="k">checked</span><span class="v" id="deploy-tip-checked">—</span></div>
+        <div class="deploy-tip-hint">click to open Cloudflare deployments →</div>
+      </div>
+    </button>
+
+=== GRID_CARD_ADDITIONS ===
+# Add a small icon-only preview button to the top-right of every card in renderGrid().
+# Insert EXACTLY on the line AFTER the featured-star line inside the el.innerHTML template literal
+# (renderGrid, around line 1338). The featured star is at top-right; position this preview button
+# at top-LEFT so they sit on opposite corners and never clash.
+#
+# Before (existing line 1338):
+#   ${isFeatured(p.id) ? '<div class="featured-star" title="Featured on homepage">&#9733;</div>' : ''}
+# After: keep that line, then add the line below right after it.
+
+      <button type="button" class="preview-btn-card" title="Preview live product page"
+              onclick="event.stopPropagation(); openPreview('${escapeHtml(p.slug || p.id || '')}')">&#128269;</button>
+
+=== SIDE_PANEL_ADDITIONS ===
+# In renderSide() the .side-head currently looks like (around line 1445):
+#
+#   <div class="side-head">
+#     <div class="title">Editing &rsaquo; ${escapeHtml(p.id)}</div>
+#     <button class="close" title="Close (Esc)" onclick="closeSide()">&times;</button>
+#   </div>
+#
+# Replace that whole block with the version below — it keeps the title and close button
+# and adds a labeled Preview Live button between them.
+
+    <div class="side-head">
+      <div class="title">Editing &rsaquo; ${escapeHtml(p.id)}</div>
+      <button class="preview-btn-side" type="button" title="Open live product page in a new tab"
+              onclick="openPreview('${escapeHtml(p.slug || p.id || '')}')">&#128269; Preview live</button>
+      <button class="close" title="Close (Esc)" onclick="closeSide()">&times;</button>
+    </div>
+
+=== CSS ===
+/* ---------- Deploy status indicator (top bar) ---------- */
+.deploy-indicator {
+  position: relative;
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 12px 5px 10px;
+  cursor: pointer;
+  transition: border-color 140ms ease, color 140ms ease, background 140ms ease;
+}
+.deploy-indicator:hover {
+  border-color: var(--line-2);
+  color: var(--paper);
+  background: rgba(255, 255, 255, 0.03);
+}
+.deploy-indicator:focus-visible {
+  outline: 1px solid var(--cyan);
+  outline-offset: 2px;
+}
+.deploy-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: #6b6b78;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  transition: background 200ms ease, box-shadow 200ms ease;
+  flex: none;
+}
+.deploy-label { line-height: 1; }
+
+/* Status color states — driven by data-status on .deploy-indicator */
+.deploy-indicator[data-status="live"]     .deploy-dot { background: var(--mint);  box-shadow: 0 0 10px rgba(0, 255, 163, 0.75); animation: deploy-pulse 2.4s ease-in-out infinite; }
+.deploy-indicator[data-status="live"]                 { color: var(--mint); border-color: rgba(0, 255, 163, 0.35); }
+.deploy-indicator[data-status="building"] .deploy-dot { background: var(--yellow); box-shadow: 0 0 10px rgba(255, 217, 0, 0.75); animation: deploy-pulse 1.1s ease-in-out infinite; }
+.deploy-indicator[data-status="building"]             { color: var(--yellow); border-color: rgba(255, 217, 0, 0.45); }
+.deploy-indicator[data-status="failed"]   .deploy-dot { background: var(--danger); box-shadow: 0 0 10px rgba(255, 71, 87, 0.85); animation: deploy-pulse 0.9s ease-in-out infinite; }
+.deploy-indicator[data-status="failed"]               { color: var(--danger); border-color: rgba(255, 71, 87, 0.5); }
+.deploy-indicator[data-status="unknown"]  .deploy-dot { background: #6b6b78; }
+.deploy-indicator[data-status="unknown"]              { color: var(--muted); border-color: var(--line); }
+
+@keyframes deploy-pulse {
+  0%, 100% { transform: scale(1);    opacity: 1; }
+  50%      { transform: scale(1.25); opacity: 0.7; }
+}
+
+/* Tooltip */
+.deploy-tooltip {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 240px;
+  padding: 10px 12px;
+  background: #0a0a14;
+  border: 1px solid var(--line-2);
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--paper);
+  opacity: 0; pointer-events: none; transform: translateY(-4px);
+  transition: opacity 120ms ease, transform 120ms ease;
+  z-index: 300;
+  text-align: left;
+}
+.deploy-indicator.tip-open .deploy-tooltip {
+  opacity: 1; transform: translateY(0);
+}
+.deploy-tip-row {
+  display: flex; justify-content: space-between; gap: 14px;
+  padding: 3px 0;
+}
+.deploy-tip-row .k { color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; font-size: 9px; align-self: center; }
+.deploy-tip-row .v { color: var(--paper); text-align: right; word-break: break-all; max-width: 160px; }
+.deploy-tip-hint {
+  margin-top: 6px; padding-top: 6px;
+  border-top: 1px dashed var(--line);
+  font-size: 10px; color: var(--cyan); letter-spacing: 0.05em;
+}
+
+/* ---------- Preview button — grid card (icon-only, top-left corner) ---------- */
+.card { /* ensure positioning context if not already present; cards already use it for featured-star */ }
+.preview-btn-card {
+  position: absolute;
+  top: 8px; left: 8px;
+  width: 26px; height: 26px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--muted);
+  font-size: 13px; line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 140ms ease, color 140ms ease, border-color 140ms ease, background 140ms ease, transform 140ms ease;
+  z-index: 3;
+}
+.card:hover .preview-btn-card,
+.card.selected .preview-btn-card,
+.preview-btn-card:focus-visible { opacity: 1; }
+.preview-btn-card:hover {
+  color: var(--cyan);
+  border-color: var(--cyan);
+  background: rgba(0, 229, 255, 0.08);
+  transform: translateY(-1px);
+}
+
+/* ---------- Preview button — side panel (labeled) ---------- */
+.preview-btn-side {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  background: transparent;
+  border: 1px solid var(--line-2);
+  border-radius: 4px;
+  color: var(--muted);
+  padding: 5px 9px;
+  cursor: pointer;
+  transition: color 120ms ease, border-color 120ms ease, background 120ms ease;
+}
+.preview-btn-side:hover {
+  color: var(--cyan);
+  border-color: var(--cyan);
+  background: rgba(0, 229, 255, 0.06);
+}
+
+=== JS ===
+/* ============================================================
+ * WAVE 1.5 — Deploy Status Indicator + Preview Buttons
+ * ----------------------------------------------------------------
+ * Exposes:
+ *   initDeployMonitor()   — call once from load() AFTER S.raw is populated.
+ *                           Captures the current last_editor_update as baseline.
+ *   notifyDeployPending(newStamp)
+ *                         — optional hook: call from publishNow() right after
+ *                           the commit lands. Flips dot to yellow and polls
+ *                           every 5s until products.json.last_editor_update
+ *                           matches newStamp (then flips to green).
+ *   openPreview(slug)     — opens /products/<slug>.html?_=<ts> in a new tab.
+ *   openDeployDashboard() — onclick handler for the deploy dot.
+ *   showDeployTooltip() / hideDeployTooltip() — hover handlers.
+ * ============================================================ */
+
+// Shared deploy-monitor state
+const DEPLOY = {
+  baselineStamp: null,       // captured at load; last_editor_update from products.json
+  lastSeenStamp: null,       // most recent stamp observed on the live CDN
+  latestCommitSha: null,     // from GitHub commits API
+  latestCommitTimeMs: null,  // epoch ms of the latest main commit
+  status: 'unknown',         // live | building | failed | unknown
+  checkedAtMs: null,
+  pollTimer: null,           // setTimeout handle for idle 30s poll
+  fastTimer: null,           // setTimeout handle for 5s post-publish poll
+  pendingStamp: null,        // stamp we just committed; green when CDN matches
+  fastDeadlineMs: null,      // when to give up fast-polling
+  FAST_INTERVAL_MS: 5000,
+  IDLE_INTERVAL_MS: 30000,
+  FAST_MAX_MS: 300000,       // stop fast-polling after 5 min; fall back to idle
+  STALE_BUILD_MS: 180000,    // if commit is this old and CDN hasn't caught up → failed
+  CF_DASH_URL: 'https://dash.cloudflare.com/0603e115e818770b40acbf0e449cc241/workers/services/view/misfits-studios-site/production/deployments',
+  REPO: 'xADROCx1/misfits-studios-site'
+};
+
+function initDeployMonitor() {
+  // Baseline: whatever last_editor_update was when the editor loaded.
+  // The caller (load()) has already populated S.raw from /products.json.
+  try {
+    if (window.S && S.raw && S.raw.last_editor_update) {
+      DEPLOY.baselineStamp = S.raw.last_editor_update;
+      DEPLOY.lastSeenStamp = S.raw.last_editor_update;
+    }
+  } catch (_) { /* keep null baseline */ }
+
+  updateDeployDot('unknown', { note: 'initializing' });
+  // Kick off first poll immediately, then every 30s.
+  pollDeployStatus();
+}
+
+function schedulePoll(delayMs) {
+  if (DEPLOY.pollTimer) clearTimeout(DEPLOY.pollTimer);
+  DEPLOY.pollTimer = setTimeout(pollDeployStatus, delayMs);
+}
+
+async function pollDeployStatus() {
+  // Run the two probes in parallel: CDN products.json + GitHub latest commit.
+  const cdnP = fetchLiveProducts();
+  const ghP  = fetchLatestCommit();
+  const [cdn, gh] = await Promise.all([cdnP, ghP]);
+
+  DEPLOY.checkedAtMs = Date.now();
+  if (cdn && cdn.stamp) DEPLOY.lastSeenStamp = cdn.stamp;
+  if (gh) {
+    DEPLOY.latestCommitSha = gh.sha;
+    DEPLOY.latestCommitTimeMs = gh.timeMs;
+  }
+
+  // Decide status
+  let status = 'unknown';
+
+  if (DEPLOY.pendingStamp) {
+    // A publish is in-flight — we care only whether the CDN caught up.
+    if (cdn && cdn.stamp === DEPLOY.pendingStamp) {
+      status = 'live';
+      DEPLOY.pendingStamp = null;
+      DEPLOY.baselineStamp = cdn.stamp;
+      clearFastTimer();
+    } else {
+      status = 'building';
+    }
+  } else if (cdn && cdn.stamp) {
+    // Idle monitoring
+    if (DEPLOY.baselineStamp && cdn.stamp !== DEPLOY.baselineStamp) {
+      // Someone else pushed a new stamp since we loaded — treat as live and adopt.
+      status = 'live';
+      DEPLOY.baselineStamp = cdn.stamp;
+    } else if (gh && gh.sha && DEPLOY.baselineStamp && !stampMatchesSha(DEPLOY.baselineStamp, gh)) {
+      // A newer commit exists on main but the CDN stamp hasn't advanced.
+      const age = Date.now() - (gh.timeMs || Date.now());
+      if (age > DEPLOY.STALE_BUILD_MS) {
+        status = 'failed';
+      } else {
+        status = 'building';
+      }
+    } else {
+      status = 'live';
+    }
+  } else if (gh && gh.sha) {
+    // CDN unreachable but GitHub responded — can't confirm live, but not clearly failed.
+    status = 'unknown';
+  } else {
+    status = 'unknown';
+  }
+
+  updateDeployDot(status, {
+    sha: DEPLOY.latestCommitSha,
+    stamp: DEPLOY.lastSeenStamp,
+    checkedAtMs: DEPLOY.checkedAtMs
+  });
+
+  // Re-schedule
+  if (DEPLOY.pendingStamp) {
+    // Fast polling during a publish
+    if (DEPLOY.fastDeadlineMs && Date.now() > DEPLOY.fastDeadlineMs) {
+      // Give up the fast cadence, drop back to idle 30s.
+      DEPLOY.pendingStamp = null;
+      DEPLOY.fastDeadlineMs = null;
+      schedulePoll(DEPLOY.IDLE_INTERVAL_MS);
+    } else {
+      schedulePoll(DEPLOY.FAST_INTERVAL_MS);
+    }
+  } else {
+    schedulePoll(DEPLOY.IDLE_INTERVAL_MS);
+  }
+}
+
+// If the CDN's last_editor_update is older than the latest GitHub commit's timestamp,
+// the build hasn't caught up. (We can't directly compare stamp↔sha, we compare times.)
+function stampMatchesSha(stamp, gh) {
+  if (!stamp || !gh || !gh.timeMs) return true; // can't tell → assume ok
+  const stampMs = Date.parse(stamp);
+  if (isNaN(stampMs)) return true;
+  // Consider "caught up" if the CDN stamp is within 90s of (or after) the commit time.
+  return stampMs >= (gh.timeMs - 90000);
+}
+
+async function fetchLiveProducts() {
+  try {
+    const base = (location.origin.includes('localhost') || location.origin.startsWith('file:'))
+      ? 'https://misfits-studios.com'
+      : location.origin;
+    const r = await fetch(base + '/products.json?_=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) return null;
+    const j = await r.json();
+    return { stamp: (j && j.last_editor_update) || null };
+  } catch (_) {
+    return null;
+  }
+}
+
+async function fetchLatestCommit() {
+  try {
+    const r = await fetch('https://api.github.com/repos/' + DEPLOY.REPO + '/commits/main', {
+      headers: { 'Accept': 'application/vnd.github+json' },
+      cache: 'no-store'
+    });
+    if (!r.ok) return null;
+    const j = await r.json();
+    const sha = (j && j.sha || '').slice(0, 7);
+    const dateStr = j && j.commit && j.commit.committer && j.commit.committer.date;
+    const timeMs = dateStr ? Date.parse(dateStr) : null;
+    return { sha: sha || null, timeMs: timeMs || null };
+  } catch (_) {
+    return null;
+  }
+}
+
+function updateDeployDot(status, meta) {
+  DEPLOY.status = status;
+  const host = document.getElementById('deploy-indicator');
+  if (!host) return;
+  host.setAttribute('data-status', status);
+
+  const labelMap = { live: 'LIVE', building: 'BUILDING', failed: 'FAILED', unknown: 'DEPLOY' };
+  const lbl = document.getElementById('deploy-label');
+  if (lbl) lbl.textContent = labelMap[status] || 'DEPLOY';
+
+  const statusEl = document.getElementById('deploy-tip-status');
+  if (statusEl) statusEl.textContent = status;
+
+  const shaEl = document.getElementById('deploy-tip-sha');
+  if (shaEl) shaEl.textContent = (meta && meta.sha) ? meta.sha : (DEPLOY.latestCommitSha || '—');
+
+  const stampEl = document.getElementById('deploy-tip-stamp');
+  if (stampEl) stampEl.textContent = (meta && meta.stamp) ? meta.stamp : (DEPLOY.lastSeenStamp || '—');
+
+  const checkedEl = document.getElementById('deploy-tip-checked');
+  if (checkedEl) {
+    const ts = (meta && meta.checkedAtMs) || DEPLOY.checkedAtMs;
+    checkedEl.textContent = ts ? new Date(ts).toLocaleTimeString() : '—';
+  }
+
+  // Also refresh the host title for browsers that show the native tooltip.
+  const titleBits = [
+    'Deploy: ' + status,
+    DEPLOY.latestCommitSha ? ('commit ' + DEPLOY.latestCommitSha) : null,
+    DEPLOY.checkedAtMs ? ('checked ' + new Date(DEPLOY.checkedAtMs).toLocaleTimeString()) : null
+  ].filter(Boolean);
+  host.setAttribute('title', titleBits.join(' · ') + ' — click to open Cloudflare dashboard');
+}
+
+function showDeployTooltip() {
+  const host = document.getElementById('deploy-indicator');
+  if (host) host.classList.add('tip-open');
+}
+function hideDeployTooltip() {
+  const host = document.getElementById('deploy-indicator');
+  if (host) host.classList.remove('tip-open');
+}
+function openDeployDashboard() {
+  window.open(DEPLOY.CF_DASH_URL, '_blank', 'noopener,noreferrer');
+}
+
+function clearFastTimer() {
+  DEPLOY.fastDeadlineMs = null;
+}
+
+/**
+ * Call this from publishNow() right after the commit lands with the stamp
+ * that was just written into S.raw.last_editor_update. This makes the dot
+ * go yellow immediately and flip green the moment the CDN catches up.
+ * Optional — if you never call it, the 30s idle poll will still eventually
+ * detect the new stamp and flip green.
+ */
+function notifyDeployPending(newStamp) {
+  if (!newStamp) return;
+  DEPLOY.pendingStamp = newStamp;
+  DEPLOY.fastDeadlineMs = Date.now() + DEPLOY.FAST_MAX_MS;
+  updateDeployDot('building', { stamp: newStamp });
+  // Kick a poll right away; it will re-schedule itself at the fast cadence.
+  if (DEPLOY.pollTimer) { clearTimeout(DEPLOY.pollTimer); DEPLOY.pollTimer = null; }
+  pollDeployStatus();
+}
+
+/* ---------- Preview button (grid card + side panel) ---------- */
+function openPreview(slug) {
+  if (!slug) { toast('No slug on this product yet — save first', 'err'); return; }
+  const base = (location.origin.includes('localhost') || location.origin.startsWith('file:'))
+    ? 'https://misfits-studios.com'
+    : location.origin;
+  const url = base + '/products/' + encodeURIComponent(slug) + '.html?_=' + Date.now();
+  window.open(url, '_blank', 'noopener,noreferrer');
+}
+
+=== OTHER_FILES_MODIFIED ===
+(none — all changes are contained in editor.html)
+
+=== INTEGRATION NOTES ===
+1. Call initDeployMonitor() once at the very end of the existing load() function,
+   AFTER S.raw has been populated from the fetched products.json. Example:
+       // ... end of load() ...
+       initDeployMonitor();
+
+2. (Optional but recommended) In publishNow(), right AFTER the line:
+       if (S.raw) S.raw.last_editor_update = stamp;
+   add:
+       try { notifyDeployPending(stamp); } catch (_) {}
+   This makes the dot turn yellow immediately and flip green in near-real-time
+   once the CDN propagation completes. If you skip this, the indicator will
+   still catch the change on its next 30s idle poll.
+
+3. No new network permissions required — the GitHub commits endpoint is
+   public-read for the public repo, and the /products.json fetch targets
+   the same origin (or misfits-studios.com when running off localhost/file).

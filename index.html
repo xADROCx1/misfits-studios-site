@@ -28,6 +28,7 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
 <script src="assets/store.js" defer></script>
+<script src="/assets/homepage.js" defer></script>
 <script>
   tailwind.config = {
     darkMode: "class",
@@ -374,7 +375,7 @@
 
 <!-- HUD status strip -->
 <div class="w-full bg-ink py-1.5 overflow-hidden z-[60] border-b border-accent/20">
-  <div class="animate-marquee whitespace-nowrap text-[10px] uppercase">
+  <div class="animate-marquee whitespace-nowrap text-[10px] uppercase" data-hp="ticker_strip">
     <span class="px-4 text-accent">// OXIDE + CARBON COMPATIBLE // ORIGINAL WORK // SOLO DEV // DIRECT DISCORD SUPPORT // NO RESELLING // V.1.0_STUDIO_PROTOCOL //</span>
     <span class="px-4 text-accent">// OXIDE + CARBON COMPATIBLE // ORIGINAL WORK // SOLO DEV // DIRECT DISCORD SUPPORT // NO RESELLING // V.1.0_STUDIO_PROTOCOL //</span>
   </div>
@@ -413,15 +414,15 @@
     <canvas class="v5-matrix-canvas" aria-hidden="true"></canvas>
     <div class="v5-scan-beam" aria-hidden="true"></div>
     <div class="v5-wrap v5-hero-content">
-      <p class="v5-hero-eyebrow">&gt;&gt;&nbsp;&nbsp;ONE DEV&nbsp;&nbsp;&middot;&nbsp;&nbsp;EVERY LINE&nbsp;&nbsp;&middot;&nbsp;&nbsp;ZERO FILLER&nbsp;&nbsp;&lt;&lt;</p>
+      <p class="v5-hero-eyebrow"><span data-hp="tagline_strip.0">&gt;&gt;&nbsp;&nbsp;ONE DEV</span>&nbsp;&nbsp;&middot;&nbsp;&nbsp;<span data-hp="tagline_strip.1">EVERY LINE</span>&nbsp;&nbsp;&middot;&nbsp;&nbsp;<span data-hp="tagline_strip.2">ZERO FILLER&nbsp;&nbsp;&lt;&lt;</span></p>
 
       <h1 class="v5-hero-stack">
-        <span class="v5-hero-crafted" data-text="CRAFTED">CRAFTED</span>
-        <span class="v5-hero-for">FOR</span>
-        <span class="v5-hero-misfits">MISFITS.</span>
+        <span class="v5-hero-crafted" data-text="CRAFTED" data-hp="hero.crafted">CRAFTED</span>
+        <span class="v5-hero-for" data-hp="hero.for">FOR</span>
+        <span class="v5-hero-misfits" data-hp="hero.misfits">MISFITS.</span>
       </h1>
 
-      <p class="v5-hero-body">
+      <p class="v5-hero-body" data-hp="hero.subtitle">
         48 weaponized Rust plugins. Per-server license. Lifetime updates. Oxide + Carbon compatible.
         Built direct from the keyboard that wrote them &mdash; no middlemen, no reseller markup.
       </p>
@@ -489,10 +490,10 @@
     <div class="max-w-7xl mx-auto">
       <div class="flex items-baseline justify-between mb-10 flex-wrap gap-4">
         <div>
-          <h2 class="text-4xl md:text-5xl font-headline font-black uppercase">Featured Plugins</h2>
-          <p class="font-mono text-sm text-muted mt-2">// hand-picked from the catalog</p>
+          <h2 class="text-4xl md:text-5xl font-headline font-black uppercase" data-hp="sections.featured_title">Featured Plugins</h2>
+          <p class="font-mono text-sm text-muted mt-2" data-hp="sections.featured_sub">// hand-picked from the catalog</p>
         </div>
-        <a href="plugins.html" class="ob-btn-ghost px-6 py-3 font-label text-xs uppercase tracking-[0.25em]">VIEW ALL &rarr;</a>
+        <a href="plugins.html" class="ob-btn-ghost px-6 py-3 font-label text-xs uppercase tracking-[0.25em]" data-hp="sections.featured_cta_label">VIEW ALL &rarr;</a>
       </div>
       <div id="product-grid" data-category="featured" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div class="col-span-full text-center py-16 font-mono text-sm text-muted">Loading featured plugins…</div>
@@ -504,16 +505,16 @@
   <section class="px-6 py-20 bg-surface">
     <div class="max-w-5xl mx-auto grid md:grid-cols-3 gap-8">
       <a href="about.html" class="group p-8 bg-surface-hi rounded-md border border-transparent hover:border-primary/30 transition-all hover:shadow-[0_15px_40px_rgba(132,44,211,.18)] hover:-translate-y-1">
-        <h3 class="text-2xl font-headline font-black uppercase mb-3 text-primary group-hover:text-accent transition-all">About</h3>
-        <p class="text-sm text-muted">The promise behind Misfits Studios — original work, direct support from the dev who wrote it.</p>
+        <h3 class="text-2xl font-headline font-black uppercase mb-3 text-primary group-hover:text-accent transition-all" data-hp="footer.tile_about_title">About</h3>
+        <p class="text-sm text-muted" data-hp="footer.tile_about_body">The promise behind Misfits Studios — original work, direct support from the dev who wrote it.</p>
       </a>
       <a href="support.html" class="group p-8 bg-surface-hi rounded-md border border-transparent hover:border-accent/30 transition-all hover:shadow-[0_15px_40px_rgba(83,221,252,.15)] hover:-translate-y-1">
-        <h3 class="text-2xl font-headline font-black uppercase mb-3 text-accent group-hover:text-primary transition-all">Support</h3>
-        <p class="text-sm text-muted">Bug report, pre-sale question, or just want to chat? Talk directly to the person who wrote the code.</p>
+        <h3 class="text-2xl font-headline font-black uppercase mb-3 text-accent group-hover:text-primary transition-all" data-hp="footer.tile_support_title">Support</h3>
+        <p class="text-sm text-muted" data-hp="footer.tile_support_body">Bug report, pre-sale question, or just want to chat? Talk directly to the person who wrote the code.</p>
       </a>
       <a href="terms.html" class="group p-8 bg-surface-hi rounded-md border border-transparent hover:border-tertiary/30 transition-all hover:shadow-[0_15px_40px_rgba(255,134,195,.12)] hover:-translate-y-1">
-        <h3 class="text-2xl font-headline font-black uppercase mb-3 text-tertiary group-hover:text-primary transition-all">Terms</h3>
-        <p class="text-sm text-muted">Licensing, refunds, updates, privacy — plain English, no legalese. Read before you buy.</p>
+        <h3 class="text-2xl font-headline font-black uppercase mb-3 text-tertiary group-hover:text-primary transition-all" data-hp="footer.tile_terms_title">Terms</h3>
+        <p class="text-sm text-muted" data-hp="footer.tile_terms_body">Licensing, refunds, updates, privacy — plain English, no legalese. Read before you buy.</p>
       </a>
     </div>
   </section>
@@ -554,11 +555,12 @@
       </div>
     </div>
     <div class="max-w-7xl mx-auto mt-16 pt-6 flex flex-wrap justify-between items-center gap-4">
-      <p class="ob-data-label">(c) 2026 MISFITS STUDIOS</p>
-      <p class="ob-data-label">NOT AFFILIATED WITH FACEPUNCH / OXIDE / CARBON</p>
+      <p class="ob-data-label" data-hp="footer.copyright">(c) 2026 MISFITS STUDIOS</p>
+      <p class="ob-data-label" data-hp="footer.disclaimer">NOT AFFILIATED WITH FACEPUNCH / OXIDE / CARBON</p>
     </div>
   </footer>
 
 </main>
+<script src="/assets/announcement.js" defer></script>
 </body>
 </html>

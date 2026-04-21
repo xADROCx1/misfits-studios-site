@@ -1,0 +1,469 @@
+=== NAV ===
+<!-- Add inside the "Reports" <div class="nav-sec"> group in the sidebar, after the existing sales nav-item (~line 921). Keeps the new view grouped with other read-only reports. -->
+    <div class="nav-item" data-view="history" title="Version history of products.json — restore any past commit">
+      <span>&#9201; Version History</span>
+    </div>
+
+=== PANEL ===
+<!-- Add inside <div class="canvas" id="canvas">, as a sibling of #sales-panel (after the sales-panel closing </div> near line 1062, before the closing </div> of .canvas). -->
+    <div id="history-panel" style="display:none">
+      <!-- Setup card (shown when no PAT is stored) -->
+      <div class="history-setup" id="history-setup" style="display:none">
+        <div class="history-setup-title">Version history needs your GitHub token</div>
+        <div class="history-setup-body">
+          This view reads commits of <code>products.json</code> from GitHub. It reuses the same Personal Access Token the <b>Publish</b> flow uses — save one there and it unlocks automatically here.
+          <ol>
+            <li>Click <b>&#9656; Publish</b> in the top bar.</li>
+            <li>Paste a GitHub PAT (classic, <code>repo</code> scope) and keep <b>Remember on this browser</b> checked.</li>
+            <li>Close the modal and return here.</li>
+          </ol>
+          <div class="history-setup-actions">
+            <button class="btn btn-primary" onclick="openModal()">&#9656; Open Publish modal</button>
+            <button class="btn" onclick="loadHistory()">&#8635; I've saved it — retry</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main body (shown when PAT is present) -->
+      <div id="history-body" style="display:none">
+        <div class="history-bar">
+          <div class="history-bar-left">
+            <span class="history-meta" id="history-meta">Last 30 commits that touched products.json</span>
+          </div>
+          <div class="history-bar-right">
+            <label class="history-toggle" title="When viewing a diff, also compute a top-level key diff vs your current editor state">
+              <input type="checkbox" id="history-compare-toggle" onchange="onHistoryCompareToggle()" />
+              <span>Compare to current</span>
+            </label>
+            <button class="btn" onclick="forgetPAT();syncHistoryView()" title="Reset the saved GitHub token">&#10005; Reset PAT</button>
+            <button class="btn btn-primary" id="history-refresh-btn" onclick="loadHistory()">&#8635; Refresh</button>
+          </div>
+        </div>
+
+        <div class="history-table-wrap">
+          <div class="history-table-head">Commit log</div>
+          <table class="history-table">
+            <thead><tr>
+              <th style="width:96px">SHA</th>
+              <th>Message</th>
+              <th style="width:160px">Author</th>
+              <th style="width:110px">When</th>
+              <th style="width:260px" class="num">Actions</th>
+            </tr></thead>
+            <tbody id="history-rows">
+              <tr><td colspan="5" class="history-empty">Loading commits…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+=== CSS ===
+/* Add near the sales-* styles (~line 794). Keep the cyberpunk / skull-punk aesthetic — cyan / pink / yellow on black. */
+  .history-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px; padding: 10px 14px; border: 1px solid var(--line); background: #05050c; }
+  .history-bar-left, .history-bar-right { display: flex; gap: 10px; align-items: center; }
+  .history-meta { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; }
+  .history-toggle { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; user-select: none; }
+  .history-toggle input { accent-color: var(--cyan); cursor: pointer; }
+
+  .history-table-wrap { border: 1px solid var(--line); background: #05050c; }
+  .history-table-head { padding: 10px 14px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--line); }
+  .history-table { width: 100%; border-collapse: collapse; }
+  .history-table th { padding: 8px 12px; text-align: left; background: transparent; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--line); }
+  .history-table th.num { text-align: right; }
+  .history-table td { padding: 9px 12px; font-family: var(--font-mono); font-size: 12px; color: var(--paper); border-bottom: 1px solid var(--line); vertical-align: top; }
+  .history-table td.num { text-align: right; }
+  .history-table tr:last-child > td { border-bottom: none; }
+  .history-table tr.history-row:hover td { background: rgba(0, 242, 255, 0.03); }
+
+  .history-sha { font-family: var(--font-mono); font-size: 12px; color: var(--cyan); letter-spacing: 0.04em; }
+  .history-sha.head { color: var(--mint); }
+  .history-sha.head::after { content: ' HEAD'; font-size: 9px; color: var(--mint); letter-spacing: 0.1em; }
+  .history-msg { color: var(--paper); white-space: pre-wrap; word-break: break-word; max-width: 640px; }
+  .history-author { color: var(--muted); font-family: var(--font-mono); font-size: 11px; }
+  .history-when { color: var(--muted); font-family: var(--font-mono); font-size: 11px; white-space: nowrap; }
+  .history-actions { display: flex; gap: 6px; justify-content: flex-end; flex-wrap: wrap; }
+  .history-actions .btn { padding: 6px 10px; font-size: 10px; }
+  .history-actions .btn-danger { border-color: rgba(255, 60, 60, 0.5); color: var(--danger, #ff3c3c); }
+  .history-actions .btn-danger:hover { background: rgba(255, 60, 60, 0.08); }
+
+  .history-diff-row td { padding: 0; border-bottom: 1px solid var(--line); background: #08080f; }
+  .history-diff-box { padding: 12px 14px; font-family: var(--font-mono); font-size: 11px; color: var(--paper); line-height: 1.55; }
+  .history-diff-title { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--pink); margin-bottom: 8px; }
+  .history-diff-file { display: grid; grid-template-columns: 1fr auto auto; gap: 12px; padding: 4px 0; border-bottom: 1px dashed var(--line); }
+  .history-diff-file:last-child { border-bottom: none; }
+  .history-diff-fn { color: var(--cyan); word-break: break-all; }
+  .history-diff-add { color: var(--mint); }
+  .history-diff-del { color: var(--danger, #ff3c3c); }
+  .history-compare { margin-top: 12px; padding: 10px 12px; border: 1px dashed var(--line); background: #05050c; }
+  .history-compare-title { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--yellow); margin-bottom: 6px; }
+  .history-compare-row { display: flex; gap: 18px; flex-wrap: wrap; }
+  .history-compare-row span { color: var(--muted); }
+  .history-compare-row b { font-family: var(--font-head); }
+  .history-compare-row .add b { color: var(--mint); }
+  .history-compare-row .del b { color: var(--danger, #ff3c3c); }
+  .history-compare-row .mod b { color: var(--yellow); }
+
+  .history-empty { text-align: center; padding: 20px; color: var(--muted); font-style: italic; }
+  .history-error { text-align: center; padding: 20px; color: var(--danger, #ff3c3c); font-family: var(--font-mono); font-size: 12px; }
+
+  /* Skeleton rows while fetching */
+  .history-skel { height: 14px; background: linear-gradient(90deg, #0a0a14 0%, #15152a 50%, #0a0a14 100%); background-size: 200% 100%; animation: history-skel-pulse 1.2s linear infinite; }
+  @keyframes history-skel-pulse { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+  .history-setup { border: 1px solid rgba(255, 23, 191, 0.3); background: rgba(255, 23, 191, 0.04); padding: 18px; }
+  .history-setup-title { font-family: var(--font-head); font-weight: 900; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--pink); margin-bottom: 10px; }
+  .history-setup-body { font-family: var(--font-mono); font-size: 12px; color: var(--paper); line-height: 1.55; }
+  .history-setup-body ol { margin: 10px 0 10px 20px; }
+  .history-setup-body code { background: #000; padding: 1px 5px; color: var(--cyan); font-family: var(--font-mono); font-size: 11px; }
+  .history-setup-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+
+=== JS ===
+/* ============================================================
+ *  WAVE 4 — VERSION HISTORY + ROLLBACK
+ *  Lists git commits that touched products.json and lets the
+ *  user restore any past version. Restoring only loads the old
+ *  content into the editor (dirty) — Publish still required.
+ * ============================================================ */
+
+/* State for the history view. Lazy-hydrated by loadHistory(). */
+const HIST = {
+  repo: 'xADROCx1/misfits-studios-site',
+  branch: 'main',
+  path: 'products.json',
+  commits: [],        // [{ sha, message, author, date, expanded, details }]
+  loading: false,
+  error: '',
+  compareMode: false, // "Compare to current" toggle
+};
+
+/* -- REQUIRED WIRING INTO EXISTING CODE ---------------------
+ * 1) In setView(view) (around line 2240), add:
+ *       if (view === 'history')  showHistoryView();
+ * 2) In showProductGrid() (around line 2654), also hide the panel:
+ *       const hp = document.getElementById('history-panel');
+ *       if (hp) hp.style.display = 'none';
+ * 3) In showSalesView() and showFeaturedView() add the same hide line
+ *    so switching views doesn't double-show panels.
+ * ---------------------------------------------------------- */
+
+function showHistoryView() {
+  document.getElementById('grid').style.display = 'none';
+  const fp = document.getElementById('featured-panel');      if (fp) fp.style.display = 'none';
+  const sp = document.getElementById('sales-panel');         if (sp) sp.style.display = 'none';
+  document.getElementById('history-panel').style.display = '';
+  document.getElementById('canvas-title').textContent = 'Version History';
+  document.getElementById('canvas-sub').textContent = 'Commits of products.json · click Restore to rewind';
+  syncHistoryView();
+}
+
+/* Toggle setup card vs body based on whether a PAT is stored. */
+function syncHistoryView() {
+  const hasPAT = !!getStoredPAT();
+  document.getElementById('history-setup').style.display = hasPAT ? 'none' : '';
+  document.getElementById('history-body').style.display  = hasPAT ? '' : 'none';
+  if (hasPAT && HIST.commits.length === 0 && !HIST.loading) {
+    loadHistory();
+  } else if (hasPAT) {
+    renderHistoryTable();
+  }
+}
+
+/* Fetch the last 30 commits that touched products.json. */
+async function loadHistory() {
+  const token = getStoredPAT();
+  if (!token) { syncHistoryView(); return; }
+
+  HIST.loading = true;
+  HIST.error = '';
+  renderHistorySkeleton();
+
+  const btn = document.getElementById('history-refresh-btn');
+  if (btn) { btn.disabled = true; btn.textContent = '↻ Loading...'; }
+
+  try {
+    const url = `https://api.github.com/repos/${HIST.repo}/commits`
+              + `?path=${encodeURIComponent(HIST.path)}&per_page=30&sha=${HIST.branch}`;
+    const res = await fetch(url, {
+      headers: {
+        'Authorization': 'token ' + token,
+        'Accept': 'application/vnd.github+json',
+      },
+    });
+    if (res.status === 401 || res.status === 403) {
+      const j = await res.json().catch(() => ({}));
+      const rate = res.headers.get('X-RateLimit-Remaining');
+      if (rate === '0') throw new Error('GitHub rate-limit hit. Wait a few minutes or use a different token.');
+      throw new Error('GitHub rejected the token (' + res.status + '). ' + (j.message || 'Check scope/expiry.'));
+    }
+    if (!res.ok) throw new Error('GitHub ' + res.status + ' ' + res.statusText);
+    const data = await res.json();
+    HIST.commits = data.map(c => ({
+      sha: c.sha,
+      message: (c.commit && c.commit.message) || '',
+      author: (c.commit && c.commit.author && c.commit.author.name)
+            || (c.author && c.author.login) || 'unknown',
+      date: (c.commit && c.commit.author && c.commit.author.date) || '',
+      expanded: false,
+      details: null,
+    }));
+    HIST.loading = false;
+    renderHistoryTable();
+  } catch (e) {
+    HIST.loading = false;
+    HIST.error = (e && e.message) || String(e);
+    renderHistoryTable();
+    toast('History: ' + HIST.error, 'err');
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = '↻ Refresh'; }
+  }
+}
+
+function renderHistorySkeleton() {
+  const tbody = document.getElementById('history-rows');
+  if (!tbody) return;
+  let html = '';
+  for (let i = 0; i < 8; i++) {
+    html += '<tr><td><div class="history-skel" style="width:70px"></div></td>'
+         +  '<td><div class="history-skel" style="width:80%"></div></td>'
+         +  '<td><div class="history-skel" style="width:90px"></div></td>'
+         +  '<td><div class="history-skel" style="width:60px"></div></td>'
+         +  '<td><div class="history-skel" style="width:180px;margin-left:auto"></div></td></tr>';
+  }
+  tbody.innerHTML = html;
+}
+
+function renderHistoryTable() {
+  const tbody = document.getElementById('history-rows');
+  if (!tbody) return;
+  if (HIST.error) {
+    tbody.innerHTML = `<tr><td colspan="5" class="history-error">${escapeHtml(HIST.error)}<br/><span style="color:var(--muted);font-size:11px;">Click Refresh to retry.</span></td></tr>`;
+    return;
+  }
+  if (HIST.commits.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="5" class="history-empty">No commits found that touched ${escapeHtml(HIST.path)}.</td></tr>`;
+    return;
+  }
+
+  const metaEl = document.getElementById('history-meta');
+  if (metaEl) metaEl.textContent = HIST.commits.length + ' commits that touched ' + HIST.path;
+
+  let html = '';
+  HIST.commits.forEach((c, idx) => {
+    const short = c.sha.slice(0, 7);
+    const firstLine = (c.message || '').split('\n')[0];
+    const msgTrunc = firstLine.length > 80 ? firstLine.slice(0, 77) + '…' : firstLine;
+    const isHead = idx === 0;
+    html += `<tr class="history-row" data-sha="${escapeHtml(c.sha)}">
+      <td><span class="history-sha${isHead ? ' head' : ''}" title="${escapeHtml(c.sha)}">${short}</span></td>
+      <td><div class="history-msg" title="${escapeHtml(firstLine)}">${escapeHtml(msgTrunc)}</div></td>
+      <td><span class="history-author">${escapeHtml(c.author)}</span></td>
+      <td><span class="history-when" title="${escapeHtml(c.date)}">${escapeHtml(relativeTime(c.date))}</span></td>
+      <td class="num"><div class="history-actions">
+        <button class="btn" onclick="viewDiff('${c.sha}')">${c.expanded ? '▴ Hide diff' : '▾ View diff'}</button>
+        <button class="btn btn-danger" onclick="restoreVersion('${c.sha}')" ${isHead ? 'disabled title="This IS the current live version"' : ''}>&#8630; Restore</button>
+      </div></td>
+    </tr>`;
+    if (c.expanded) {
+      html += `<tr class="history-diff-row"><td colspan="5">${renderDiffBox(c)}</td></tr>`;
+    }
+  });
+  tbody.innerHTML = html;
+}
+
+/* Toggle-expand a row and lazy-fetch the per-commit files[] payload. */
+async function viewDiff(sha) {
+  const c = HIST.commits.find(x => x.sha === sha);
+  if (!c) return;
+  c.expanded = !c.expanded;
+  renderHistoryTable();
+  if (!c.expanded || c.details) return;
+
+  const token = getStoredPAT();
+  if (!token) { toast('No GitHub token saved', 'err'); return; }
+
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${HIST.repo}/commits/${sha}`,
+      { headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github+json' } }
+    );
+    if (!res.ok) throw new Error('GitHub ' + res.status);
+    const data = await res.json();
+    c.details = {
+      stats: data.stats || { additions: 0, deletions: 0, total: 0 },
+      files: (data.files || []).map(f => ({
+        filename: f.filename,
+        status: f.status,
+        additions: f.additions || 0,
+        deletions: f.deletions || 0,
+      })),
+    };
+    // If Compare-to-current is on and this is the selected commit, also fetch content for the key diff.
+    if (HIST.compareMode) await hydrateCompareFor(sha);
+    renderHistoryTable();
+  } catch (e) {
+    toast('Diff fetch failed: ' + e.message, 'err');
+    c.expanded = false;
+    renderHistoryTable();
+  }
+}
+
+function renderDiffBox(c) {
+  if (!c.details) {
+    return `<div class="history-diff-box"><div class="history-diff-title">Loading diff…</div><div class="history-skel" style="width:40%"></div></div>`;
+  }
+  const s = c.details.stats;
+  let files = '';
+  c.details.files.forEach(f => {
+    files += `<div class="history-diff-file">
+      <span class="history-diff-fn">${escapeHtml(f.filename)} <span style="color:var(--muted)">(${escapeHtml(f.status)})</span></span>
+      <span class="history-diff-add">+${f.additions}</span>
+      <span class="history-diff-del">-${f.deletions}</span>
+    </div>`;
+  });
+  let compare = '';
+  if (HIST.compareMode && c.compare) {
+    compare = `<div class="history-compare">
+      <div class="history-compare-title">Top-level key diff vs your current editor state</div>
+      <div class="history-compare-row">
+        <span class="add">Added keys: <b>${c.compare.added.length}</b>${c.compare.added.length ? ' · ' + c.compare.added.slice(0, 5).map(escapeHtml).join(', ') + (c.compare.added.length > 5 ? '…' : '') : ''}</span>
+        <span class="del">Removed keys: <b>${c.compare.removed.length}</b>${c.compare.removed.length ? ' · ' + c.compare.removed.slice(0, 5).map(escapeHtml).join(', ') + (c.compare.removed.length > 5 ? '…' : '') : ''}</span>
+        <span class="mod">Modified keys: <b>${c.compare.modified.length}</b>${c.compare.modified.length ? ' · ' + c.compare.modified.slice(0, 5).map(escapeHtml).join(', ') + (c.compare.modified.length > 5 ? '…' : '') : ''}</span>
+      </div>
+    </div>`;
+  } else if (HIST.compareMode && c.compareError) {
+    compare = `<div class="history-compare"><div class="history-compare-title" style="color:var(--danger)">Compare failed</div><div style="color:var(--muted)">${escapeHtml(c.compareError)}</div></div>`;
+  }
+  return `<div class="history-diff-box">
+    <div class="history-diff-title">Commit totals · +${s.additions} −${s.deletions} across ${c.details.files.length} file(s)</div>
+    ${files}
+    ${compare}
+  </div>`;
+}
+
+/* "Compare to current" — fetch this commit's products.json and diff top-level product
+   ids + manifest keys against the current editor S.raw / S.products. Kept intentionally
+   simple: added/removed/modified product-id counts + raw top-level key counts. */
+async function hydrateCompareFor(sha) {
+  const c = HIST.commits.find(x => x.sha === sha);
+  if (!c) return;
+  if (c.compare || c.compareError) return;
+  const token = getStoredPAT();
+  if (!token) return;
+  try {
+    const contentRes = await fetch(
+      `https://api.github.com/repos/${HIST.repo}/contents/${encodeURIComponent(HIST.path)}?ref=${sha}`,
+      { headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github+json' } }
+    );
+    if (!contentRes.ok) throw new Error('GitHub ' + contentRes.status);
+    const ct = await contentRes.json();
+    const past = JSON.parse(atob((ct.content || '').replace(/\n/g, '')));
+    c.compare = diffAgainstCurrent(past);
+  } catch (e) {
+    c.compareError = e.message || String(e);
+  }
+}
+
+/* Simple per-product-id diff + top-level key diff. Intentionally shallow. */
+function diffAgainstCurrent(pastRaw) {
+  const cur = S.raw || { products: S.products || [] };
+  const curIds = new Set((cur.products || []).map(p => p.id));
+  const pastIds = new Set((pastRaw.products || []).map(p => p.id));
+  const added = [];     // in past, not in current  (would be restored)
+  const removed = [];   // in current, not in past  (would disappear on restore)
+  const modified = [];  // same id, different content
+  pastIds.forEach(id => { if (!curIds.has(id)) added.push(id); });
+  curIds.forEach(id => { if (!pastIds.has(id)) removed.push(id); });
+  const curById = new Map((cur.products || []).map(p => [p.id, JSON.stringify(p)]));
+  (pastRaw.products || []).forEach(p => {
+    if (curIds.has(p.id) && curById.get(p.id) !== JSON.stringify(p)) modified.push(p.id);
+  });
+  return { added, removed, modified };
+}
+
+function onHistoryCompareToggle() {
+  HIST.compareMode = document.getElementById('history-compare-toggle').checked;
+  // Re-hydrate for any already-expanded rows.
+  const expanded = HIST.commits.filter(c => c.expanded);
+  Promise.all(expanded.map(c => hydrateCompareFor(c.sha))).then(() => renderHistoryTable());
+  renderHistoryTable();
+}
+
+/* Fetch a past version of products.json and load it into the editor as dirty state.
+   We deliberately DO NOT call markAllClean — the user needs to Publish to make it live. */
+async function restoreVersion(sha) {
+  const c = HIST.commits.find(x => x.sha === sha);
+  const short = sha.slice(0, 7);
+  const msg = (c && c.message.split('\n')[0]) || '';
+
+  const ok = confirm(
+    `Restore products.json from commit ${short}?\n\n` +
+    (msg ? `"${msg}"\n\n` : '') +
+    `Your current unsaved changes will be lost. This loads the old content into the editor — ` +
+    `you still need to Publish to make it live.`
+  );
+  if (!ok) return;
+
+  const token = getStoredPAT();
+  if (!token) { toast('No GitHub token saved — open Publish to save one', 'err'); return; }
+
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${HIST.repo}/contents/${encodeURIComponent(HIST.path)}?ref=${sha}`,
+      { headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github+json' } }
+    );
+    if (!res.ok) throw new Error('GitHub ' + res.status + ' ' + res.statusText);
+    const data = await res.json();
+    if (!data.content) throw new Error('No content returned for that commit');
+    // GitHub returns base64 with embedded newlines.
+    const decoded = atob(data.content.replace(/\n/g, ''));
+    let parsed;
+    try { parsed = JSON.parse(decoded); }
+    catch (pe) { throw new Error('That version is not valid JSON: ' + pe.message); }
+    if (!parsed.products || !Array.isArray(parsed.products)) {
+      throw new Error('That version has no "products" array — refusing to load.');
+    }
+
+    // Swap editor state to the restored snapshot.
+    S.raw = parsed;
+    S.products = parsed.products;
+    S.selectedId = null;
+
+    // Re-render every view with the restored data.
+    rerenderAll();
+
+    // DO NOT markAllClean — we want the user to see "unsaved changes" and Publish.
+    // Instead, flag every product + the manifest dirty so the badge + grid tint both fire.
+    if (!S.dirty) S.dirty = new Set();
+    S.dirty.clear();
+    S.products.forEach(p => S.dirty.add(p.id));
+    S.dirty.add('__manifest__');
+    updateDirtyBadge();
+    renderGrid();
+
+    toast('Restored version ' + short + ' — review and hit Publish to make it live', 'ok');
+  } catch (e) {
+    toast('Restore failed: ' + (e.message || e), 'err');
+  }
+}
+
+/* Relative-time formatter — small, no-deps. */
+function relativeTime(iso) {
+  if (!iso) return '—';
+  const then = new Date(iso).getTime();
+  if (isNaN(then)) return '—';
+  const diff = Math.max(0, Date.now() - then);
+  const s = Math.floor(diff / 1000);
+  if (s < 60)   return s + 's ago';
+  const m = Math.floor(s / 60);
+  if (m < 60)   return m + 'm ago';
+  const h = Math.floor(m / 60);
+  if (h < 24)   return h + 'h ago';
+  const d = Math.floor(h / 24);
+  if (d < 7)    return d + 'd ago';
+  if (d < 30)   return Math.floor(d / 7) + 'w ago';
+  if (d < 365)  return Math.floor(d / 30) + 'mo ago';
+  return Math.floor(d / 365) + 'y ago';
+}
+
+=== OTHER_FILES_MODIFIED ===

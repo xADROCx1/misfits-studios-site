@@ -1,0 +1,931 @@
+=== NAV ===
+# Insert this as a new nav-sec + nav-item group inside the left nav (<div class="nav">).
+# Suggested placement: directly after the "Site" section's existing Settings item
+# (around line 913 in editor.html). It adds a new "Content" section so prose pages
+# feel distinct from products.
+
+    <div class="nav-sec" style="margin-top:12px">Content</div>
+    <div class="nav-item" data-view="pages">
+      <span>&#128196; Pages</span><span class="c" id="c-pages">6</span>
+    </div>
+
+# Also update setView() (around line 2240) to route the new view:
+#
+#   function setView(view) {
+#     document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.view === view));
+#     if (view === 'sales')    showSalesView();
+#     if (view === 'featured') showFeaturedView();
+#     if (view === 'pages')    showPagesView();   // ← NEW
+#   }
+
+=== PANEL ===
+# Insert this block inside the <div class="canvas" id="canvas"> container, as a sibling
+# of #featured-panel and #sales-panel (i.e. right after the closing </div> of #sales-panel,
+# around line 2100). Starts hidden. showPagesView() toggles it on.
+
+    <!-- Prose pages editor (hidden by default, shown when Pages nav item clicked) -->
+    <div id="pages-panel" style="display:none">
+      <div class="pages-layout">
+
+        <!-- Left: list of pages -->
+        <aside class="pages-sidebar">
+          <div class="pages-sidebar-head">
+            <div class="pages-sidebar-title">Prose Pages</div>
+            <div class="pages-sidebar-sub">6 editable pages</div>
+          </div>
+          <div class="pages-list" id="pages-list">
+            <!-- Rows injected by renderPagesList() -->
+          </div>
+          <div class="pages-sidebar-foot">
+            <span class="pages-foot-hint">Stored in <code>products.json</code> under <code>pages</code></span>
+          </div>
+        </aside>
+
+        <!-- Right: editor -->
+        <section class="pages-editor" id="pages-editor">
+          <div class="pages-editor-empty" id="pages-editor-empty">
+            <div class="pages-editor-empty-icon">&#128196;</div>
+            <div class="pages-editor-empty-title">Pick a page to edit</div>
+            <div class="pages-editor-empty-sub">Titles &amp; body markdown are stored in products.json under <code>pages</code> and ship with the normal publish flow.</div>
+          </div>
+
+          <div class="pages-editor-body" id="pages-editor-body" style="display:none">
+            <div class="pages-editor-head">
+              <div class="pages-head-left">
+                <span class="pages-key-chip" id="pages-key-chip">key</span>
+                <input type="text" class="pages-title-input" id="pages-title-input" placeholder="Page title" />
+              </div>
+              <div class="pages-head-right">
+                <span class="pages-last-updated" id="pages-last-updated">Last updated: —</span>
+                <button class="btn" id="pages-preview-toggle" onclick="togglePagesPreview()" title="Toggle live preview">&#128065; Preview</button>
+              </div>
+            </div>
+
+            <div class="pages-editor-split" id="pages-editor-split">
+              <textarea class="pages-md-input" id="pages-md-input"
+                        spellcheck="false"
+                        placeholder="# Page title\n\nWrite markdown here..."></textarea>
+              <div class="pages-preview" id="pages-preview" style="display:none">
+                <div class="pages-preview-inner prose-container" id="pages-preview-inner"></div>
+              </div>
+            </div>
+
+            <details class="pages-cheatsheet">
+              <summary>Markdown cheatsheet</summary>
+              <div class="pages-cheatsheet-body">
+                <div><code># H1</code> · <code>## H2</code> · <code>### H3</code></div>
+                <div><code>**bold**</code> · <code>*italic*</code> · <code>`code`</code></div>
+                <div><code>[link text](https://example.com)</code></div>
+                <div><code>- item</code> for unordered lists · <code>1. item</code> for ordered</div>
+                <div><code>&gt; quote</code> for blockquotes · <code>---</code> for a divider</div>
+                <div><code>```</code> on its own line to open/close a code block</div>
+              </div>
+            </details>
+          </div>
+        </section>
+      </div>
+    </div>
+
+=== CSS ===
+/* ---------- Prose pages editor ---------- */
+#pages-panel {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  overflow: hidden;
+}
+.pages-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  width: 100%;
+  height: 100%;
+  gap: 0;
+}
+
+/* Left sidebar */
+.pages-sidebar {
+  border-right: 1px solid var(--line);
+  background: #05050c;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.pages-sidebar-head {
+  padding: 16px 14px 12px;
+  border-bottom: 1px solid var(--line-2);
+}
+.pages-sidebar-title {
+  font-family: var(--font-head);
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 4px;
+}
+.pages-sidebar-sub {
+  font-family: var(--font-mono);
+  font-size: 10px; color: var(--muted); letter-spacing: 0.08em;
+}
+.pages-list {
+  flex: 1; overflow-y: auto; padding: 6px 0;
+}
+.pages-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 14px; margin: 1px 8px; border-radius: 5px;
+  cursor: pointer; user-select: none;
+  transition: background 0.1s, color 0.1s;
+  border: 1px solid transparent;
+}
+.pages-row:hover { background: rgba(0, 242, 255, 0.06); }
+.pages-row.active {
+  background: linear-gradient(90deg, rgba(0, 242, 255, 0.12), transparent);
+  border-color: rgba(0, 242, 255, 0.25);
+}
+.pages-row-main {
+  display: flex; flex-direction: column; gap: 2px; min-width: 0;
+}
+.pages-row-title {
+  font-family: var(--font-head);
+  font-size: 13px; color: var(--paper);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.pages-row-key {
+  font-family: var(--font-mono);
+  font-size: 10px; color: var(--muted); letter-spacing: 0.08em;
+}
+.pages-row-dirty {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--pink);
+  box-shadow: 0 0 6px rgba(255, 26, 143, 0.7);
+  flex-shrink: 0;
+}
+.pages-sidebar-foot {
+  padding: 10px 14px;
+  border-top: 1px solid var(--line-2);
+  font-family: var(--font-mono);
+  font-size: 10px; color: var(--muted);
+}
+.pages-foot-hint code {
+  color: var(--mint);
+  background: rgba(0, 255, 163, 0.05);
+  padding: 1px 5px; border-radius: 3px;
+}
+
+/* Right editor */
+.pages-editor { display: flex; flex-direction: column; overflow: hidden; }
+.pages-editor-empty {
+  margin: auto;
+  text-align: center;
+  max-width: 420px;
+  padding: 40px 24px;
+  color: var(--muted);
+}
+.pages-editor-empty-icon { font-size: 48px; margin-bottom: 12px; opacity: 0.5; }
+.pages-editor-empty-title {
+  font-family: var(--font-head);
+  font-size: 18px; color: var(--paper); margin-bottom: 8px;
+}
+.pages-editor-empty-sub {
+  font-size: 13px; line-height: 1.5;
+}
+.pages-editor-empty-sub code {
+  color: var(--mint);
+  background: rgba(0, 255, 163, 0.06);
+  padding: 1px 5px; border-radius: 3px;
+  font-size: 11px;
+}
+.pages-editor-body {
+  flex: 1; display: flex; flex-direction: column; overflow: hidden;
+}
+
+.pages-editor-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--line);
+  background: #07070e;
+  flex-wrap: wrap;
+}
+.pages-head-left {
+  display: flex; align-items: center; gap: 10px; flex: 1; min-width: 200px;
+}
+.pages-key-chip {
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--cyan);
+  background: rgba(0, 242, 255, 0.05);
+}
+.pages-title-input {
+  flex: 1; min-width: 0;
+  background: #0a0a14;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-family: var(--font-head);
+  font-size: 15px;
+  color: var(--paper);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.pages-title-input:focus { border-color: var(--cyan); box-shadow: 0 0 0 2px rgba(0, 242, 255, 0.15); }
+.pages-head-right {
+  display: flex; align-items: center; gap: 10px;
+}
+.pages-last-updated {
+  font-family: var(--font-mono);
+  font-size: 10px; color: var(--muted); letter-spacing: 0.06em;
+}
+
+/* Split edit/preview */
+.pages-editor-split {
+  flex: 1; display: grid; grid-template-columns: 1fr; overflow: hidden;
+}
+.pages-editor-split.with-preview {
+  grid-template-columns: 1fr 1fr;
+}
+.pages-md-input {
+  width: 100%; height: 100%;
+  background: #05050c;
+  border: 0;
+  padding: 18px 22px;
+  font-family: var(--font-mono);
+  font-size: 13px; line-height: 1.6;
+  color: var(--paper);
+  outline: none;
+  resize: none;
+}
+.pages-md-input:focus { background: #06060e; }
+.pages-preview {
+  border-left: 1px solid var(--line);
+  overflow-y: auto;
+  background: #07070e;
+}
+.pages-preview-inner {
+  padding: 24px 28px;
+}
+
+/* Cheatsheet */
+.pages-cheatsheet {
+  border-top: 1px solid var(--line);
+  background: #06060e;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+}
+.pages-cheatsheet summary {
+  padding: 10px 20px;
+  cursor: pointer;
+  user-select: none;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 10px;
+  color: var(--cyan);
+}
+.pages-cheatsheet summary:hover { color: var(--paper); }
+.pages-cheatsheet-body {
+  padding: 10px 20px 16px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 4px 20px;
+  line-height: 1.8;
+}
+.pages-cheatsheet-body code {
+  color: var(--mint);
+  background: rgba(0, 255, 163, 0.05);
+  padding: 1px 5px; border-radius: 3px;
+}
+
+/* Prose preview — matches what prose.js will render on the live pages */
+.prose-container {
+  max-width: 720px;
+  margin: 0 auto;
+  font-family: var(--font-body);
+  font-size: 15px; line-height: 1.7;
+  color: var(--paper);
+}
+.prose-container h1, .prose-container h2, .prose-container h3, .prose-container h4 {
+  font-family: var(--font-head);
+  color: var(--cyan);
+  letter-spacing: -0.01em;
+  margin: 1.6em 0 0.6em;
+}
+.prose-container h1 { font-size: 28px; color: var(--pink); }
+.prose-container h2 { font-size: 22px; color: var(--cyan); border-bottom: 1px solid rgba(0,242,255,0.18); padding-bottom: 6px; }
+.prose-container h3 { font-size: 17px; color: var(--mint); }
+.prose-container h4 { font-size: 14px; color: var(--yellow); text-transform: uppercase; letter-spacing: 0.14em; }
+.prose-container p { margin: 0 0 1em; }
+.prose-container a { color: var(--cyan); text-decoration: none; border-bottom: 1px solid rgba(0,242,255,0.3); }
+.prose-container a:hover { color: var(--pink); border-bottom-color: var(--pink); }
+.prose-container ul, .prose-container ol { margin: 0 0 1em; padding-left: 1.4em; }
+.prose-container li { margin: 0.3em 0; }
+.prose-container code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  color: var(--mint);
+  background: rgba(0, 255, 163, 0.06);
+  padding: 1px 6px; border-radius: 3px;
+}
+.prose-container pre {
+  background: #05050c;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 14px 16px;
+  overflow-x: auto;
+  margin: 0 0 1.2em;
+}
+.prose-container pre code { background: transparent; color: var(--paper); padding: 0; }
+.prose-container blockquote {
+  margin: 0 0 1em;
+  padding: 8px 16px;
+  border-left: 3px solid var(--pink);
+  background: rgba(255, 26, 143, 0.05);
+  color: var(--paper);
+}
+.prose-container hr {
+  border: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  margin: 2em 0;
+}
+.prose-container strong { color: var(--paper); }
+.prose-container em { color: var(--yellow); }
+
+=== JS ===
+/* ============================================================
+ *  PROSE PAGES EDITOR
+ * ============================================================ */
+
+/* Hardcoded list so the editor can render the sidebar before products.json loads. */
+const PAGE_KEYS = ['about', 'support', 'terms', 'privacy', 'refund', 'changelog'];
+const PAGE_DEFAULT_TITLES = {
+  about: 'About',
+  support: 'Support',
+  terms: 'Terms of Service',
+  privacy: 'Privacy Policy',
+  refund: 'Refund Policy',
+  changelog: 'Changelog'
+};
+
+/* Editor runtime state for the pages view. */
+const PagesS = {
+  selectedKey: null,
+  previewOn: false,
+  baseline: new Map(),   // key -> stableStringify of last saved page
+  dirty: new Set()       // keys with unsaved changes
+};
+
+/* Ensure S.raw.pages exists and has all 6 keys. Called after products.json loads
+ * (hook into the existing afterDataLoaded / init flow, OR lazily on first showPagesView). */
+function ensurePagesInRaw() {
+  if (!S.raw) S.raw = {};
+  if (!S.raw.pages || typeof S.raw.pages !== 'object') S.raw.pages = {};
+  const today = new Date().toISOString().slice(0, 10);
+  PAGE_KEYS.forEach(k => {
+    if (!S.raw.pages[k]) {
+      S.raw.pages[k] = {
+        title: PAGE_DEFAULT_TITLES[k],
+        body_md: '',
+        last_updated: today
+      };
+    }
+  });
+  // Seed baselines (only first time we see the key)
+  PAGE_KEYS.forEach(k => {
+    if (!PagesS.baseline.has(k)) {
+      PagesS.baseline.set(k, JSON.stringify(S.raw.pages[k]));
+    }
+  });
+}
+
+/* Hide the product grid / featured / sales and show the pages panel. */
+function showPagesView() {
+  ensurePagesInRaw();
+  document.getElementById('grid').style.display = 'none';
+  document.getElementById('sales-panel').style.display = 'none';
+  const fp = document.getElementById('featured-panel');
+  if (fp) fp.style.display = 'none';
+  document.getElementById('pages-panel').style.display = '';
+  document.getElementById('canvas-title').textContent = 'Prose Pages';
+  document.getElementById('canvas-sub').textContent =
+    '6 pages · ships with products.json · rendered by /assets/prose.js';
+  renderPagesList();
+  // Keep previously selected page, or default to 'about'
+  selectPage(PagesS.selectedKey || 'about');
+}
+
+/* Render the left sidebar list of pages with dirty dots. */
+function renderPagesList() {
+  const wrap = document.getElementById('pages-list');
+  if (!wrap) return;
+  wrap.innerHTML = PAGE_KEYS.map(k => {
+    const p = (S.raw && S.raw.pages && S.raw.pages[k]) || {};
+    const title = p.title || PAGE_DEFAULT_TITLES[k];
+    const isActive = k === PagesS.selectedKey;
+    const isDirty = PagesS.dirty.has(k);
+    return `<div class="pages-row ${isActive ? 'active' : ''}" data-key="${escapeHtml(k)}" onclick="selectPage('${escapeHtml(k)}')">
+      <div class="pages-row-main">
+        <div class="pages-row-title">${escapeHtml(title)}</div>
+        <div class="pages-row-key">${escapeHtml(k)}.html</div>
+      </div>
+      ${isDirty ? '<span class="pages-row-dirty" title="Unsaved changes"></span>' : ''}
+    </div>`;
+  }).join('');
+}
+
+/* Select a page for editing. */
+function selectPage(key) {
+  if (!PAGE_KEYS.includes(key)) return;
+  ensurePagesInRaw();
+  // Persist in-flight edits from the currently-active page before switching
+  if (PagesS.selectedKey && PagesS.selectedKey !== key) {
+    commitPageEditorToRaw(PagesS.selectedKey);
+  }
+  PagesS.selectedKey = key;
+  const page = S.raw.pages[key];
+
+  document.getElementById('pages-editor-empty').style.display = 'none';
+  document.getElementById('pages-editor-body').style.display = '';
+
+  document.getElementById('pages-key-chip').textContent = key;
+  document.getElementById('pages-title-input').value = page.title || '';
+  document.getElementById('pages-md-input').value = page.body_md || '';
+  document.getElementById('pages-last-updated').textContent =
+    'Last updated: ' + (page.last_updated || '—');
+
+  renderPagesList();
+  if (PagesS.previewOn) updatePagesPreview();
+}
+
+/* Copy the editor inputs back into S.raw.pages[key] and recompute dirty state. */
+function commitPageEditorToRaw(key) {
+  if (!key || !S.raw || !S.raw.pages || !S.raw.pages[key]) return;
+  const titleEl = document.getElementById('pages-title-input');
+  const mdEl = document.getElementById('pages-md-input');
+  if (!titleEl || !mdEl) return;
+  const page = S.raw.pages[key];
+  const nextTitle = titleEl.value;
+  const nextBody = mdEl.value;
+  const changed = (nextTitle !== page.title) || (nextBody !== page.body_md);
+  if (changed) {
+    page.title = nextTitle;
+    page.body_md = nextBody;
+    page.last_updated = new Date().toISOString().slice(0, 10);
+  }
+  // Compare against baseline to set/clear dirty state
+  const now = JSON.stringify(page);
+  const base = PagesS.baseline.get(key);
+  if (now !== base) {
+    PagesS.dirty.add(key);
+    S.dirty.add('__pages__');
+  } else {
+    PagesS.dirty.delete(key);
+    if (PagesS.dirty.size === 0) S.dirty.delete('__pages__');
+  }
+  updateDirtyBadge && updateDirtyBadge();
+}
+
+/* Fired by oninput on title + textarea. */
+function onPageChange() {
+  if (!PagesS.selectedKey) return;
+  commitPageEditorToRaw(PagesS.selectedKey);
+  // Refresh only what's cheap
+  document.getElementById('pages-last-updated').textContent =
+    'Last updated: ' + (S.raw.pages[PagesS.selectedKey].last_updated || '—');
+  renderPagesList();
+  if (PagesS.previewOn) updatePagesPreview();
+}
+
+/* Wire up inputs after first render. Called once from init. */
+function initPagesEditor() {
+  const titleEl = document.getElementById('pages-title-input');
+  const mdEl = document.getElementById('pages-md-input');
+  if (titleEl) titleEl.addEventListener('input', onPageChange);
+  if (mdEl) mdEl.addEventListener('input', onPageChange);
+}
+
+/* Preview toggle */
+function togglePagesPreview() {
+  PagesS.previewOn = !PagesS.previewOn;
+  const split = document.getElementById('pages-editor-split');
+  const prev = document.getElementById('pages-preview');
+  const btn = document.getElementById('pages-preview-toggle');
+  if (PagesS.previewOn) {
+    split.classList.add('with-preview');
+    prev.style.display = '';
+    btn.classList.add('btn-primary');
+    updatePagesPreview();
+  } else {
+    split.classList.remove('with-preview');
+    prev.style.display = 'none';
+    btn.classList.remove('btn-primary');
+  }
+}
+function updatePagesPreview() {
+  const key = PagesS.selectedKey; if (!key) return;
+  const md = document.getElementById('pages-md-input').value || '';
+  const html = miniMarkdown(md);
+  document.getElementById('pages-preview-inner').innerHTML = html;
+}
+
+/* ---------- Tiny markdown parser (shared shape with /assets/prose.js) ----------
+ * Supports: H1-H4, paragraphs, ul/ol, links, bold/italic, inline code, code
+ * blocks (```), hr, blockquotes. Not CommonMark — good enough for policy pages.
+ */
+function miniMarkdown(src) {
+  if (!src) return '';
+  const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const lines = String(src).replace(/\r\n?/g, '\n').split('\n');
+  const out = [];
+  let i = 0, inCode = false, codeBuf = [], listType = null, listBuf = [], paraBuf = [], inQuote = false, quoteBuf = [];
+
+  const flushPara = () => {
+    if (paraBuf.length) {
+      out.push('<p>' + inline(paraBuf.join(' ').trim()) + '</p>');
+      paraBuf = [];
+    }
+  };
+  const flushList = () => {
+    if (listBuf.length) {
+      const tag = listType === 'ol' ? 'ol' : 'ul';
+      out.push('<' + tag + '>' + listBuf.map(t => '<li>' + inline(t) + '</li>').join('') + '</' + tag + '>');
+      listBuf = []; listType = null;
+    }
+  };
+  const flushQuote = () => {
+    if (quoteBuf.length) {
+      out.push('<blockquote>' + quoteBuf.map(t => '<p>' + inline(t) + '</p>').join('') + '</blockquote>');
+      quoteBuf = []; inQuote = false;
+    }
+  };
+  const inline = (s) => {
+    // Order matters: escape first, then re-inject safe tokens
+    s = esc(s);
+    // Inline code
+    s = s.replace(/`([^`]+)`/g, (_, c) => '<code>' + c + '</code>');
+    // Links [text](url)
+    s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g,
+      (_, t, u) => '<a href="' + u.replace(/"/g, '&quot;') + '" rel="noopener">' + t + '</a>');
+    // Bold then italic
+    s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    s = s.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+    return s;
+  };
+
+  for (i = 0; i < lines.length; i++) {
+    const raw = lines[i];
+    const line = raw.replace(/\s+$/, '');
+
+    // Code fence
+    if (/^```/.test(line)) {
+      if (inCode) {
+        out.push('<pre><code>' + esc(codeBuf.join('\n')) + '</code></pre>');
+        codeBuf = []; inCode = false;
+      } else {
+        flushPara(); flushList(); flushQuote();
+        inCode = true;
+      }
+      continue;
+    }
+    if (inCode) { codeBuf.push(raw); continue; }
+
+    // Blank line
+    if (!line.trim()) { flushPara(); flushList(); flushQuote(); continue; }
+
+    // HR
+    if (/^---+\s*$/.test(line) || /^\*\*\*+\s*$/.test(line)) {
+      flushPara(); flushList(); flushQuote();
+      out.push('<hr/>');
+      continue;
+    }
+
+    // Headings
+    const h = /^(#{1,4})\s+(.+)$/.exec(line);
+    if (h) {
+      flushPara(); flushList(); flushQuote();
+      const lvl = h[1].length;
+      out.push('<h' + lvl + '>' + inline(h[2].trim()) + '</h' + lvl + '>');
+      continue;
+    }
+
+    // Blockquote
+    const bq = /^>\s?(.*)$/.exec(line);
+    if (bq) {
+      flushPara(); flushList();
+      inQuote = true;
+      quoteBuf.push(bq[1]);
+      continue;
+    } else if (inQuote) {
+      flushQuote();
+    }
+
+    // Unordered list
+    const ul = /^[-*+]\s+(.+)$/.exec(line);
+    if (ul) {
+      flushPara(); flushQuote();
+      if (listType && listType !== 'ul') flushList();
+      listType = 'ul';
+      listBuf.push(ul[1]);
+      continue;
+    }
+
+    // Ordered list
+    const ol = /^\d+\.\s+(.+)$/.exec(line);
+    if (ol) {
+      flushPara(); flushQuote();
+      if (listType && listType !== 'ol') flushList();
+      listType = 'ol';
+      listBuf.push(ol[1]);
+      continue;
+    } else if (listType) {
+      flushList();
+    }
+
+    // Default: paragraph line
+    paraBuf.push(line.trim());
+  }
+  // End of input — flush everything
+  if (inCode) out.push('<pre><code>' + esc(codeBuf.join('\n')) + '</code></pre>');
+  flushPara(); flushList(); flushQuote();
+  return out.join('\n');
+}
+
+/* ---------- Hook-ins required elsewhere in editor.html ----------
+ *
+ * 1. setView(): add `if (view === 'pages') showPagesView();`
+ *
+ * 2. After products.json loads (inside the existing load() / init flow, AFTER
+ *    S.raw is assigned), call:  ensurePagesInRaw();
+ *
+ * 3. After first DOMContentLoaded (once), call:  initPagesEditor();
+ *
+ * 4. serializedJSON() already does `{ ...S.raw, products: S.products }` so
+ *    S.raw.pages is automatically included in the publish payload. No change
+ *    needed there.
+ *
+ * 5. markAllClean() — after the existing resets, also do:
+ *       PagesS.baseline.clear();
+ *       PAGE_KEYS.forEach(k => {
+ *         if (S.raw && S.raw.pages && S.raw.pages[k]) {
+ *           PagesS.baseline.set(k, JSON.stringify(S.raw.pages[k]));
+ *         }
+ *       });
+ *       PagesS.dirty.clear();
+ *       renderPagesList();
+ *
+ * 6. showProductGrid(): also hide the pages-panel:
+ *       const pp = document.getElementById('pages-panel');
+ *       if (pp) pp.style.display = 'none';
+ */
+
+=== PRODUCTS_JSON_PATCH ===
+# Insert as a top-level key in products.json, alongside "store", "pricing_tiers",
+# "products", etc. This is the initial seed — the editor then lets the user edit
+# title/body_md/last_updated per page and round-trips it through the normal publish
+# flow (since serializedJSON() spreads S.raw).
+
+{
+  "pages": {
+    "about": {
+      "title": "About",
+      "last_updated": "2026-04-21",
+      "body_md": "# The Promise\n\n*The hub for everything we build.*\n\nMisfits Studios is the home base for every digital thing we create. Rust plugins today. Desktop apps next. Whatever comes after that. No resold work, no white-labeled junk — if it ships from here, we wrote it.\n\n## 01 · Built Here, Shipped Here\n\nEvery plugin and every app on this site is our own original work. No bundled reseller code. No forks of other devs' plugins slapped with a new name.\n\n## 02 · Oxide & Carbon Ready\n\nEvery Rust plugin is tested against both frameworks before release. Compatibility is listed clearly on every product card so you know what you're installing.\n\n## 03 · Direct Support\n\nTalk to the person who actually wrote the code. No ticket farm, no outsourced reply bot. Hit the Discord or email below.\n\n---\n\n**Not affiliated with Facepunch / Oxide / Carbon.**\n"
+    },
+    "support": {
+      "title": "Support",
+      "last_updated": "2026-04-21",
+      "body_md": "# Talk To The Dev\n\n*Need help or want to buy?*\n\nReady to pick up a plugin, ask a pre-sale question, or report a bug? Ping us directly. Every message lands in front of the person who wrote the code.\n\n- **Email:** [misfits.support@proton.me](mailto:misfits.support@proton.me)\n- **Discord:** (TBD)\n\n> Response within 24h. Solo dev, but we don't ghost.\n\n## Send A Message\n\nUse the contact form on the live site, or email us directly. Subject lines we watch for:\n\n- Pre-sale question\n- Bug report\n- Feature request\n- Plugin collaboration\n- Other\n\nCode snippets and logs always welcome — they cut the back-and-forth in half.\n\n## Join The Misfits List\n\nLow volume, no spam. New plugin releases, patch notes when Facepunch breaks something, and the occasional deep dive on a system we're building. No marketing blasts. Unsubscribe any time.\n"
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "last_updated": "2026-04-21",
+      "body_md": "# Terms & Policy\n\n*Read before you buy. Digital goods, plain English.*\n\n## 01 · What You Get\n\nA downloadable `.cs` plugin file (or Windows binary for desktop apps), install instructions, and access to all future updates for that product. Plugins are delivered after purchase via email or Discord DM.\n\n## 02 · License\n\nYou are granted a **non-exclusive, non-transferable** license to use the plugin on servers you own or operate. One purchase = one server group. You may **not** resell, rehost, rebrand, decompile, or redistribute the file. Reverse engineering and sharing to leak sites voids your license immediately.\n\n## 03 · Refunds\n\nBecause these are digital goods delivered instantly, all sales are final. Exception: if a plugin is fundamentally broken on a current Oxide or Carbon build and we can't fix it within 7 days of your report, we'll refund it. Buyer's remorse is not a refund reason. See the full [Refund Policy](refund.html).\n\n## 04 · Updates & Breakage\n\nRust updates can and will break plugins. We patch breakages as fast as we can verify the fix — usually within 24–72 hours of a forced wipe. Updates are **free for the life of the plugin**. Subscribe to the Discord for patch alerts.\n\n## 05 · Liability\n\nPlugins are provided *as-is*. We are not liable for server downtime, data loss, or any indirect damages arising from plugin use. Back up your server data.\n\n## 06 · Contact\n\nQuestions about these terms: [misfits.support@proton.me](mailto:misfits.support@proton.me).\n"
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "last_updated": "2026-04-21",
+      "body_md": "# Privacy Policy\n\n*How we handle your data.*\n\n## 01 · Who We Are\n\nMisfits Studios is a solo development studio operated by the owner of [xADROCx1](https://github.com/xADROCx1). Contact: [misfits.support@proton.me](mailto:misfits.support@proton.me). This policy covers the website **misfits-studios.com** and the digital products sold through it.\n\n## 02 · What We Collect\n\nWe try to collect as little as possible. In practice we handle:\n\n- **Standard web-server logs** — IP address, browser user-agent, referring URL, and timestamps. Collected automatically by our hosting provider (Cloudflare) and retained for up to 30 days for security and debugging.\n- **Purchase data** — when you buy a product, our payment processor (Lemon Squeezy or Paddle, both merchants of record) collects your name, email, billing country, and payment details. We receive the order record (name, email, country, what you bought) but never your full card number.\n- **Support conversations** — if you email us or message us on Discord, we keep those messages to provide support and improve the products.\n- **Product analytics** — we may run privacy-focused, cookieless analytics that measure anonymous page views and conversion events. No personally identifying information is collected by analytics.\n\n## 03 · What We Don't Collect\n\n- We don't sell or rent your data to anyone, ever.\n- We don't use third-party advertising trackers.\n- We don't run A/B-testing scripts that fingerprint your browser.\n- We don't combine data across platforms to build a profile of you.\n\n## 04 · How We Use It\n\n- Deliver the products you buy and provide support.\n- Send update notifications about plugins you've purchased (and only those — not marketing blasts).\n- Debug errors, monitor site uptime, and prevent abuse.\n- Comply with tax law — our payment processor handles VAT / GST / sales tax as the merchant of record, which requires keeping purchase records for the legally mandated retention period (typically 7–10 years depending on jurisdiction).\n\n## 05 · Third Parties We Use\n\n- **Cloudflare** — website hosting, CDN, DDoS protection.\n- **Lemon Squeezy** — payment processor, merchant of record, file delivery, license keys.\n- **Paddle** — alternative payment processor / merchant of record.\n- **GitHub** — source code hosting; does not process customer data.\n- **Proton Mail** — our support inbox.\n- **Discord** — community and direct support chat.\n\n## 06 · Your Rights (GDPR / CCPA / UK-GDPR)\n\nIf you're in the EU, UK, California, or any jurisdiction with a personal-data law, you can request:\n\n- **Access** — a copy of the data we hold on you.\n- **Correction** — fix anything incorrect.\n- **Deletion** — remove your data, subject to legal retention requirements for purchase records.\n- **Portability** — your data in a machine-readable format.\n- **Objection** — stop us using your data for any non-essential purpose.\n\nEmail [misfits.support@proton.me](mailto:misfits.support@proton.me) with the subject line `DATA REQUEST`. We'll respond within 30 days.\n\n## 07 · Cookies\n\nThis website currently uses essential cookies only — nothing for advertising, no cross-site tracking. Our payment processor may set cookies during checkout to maintain your cart and verify the transaction.\n\n## 08 · Children\n\nOur products are aimed at server administrators of the game Rust. We don't knowingly collect data from anyone under 13 (or under 16 where GDPR requires). If you believe we have, email us and we'll delete it immediately.\n\n## 09 · Data Security\n\nPayment data is handled by our processors' PCI-compliant infrastructure, not by us. Our site is served over HTTPS. Support emails are in Proton Mail, which is end-to-end encrypted where both parties use it. No system is perfectly secure — if you suspect a breach, email us.\n\n## 10 · Changes To This Policy\n\nIf we change this policy materially, we'll update the 'last updated' date at the top and post a notice in our Discord. Continued use of the site after changes means you accept the new version.\n\n## 11 · Contact\n\nQuestions, data requests, or complaints:\n\n- Email: [misfits.support@proton.me](mailto:misfits.support@proton.me)\n- GitHub: [xADROCx1](https://github.com/xADROCx1)\n"
+    },
+    "refund": {
+      "title": "Refund Policy",
+      "last_updated": "2026-04-21",
+      "body_md": "# Refund Policy\n\n*Digital goods, fair rules.*\n\n## 01 · Short Version\n\nDigital goods delivered instantly. All sales final. **Exception:** if a plugin is fundamentally broken on the current Oxide or Carbon build and we can't fix it within 7 days of your report, we'll refund the purchase. Buyer's remorse is not a refund reason.\n\n## 02 · When You Are Entitled To A Refund\n\n- The plugin does not function on a current, supported Oxide or Carbon build for reasons unrelated to your server setup, AND we have been unable to resolve it within 7 calendar days of your written report (email or Discord).\n- You were charged twice for the same product (duplicate transaction).\n- A purchase was made without your authorization (fraud) — report to us AND your payment provider.\n- You are protected by a statutory consumer right that overrides this policy (for example, certain EU or UK consumer protections for non-downloaded goods).\n\n## 03 · When You Are Not Entitled To A Refund\n\n- **Change of mind.** Because plugins are downloadable and you get full value at the moment of delivery, we don't refund regret.\n- **Conflicts with other plugins.** Rust's modding ecosystem has thousands of plugins; we cannot guarantee compatibility with every combination.\n- **Custom or heavily modified server setups** where the root cause is outside our plugin.\n- **Misuse or permission issues** after you were given documentation showing how to configure correctly.\n- **Facepunch breaking the game with an update** — we will fix the plugin as fast as we reasonably can, but Facepunch's schedule is not ours.\n\n## 04 · How To Request A Refund\n\nEmail [misfits.support@proton.me](mailto:misfits.support@proton.me) with:\n\n- Subject line: `REFUND REQUEST — [plugin name]`\n- The email address and order number from your purchase (Lemon Squeezy or Paddle receipt)\n- A description of the issue, a screenshot or log excerpt, and the Oxide/Carbon build you're running\n\nWe respond within 3 business days. If eligible, the refund is processed back to the original payment method by our payment processor (Lemon Squeezy or Paddle) — typically 5–10 business days to appear on your statement.\n\n## 05 · License Revocation On Refund\n\nIf a refund is issued, your license to use the plugin terminates immediately. You agree to uninstall the plugin from all servers under your control within 48 hours of the refund being processed.\n\n## 06 · Chargebacks\n\nPlease contact us first — we'd rather fix a problem than see you pay chargeback fees. Opening a chargeback without first attempting resolution may result in your account being denied future purchases.\n\n## 07 · Contact\n\nEmail [misfits.support@proton.me](mailto:misfits.support@proton.me) or message on Discord.\n"
+    },
+    "changelog": {
+      "title": "Changelog",
+      "last_updated": "2026-04-21",
+      "body_md": "# Changelog\n\n*Release history.*\n\nEvery Misfits Studios plugin ships with a version. This page shows the current version of every plugin in the catalog, pulled live from our products manifest. Detailed release notes per plugin live on each product page.\n\n> Currently tracking the full catalog, versioned via SemVer.\n\n## How Versioning Works\n\nWe follow **SemVer** — `MAJOR.MINOR.PATCH`:\n\n- `PATCH` — bug fixes, no behavior change for config files.\n- `MINOR` — new features, additive config keys, backwards compatible.\n- `MAJOR` — breaking config or behavior change. Read the release notes before upgrading.\n\n## Where To Find Release Notes\n\nOpen any product page — the version history is inline on each one. For patch alerts immediately after Rust forced wipes, subscribe to the Discord.\n\n## Recent Studio-Wide Changes\n\n- **2026-04** — Editor UI: prose pages are now editable from the admin (`/admin/editor.html` → Pages).\n- **2026-04** — All plugins verified against the April forced wipe.\n- **2026-03** — Misfits brand aesthetic rolled out across the storefront.\n"
+    }
+  }
+}
+
+=== OTHER_FILES_MODIFIED ===
+
+# ---- assets/prose.js: NEW FILE ----
+# Standalone runtime renderer. Reads <body data-page-key="..."> to find the page,
+# fetches /products.json, grabs the matching page under `pages[key]`, converts the
+# markdown with a tiny parser, and injects it into #prose-body. If fetch fails or
+# the page is missing, the original fallback HTML inside #prose-body is left alone.
+
+FILE: assets/prose.js  (~130 lines, created)
+------------------------------------------------------------
+(function () {
+  'use strict';
+  const key = document.body && document.body.getAttribute('data-page-key');
+  if (!key) return;
+  const target = document.getElementById('prose-body');
+  if (!target) return;
+
+  fetch('/products.json', { cache: 'no-cache' })
+    .then(r => r.ok ? r.json() : Promise.reject(r.status))
+    .then(data => {
+      const page = data && data.pages && data.pages[key];
+      if (!page || !page.body_md) return; // keep fallback HTML
+      const html = miniMD(page.body_md);
+      const stamp = page.last_updated
+        ? '<p class="prose-last-updated">Last updated: <time>' + esc(page.last_updated) + '</time></p>'
+        : '';
+      target.innerHTML = html + stamp;
+    })
+    .catch(() => { /* keep fallback HTML */ });
+
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  function inline(s) {
+    s = esc(s);
+    s = s.replace(/`([^`]+)`/g, (_, c) => '<code>' + c + '</code>');
+    s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g,
+      (_, t, u) => '<a href="' + u.replace(/"/g, '&quot;') + '" rel="noopener">' + t + '</a>');
+    s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    s = s.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+    return s;
+  }
+  function miniMD(src) {
+    const lines = String(src || '').replace(/\r\n?/g, '\n').split('\n');
+    const out = [];
+    let inCode = false, codeBuf = [], listType = null, listBuf = [],
+        paraBuf = [], inQuote = false, quoteBuf = [];
+    const flushPara = () => { if (paraBuf.length) { out.push('<p>' + inline(paraBuf.join(' ').trim()) + '</p>'); paraBuf = []; } };
+    const flushList = () => { if (listBuf.length) { const t = listType === 'ol' ? 'ol' : 'ul'; out.push('<' + t + '>' + listBuf.map(x => '<li>' + inline(x) + '</li>').join('') + '</' + t + '>'); listBuf = []; listType = null; } };
+    const flushQuote = () => { if (quoteBuf.length) { out.push('<blockquote>' + quoteBuf.map(x => '<p>' + inline(x) + '</p>').join('') + '</blockquote>'); quoteBuf = []; inQuote = false; } };
+
+    for (let i = 0; i < lines.length; i++) {
+      const raw = lines[i], line = raw.replace(/\s+$/, '');
+      if (/^```/.test(line)) {
+        if (inCode) { out.push('<pre><code>' + esc(codeBuf.join('\n')) + '</code></pre>'); codeBuf = []; inCode = false; }
+        else { flushPara(); flushList(); flushQuote(); inCode = true; }
+        continue;
+      }
+      if (inCode) { codeBuf.push(raw); continue; }
+      if (!line.trim()) { flushPara(); flushList(); flushQuote(); continue; }
+      if (/^---+\s*$/.test(line) || /^\*\*\*+\s*$/.test(line)) { flushPara(); flushList(); flushQuote(); out.push('<hr/>'); continue; }
+      const h = /^(#{1,4})\s+(.+)$/.exec(line);
+      if (h) { flushPara(); flushList(); flushQuote(); out.push('<h' + h[1].length + '>' + inline(h[2].trim()) + '</h' + h[1].length + '>'); continue; }
+      const bq = /^>\s?(.*)$/.exec(line);
+      if (bq) { flushPara(); flushList(); inQuote = true; quoteBuf.push(bq[1]); continue; }
+      else if (inQuote) { flushQuote(); }
+      const ul = /^[-*+]\s+(.+)$/.exec(line);
+      if (ul) { flushPara(); flushQuote(); if (listType && listType !== 'ul') flushList(); listType = 'ul'; listBuf.push(ul[1]); continue; }
+      const ol = /^\d+\.\s+(.+)$/.exec(line);
+      if (ol) { flushPara(); flushQuote(); if (listType && listType !== 'ol') flushList(); listType = 'ol'; listBuf.push(ol[1]); continue; }
+      else if (listType) { flushList(); }
+      paraBuf.push(line.trim());
+    }
+    if (inCode) out.push('<pre><code>' + esc(codeBuf.join('\n')) + '</code></pre>');
+    flushPara(); flushList(); flushQuote();
+    return out.join('\n');
+  }
+})();
+
+# Inline styles for the prose renderer (can live inside prose.js via an injected
+# <style> tag, OR be copied into assets/theme.css / each page's <style> block).
+# Recommended: inject via prose.js so all 6 pages get it without per-page edits.
+# Add this block near the top of prose.js (inside the IIFE):
+
+  (function injectStyle(){
+    if (document.getElementById('prose-style')) return;
+    const s = document.createElement('style');
+    s.id = 'prose-style';
+    s.textContent = `
+      .prose-container { max-width: 720px; margin: 0 auto; padding: 40px 24px;
+        font-family: 'Inter', system-ui, sans-serif; font-size: 16px; line-height: 1.75; color: var(--paper, #dee5ff); }
+      .prose-container h1 { font-family: 'Space Grotesk', sans-serif; font-size: 42px;
+        color: #ff86c3; letter-spacing: -0.02em; margin: 0 0 0.5em; text-transform: uppercase; font-weight: 800; }
+      .prose-container h2 { font-family: 'Space Grotesk', sans-serif; font-size: 26px;
+        color: #53ddfc; margin: 2em 0 0.5em; border-bottom: 1px solid rgba(83,221,252,0.2); padding-bottom: 8px; }
+      .prose-container h3 { font-family: 'Space Grotesk', sans-serif; font-size: 18px;
+        color: #cc97ff; margin: 1.6em 0 0.4em; }
+      .prose-container h4 { font-family: 'Space Grotesk', sans-serif; font-size: 13px;
+        color: #ffeb00; letter-spacing: 0.14em; text-transform: uppercase; margin: 1.4em 0 0.4em; }
+      .prose-container p { margin: 0 0 1em; }
+      .prose-container a { color: #53ddfc; text-decoration: none; border-bottom: 1px solid rgba(83,221,252,0.35); }
+      .prose-container a:hover { color: #ff86c3; border-bottom-color: #ff86c3; }
+      .prose-container ul, .prose-container ol { margin: 0 0 1em; padding-left: 1.4em; }
+      .prose-container li { margin: 0.35em 0; }
+      .prose-container code { font-family: 'JetBrains Mono', monospace; font-size: 0.88em;
+        color: #53ddfc; background: rgba(83,221,252,0.08); padding: 1px 6px; border-radius: 3px; }
+      .prose-container pre { background: #05050c; border: 1px solid rgba(83,221,252,0.15);
+        border-radius: 6px; padding: 14px 16px; overflow-x: auto; margin: 0 0 1.2em; }
+      .prose-container pre code { background: transparent; color: #dee5ff; padding: 0; }
+      .prose-container blockquote { margin: 0 0 1em; padding: 10px 18px;
+        border-left: 3px solid #ff86c3; background: rgba(255,134,195,0.06); color: #dee5ff; }
+      .prose-container hr { border: 0; height: 1px;
+        background: linear-gradient(90deg, transparent, #53ddfc, transparent); margin: 2.2em 0; }
+      .prose-container strong { color: #dee5ff; }
+      .prose-container em { color: #ffeb00; font-style: normal; }
+      .prose-last-updated { margin-top: 3em; padding-top: 1.2em;
+        border-top: 1px solid rgba(83,221,252,0.15);
+        font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #a3aac4;
+        letter-spacing: 0.08em; text-transform: uppercase; }
+    `;
+    document.head.appendChild(s);
+  })();
+
+
+# ---- about.html: SIMPLIFIED ----
+# Keep existing <head>, HUD marquee, logo banner, <nav> and <footer> untouched.
+# Replace the existing <section id="promise">...</section> block (lines 404–435)
+# with a single <main> wrapper + #prose-body fallback, and add the data-page-key +
+# prose.js script tag.
+
+# 1. Change the opening body tag (first tag after </head>) — add data-page-key:
+#    Before: <body class="dark">  (or wherever it opens)
+#    After:  <body class="dark" data-page-key="about">
+#
+# 2. Replace the #promise <section> with:
+#
+#    <main>
+#      <div id="prose-body" class="prose-container">
+#        <!-- Fallback HTML kept verbatim so the page is readable if prose.js or products.json fails -->
+#        <!-- (paste the existing <section id="promise"> contents here unchanged) -->
+#      </div>
+#    </main>
+#
+# 3. Immediately before </body>, add:
+#    <script src="/assets/prose.js" defer></script>
+
+
+# ---- support.html: SIMPLIFIED ----
+# Wrap the TWO current sections (#support hero + #contact form) in a single
+# <main><div id="prose-body" class="prose-container">…existing HTML…</div></main>.
+# The Formspree contact form and Buttondown newsletter are LEFT INSIDE the fallback
+# so they still work if JS is disabled. On successful fetch, the prose body_md
+# replaces them — intentional, since the markdown now contains the relevant copy
+# and mailto link, and the form code paths are the existing fallback.
+#
+# 1. <body ... data-page-key="support">
+# 2. Wrap existing content area (<section id="support"> + <section id="contact">
+#    + <section id="newsletter">) in <main><div id="prose-body" class="prose-container">…</div></main>.
+#    (They may already be inside a <main>; just add the prose-body wrapper inside it.)
+# 3. Add <script src="/assets/prose.js" defer></script> before </body>.
+
+
+# ---- terms.html: SIMPLIFIED ----
+# The current <section id="terms"> contains the 01-05 cards. Wrap in prose-body.
+#
+# 1. <body ... data-page-key="terms">
+# 2. Replace <main>...<section id="terms">...</section>...</main>  with
+#    <main><div id="prose-body" class="prose-container"><!-- existing section kept as fallback --></div></main>
+# 3. Add <script src="/assets/prose.js" defer></script> before </body>.
+
+
+# ---- privacy.html: SIMPLIFIED ----
+# Already has a clean <main class="max-w-4xl mx-auto px-6 py-16">. Wrap its
+# contents in #prose-body and swap the outer class.
+#
+# 1. <body ... data-page-key="privacy">
+# 2. Change <main class="max-w-4xl mx-auto px-6 py-16"> to <main>
+#    and inside add: <div id="prose-body" class="prose-container"><!-- all existing cards -->…</div>
+# 3. Add <script src="/assets/prose.js" defer></script> before </body>.
+
+
+# ---- refund.html: SIMPLIFIED ----
+# Same shape as privacy.html.
+#
+# 1. <body ... data-page-key="refund">
+# 2. <main><div id="prose-body" class="prose-container"><!-- existing policy-cards -->…</div></main>
+# 3. Add <script src="/assets/prose.js" defer></script> before </body>.
+
+
+# ---- changelog.html: SIMPLIFIED ----
+# The existing #log-root placeholder is kept as-is inside the fallback (some
+# other script may hydrate it); prose.js only overwrites #prose-body, which is
+# a separate element. Structure:
+#
+# 1. <body ... data-page-key="changelog">
+# 2. <main><div id="prose-body" class="prose-container"><!-- existing header + description + #log-root -->…</div></main>
+# 3. Add <script src="/assets/prose.js" defer></script> before </body>.
+
+
+# ---- SUMMARY OF FILE CHANGES ----
+
+assets/prose.js: created, ~170 lines (tiny MD parser + fetch + auto-injected styles)
+about.html: simplified to use prose renderer (body[data-page-key=about], #prose-body fallback, prose.js <script>)
+support.html: same
+terms.html: same
+privacy.html: same
+refund.html: same
+changelog.html: same
+products.json: +1 top-level key "pages" with 6 entries (about/support/terms/privacy/refund/changelog), each with title/body_md/last_updated
+
+# NOTE: Editor.html is NOT modified directly in this patch. The NAV / PANEL / CSS / JS
+# blocks above are the exact fragments to merge; the JS block contains a numbered
+# "Hook-ins required elsewhere" section that lists every other line in editor.html
+# that must be touched (setView, markAllClean, showProductGrid, the load() path,
+# and one new init call).

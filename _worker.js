@@ -46,32 +46,52 @@ async function handlePaddleProxy(request, env) {
   const remaining = url.pathname.replace(/^\/api\/paddle\/?/, '');
   const targetPath = remaining || '';
 
-  // 3. Method whitelist
-  if (request.method !== 'GET') return json({ error: 'method not allowed' }, 405);
+  // 3. Method whitelist — GET (reads), POST (creates — only on write-enabled endpoints),
+  //    PATCH (updates — only on write-enabled endpoints). PUT / DELETE still refused.
+  const method = request.method;
+  if (method !== 'GET' && method !== 'POST' && method !== 'PATCH') {
+    return json({ error: 'method not allowed' }, 405);
+  }
 
-  // 4. Endpoint whitelist — can only hit read-only Paddle endpoints
-  const allowed = ['transactions', 'products', 'prices', 'customers', 'subscriptions', 'reports'];
+  // 4. Endpoint whitelist
+  //    - Read-only endpoints: safe to expose to admin UI via GET only.
+  //    - Write-enabled endpoints: admin UI may also POST / PATCH. Still Bearer-
+  //      protected server-side; leaked admin secret still can't hit anything outside
+  //      this list.
+  const readOnly = ['transactions', 'products', 'prices', 'customers', 'subscriptions', 'reports'];
+  const writable = ['discounts'];
   const firstSeg = targetPath.split('/')[0].split('?')[0];
-  if (!allowed.includes(firstSeg)) {
+  const isReadOnly = readOnly.includes(firstSeg);
+  const isWritable = writable.includes(firstSeg);
+  if (!isReadOnly && !isWritable) {
     return json({ error: 'endpoint not allowed: ' + (targetPath || '(empty)') }, 403);
+  }
+  if ((method === 'POST' || method === 'PATCH') && !isWritable) {
+    return json({ error: 'write method not allowed on endpoint: ' + firstSeg }, 403);
   }
 
   // 5. Forward to Paddle
   const target = 'https://api.paddle.com/' + targetPath + url.search;
-  const upstream = await fetch(target, {
-    method: 'GET',
-    headers: {
-      Authorization: 'Bearer ' + env.PADDLE_API_KEY,
-      Accept: 'application/json',
-      'Paddle-Version': '1',
-    },
-  });
+  const fwdHeaders = {
+    Authorization: 'Bearer ' + env.PADDLE_API_KEY,
+    Accept: 'application/json',
+    'Paddle-Version': '1',
+  };
+  const fwdInit = { method, headers: fwdHeaders };
+  if (method === 'POST' || method === 'PATCH') {
+    fwdHeaders['Content-Type'] = request.headers.get('content-type') || 'application/json';
+    // Read the body as text so we can forward it verbatim to Paddle.
+    fwdInit.body = await request.text();
+  }
+  const upstream = await fetch(target, fwdInit);
   const body = await upstream.text();
+  // Only cache GETs; POST/PATCH must be fresh.
+  const cacheCtl = method === 'GET' ? 'private, max-age=15' : 'no-store';
   return new Response(body, {
     status: upstream.status,
     headers: {
       'content-type': upstream.headers.get('content-type') || 'application/json',
-      'cache-control': 'private, max-age=15',
+      'cache-control': cacheCtl,
     },
   });
 }

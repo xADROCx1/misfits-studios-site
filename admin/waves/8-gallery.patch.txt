@@ -1,0 +1,452 @@
+=== NAV ===
+<empty>
+
+=== PANEL ===
+<empty>
+
+=== SIDE_PANEL_ADDITIONS ===
+INSERTION POINT: In renderSide() (editor.html around line 1556-1557), inside the template literal passed to `ed.innerHTML`, insert the following HTML block AFTER the closing </div> of the "Plugin Source File" field (the <div class="field"> that wraps src-box, ends around line 1556) and BEFORE the "Author — read-only" field <div class="field"> (line 1557).
+
+Paste-in-place block:
+
+      <div class="field">
+        <label>Screenshots / gallery <span style="color:var(--muted);text-transform:none">(<span id="ss-count">0</span>/6)</span></label>
+        <div class="gallery-editor" id="gallery-editor">
+          <div class="gallery-grid" id="gallery-grid">
+            ${renderScreenshotWidget(p)}
+          </div>
+          <label class="gallery-upload-btn" id="gallery-upload-btn">
+            &#11014; Upload screenshot(s) &mdash; up to 6, jpg/png/webp
+            <input type="file" accept="image/*" id="gallery-upload" multiple />
+          </label>
+          <div class="gallery-hint" id="gallery-hint">Drag thumbs to reorder. Slot 1 is the primary. Max 4 MB each. Staged on upload; commits on next Publish.</div>
+        </div>
+      </div>
+
+Then, inside the existing wiring section at the bottom of renderSide() (after the srcBox drag-and-drop handler, around line 1666, BEFORE `refreshSourceMeta();`), add this wiring:
+
+  // Gallery upload (multi-file)
+  const gUpload = ed.querySelector('#gallery-upload');
+  if (gUpload) {
+    gUpload.addEventListener('change', (e) => {
+      const files = Array.from(e.target.files || []);
+      files.forEach(f => stageScreenshotUpload(f));
+      e.target.value = '';
+    });
+  }
+  // Drag-to-upload on the whole gallery editor
+  const gEd = ed.querySelector('#gallery-editor');
+  if (gEd) {
+    gEd.addEventListener('dragover', (e) => {
+      // only treat it as a file-drop if files are present
+      if (e.dataTransfer && e.dataTransfer.types && [...e.dataTransfer.types].includes('Files')) {
+        e.preventDefault(); gEd.classList.add('drop-hot');
+      }
+    });
+    gEd.addEventListener('dragleave', () => { gEd.classList.remove('drop-hot'); });
+    gEd.addEventListener('drop', (e) => {
+      if (!e.dataTransfer || !e.dataTransfer.files || !e.dataTransfer.files.length) return;
+      e.preventDefault(); gEd.classList.remove('drop-hot');
+      Array.from(e.dataTransfer.files).forEach(f => stageScreenshotUpload(f));
+    });
+  }
+  wireGalleryDnD();
+  refreshScreenshotCount();
+
+=== CSS ===
+/* Screenshot gallery editor widget */
+.gallery-editor { display: flex; flex-direction: column; gap: 8px; border: 1px dashed transparent; padding: 4px; border-radius: 4px; transition: border-color .15s, background .15s; }
+.gallery-editor.drop-hot { border-color: var(--cyan); background: rgba(83,221,252,0.06); }
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 72px;
+  gap: 6px;
+  min-height: 72px;
+}
+@media (max-width: 520px) {
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+}
+.gallery-thumb {
+  position: relative;
+  background: #000;
+  border: 1px solid var(--line);
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+  transition: border-color .15s, transform .15s, box-shadow .15s;
+}
+.gallery-thumb:hover { border-color: var(--cyan); }
+.gallery-thumb.dragging { opacity: 0.4; cursor: grabbing; }
+.gallery-thumb.drop-target { border-color: var(--pink); box-shadow: 0 0 0 2px var(--pink) inset; }
+.gallery-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+.gallery-thumb .slot-badge {
+  position: absolute; top: 2px; left: 2px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  padding: 1px 5px;
+  background: rgba(0,0,0,0.7);
+  color: var(--mint);
+  letter-spacing: 0.1em;
+  pointer-events: none;
+}
+.gallery-thumb .primary-badge {
+  position: absolute; bottom: 2px; left: 2px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  padding: 1px 5px;
+  background: var(--pink);
+  color: #000;
+  letter-spacing: 0.1em;
+  pointer-events: none;
+  font-weight: 700;
+}
+.gallery-thumb .remove-x {
+  position: absolute; top: 2px; right: 2px;
+  width: 20px; height: 20px;
+  border: 0;
+  background: rgba(255,60,60,0.85);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity .15s, background .15s;
+  border-radius: 2px;
+}
+.gallery-thumb:hover .remove-x { opacity: 1; }
+.gallery-thumb .remove-x:hover { background: #ff3c3c; }
+.gallery-thumb.staged::after {
+  content: "STAGED";
+  position: absolute; bottom: 2px; right: 2px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  padding: 1px 4px;
+  background: var(--yellow);
+  color: #000;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  pointer-events: none;
+}
+.gallery-empty {
+  grid-column: 1 / -1;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--muted);
+  border: 1px dashed var(--line);
+  padding: 12px;
+  text-align: center;
+}
+.gallery-upload-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 8px 12px;
+  border: 1px dashed var(--line);
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--paper);
+  cursor: pointer;
+  transition: border-color .15s, color .15s;
+}
+.gallery-upload-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+.gallery-upload-btn input { display: none; }
+.gallery-hint {
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.gallery-hint.staged { color: var(--mint); }
+
+=== JS ===
+/* ---------- Gallery / screenshots ---------- */
+
+// Build the inner HTML for the screenshot grid for a given product.
+// Exposed so the renderSide() template literal can call it inline.
+function renderScreenshotWidget(p) {
+  const shots = Array.isArray(p && p.screenshots) ? p.screenshots : [];
+  if (!shots.length) {
+    return `<div class="gallery-empty">no screenshots &mdash; upload or drop up to 6 images</div>`;
+  }
+  return shots.map((path, i) => {
+    const staged = S.stagedImages && S.stagedImages.get(path);
+    const src = staged ? staged.dataUrl : path;
+    return `
+      <div class="gallery-thumb${staged ? ' staged' : ''}" draggable="true" data-i="${i}">
+        <img src="${escapeHtml(src)}" alt="screenshot ${i + 1}" onerror="this.style.opacity=0.3" />
+        <span class="slot-badge">#${i + 1}</span>
+        ${i === 0 ? '<span class="primary-badge">PRIMARY</span>' : ''}
+        <button type="button" class="remove-x" title="Remove" onclick="removeScreenshot(${i})">&times;</button>
+      </div>`;
+  }).join('');
+}
+
+// Redraw just the gallery area (cheaper than full renderSide()).
+function refreshGalleryGrid() {
+  const p = S.products.find(x => x.id === S.selectedId);
+  if (!p) return;
+  const grid = document.getElementById('gallery-grid');
+  if (!grid) return;
+  grid.innerHTML = renderScreenshotWidget(p);
+  wireGalleryDnD();
+  refreshScreenshotCount();
+}
+
+function refreshScreenshotCount() {
+  const p = S.products.find(x => x.id === S.selectedId);
+  if (!p) return;
+  const el = document.getElementById('ss-count');
+  if (el) el.textContent = (Array.isArray(p.screenshots) ? p.screenshots.length : 0);
+}
+
+// Wire native HTML5 drag-and-drop on each thumb for reorder.
+function wireGalleryDnD() {
+  const grid = document.getElementById('gallery-grid');
+  if (!grid) return;
+  const thumbs = grid.querySelectorAll('.gallery-thumb');
+  let fromIdx = null;
+  thumbs.forEach(th => {
+    th.addEventListener('dragstart', (e) => {
+      fromIdx = parseInt(th.dataset.i, 10);
+      th.classList.add('dragging');
+      // Use a transparent payload so it's treated as same-origin move, not a file drop
+      try { e.dataTransfer.setData('text/plain', 'gallery:' + fromIdx); } catch (_) {}
+      if (e.dataTransfer) e.dataTransfer.effectAllowed = 'move';
+    });
+    th.addEventListener('dragend', () => {
+      th.classList.remove('dragging');
+      grid.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('drop-target'));
+      fromIdx = null;
+    });
+    th.addEventListener('dragover', (e) => {
+      // Only act on internal gallery drags (not file drops onto the thumb)
+      if (fromIdx == null) return;
+      e.preventDefault();
+      if (e.dataTransfer) e.dataTransfer.dropEffect = 'move';
+      grid.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('drop-target'));
+      th.classList.add('drop-target');
+    });
+    th.addEventListener('dragleave', () => {
+      th.classList.remove('drop-target');
+    });
+    th.addEventListener('drop', (e) => {
+      if (fromIdx == null) return;
+      e.preventDefault();
+      e.stopPropagation();
+      const toIdx = parseInt(th.dataset.i, 10);
+      if (fromIdx !== toIdx) reorderScreenshots(fromIdx, toIdx);
+    });
+  });
+}
+
+// Stage one uploaded image at the next available slot (or targetIndex if given).
+function stageScreenshotUpload(file, targetIndex) {
+  const p = S.products.find(x => x.id === S.selectedId);
+  if (!p) return;
+  if (!/^image\//i.test(file.type)) { toast('Not an image file', 'err'); return; }
+  if (file.size > 4 * 1024 * 1024) { toast('Image too large (>4MB). Compress and retry.', 'err'); return; }
+
+  p.screenshots = Array.isArray(p.screenshots) ? p.screenshots : [];
+  if (p.screenshots.length >= 6 && targetIndex == null) {
+    toast('Max 6 screenshots per product', 'err');
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    const dataUrl = reader.result;
+    const comma = dataUrl.indexOf(',');
+    const base64Content = dataUrl.slice(comma + 1);
+    const ext = (file.name.split('.').pop() || 'jpg').toLowerCase().replace(/[^a-z0-9]/g, '') || 'jpg';
+    const slug = p.slug || slugify(p.name || p.id || 'product');
+    const slotIndex = (typeof targetIndex === 'number') ? targetIndex : p.screenshots.length;
+    const humanIndex = slotIndex + 1; // 1-based in filename for clarity
+    const targetPath = 'assets/products/' + slug + '-ss-' + humanIndex + '.' + ext;
+    const publicPath = '/' + targetPath;
+
+    S.stagedImages.set(publicPath, {
+      repoPath: targetPath,
+      filename: file.name,
+      base64: base64Content,
+      dataUrl: dataUrl
+    });
+
+    snapshot();
+    // If target was given and a slot existed, replace; otherwise append
+    if (typeof targetIndex === 'number' && p.screenshots[targetIndex] != null) {
+      // clear stale staged entry if present for the old path
+      const oldPath = p.screenshots[targetIndex];
+      if (oldPath && S.stagedImages.has(oldPath) && oldPath !== publicPath) {
+        S.stagedImages.delete(oldPath);
+      }
+      p.screenshots[targetIndex] = publicPath;
+    } else {
+      p.screenshots.push(publicPath);
+    }
+
+    markDirty(p.id);
+    refreshGalleryGrid();
+    const hint = document.getElementById('gallery-hint');
+    if (hint) {
+      hint.textContent = `Staged ${file.name} to slot #${humanIndex}. Commits on next Publish.`;
+      hint.classList.add('staged');
+    }
+    toast('Screenshot staged', 'ok');
+  };
+  reader.readAsDataURL(file);
+}
+
+function removeScreenshot(index) {
+  const p = S.products.find(x => x.id === S.selectedId);
+  if (!p || !Array.isArray(p.screenshots)) return;
+  if (index < 0 || index >= p.screenshots.length) return;
+  snapshot();
+  const removed = p.screenshots.splice(index, 1)[0];
+  // If it was staged-but-not-yet-committed, drop the staged blob to free memory
+  // and prevent the publish flow from pushing an orphan file.
+  if (removed && S.stagedImages && S.stagedImages.has(removed)) {
+    S.stagedImages.delete(removed);
+  }
+  markDirty(p.id);
+  refreshGalleryGrid();
+  toast('Screenshot removed', 'ok');
+}
+
+function reorderScreenshots(from, to) {
+  const p = S.products.find(x => x.id === S.selectedId);
+  if (!p || !Array.isArray(p.screenshots)) return;
+  if (from === to || from < 0 || to < 0 || from >= p.screenshots.length || to >= p.screenshots.length) return;
+  snapshot();
+  const [moved] = p.screenshots.splice(from, 1);
+  p.screenshots.splice(to, 0, moved);
+  markDirty(p.id);
+  refreshGalleryGrid();
+  toast('Reordered', 'ok');
+}
+
+=== OTHER_FILES_MODIFIED ===
+scripts/generate-product-pages.js:
+
+1) Add new helper function `screenshotsGalleryBlock(p)` after `featuresBlock()` and before `chatCommandsBlock()` (around line 88):
+
+function screenshotsGalleryBlock(p) {
+  const shots = Array.isArray(p.screenshots) ? p.screenshots.filter(Boolean) : [];
+  if (!shots.length) return ''; // 0 screenshots -> skip section
+  const primary = shots[0];
+  const rest = shots.slice(1);
+  const thumbsRow = (shots.length <= 1) ? '' : `
+    <div class="ss-thumbs">
+      ${shots.map((s, i) => `
+        <button type="button" class="ss-thumb${i === 0 ? ' is-active' : ''}" data-ss-index="${i}" data-ss-src="${attr(s)}" aria-label="Screenshot ${i + 1}">
+          <img src="${attr(s)}" alt="${attr(p.name)} screenshot ${i + 1}" loading="lazy" />
+        </button>`).join('')}
+    </div>`;
+  return `
+  <section class="content-card ss-card">
+    <h2>Screenshots</h2>
+    <button type="button" class="ss-primary" data-ss-index="0" data-ss-src="${attr(primary)}" aria-label="Open screenshot 1 in lightbox">
+      <img src="${attr(primary)}" alt="${attr(p.name)} primary screenshot" loading="lazy" />
+      <span class="ss-primary-hint">Click to enlarge</span>
+    </button>
+    ${thumbsRow}
+  </section>`;
+}
+
+2) Inject a call to `screenshotsGalleryBlock(p)` in the renderPage() template body, BETWEEN the Overview section and `${featuresBlock(p)}` (around line 370):
+
+  <section class="content-card">
+    <h2>Overview</h2>
+    <p style="font-size:16px; color:#dee5ff;">${esc(p.short_description || '')}</p>
+    ${longDescBlock(p)}
+  </section>
+
+  ${screenshotsGalleryBlock(p)}            <!-- NEW -->
+
+  ${featuresBlock(p)}
+  ...
+
+3) Add the following CSS inside the existing <style> block (append before the closing </style> at line 311):
+
+  /* Screenshots gallery + lightbox */
+  .ss-card .ss-primary { display:block; width:100%; padding:0; margin:8px 0 0; border:1px solid rgba(0,242,255,0.25); background:#000; cursor:zoom-in; position:relative; overflow:hidden; aspect-ratio: 3 / 2; transition:border-color .2s, transform .2s; }
+  .ss-card .ss-primary:hover { border-color:#53ddfc; transform:translate(-2px,-2px); box-shadow:4px 4px 0 #ff86c355; }
+  .ss-card .ss-primary img { width:100%; height:100%; object-fit:cover; display:block; }
+  .ss-card .ss-primary-hint { position:absolute; right:10px; bottom:10px; font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.15em; text-transform:uppercase; background:rgba(0,0,0,.7); color:#53ddfc; padding:4px 8px; border:1px solid #53ddfc55; }
+  .ss-card .ss-thumbs { display:flex; gap:8px; margin-top:10px; overflow-x:auto; padding-bottom:4px; }
+  .ss-card .ss-thumb { flex:0 0 auto; width:110px; height:70px; padding:0; border:1px solid rgba(0,242,255,0.2); background:#000; cursor:pointer; transition:border-color .15s, transform .15s; overflow:hidden; }
+  .ss-card .ss-thumb:hover, .ss-card .ss-thumb.is-active { border-color:#ff86c3; transform:translateY(-1px); }
+  .ss-card .ss-thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+  @media (max-width:540px) {
+    .ss-card .ss-thumb { width:90px; height:60px; }
+  }
+  /* Lightbox */
+  .ss-lb { position:fixed; inset:0; background:rgba(6,14,32,0.94); z-index:9999; display:none; align-items:center; justify-content:center; padding:24px; }
+  .ss-lb.is-open { display:flex; }
+  .ss-lb-img { max-width:95vw; max-height:90vh; object-fit:contain; box-shadow:0 0 60px rgba(83,221,252,0.25); border:1px solid rgba(83,221,252,0.3); }
+  .ss-lb-close { position:absolute; top:18px; right:22px; width:44px; height:44px; border:1px solid rgba(255,134,195,0.5); background:rgba(0,0,0,0.6); color:#ff86c3; font-family:'Space Grotesk',sans-serif; font-size:24px; font-weight:900; cursor:pointer; line-height:1; transition:background .15s, color .15s; }
+  .ss-lb-close:hover { background:#ff86c3; color:#060e20; }
+  .ss-lb-nav { position:absolute; top:50%; transform:translateY(-50%); width:52px; height:52px; border:1px solid rgba(83,221,252,0.4); background:rgba(0,0,0,0.55); color:#53ddfc; font-family:'Space Grotesk',sans-serif; font-size:26px; font-weight:900; cursor:pointer; line-height:1; transition:background .15s, color .15s; }
+  .ss-lb-nav:hover { background:#53ddfc; color:#060e20; }
+  .ss-lb-prev { left:18px; }
+  .ss-lb-next { right:18px; }
+  @media (max-width:540px) {
+    .ss-lb-nav { width:40px; height:40px; font-size:20px; }
+    .ss-lb-close { width:36px; height:36px; font-size:20px; top:12px; right:12px; }
+  }
+
+4) Add the lightbox DOM + bootstrap JS inside the <body>, just before the existing closing </body> tag (or just before the final <script> block at line 398). Add the DOM right after </footer>:
+
+<div class="ss-lb" id="ss-lightbox" role="dialog" aria-modal="true" aria-label="Screenshot viewer">
+  <button type="button" class="ss-lb-close" aria-label="Close">&times;</button>
+  <button type="button" class="ss-lb-nav ss-lb-prev" aria-label="Previous">&lsaquo;</button>
+  <img class="ss-lb-img" id="ss-lb-img" alt="" />
+  <button type="button" class="ss-lb-nav ss-lb-next" aria-label="Next">&rsaquo;</button>
+</div>
+<script>
+  (function () {
+    var lb = document.getElementById('ss-lightbox');
+    if (!lb) return;
+    var img = document.getElementById('ss-lb-img');
+    var closeBtn = lb.querySelector('.ss-lb-close');
+    var prevBtn = lb.querySelector('.ss-lb-prev');
+    var nextBtn = lb.querySelector('.ss-lb-next');
+    var triggers = Array.prototype.slice.call(document.querySelectorAll('[data-ss-src]'));
+    // Dedupe sources in document order (primary + thumbs share indices)
+    var sources = [];
+    triggers.forEach(function (t) {
+      var s = t.getAttribute('data-ss-src');
+      if (s && sources.indexOf(s) === -1) sources.push(s);
+    });
+    var idx = 0;
+    function open(i) {
+      if (!sources.length) return;
+      idx = ((i % sources.length) + sources.length) % sources.length;
+      img.src = sources[idx];
+      lb.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+    function close() {
+      lb.classList.remove('is-open');
+      img.src = '';
+      document.body.style.overflow = '';
+    }
+    triggers.forEach(function (t) {
+      t.addEventListener('click', function (e) {
+        e.preventDefault();
+        var src = t.getAttribute('data-ss-src');
+        var i = sources.indexOf(src);
+        open(i < 0 ? 0 : i);
+      });
+    });
+    closeBtn.addEventListener('click', close);
+    prevBtn.addEventListener('click', function () { open(idx - 1); });
+    nextBtn.addEventListener('click', function () { open(idx + 1); });
+    lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+    document.addEventListener('keydown', function (e) {
+      if (!lb.classList.contains('is-open')) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowLeft') open(idx - 1);
+      else if (e.key === 'ArrowRight') open(idx + 1);
+    });
+  })();
+</script>
+
+Summary of changes: scripts/generate-product-pages.js gets (a) screenshotsGalleryBlock(p) helper, (b) injection into renderPage() template between Overview and features, (c) inline .ss-card/.ss-thumb/.ss-lb CSS appended to the product-page <style>, (d) inline lightbox DOM + self-contained JS injected before </body>. No external libraries. Lightbox supports click-to-open, click-backdrop / X / Esc to close, arrow keys and on-screen prev/next to navigate.

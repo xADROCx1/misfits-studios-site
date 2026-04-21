@@ -1,0 +1,785 @@
+=== NAV ===
+<!-- Site Settings nav entry. Parent integration should place this under the
+     "Site" section (the <div class="nav-sec">Site</div> block). data-view="settings"
+     drives setView('settings') → showSettingsView() via the existing wiring. -->
+<div class="nav-item" data-view="settings">
+  <span>&#9881; Settings</span><span class="c" id="c-settings-dirty" style="display:none;color:var(--pink)">&bull;</span>
+</div>
+
+=== PANEL ===
+<!-- Settings panel. Parent integration should place this inside the .canvas
+     container alongside #grid / #featured-panel / #sales-panel (the existing
+     view panels all sit as siblings). showSettingsView() handles the display
+     toggle the same way showFeaturedView/showSalesView do. -->
+<div id="settings-panel" style="display:none">
+
+  <!-- Topbar -->
+  <div class="settings-topbar">
+    <div class="settings-topbar-left">
+      <span class="settings-meta" id="settings-meta">Site-wide configuration · affects every page</span>
+    </div>
+    <div class="settings-topbar-right">
+      <span style="font-family:var(--font-mono);font-size:11px;color:var(--muted)">Changes ride along on next Save</span>
+      <button class="btn" id="settings-expand-all" onclick="settingsToggleAll(true)">Expand all</button>
+      <button class="btn" id="settings-collapse-all" onclick="settingsToggleAll(false)">Collapse all</button>
+    </div>
+  </div>
+
+  <!-- =================== Section 1 — Brand & Contact =================== -->
+  <details class="settings-section" id="settings-sec-brand" open>
+    <summary class="settings-sec-head">
+      <span class="settings-sec-chip" style="--chip:var(--cyan)">01</span>
+      <span class="settings-sec-title">Brand &amp; Contact</span>
+      <span class="settings-sec-sub">Store identity &amp; public contact channels</span>
+      <span class="settings-sec-chev">&#9662;</span>
+    </summary>
+    <div class="settings-sec-body">
+      <div class="settings-grid-2">
+        <label class="settings-field">
+          <span class="settings-label">Store name</span>
+          <input type="text" class="settings-input" id="set-store-name"
+                 oninput="settingsOnStoreField('name', this.value)"
+                 placeholder="Misfits Studios" />
+          <span class="settings-hint">Shown in &lt;title&gt; and footer.</span>
+        </label>
+        <label class="settings-field">
+          <span class="settings-label">Tagline</span>
+          <input type="text" class="settings-input" id="set-store-tagline"
+                 oninput="settingsOnStoreField('tagline', this.value)"
+                 placeholder="Rust plugins &amp; desktop tools. Built solo." />
+          <span class="settings-hint">Subtitle / homepage hero strapline.</span>
+        </label>
+      </div>
+
+      <div class="settings-grid-2">
+        <label class="settings-field">
+          <span class="settings-label">Contact email</span>
+          <input type="email" class="settings-input" id="set-store-email"
+                 oninput="settingsOnStoreField('contact_email', this.value)"
+                 placeholder="misfits.support@proton.me" />
+        </label>
+        <label class="settings-field">
+          <span class="settings-label">Discord URL</span>
+          <input type="url" class="settings-input" id="set-store-discord"
+                 oninput="settingsOnStoreField('discord_url', this.value)"
+                 placeholder="https://discord.gg/..." />
+        </label>
+      </div>
+
+      <div class="settings-grid-2">
+        <label class="settings-field">
+          <span class="settings-label">Twitter / X URL</span>
+          <input type="url" class="settings-input" id="set-store-twitter"
+                 oninput="settingsOnStoreField('twitter_url', this.value)"
+                 placeholder="https://x.com/..." />
+        </label>
+        <label class="settings-field">
+          <span class="settings-label">GitHub URL</span>
+          <input type="url" class="settings-input" id="set-store-github"
+                 oninput="settingsOnStoreField('github_url', this.value)"
+                 placeholder="https://github.com/..." />
+        </label>
+      </div>
+    </div>
+  </details>
+
+  <!-- =================== Section 2 — Pricing Tiers =================== -->
+  <details class="settings-section" id="settings-sec-tiers" open>
+    <summary class="settings-sec-head">
+      <span class="settings-sec-chip" style="--chip:var(--mint)">02</span>
+      <span class="settings-sec-title">Pricing Tiers</span>
+      <span class="settings-sec-sub">Canonical price points referenced across products</span>
+      <span class="settings-sec-chev">&#9662;</span>
+    </summary>
+    <div class="settings-sec-body">
+      <div class="settings-tiers-note">
+        Tiers are suggested price points (USD). Products still carry their own <code>price_usd</code>,
+        but tiers keep your catalog consistent — and future widgets can snap to them.
+      </div>
+      <div class="settings-tiers-grid" id="settings-tiers-grid">
+        <!-- rendered by settingsRenderTiers() -->
+      </div>
+    </div>
+  </details>
+
+  <!-- =================== Section 3 — Coming Soon =================== -->
+  <details class="settings-section" id="settings-sec-cs" open>
+    <summary class="settings-sec-head">
+      <span class="settings-sec-chip" style="--chip:var(--purple)">03</span>
+      <span class="settings-sec-title">Coming Soon</span>
+      <span class="settings-sec-sub">Teaser shelf on the homepage</span>
+      <span class="settings-sec-chev">&#9662;</span>
+    </summary>
+    <div class="settings-sec-body">
+      <div class="settings-cs-toolbar">
+        <span class="settings-cs-count" id="settings-cs-count">0 items</span>
+        <button class="btn btn-primary" onclick="settingsAddComingSoon()">+ Add item</button>
+      </div>
+      <div class="settings-cs-list" id="settings-cs-list">
+        <!-- rendered by settingsRenderComingSoon() -->
+      </div>
+    </div>
+  </details>
+
+  <!-- =================== Section 4 — Announcement Bar =================== -->
+  <details class="settings-section" id="settings-sec-anno" open>
+    <summary class="settings-sec-head">
+      <span class="settings-sec-chip" style="--chip:var(--pink)">04</span>
+      <span class="settings-sec-title">Announcement Bar</span>
+      <span class="settings-sec-sub">Sitewide ribbon above the header</span>
+      <span class="settings-sec-chev">&#9662;</span>
+    </summary>
+    <div class="settings-sec-body">
+      <label class="settings-toggle">
+        <input type="checkbox" id="set-anno-enabled"
+               onchange="settingsOnAnnouncementField('enabled', this.checked)" />
+        <span>Enable announcement ribbon</span>
+      </label>
+
+      <label class="settings-field">
+        <span class="settings-label">Text</span>
+        <input type="text" class="settings-input" id="set-anno-text"
+               oninput="settingsOnAnnouncementField('text', this.value)"
+               placeholder="Spring sale — 25% off all plugins with code NEONWAVE" />
+      </label>
+
+      <div class="settings-grid-2">
+        <label class="settings-field">
+          <span class="settings-label">Link URL (optional)</span>
+          <input type="url" class="settings-input" id="set-anno-link"
+                 oninput="settingsOnAnnouncementField('link', this.value)"
+                 placeholder="/plugins.html or https://..." />
+        </label>
+        <label class="settings-field">
+          <span class="settings-label">Link label</span>
+          <input type="text" class="settings-input" id="set-anno-link-label"
+                 oninput="settingsOnAnnouncementField('link_label', this.value)"
+                 placeholder="Shop now" />
+        </label>
+      </div>
+
+      <div class="settings-field">
+        <span class="settings-label">Style</span>
+        <div class="settings-style-picker" id="settings-style-picker">
+          <button type="button" class="settings-style-btn" data-style="neon"
+                  onclick="settingsOnAnnouncementField('style', 'neon')">
+            <span class="settings-style-swatch settings-style-swatch--neon"></span>Neon
+          </button>
+          <button type="button" class="settings-style-btn" data-style="alert"
+                  onclick="settingsOnAnnouncementField('style', 'alert')">
+            <span class="settings-style-swatch settings-style-swatch--alert"></span>Alert
+          </button>
+          <button type="button" class="settings-style-btn" data-style="info"
+                  onclick="settingsOnAnnouncementField('style', 'info')">
+            <span class="settings-style-swatch settings-style-swatch--info"></span>Info
+          </button>
+        </div>
+      </div>
+
+      <div class="settings-preview-wrap">
+        <div class="settings-preview-label">Live preview</div>
+        <div class="settings-preview-frame">
+          <div class="settings-preview-ribbon" id="settings-anno-preview">
+            <span class="settings-preview-text" id="settings-anno-preview-text">Announcement text will appear here.</span>
+            <a class="settings-preview-cta" id="settings-anno-preview-cta" style="display:none"></a>
+            <button class="settings-preview-close" type="button" tabindex="-1" aria-hidden="true">&#10005;</button>
+          </div>
+          <div class="settings-preview-hint">(Visitors will see a dismiss button in the real ribbon.)</div>
+        </div>
+      </div>
+    </div>
+  </details>
+
+</div>
+
+=== CSS ===
+/* ============================================================
+ *  Site Settings (Wave 1) — all classes prefixed `.settings-`
+ * ============================================================ */
+.settings-topbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 14px; margin-bottom: 14px;
+  border: 1px solid var(--line); background: #05050c;
+}
+.settings-topbar-left, .settings-topbar-right { display: flex; gap: 10px; align-items: center; }
+.settings-meta { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+
+/* Sections are native <details> so browser handles open/close + a11y. */
+.settings-section {
+  border: 1px solid var(--line);
+  background: #0a0a14;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+.settings-section[open] { box-shadow: inset 0 1px 0 rgba(0, 242, 255, 0.08); }
+.settings-section summary { list-style: none; cursor: pointer; outline: none; }
+.settings-section summary::-webkit-details-marker { display: none; }
+
+.settings-sec-head {
+  display: grid;
+  grid-template-columns: auto auto 1fr auto;
+  gap: 12px; align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s, background 0.15s;
+}
+.settings-section[open] .settings-sec-head {
+  border-bottom-color: var(--line);
+  background: linear-gradient(180deg, rgba(0, 242, 255, 0.04), transparent);
+}
+.settings-sec-head:hover { background: rgba(0, 242, 255, 0.04); }
+.settings-sec-chip {
+  --chip: var(--cyan);
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 36px; padding: 4px 8px;
+  font-family: var(--font-mono); font-weight: 700; font-size: 11px; letter-spacing: 0.08em;
+  color: var(--chip); border: 1px solid var(--chip);
+  background: rgba(0, 0, 0, 0.4);
+}
+.settings-sec-title {
+  font-family: var(--font-head); font-weight: 700; font-size: 15px;
+  letter-spacing: 0.04em; color: var(--paper);
+}
+.settings-sec-sub {
+  font-family: var(--font-mono); font-size: 11px; color: var(--muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.settings-sec-chev {
+  font-size: 12px; color: var(--muted);
+  transition: transform 0.15s;
+}
+.settings-section[open] .settings-sec-chev { transform: rotate(180deg); color: var(--cyan); }
+
+.settings-sec-body {
+  padding: 16px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+
+/* Fields */
+.settings-field { display: flex; flex-direction: column; gap: 6px; }
+.settings-label {
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted);
+}
+.settings-input {
+  background: #05050c; border: 1px solid var(--line); color: var(--paper);
+  padding: 9px 12px; font-family: var(--font-mono); font-size: 13px;
+  outline: none; border-radius: 3px;
+  transition: border-color 0.12s, box-shadow 0.12s;
+}
+.settings-input:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 2px rgba(0, 242, 255, 0.15);
+}
+.settings-hint {
+  font-family: var(--font-mono); font-size: 10px; color: var(--muted);
+}
+.settings-grid-2 {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+}
+@media (max-width: 900px) {
+  .settings-grid-2 { grid-template-columns: 1fr; }
+}
+
+/* Toggle (checkbox) */
+.settings-toggle {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px; background: #05050c; border: 1px solid var(--line);
+  cursor: pointer; font-family: var(--font-mono); font-size: 12px; color: var(--paper);
+  transition: border-color 0.12s, background 0.12s;
+}
+.settings-toggle:hover { border-color: rgba(255, 26, 143, 0.45); background: rgba(255, 26, 143, 0.04); }
+.settings-toggle input { margin: 0; cursor: pointer; accent-color: var(--pink); }
+.settings-toggle input:checked ~ span { color: var(--pink); }
+
+/* Pricing tiers grid */
+.settings-tiers-note {
+  font-family: var(--font-mono); font-size: 11px; color: var(--muted); line-height: 1.55;
+  padding: 10px 12px; background: rgba(0, 255, 163, 0.04); border: 1px solid rgba(0, 255, 163, 0.2);
+}
+.settings-tiers-note code {
+  background: #000; padding: 1px 5px; color: var(--mint);
+  font-family: var(--font-mono); font-size: 11px;
+}
+.settings-tiers-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px;
+}
+.settings-tier {
+  display: grid; grid-template-rows: auto auto; gap: 4px;
+  padding: 10px 12px; background: #05050c; border: 1px solid var(--line);
+  transition: border-color 0.12s;
+}
+.settings-tier:focus-within { border-color: var(--mint); }
+.settings-tier-key {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--mint);
+}
+.settings-tier-input-wrap {
+  display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 6px;
+}
+.settings-tier-dollar {
+  font-family: var(--font-head); font-weight: 700; font-size: 15px; color: var(--muted);
+}
+.settings-tier-input {
+  background: transparent; border: 0; color: var(--paper);
+  font-family: var(--font-head); font-weight: 700; font-size: 17px;
+  padding: 2px 0; outline: none; width: 100%;
+}
+
+/* Coming Soon list */
+.settings-cs-toolbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-bottom: 4px;
+}
+.settings-cs-count { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+.settings-cs-list { display: flex; flex-direction: column; gap: 8px; }
+.settings-cs-row {
+  display: grid;
+  grid-template-columns: 24px 36px 1.2fr 2fr 1fr 0.7fr 32px;
+  gap: 8px; align-items: center;
+  padding: 8px 10px; background: #05050c; border: 1px solid var(--line);
+  transition: border-color 0.12s, transform 0.08s, background 0.12s;
+}
+.settings-cs-row:hover { border-color: rgba(204, 151, 255, 0.4); background: rgba(204, 151, 255, 0.04); }
+.settings-cs-row.dragging { opacity: 0.4; transform: scale(0.985); }
+.settings-cs-row.drop-above { border-top: 2px solid var(--purple); }
+.settings-cs-row.drop-below { border-bottom: 2px solid var(--purple); }
+.settings-cs-grip {
+  cursor: grab; color: var(--muted); font-size: 16px; letter-spacing: -2px;
+  user-select: none; text-align: center;
+}
+.settings-cs-grip:active { cursor: grabbing; }
+.settings-cs-slot {
+  font-family: var(--font-head); font-weight: 900; font-size: 14px;
+  color: var(--purple); text-align: center;
+}
+.settings-cs-row input, .settings-cs-row select {
+  background: transparent; border: 1px solid transparent; color: var(--paper);
+  padding: 6px 8px; font-family: var(--font-mono); font-size: 12px;
+  outline: none; border-radius: 2px;
+  transition: border-color 0.12s, background 0.12s;
+}
+.settings-cs-row input:focus, .settings-cs-row select:focus {
+  border-color: var(--purple); background: rgba(204, 151, 255, 0.05);
+}
+.settings-cs-row input::placeholder { color: rgba(204, 151, 255, 0.35); }
+.settings-cs-remove {
+  width: 28px; height: 28px;
+  border: 1px solid var(--line); background: transparent;
+  color: var(--muted); cursor: pointer; font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+  transition: color 0.12s, border-color 0.12s, background 0.12s;
+}
+.settings-cs-remove:hover { color: var(--danger); border-color: var(--danger); background: rgba(255, 71, 87, 0.08); }
+.settings-cs-empty {
+  padding: 28px; border: 1px dashed var(--line); color: var(--muted);
+  font-family: var(--font-mono); font-size: 12px; text-align: center; line-height: 1.6;
+}
+@media (max-width: 1100px) {
+  .settings-cs-row { grid-template-columns: 24px 36px 1fr 1.6fr 0.9fr 0.6fr 32px; }
+}
+
+/* Announcement style picker */
+.settings-style-picker {
+  display: flex; gap: 8px; flex-wrap: wrap;
+}
+.settings-style-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 14px; background: #05050c; border: 1px solid var(--line);
+  color: var(--paper); cursor: pointer;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em;
+  transition: border-color 0.12s, background 0.12s;
+}
+.settings-style-btn:hover { border-color: var(--paper); }
+.settings-style-btn.active {
+  border-color: var(--cyan); color: var(--cyan);
+  background: rgba(0, 242, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(0, 242, 255, 0.3);
+}
+.settings-style-swatch {
+  width: 14px; height: 14px; border-radius: 3px; display: inline-block;
+}
+.settings-style-swatch--neon  { background: linear-gradient(90deg, var(--pink), var(--cyan)); }
+.settings-style-swatch--alert { background: var(--danger); }
+.settings-style-swatch--info  { background: #0c0c18; border: 1px solid var(--cyan); }
+
+/* Live preview */
+.settings-preview-wrap { display: flex; flex-direction: column; gap: 6px; }
+.settings-preview-label {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--muted);
+}
+.settings-preview-frame {
+  border: 1px dashed var(--line); padding: 14px;
+  background: repeating-linear-gradient(45deg, #000 0 8px, #03030a 8px 16px);
+}
+.settings-preview-ribbon {
+  position: relative;
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  padding: 10px 44px 10px 16px;
+  font-family: var(--font-head); font-size: 13px; letter-spacing: 0.02em;
+  text-align: center;
+  /* default = neon */
+  background: linear-gradient(90deg, var(--pink), var(--cyan));
+  color: #000; font-weight: 700;
+}
+.settings-preview-ribbon.is-alert { background: var(--danger); color: #fff; font-weight: 700; }
+.settings-preview-ribbon.is-info  { background: #0c0c18; color: var(--cyan); border-bottom: 1px solid rgba(0, 242, 255, 0.35); font-weight: 600; }
+.settings-preview-ribbon.is-disabled { opacity: 0.35; filter: grayscale(0.6); }
+.settings-preview-text { overflow: hidden; text-overflow: ellipsis; max-width: 72ch; }
+.settings-preview-cta {
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;
+  padding: 4px 10px; border: 1px solid currentColor; border-radius: 3px;
+  text-decoration: none; color: inherit;
+}
+.settings-preview-close {
+  position: absolute; top: 50%; right: 10px; transform: translateY(-50%);
+  width: 22px; height: 22px; background: transparent;
+  border: 1px solid currentColor; border-radius: 3px; color: inherit;
+  font-size: 11px; cursor: default; opacity: 0.6;
+}
+.settings-preview-hint {
+  font-family: var(--font-mono); font-size: 10px; color: var(--muted);
+  margin-top: 4px;
+}
+
+=== JS ===
+/* ============================================================
+ *  SITE SETTINGS (Wave 1)
+ *
+ *  INTEGRATION NOTES FOR THE MAIN EDITOR (editor.html):
+ *  ----------------------------------------------------------
+ *  1) setView() already routes data-view="settings" — add:
+ *         if (view === 'settings') showSettingsView();
+ *     alongside the existing sales / featured branches.
+ *
+ *  2) showProductGrid() hides #grid and toggles the other
+ *     panels off. Add a line:
+ *         const sp = document.getElementById('settings-panel');
+ *         if (sp) sp.style.display = 'none';
+ *     …and add the mirrored line inside showSalesView() /
+ *     showFeaturedView() so they also hide #settings-panel.
+ *
+ *  3) In load() — right after the featured[] baseline line
+ *     ( S.baseline.set('__featured__', …) ) — add:
+ *         S.baseline.set('__settings__', settingsSnapshotString());
+ *
+ *  4) In markAllClean() — after the featured baseline line —
+ *     add the same:
+ *         S.baseline.set('__settings__', settingsSnapshotString());
+ *
+ *  5) In recomputeDirty() — after the featured-diff block — add:
+ *         const sBaseline = S.baseline.get('__settings__');
+ *         const sCurrent  = settingsSnapshotString();
+ *         if (sBaseline !== undefined && sBaseline !== sCurrent) {
+ *           S.dirty.add('__manifest__');
+ *         }
+ *
+ *  6) bootEditor() — no change required; .nav-item wiring
+ *     already calls setView(dataset.view).
+ * ============================================================ */
+
+/* ---------- View switching ---------- */
+function showSettingsView() {
+  document.getElementById('grid').style.display = 'none';
+  const fp = document.getElementById('featured-panel'); if (fp) fp.style.display = 'none';
+  const sp = document.getElementById('sales-panel');    if (sp) sp.style.display = 'none';
+  document.getElementById('settings-panel').style.display = '';
+  document.getElementById('canvas-title').textContent = 'Site Settings';
+  document.getElementById('canvas-sub').textContent = 'Brand · Pricing · Coming Soon · Announcement';
+  renderSettingsPanel();
+}
+
+/* ---------- Ensure schema exists (defensive — products.json already has these) ---------- */
+function settingsEnsureSchema() {
+  if (!S.raw) return;
+  if (!S.raw.store || typeof S.raw.store !== 'object') S.raw.store = {};
+  if (!S.raw.pricing_tiers || typeof S.raw.pricing_tiers !== 'object') S.raw.pricing_tiers = {};
+  if (!Array.isArray(S.raw.coming_soon)) S.raw.coming_soon = [];
+  if (!S.raw.announcement || typeof S.raw.announcement !== 'object') {
+    S.raw.announcement = { enabled: false, text: '', link: '', link_label: '', style: 'neon' };
+  }
+}
+
+/* ---------- Snapshot string used for dirty detection by host ---------- */
+function settingsSnapshotString() {
+  if (!S.raw) return '';
+  return JSON.stringify({
+    store: S.raw.store || {},
+    pricing_tiers: S.raw.pricing_tiers || {},
+    coming_soon: S.raw.coming_soon || [],
+    announcement: S.raw.announcement || {}
+  });
+}
+
+/* ---------- Master render ---------- */
+function renderSettingsPanel() {
+  settingsEnsureSchema();
+  settingsRenderBrand();
+  settingsRenderTiers();
+  settingsRenderComingSoon();
+  settingsRenderAnnouncement();
+}
+
+/* ---------- Collapse / expand all ---------- */
+function settingsToggleAll(open) {
+  document.querySelectorAll('#settings-panel .settings-section').forEach(d => {
+    d.open = !!open;
+  });
+}
+
+/* ---------- Section 1: Brand & Contact ---------- */
+function settingsRenderBrand() {
+  const s = S.raw.store || {};
+  const set = (id, v) => { const el = document.getElementById(id); if (el) el.value = v == null ? '' : v; };
+  set('set-store-name',    s.name);
+  set('set-store-tagline', s.tagline);
+  set('set-store-email',   s.contact_email);
+  set('set-store-discord', s.discord_url);
+  set('set-store-twitter', s.twitter_url);
+  set('set-store-github',  s.github_url);
+}
+function settingsOnStoreField(key, value) {
+  settingsEnsureSchema();
+  if (typeof snapshot === 'function') snapshot();
+  S.raw.store[key] = value;
+  S.dirty.add('__manifest__');
+  updateDirtyBadge();
+  // No grid re-render needed — nothing in the product grid depends on store.*
+}
+
+/* ---------- Section 2: Pricing Tiers ---------- */
+const SETTINGS_TIER_ORDER = ['micro', 'small', 'medium', 'large', 'pro', 'flagship', 'bundle'];
+function settingsRenderTiers() {
+  settingsEnsureSchema();
+  const tiers = S.raw.pricing_tiers || {};
+  // Make sure every canonical key exists with at least 0
+  SETTINGS_TIER_ORDER.forEach(k => { if (tiers[k] == null) tiers[k] = 0; });
+
+  const grid = document.getElementById('settings-tiers-grid');
+  if (!grid) return;
+  grid.innerHTML = SETTINGS_TIER_ORDER.map(key => {
+    const val = Number(tiers[key] || 0);
+    return `<div class="settings-tier">
+      <span class="settings-tier-key">${escapeHtml(key)}</span>
+      <span class="settings-tier-input-wrap">
+        <span class="settings-tier-dollar">$</span>
+        <input class="settings-tier-input" type="number" min="0" step="0.01"
+               value="${val.toFixed(2)}"
+               oninput="settingsOnTierChange('${escapeHtml(key)}', this.value)" />
+      </span>
+    </div>`;
+  }).join('');
+}
+function settingsOnTierChange(key, raw) {
+  settingsEnsureSchema();
+  if (typeof snapshot === 'function') snapshot();
+  const n = raw === '' ? 0 : Number(raw);
+  S.raw.pricing_tiers[key] = isNaN(n) ? 0 : n;
+  S.dirty.add('__manifest__');
+  updateDirtyBadge();
+}
+
+/* ---------- Section 3: Coming Soon ---------- */
+function settingsRenderComingSoon() {
+  settingsEnsureSchema();
+  const list = S.raw.coming_soon;
+  const count = document.getElementById('settings-cs-count');
+  if (count) count.textContent = list.length + ' item' + (list.length === 1 ? '' : 's');
+
+  const listEl = document.getElementById('settings-cs-list');
+  if (!listEl) return;
+  if (!list.length) {
+    listEl.innerHTML = '<div class="settings-cs-empty">No "coming soon" items yet.<br/>Click <b>+ Add item</b> above to tease an upcoming plugin.</div>';
+    return;
+  }
+  listEl.innerHTML = list.map((item, i) => {
+    const name     = item.name     || '';
+    const tagline  = item.tagline  || '';
+    const category = item.category || 'plugin';
+    const eta      = item.eta      || '';
+    return `<div class="settings-cs-row" draggable="true" data-idx="${i}">
+      <span class="settings-cs-grip" title="Drag to reorder">&#x22EE;&#x22EE;</span>
+      <span class="settings-cs-slot">${i + 1}</span>
+      <input type="text" placeholder="Name" value="${escapeHtml(name)}"
+             oninput="settingsOnComingSoonField(${i}, 'name', this.value)" />
+      <input type="text" placeholder="Tagline — one-liner pitch" value="${escapeHtml(tagline)}"
+             oninput="settingsOnComingSoonField(${i}, 'tagline', this.value)" />
+      <select onchange="settingsOnComingSoonField(${i}, 'category', this.value)">
+        <option value="plugin"   ${category === 'plugin'   ? 'selected' : ''}>plugin</option>
+        <option value="app"      ${category === 'app'      ? 'selected' : ''}>app</option>
+        <option value="library"  ${category === 'library'  ? 'selected' : ''}>library</option>
+        <option value="unsorted" ${category === 'unsorted' ? 'selected' : ''}>unsorted</option>
+      </select>
+      <input type="text" placeholder="ETA (e.g. TBD, Q2 2026)" value="${escapeHtml(eta)}"
+             oninput="settingsOnComingSoonField(${i}, 'eta', this.value)" />
+      <button class="settings-cs-remove" onclick="settingsRemoveComingSoon(${i})" title="Remove">&times;</button>
+    </div>`;
+  }).join('');
+  settingsAttachComingSoonDnD();
+}
+function settingsAddComingSoon() {
+  settingsEnsureSchema();
+  if (typeof snapshot === 'function') snapshot();
+  S.raw.coming_soon.push({ name: '', tagline: '', category: 'plugin', eta: 'TBD' });
+  S.dirty.add('__manifest__');
+  updateDirtyBadge();
+  settingsRenderComingSoon();
+  toast('Added coming-soon item — fill in the name', 'ok');
+}
+function settingsRemoveComingSoon(i) {
+  settingsEnsureSchema();
+  const list = S.raw.coming_soon;
+  if (i < 0 || i >= list.length) return;
+  if (typeof snapshot === 'function') snapshot();
+  const removed = list.splice(i, 1)[0];
+  S.dirty.add('__manifest__');
+  updateDirtyBadge();
+  settingsRenderComingSoon();
+  toast('Removed: ' + (removed && removed.name ? removed.name : 'item'), 'ok');
+}
+function settingsOnComingSoonField(i, key, value) {
+  settingsEnsureSchema();
+  const list = S.raw.coming_soon;
+  if (i < 0 || i >= list.length) return;
+  if (typeof snapshot === 'function') snapshot();
+  list[i][key] = value;
+  S.dirty.add('__manifest__');
+  updateDirtyBadge();
+  // Don't re-render on every keystroke — it would blow away focus.
+}
+function settingsAttachComingSoonDnD() {
+  const rows = document.querySelectorAll('#settings-cs-list .settings-cs-row');
+  rows.forEach(row => {
+    row.addEventListener('dragstart', (e) => {
+      e.dataTransfer.setData('text/plain', row.dataset.idx);
+      e.dataTransfer.effectAllowed = 'move';
+      row.classList.add('dragging');
+    });
+    row.addEventListener('dragend', () => {
+      row.classList.remove('dragging');
+      rows.forEach(r => { r.classList.remove('drop-above'); r.classList.remove('drop-below'); });
+    });
+    row.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      const rect = row.getBoundingClientRect();
+      const below = (e.clientY - rect.top) > rect.height / 2;
+      rows.forEach(r => { r.classList.remove('drop-above'); r.classList.remove('drop-below'); });
+      row.classList.add(below ? 'drop-below' : 'drop-above');
+    });
+    row.addEventListener('drop', (e) => {
+      e.preventDefault();
+      const fromIdx = Number(e.dataTransfer.getData('text/plain'));
+      const toIdx   = Number(row.dataset.idx);
+      rows.forEach(r => { r.classList.remove('drop-above'); r.classList.remove('drop-below'); });
+      if (Number.isNaN(fromIdx) || Number.isNaN(toIdx) || fromIdx === toIdx) return;
+      const rect = row.getBoundingClientRect();
+      const dropBelow = (e.clientY - rect.top) > rect.height / 2;
+      settingsReorderComingSoon(fromIdx, toIdx, dropBelow);
+    });
+  });
+}
+function settingsReorderComingSoon(fromIdx, targetIdx, placeBelow) {
+  settingsEnsureSchema();
+  const list = S.raw.coming_soon;
+  if (fromIdx < 0 || fromIdx >= list.length) return;
+  if (typeof snapshot === 'function') snapshot();
+
+  const [moving] = list.splice(fromIdx, 1);
+  // Compute fresh target index after splice.
+  let insertAt = targetIdx;
+  if (fromIdx < targetIdx) insertAt -= 1;
+  if (placeBelow) insertAt += 1;
+  if (insertAt < 0) insertAt = 0;
+  if (insertAt > list.length) insertAt = list.length;
+  list.splice(insertAt, 0, moving);
+
+  S.dirty.add('__manifest__');
+  updateDirtyBadge();
+  settingsRenderComingSoon();
+  toast('Reordered coming-soon list', 'ok');
+}
+
+/* ---------- Section 4: Announcement Bar ---------- */
+const SETTINGS_VALID_STYLES = ['neon', 'alert', 'info'];
+function settingsRenderAnnouncement() {
+  settingsEnsureSchema();
+  const a = S.raw.announcement;
+  const set = (id, v, prop = 'value') => { const el = document.getElementById(id); if (el) el[prop] = v == null ? '' : v; };
+  set('set-anno-enabled',   !!a.enabled, 'checked');
+  set('set-anno-text',       a.text       || '');
+  set('set-anno-link',       a.link       || '');
+  set('set-anno-link-label', a.link_label || '');
+
+  const style = SETTINGS_VALID_STYLES.includes(a.style) ? a.style : 'neon';
+  document.querySelectorAll('#settings-style-picker .settings-style-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.style === style);
+  });
+  settingsUpdateAnnouncementPreview();
+}
+function settingsOnAnnouncementField(key, value) {
+  settingsEnsureSchema();
+  if (typeof snapshot === 'function') snapshot();
+  const a = S.raw.announcement;
+  if (key === 'style' && !SETTINGS_VALID_STYLES.includes(value)) value = 'neon';
+  a[key] = value;
+  S.dirty.add('__manifest__');
+  updateDirtyBadge();
+
+  // For the style picker we need to flip the active button classes.
+  if (key === 'style') {
+    document.querySelectorAll('#settings-style-picker .settings-style-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.style === value);
+    });
+  }
+  settingsUpdateAnnouncementPreview();
+}
+function settingsUpdateAnnouncementPreview() {
+  const a = S.raw.announcement || {};
+  const ribbon = document.getElementById('settings-anno-preview');
+  const textEl = document.getElementById('settings-anno-preview-text');
+  const ctaEl  = document.getElementById('settings-anno-preview-cta');
+  if (!ribbon || !textEl || !ctaEl) return;
+
+  const style = SETTINGS_VALID_STYLES.includes(a.style) ? a.style : 'neon';
+  ribbon.classList.toggle('is-alert', style === 'alert');
+  ribbon.classList.toggle('is-info',  style === 'info');
+  ribbon.classList.toggle('is-disabled', !a.enabled);
+
+  const text = (a.text || '').trim();
+  textEl.textContent = text || 'Announcement text will appear here.';
+  textEl.style.opacity = text ? '1' : '0.55';
+
+  if (a.link && a.link_label) {
+    ctaEl.style.display = '';
+    ctaEl.textContent = a.link_label;
+    // Make sure it's not actually navigable from the preview.
+    ctaEl.href = 'javascript:void(0)';
+    ctaEl.title = a.link;
+  } else {
+    ctaEl.style.display = 'none';
+  }
+}
+
+=== PRODUCTS_JSON_PATCH ===
+{
+  "_confirmed": "products.json already has the required schema — no additions needed.",
+  "existing_keys": {
+    "store": "present (name, tagline, contact_email, discord_url, twitter_url, github_url, plus legacy lemonsqueezy_* fields — left untouched)",
+    "pricing_tiers": "present (micro, small, medium, large, pro, flagship, bundle)",
+    "coming_soon": "present — array of { name, tagline, category, eta }",
+    "announcement": "present — { enabled:false, text:'', link:'', link_label:'', style:'neon' }"
+  },
+  "runtime_defaults_if_missing": {
+    "store": {},
+    "pricing_tiers": { "micro": 0, "small": 0, "medium": 0, "large": 0, "pro": 0, "flagship": 0, "bundle": 0 },
+    "coming_soon": [],
+    "announcement": { "enabled": false, "text": "", "link": "", "link_label": "", "style": "neon" }
+  },
+  "note": "settingsEnsureSchema() creates any missing branch at edit time, so the editor is safe even if a future products.json drops one of these keys."
+}
+
+=== OTHER_FILES_MODIFIED ===
+assets/announcement.js: created — ~115 lines, self-contained IIFE. Fetches /products.json (cache no-store), injects a top-of-body ribbon when announcement.enabled && announcement.text, styles neon|alert|info, dismissal persisted in localStorage under key `__misfits_announcement_dismissed_v1`. Dismissal key is a hash of (text|link|style) so editing the announcement re-shows it for everyone. Exposes `--misfits-announcement-h` on <html> in case other layouts want to offset. Drop-in via `<script src="/assets/announcement.js" defer></script>` at the bottom of each storefront page.

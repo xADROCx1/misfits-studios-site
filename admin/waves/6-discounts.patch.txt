@@ -1,0 +1,601 @@
+=== NAV ===
+<!-- Insert after the Sales nav-item (around line 921, inside the "Reports" section of the left nav) -->
+    <div class="nav-item" data-view="discounts">
+      <span>&#37; Discounts</span><span class="c" id="c-discounts"></span>
+    </div>
+
+=== PANEL ===
+<!-- Insert inside .canvas, AFTER the closing </div> of #sales-panel and BEFORE the canvas closes (around line 1062). -->
+    <!-- Discount code manager (hidden by default, shown when Discounts nav item clicked) -->
+    <div id="discounts-panel" style="display:none">
+      <div class="discounts-setup" id="discounts-setup" style="display:none">
+        <div class="discounts-setup-title">Discount manager — admin secret required</div>
+        <div class="discounts-setup-body">
+          This panel creates and deactivates Paddle discount codes via the server-side proxy. It uses the same
+          admin secret as the Sales report — set it up there first.
+          <div style="margin-top:10px">
+            <button class="btn btn-primary" onclick="setView('sales')">&rarr; Go to Sales setup</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="discounts-body">
+        <!-- Error / status banner -->
+        <div class="discounts-banner" id="discounts-banner" style="display:none"></div>
+
+        <!-- Create form -->
+        <div class="discounts-create">
+          <div class="discounts-create-head">
+            <div class="discounts-create-title">Create discount code</div>
+            <div class="discounts-create-sub">Applies instantly at Paddle checkout. Codes are CASE-SENSITIVE — uppercase is conventional.</div>
+          </div>
+
+          <div class="discounts-create-grid">
+            <div class="dc-field">
+              <label>Code</label>
+              <input type="text" id="dc-code" placeholder="SUMMER30" maxlength="40" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9_-]/g,'')" />
+              <div class="dc-hint">3–40 chars · A–Z, 0–9, _, -</div>
+            </div>
+
+            <div class="dc-field">
+              <label>Type</label>
+              <div class="dc-radios">
+                <label class="dc-radio"><input type="radio" name="dc-type" value="percentage" checked onchange="updateDiscountTypeUI()" /><span>Percent off</span></label>
+                <label class="dc-radio"><input type="radio" name="dc-type" value="flat" onchange="updateDiscountTypeUI()" /><span>Flat amount off</span></label>
+              </div>
+            </div>
+
+            <div class="dc-field">
+              <label id="dc-amount-label">Amount (%)</label>
+              <input type="number" id="dc-amount" min="1" step="1" placeholder="30" />
+              <div class="dc-hint" id="dc-amount-hint">1–100 (percent)</div>
+            </div>
+
+            <div class="dc-field">
+              <label>Currency <span class="dc-opt">(flat only)</span></label>
+              <select id="dc-currency" disabled>
+                <option value="USD" selected>USD</option>
+                <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+                <option value="AUD">AUD</option>
+                <option value="CAD">CAD</option>
+              </select>
+            </div>
+
+            <div class="dc-field dc-field-wide">
+              <label>Description <span class="dc-opt">(internal)</span></label>
+              <input type="text" id="dc-desc" placeholder="Summer 30% off — blog promo" maxlength="200" />
+            </div>
+
+            <div class="dc-field">
+              <label>Starts at <span class="dc-opt">(optional)</span></label>
+              <input type="datetime-local" id="dc-starts" />
+            </div>
+
+            <div class="dc-field">
+              <label>Expires at <span class="dc-opt">(optional)</span></label>
+              <input type="datetime-local" id="dc-expires" />
+            </div>
+
+            <div class="dc-field">
+              <label>Usage limit <span class="dc-opt">(blank = unlimited)</span></label>
+              <input type="number" id="dc-usage-limit" min="1" step="1" placeholder="100" />
+            </div>
+
+            <div class="dc-field">
+              <label>Applies to</label>
+              <select id="dc-scope" onchange="updateDiscountScopeUI()">
+                <option value="all" selected>All products</option>
+                <option value="specific">Specific products</option>
+              </select>
+            </div>
+
+            <div class="dc-field dc-field-wide" id="dc-products-wrap" style="display:none">
+              <label>Products <span class="dc-opt">(ctrl/cmd-click to multi-select)</span></label>
+              <select id="dc-products" multiple size="6"></select>
+              <div class="dc-hint">Paddle product IDs are fetched live from /api/paddle/products</div>
+            </div>
+          </div>
+
+          <div class="discounts-create-foot">
+            <button class="btn btn-primary" onclick="createDiscount()" id="dc-create-btn">+ Create discount</button>
+            <button class="btn" onclick="resetDiscountForm()">Reset form</button>
+            <span class="dc-meta" id="dc-create-meta"></span>
+          </div>
+        </div>
+
+        <!-- Active discounts -->
+        <div class="discounts-bar">
+          <div class="discounts-bar-left">
+            <span class="dc-meta" id="discounts-last-sync">Not synced yet</span>
+          </div>
+          <div class="discounts-bar-right">
+            <button class="btn btn-primary" onclick="loadDiscounts()" id="discounts-refresh-btn">&#8635; Refresh</button>
+          </div>
+        </div>
+
+        <div class="discounts-section">
+          <div class="discounts-section-head">Active discounts <span id="discounts-active-count" class="dc-meta"></span></div>
+          <div class="discounts-table-wrap">
+            <table class="discounts-table">
+              <thead><tr>
+                <th>Code</th>
+                <th>Type</th>
+                <th class="num">Amount</th>
+                <th>Expires</th>
+                <th class="num">Uses</th>
+                <th>Scope</th>
+                <th class="actions">Actions</th>
+              </tr></thead>
+              <tbody id="discounts-active-rows">
+                <tr><td colspan="7" class="discounts-empty">Click Refresh to load.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Archived / expired (collapsible) -->
+        <div class="discounts-section">
+          <div class="discounts-section-head discounts-section-toggle" onclick="toggleArchivedDiscounts()">
+            <span id="discounts-archived-caret">&#9656;</span>
+            <span>Archived &amp; expired <span id="discounts-archived-count" class="dc-meta"></span></span>
+          </div>
+          <div class="discounts-table-wrap" id="discounts-archived-wrap" style="display:none">
+            <table class="discounts-table">
+              <thead><tr>
+                <th>Code</th>
+                <th>Type</th>
+                <th class="num">Amount</th>
+                <th>Expired</th>
+                <th class="num">Uses</th>
+                <th>Status</th>
+                <th class="actions">Actions</th>
+              </tr></thead>
+              <tbody id="discounts-archived-rows">
+                <tr><td colspan="7" class="discounts-empty">—</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+=== CSS ===
+/* Insert inside the main <style> block, near the other .sales- rules (after line ~835). */
+.discounts-banner { padding: 10px 14px; margin-bottom: 14px; font-family: var(--font-mono); font-size: 12px; border: 1px solid var(--danger); background: rgba(255, 71, 87, 0.08); color: var(--danger); }
+.discounts-banner.ok { border-color: var(--mint); background: rgba(0, 255, 163, 0.08); color: var(--mint); }
+
+.discounts-setup { border: 1px solid rgba(255, 235, 0, 0.3); background: rgba(255, 235, 0, 0.04); padding: 18px; }
+.discounts-setup-title { font-family: var(--font-head); font-weight: 900; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--yellow); margin-bottom: 10px; }
+.discounts-setup-body { font-family: var(--font-mono); font-size: 12px; color: var(--paper); line-height: 1.55; }
+
+.discounts-create { border: 1px solid var(--line); background: #05050c; padding: 16px 18px; margin-bottom: 18px; }
+.discounts-create-head { margin-bottom: 14px; }
+.discounts-create-title { font-family: var(--font-head); font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--paper); margin-bottom: 4px; }
+.discounts-create-sub { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+.discounts-create-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.dc-field { display: flex; flex-direction: column; gap: 4px; }
+.dc-field-wide { grid-column: span 2; }
+.dc-field label { font-family: var(--font-mono); font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+.dc-field .dc-opt { text-transform: none; color: var(--muted); opacity: 0.7; letter-spacing: 0; }
+.dc-field input, .dc-field select { background: #0a0a14; border: 1px solid var(--line); color: var(--paper); padding: 8px 10px; font-family: var(--font-mono); font-size: 12px; outline: none; }
+.dc-field input:focus, .dc-field select:focus { border-color: var(--cyan); box-shadow: 0 0 0 2px rgba(0, 242, 255, 0.12); }
+.dc-field input[type="datetime-local"] { color-scheme: dark; }
+.dc-field input[disabled], .dc-field select[disabled] { opacity: 0.5; cursor: not-allowed; }
+.dc-hint { font-family: var(--font-mono); font-size: 10px; color: var(--muted); margin-top: 2px; }
+.dc-radios { display: flex; gap: 10px; padding-top: 4px; }
+.dc-radio { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 12px; color: var(--paper); cursor: pointer; }
+.dc-radio input { accent-color: var(--cyan); }
+
+.discounts-create-foot { display: flex; gap: 10px; align-items: center; margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--line); }
+.dc-meta { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+
+.discounts-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; padding: 10px 14px; border: 1px solid var(--line); background: #05050c; }
+.discounts-bar-left, .discounts-bar-right { display: flex; gap: 10px; align-items: center; }
+
+.discounts-section { margin-bottom: 18px; }
+.discounts-section-head { padding: 10px 14px; background: #07070e; border: 1px solid var(--line); border-bottom: none; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--paper); display: flex; align-items: center; gap: 8px; }
+.discounts-section-toggle { cursor: pointer; user-select: none; }
+.discounts-section-toggle:hover { background: #0a0a14; color: var(--cyan); }
+.discounts-table-wrap { border: 1px solid var(--line); background: #05050c; }
+.discounts-table { width: 100%; border-collapse: collapse; }
+.discounts-table th { padding: 8px 12px; text-align: left; background: transparent; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--line); }
+.discounts-table th.num { text-align: right; }
+.discounts-table th.actions { text-align: right; width: 120px; }
+.discounts-table td { padding: 9px 12px; font-family: var(--font-mono); font-size: 12px; color: var(--paper); border-bottom: 1px solid var(--line); vertical-align: top; }
+.discounts-table td.num { text-align: right; }
+.discounts-table td.actions { text-align: right; }
+.discounts-table tr:last-child td { border-bottom: none; }
+.discounts-table tr.dc-row-main { cursor: pointer; }
+.discounts-table tr.dc-row-main:hover td { background: rgba(0, 242, 255, 0.04); }
+.discounts-table tr.dc-row-detail td { background: #07070e; padding: 12px; font-size: 11px; color: var(--muted); }
+.discounts-table tr.dc-row-detail .dc-detail-block { display: grid; grid-template-columns: 160px 1fr; gap: 6px 14px; }
+.discounts-table tr.dc-row-detail .dc-detail-block b { color: var(--paper); font-weight: 600; }
+.discounts-table tr.dc-row-detail .dc-scope-list { color: var(--cyan); word-break: break-all; }
+.discounts-empty { text-align: center; color: var(--muted); padding: 20px !important; font-size: 12px; }
+
+.dc-code { font-family: var(--font-mono); font-weight: 700; color: var(--cyan); letter-spacing: 0.06em; }
+.dc-type { display: inline-block; padding: 1px 6px; font-family: var(--font-mono); font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.dc-type.percentage { background: rgba(0, 242, 255, 0.12); color: var(--cyan); }
+.dc-type.flat { background: rgba(255, 26, 143, 0.12); color: var(--pink); }
+.dc-status { display: inline-block; padding: 1px 6px; font-family: var(--font-mono); font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.dc-status.active { background: rgba(0, 255, 163, 0.12); color: var(--mint); }
+.dc-status.archived { background: rgba(106, 115, 136, 0.18); color: var(--muted); }
+.dc-status.expired { background: rgba(255, 71, 87, 0.12); color: var(--danger); }
+.dc-deactivate { font-family: var(--font-head); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 10px; background: transparent; border: 1px solid var(--danger); color: var(--danger); cursor: pointer; }
+.dc-deactivate:hover { background: var(--danger); color: #000; }
+.dc-deactivate:disabled { opacity: 0.5; cursor: not-allowed; }
+
+@media (max-width: 1200px) {
+  .discounts-create-grid { grid-template-columns: repeat(2, 1fr); }
+  .dc-field-wide { grid-column: span 2; }
+}
+
+=== JS ===
+/* ============================================================
+ *  DISCOUNT CODE MANAGER — Paddle /discounts via server proxy
+ * ============================================================ */
+
+// -------- State --------
+const DISCOUNTS_STATE = {
+  all: [],              // full list fetched from Paddle (active + archived)
+  expandedId: null,     // which row has its detail drawer open
+  archivedOpen: false,
+};
+
+// -------- Route wiring --------
+// Add this branch to setView() (do NOT duplicate the function — just add the line):
+//   if (view === 'discounts') showDiscountsView();
+// And in showProductGrid() / showSalesView() / showFeaturedView(), add:
+//   document.getElementById('discounts-panel').style.display = 'none';
+// to hide this panel when switching to other views.
+
+function showDiscountsView() {
+  document.getElementById('grid').style.display = 'none';
+  const fp = document.getElementById('featured-panel');
+  if (fp) fp.style.display = 'none';
+  document.getElementById('sales-panel').style.display = 'none';
+  document.getElementById('discounts-panel').style.display = '';
+  document.getElementById('canvas-title').textContent = 'Discount Codes';
+  document.getElementById('canvas-sub').textContent = 'Paddle discount management';
+
+  const hasSecret = !!getSalesSecret();
+  document.getElementById('discounts-setup').style.display = hasSecret ? 'none' : '';
+  document.getElementById('discounts-body').style.display = hasSecret ? '' : 'none';
+  if (hasSecret) {
+    populateDiscountProductPicker();
+    loadDiscounts();
+  }
+}
+
+// -------- UI helpers --------
+function updateDiscountTypeUI() {
+  const type = document.querySelector('input[name="dc-type"]:checked').value;
+  const amountLabel = document.getElementById('dc-amount-label');
+  const amountHint = document.getElementById('dc-amount-hint');
+  const amountInp = document.getElementById('dc-amount');
+  const ccy = document.getElementById('dc-currency');
+  if (type === 'percentage') {
+    amountLabel.textContent = 'Amount (%)';
+    amountHint.textContent = '1–100 (percent)';
+    amountInp.min = '1'; amountInp.max = '100'; amountInp.placeholder = '30';
+    ccy.disabled = true;
+  } else {
+    amountLabel.textContent = 'Amount (cents)';
+    amountHint.textContent = 'Cents — e.g. 500 = $5.00 off';
+    amountInp.min = '1'; amountInp.removeAttribute('max'); amountInp.placeholder = '500';
+    ccy.disabled = false;
+  }
+}
+
+function updateDiscountScopeUI() {
+  const scope = document.getElementById('dc-scope').value;
+  document.getElementById('dc-products-wrap').style.display = scope === 'specific' ? '' : 'none';
+}
+
+function populateDiscountProductPicker() {
+  // Fill the <select multiple> from currently-loaded catalog (S.products).
+  // Paddle's product_id lives on each p.paddle.product_id — fall back to p.id when absent.
+  const sel = document.getElementById('dc-products');
+  if (!sel) return;
+  const opts = [];
+  const list = (typeof S !== 'undefined' && Array.isArray(S.products)) ? S.products : [];
+  for (const p of list) {
+    const pid = (p && p.paddle && p.paddle.product_id) ? p.paddle.product_id : null;
+    if (!pid) continue; // only products actually mapped to a Paddle product
+    opts.push('<option value="' + escapeHtml(pid) + '">' + escapeHtml(p.name || p.id) + ' — ' + escapeHtml(pid) + '</option>');
+  }
+  sel.innerHTML = opts.length
+    ? opts.join('')
+    : '<option disabled>No products with paddle.product_id set in products.json</option>';
+}
+
+function resetDiscountForm() {
+  document.getElementById('dc-code').value = '';
+  document.getElementById('dc-amount').value = '';
+  document.getElementById('dc-desc').value = '';
+  document.getElementById('dc-starts').value = '';
+  document.getElementById('dc-expires').value = '';
+  document.getElementById('dc-usage-limit').value = '';
+  document.getElementById('dc-scope').value = 'all';
+  document.querySelector('input[name="dc-type"][value="percentage"]').checked = true;
+  const psel = document.getElementById('dc-products');
+  if (psel) [...psel.options].forEach(o => (o.selected = false));
+  updateDiscountTypeUI();
+  updateDiscountScopeUI();
+  showDiscountBanner('', null);
+}
+
+function showDiscountBanner(msg, kind) {
+  const b = document.getElementById('discounts-banner');
+  if (!b) return;
+  if (!msg) { b.style.display = 'none'; b.textContent = ''; b.classList.remove('ok'); return; }
+  b.textContent = msg;
+  b.classList.toggle('ok', kind === 'ok');
+  b.style.display = '';
+}
+
+// -------- Create --------
+async function createDiscount() {
+  const secret = getSalesSecret();
+  if (!secret) { showDiscountBanner('Admin secret missing — set it up in Sales view first.', 'err'); return; }
+
+  const code = (document.getElementById('dc-code').value || '').trim();
+  const type = document.querySelector('input[name="dc-type"]:checked').value;
+  const amountRaw = (document.getElementById('dc-amount').value || '').trim();
+  const desc = (document.getElementById('dc-desc').value || '').trim();
+  const starts = (document.getElementById('dc-starts').value || '').trim();
+  const expires = (document.getElementById('dc-expires').value || '').trim();
+  const usageLimitRaw = (document.getElementById('dc-usage-limit').value || '').trim();
+  const scope = document.getElementById('dc-scope').value;
+  const ccy = document.getElementById('dc-currency').value;
+
+  // Validate
+  if (code.length < 3 || code.length > 40) { showDiscountBanner('Code must be 3–40 characters.', 'err'); return; }
+  if (!amountRaw) { showDiscountBanner('Amount is required.', 'err'); return; }
+  const amountNum = Number(amountRaw);
+  if (!isFinite(amountNum) || amountNum <= 0) { showDiscountBanner('Amount must be a positive number.', 'err'); return; }
+  if (type === 'percentage' && amountNum > 100) { showDiscountBanner('Percent amount cannot exceed 100.', 'err'); return; }
+
+  const body = {
+    code,
+    type,
+    amount: String(amountNum),
+    enabled_for_checkout: true,
+  };
+  if (desc) body.description = desc;
+  if (type === 'flat') body.currency_code = ccy;
+  if (starts) body.starts_at = new Date(starts).toISOString();
+  if (expires) body.expires_at = new Date(expires).toISOString();
+  if (usageLimitRaw) {
+    const u = parseInt(usageLimitRaw, 10);
+    if (isFinite(u) && u > 0) body.usage_limit = u;
+  }
+  if (scope === 'specific') {
+    const sel = document.getElementById('dc-products');
+    const pids = [...sel.selectedOptions].map(o => o.value).filter(v => !!v);
+    if (!pids.length) { showDiscountBanner('Pick at least one product, or change scope to "All products".', 'err'); return; }
+    body.restrict_to = pids;
+  }
+
+  const btn = document.getElementById('dc-create-btn');
+  btn.disabled = true; btn.textContent = 'Creating...';
+  showDiscountBanner('', null);
+
+  try {
+    const r = await fetch('/api/paddle/discounts', {
+      method: 'POST',
+      headers: {
+        'x-admin-secret': secret,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+    const txt = await r.text();
+    let j = null; try { j = JSON.parse(txt); } catch (_) {}
+    if (!r.ok) {
+      const errMsg = (j && j.error && (j.error.detail || j.error.message)) || txt.slice(0, 300);
+      throw new Error('Paddle ' + r.status + ': ' + errMsg);
+    }
+    showDiscountBanner('Created discount ' + code + '.', 'ok');
+    toast('Discount ' + code + ' created', 'ok');
+    resetDiscountForm();
+    loadDiscounts();
+  } catch (e) {
+    showDiscountBanner('Create failed: ' + (e.message || e), 'err');
+    toast('Create failed', 'err');
+  } finally {
+    btn.disabled = false; btn.textContent = '+ Create discount';
+  }
+}
+
+// -------- List --------
+async function loadDiscounts() {
+  const secret = getSalesSecret();
+  if (!secret) { showDiscountsView(); return; }
+  const btn = document.getElementById('discounts-refresh-btn');
+  btn.disabled = true; btn.textContent = '⟳ Loading...';
+  showDiscountBanner('', null);
+
+  try {
+    // Paddle paginates; grab every discount (active + archived + expired) in one call set.
+    const all = [];
+    let url = '/api/paddle/discounts?per_page=100';
+    const MAX_PAGES = 20;
+    let page = 0;
+    while (url && page < MAX_PAGES) {
+      page++;
+      const r = await fetch(url, { headers: { 'x-admin-secret': secret, 'Accept': 'application/json' } });
+      if (r.status === 401) throw new Error('admin secret rejected — reset in Sales view');
+      if (r.status === 403) throw new Error('proxy refused /discounts — worker whitelist may be out of date');
+      if (!r.ok) throw new Error('Paddle ' + r.status + ': ' + (await r.text()).slice(0, 200));
+      const j = await r.json();
+      const chunk = Array.isArray(j.data) ? j.data : [];
+      all.push(...chunk);
+      btn.textContent = '⟳ Loading... (' + all.length + ')';
+      const pag = j.meta && j.meta.pagination;
+      const hasMore = pag && pag.has_more === true;
+      if (!hasMore || chunk.length === 0 || !pag.next) { url = null; break; }
+      try {
+        const parsed = new URL(pag.next);
+        url = '/api/paddle' + parsed.pathname + parsed.search;
+      } catch (_) { url = null; }
+    }
+
+    DISCOUNTS_STATE.all = all;
+    renderDiscountsTable();
+    document.getElementById('discounts-last-sync').textContent = 'Last synced ' + new Date().toLocaleString();
+    const badge = document.getElementById('c-discounts');
+    if (badge) badge.textContent = all.filter(d => d.status === 'active').length;
+  } catch (e) {
+    showDiscountBanner('Load failed: ' + (e.message || e), 'err');
+    document.getElementById('discounts-active-rows').innerHTML =
+      '<tr><td colspan="7" class="discounts-empty" style="color:var(--danger)">Failed: ' + escapeHtml(e.message || String(e)) + '</td></tr>';
+  } finally {
+    btn.disabled = false; btn.textContent = '⟳ Refresh';
+  }
+}
+
+// -------- Render --------
+function renderDiscountsTable() {
+  const all = DISCOUNTS_STATE.all || [];
+  const now = Date.now();
+  const isExpired = (d) => d.expires_at && new Date(d.expires_at).getTime() < now;
+
+  const active = all.filter(d => d.status === 'active' && !isExpired(d));
+  const archived = all.filter(d => d.status !== 'active' || isExpired(d));
+
+  const activeEl = document.getElementById('discounts-active-rows');
+  const archivedEl = document.getElementById('discounts-archived-rows');
+
+  document.getElementById('discounts-active-count').textContent = '· ' + active.length;
+  document.getElementById('discounts-archived-count').textContent = '· ' + archived.length;
+
+  activeEl.innerHTML = active.length
+    ? active.map(d => renderDiscountRow(d, false)).join('')
+    : '<tr><td colspan="7" class="discounts-empty">No active discounts.</td></tr>';
+
+  archivedEl.innerHTML = archived.length
+    ? archived.map(d => renderDiscountRow(d, true)).join('')
+    : '<tr><td colspan="7" class="discounts-empty">—</td></tr>';
+}
+
+function renderDiscountRow(d, isArchived) {
+  const expired = d.expires_at && new Date(d.expires_at).getTime() < Date.now();
+  const statusLabel = expired && d.status === 'active' ? 'expired' : (d.status || '—');
+  const statusClass = (statusLabel === 'active') ? 'active'
+    : (statusLabel === 'expired') ? 'expired'
+    : 'archived';
+
+  const amount = d.type === 'percentage'
+    ? (d.amount + '%')
+    : fmtCurrencyAmount(d.amount, d.currency_code);
+
+  const uses = (d.times_used != null ? d.times_used : 0) + (d.usage_limit ? ' / ' + d.usage_limit : '');
+
+  const scope = (Array.isArray(d.restrict_to) && d.restrict_to.length)
+    ? d.restrict_to.length + ' product' + (d.restrict_to.length === 1 ? '' : 's')
+    : 'All products';
+
+  const expiresCol = d.expires_at ? fmtDate(d.expires_at) : (isArchived ? '—' : 'Never');
+
+  const actionCell = isArchived
+    ? '<span class="dc-status ' + escapeHtml(statusClass) + '">' + escapeHtml(statusLabel) + '</span>'
+    : '<button class="dc-deactivate" onclick="event.stopPropagation();deactivateDiscount(\'' + escapeHtml(d.id) + '\', \'' + escapeHtml(d.code || '') + '\')">Deactivate</button>';
+
+  const mainRow = '<tr class="dc-row-main" onclick="toggleDiscountDetail(\'' + escapeHtml(d.id) + '\')">' +
+    '<td><span class="dc-code">' + escapeHtml(d.code || d.id) + '</span></td>' +
+    '<td><span class="dc-type ' + escapeHtml(d.type || '') + '">' + escapeHtml(d.type || '—') + '</span></td>' +
+    '<td class="num">' + escapeHtml(amount) + '</td>' +
+    '<td>' + escapeHtml(expiresCol) + '</td>' +
+    '<td class="num">' + escapeHtml(uses) + '</td>' +
+    (isArchived
+      ? '<td>' + escapeHtml(statusLabel) + '</td>'
+      : '<td>' + escapeHtml(scope) + '</td>') +
+    '<td class="actions">' + actionCell + '</td>' +
+  '</tr>';
+
+  if (DISCOUNTS_STATE.expandedId !== d.id) return mainRow;
+
+  // Detail row
+  const restrictStr = (Array.isArray(d.restrict_to) && d.restrict_to.length)
+    ? d.restrict_to.map(escapeHtml).join(', ')
+    : 'All products';
+  const detail =
+    '<tr class="dc-row-detail"><td colspan="7">' +
+      '<div class="dc-detail-block">' +
+        '<div>ID</div><div><b>' + escapeHtml(d.id) + '</b></div>' +
+        '<div>Description</div><div>' + escapeHtml(d.description || '—') + '</div>' +
+        '<div>Starts at</div><div>' + escapeHtml(d.starts_at ? fmtDate(d.starts_at) : '—') + '</div>' +
+        '<div>Expires at</div><div>' + escapeHtml(d.expires_at ? fmtDate(d.expires_at) : 'Never') + '</div>' +
+        '<div>Usage limit</div><div>' + (d.usage_limit != null ? escapeHtml(String(d.usage_limit)) : 'Unlimited') + '</div>' +
+        '<div>Times used</div><div>' + escapeHtml(String(d.times_used != null ? d.times_used : 0)) + '</div>' +
+        '<div>Enabled for checkout</div><div>' + (d.enabled_for_checkout ? 'Yes' : 'No') + '</div>' +
+        '<div>Restricted to</div><div class="dc-scope-list">' + restrictStr + '</div>' +
+        '<div>Created</div><div>' + escapeHtml(d.created_at ? fmtDate(d.created_at) : '—') + '</div>' +
+      '</div>' +
+    '</td></tr>';
+
+  return mainRow + detail;
+}
+
+function fmtCurrencyAmount(cents, ccy) {
+  const n = Number(cents) / 100;
+  if (!isFinite(n)) return String(cents);
+  try {
+    return new Intl.NumberFormat(undefined, { style: 'currency', currency: ccy || 'USD' }).format(n);
+  } catch (_) {
+    return (ccy || 'USD') + ' ' + n.toFixed(2);
+  }
+}
+
+function toggleDiscountDetail(id) {
+  DISCOUNTS_STATE.expandedId = (DISCOUNTS_STATE.expandedId === id) ? null : id;
+  renderDiscountsTable();
+}
+
+function toggleArchivedDiscounts() {
+  DISCOUNTS_STATE.archivedOpen = !DISCOUNTS_STATE.archivedOpen;
+  document.getElementById('discounts-archived-wrap').style.display = DISCOUNTS_STATE.archivedOpen ? '' : 'none';
+  document.getElementById('discounts-archived-caret').innerHTML = DISCOUNTS_STATE.archivedOpen ? '&#9662;' : '&#9656;';
+}
+
+// -------- Deactivate --------
+async function deactivateDiscount(id, code) {
+  if (!confirm('Deactivate discount ' + (code || id) + '? Customers will no longer be able to use it.')) return;
+  const secret = getSalesSecret();
+  if (!secret) { showDiscountBanner('Admin secret missing.', 'err'); return; }
+
+  try {
+    const r = await fetch('/api/paddle/discounts/' + encodeURIComponent(id), {
+      method: 'PATCH',
+      headers: {
+        'x-admin-secret': secret,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({ status: 'archived' }),
+    });
+    const txt = await r.text();
+    let j = null; try { j = JSON.parse(txt); } catch (_) {}
+    if (!r.ok) {
+      const errMsg = (j && j.error && (j.error.detail || j.error.message)) || txt.slice(0, 200);
+      throw new Error('Paddle ' + r.status + ': ' + errMsg);
+    }
+    toast('Deactivated ' + (code || id), 'ok');
+    showDiscountBanner('Deactivated ' + (code || id) + '.', 'ok');
+    loadDiscounts();
+  } catch (e) {
+    showDiscountBanner('Deactivate failed: ' + (e.message || e), 'err');
+    toast('Deactivate failed', 'err');
+  }
+}
+
+=== OTHER_FILES_MODIFIED ===
+_worker.js: expanded method whitelist to POST/PATCH, added discounts to endpoint whitelist.
+  - Allowed methods: GET, POST, PATCH (PUT/DELETE still 405).
+  - POST/PATCH only permitted on the new `writable` endpoint list: ['discounts'].
+  - GETs retain 15s edge cache; POST/PATCH return cache-control: no-store.
+  - Request body is forwarded verbatim on POST/PATCH with the original content-type header.
+  - x-admin-secret + server-held PADDLE_API_KEY still required for every call.

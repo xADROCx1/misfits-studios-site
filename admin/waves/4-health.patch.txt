@@ -1,0 +1,489 @@
+=== NAV ===
+<!-- Insert inside the "Reports" nav-sec block in the LEFT NAV, after the Sales nav-item (~line 921) -->
+<div class="nav-item" data-view="health">
+  <span>&#129657; Health</span><span class="c health-nav-count" id="c-health">0</span>
+</div>
+
+=== PANEL ===
+<!-- Insert inside the CANVAS (#canvas), sibling to #grid / #sales-panel / #featured-panel. Hidden by default. -->
+<div id="health-panel" style="display:none">
+  <div class="health-bar">
+    <div class="health-bar-left">
+      <span class="health-meta" id="health-last-scan">Not scanned yet</span>
+    </div>
+    <div class="health-bar-right">
+      <div class="health-filters" role="tablist" aria-label="Severity filter">
+        <button class="health-fbtn active" data-sev="all">All</button>
+        <button class="health-fbtn" data-sev="high_med">High + Med</button>
+        <button class="health-fbtn" data-sev="high">High only</button>
+      </div>
+      <button class="btn" onclick="exportHealthMarkdown()" title="Download issue list as markdown">&#11123; Export .md</button>
+      <button class="btn btn-primary" id="health-refresh-btn" onclick="scanCatalog(true)">&#8635; Re-scan</button>
+    </div>
+  </div>
+
+  <div class="health-stats">
+    <div class="health-card total">
+      <div class="health-card-label">Total Issues</div>
+      <div class="health-card-value" id="health-total">—</div>
+      <div class="health-card-sub" id="health-total-sub"></div>
+    </div>
+    <div class="health-card high">
+      <div class="health-card-label">High</div>
+      <div class="health-card-value" id="health-high">—</div>
+      <div class="health-card-sub">breaks cards, checkout, fulfillment</div>
+    </div>
+    <div class="health-card med">
+      <div class="health-card-label">Medium</div>
+      <div class="health-card-value" id="health-med">—</div>
+      <div class="health-card-sub">missing copy, fulfillment warnings</div>
+    </div>
+    <div class="health-card low">
+      <div class="health-card-label">Low</div>
+      <div class="health-card-value" id="health-low">—</div>
+      <div class="health-card-sub">polish, taglines, versions</div>
+    </div>
+  </div>
+
+  <div class="health-table-wrap" id="health-table-wrap">
+    <div class="health-table-head">
+      <span>Scan results</span>
+      <span class="health-meta" id="health-shown-count">— issues shown</span>
+    </div>
+    <div id="health-rows"></div>
+  </div>
+
+  <div class="health-empty" id="health-empty" style="display:none">
+    <div class="health-empty-icon">&#127881;</div>
+    <div class="health-empty-title">Catalog is clean.</div>
+    <div class="health-empty-sub" id="health-empty-sub">— products, all checked.</div>
+  </div>
+</div>
+
+=== CSS ===
+/* ============================================================
+ *  HEALTH DASHBOARD — catalog diagnostics
+ * ============================================================ */
+.health-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px; padding: 10px 14px; border: 1px solid var(--line); background: #05050c; }
+.health-bar-left, .health-bar-right { display: flex; gap: 10px; align-items: center; }
+.health-meta { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+
+.health-filters { display: inline-flex; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+.health-fbtn {
+  background: transparent;
+  border: 0;
+  border-right: 1px solid var(--line);
+  padding: 6px 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.health-fbtn:last-child { border-right: 0; }
+.health-fbtn:hover { color: var(--paper); background: rgba(0, 242, 255, 0.05); }
+.health-fbtn.active { color: var(--bg); background: var(--cyan); }
+
+.health-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 18px; }
+.health-card { border: 1px solid var(--line); padding: 14px 16px; background: #0a0a14; position: relative; overflow: hidden; }
+.health-card::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background: var(--muted); }
+.health-card.total::before { background: var(--cyan); }
+.health-card.high::before  { background: var(--danger); }
+.health-card.med::before   { background: var(--yellow); }
+.health-card.low::before   { background: var(--mint); }
+.health-card-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.health-card-value { font-family: var(--font-head); font-size: 26px; font-weight: 900; color: var(--paper); line-height: 1.1; }
+.health-card-sub { font-family: var(--font-mono); font-size: 10px; color: var(--muted); margin-top: 4px; }
+.health-card.total .health-card-value { color: var(--cyan); }
+.health-card.high  .health-card-value { color: var(--danger); }
+.health-card.med   .health-card-value { color: var(--yellow); }
+.health-card.low   .health-card-value { color: var(--mint); }
+
+.health-table-wrap { border: 1px solid var(--line); background: #05050c; }
+.health-table-head {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 14px;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+  border-bottom: 1px solid var(--line);
+}
+
+.health-group { border-bottom: 1px solid var(--line); }
+.health-group:last-child { border-bottom: none; }
+.health-group-head {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px;
+  background: rgba(0, 242, 255, 0.03);
+  font-family: var(--font-mono); font-size: 11px; color: var(--paper);
+  border-bottom: 1px solid var(--line-2);
+  cursor: pointer;
+}
+.health-group-head:hover { background: rgba(0, 242, 255, 0.07); }
+.health-group-name { color: var(--paper); font-weight: 600; }
+.health-group-id   { color: var(--muted); font-size: 10px; }
+.health-group-count {
+  margin-left: auto;
+  padding: 1px 8px;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700;
+  border: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.health-row {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--line-2);
+  transition: background 0.15s;
+}
+.health-row:last-child { border-bottom: none; }
+.health-row:hover { background: rgba(0, 242, 255, 0.04); }
+.health-sev {
+  display: inline-block;
+  padding: 2px 8px;
+  font-family: var(--font-mono); font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  text-align: center;
+}
+.health-sev.high { background: rgba(255, 71, 87, 0.14); color: var(--danger); border: 1px solid rgba(255, 71, 87, 0.4); }
+.health-sev.med  { background: rgba(255, 235, 0, 0.12); color: var(--yellow); border: 1px solid rgba(255, 235, 0, 0.4); }
+.health-sev.low  { background: rgba(0, 255, 163, 0.10); color: var(--mint); border: 1px solid rgba(0, 255, 163, 0.4); }
+.health-msg { font-family: var(--font-mono); font-size: 12px; color: var(--paper); line-height: 1.45; }
+.health-msg .hkey { color: var(--cyan); }
+.health-fix {
+  font-family: var(--font-head); font-size: 11px; letter-spacing: 0.10em; text-transform: uppercase; font-weight: 700;
+  padding: 6px 12px;
+  background: transparent;
+  color: var(--pink);
+  border: 1px solid var(--pink);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.health-fix:hover { background: var(--pink); color: var(--bg); }
+
+.health-empty {
+  border: 1px dashed var(--line);
+  padding: 48px 24px;
+  text-align: center;
+  background: #05050c;
+}
+.health-empty-icon { font-size: 42px; margin-bottom: 8px; }
+.health-empty-title { font-family: var(--font-head); font-size: 18px; font-weight: 700; color: var(--mint); margin-bottom: 4px; }
+.health-empty-sub   { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+
+.health-nav-count[data-health="high"] { color: var(--danger); }
+.health-nav-count[data-health="med"]  { color: var(--yellow); }
+.health-nav-count[data-health="low"]  { color: var(--mint); }
+
+=== JS ===
+/* ============================================================
+ *  HEALTH DASHBOARD — catalog diagnostics
+ * ============================================================ */
+
+/* Current severity filter: 'all' | 'high_med' | 'high' */
+var __healthFilter = 'all';
+/* Last scan result, cached so filters/export don't re-scan */
+var __healthLastIssues = [];
+
+/* ---------- View switching ---------- */
+function showHealthView() {
+  document.getElementById('grid').style.display = 'none';
+  var fp = document.getElementById('featured-panel'); if (fp) fp.style.display = 'none';
+  var sp = document.getElementById('sales-panel');    if (sp) sp.style.display = 'none';
+  document.getElementById('health-panel').style.display = '';
+  document.getElementById('canvas-title').textContent = 'Product Health';
+  document.getElementById('canvas-sub').textContent = 'Catalog diagnostics & fulfillment checks';
+  scanCatalog(false);
+}
+
+/* ---------- Core scanner ---------- */
+/**
+ * Walks S.products and returns an array of issue objects:
+ *   { productId, productName, severity: 'high'|'med'|'low', code, message }
+ * Only live products are checked (status === 'live'), except check #12 which
+ * specifically flags non-live products that appear in the featured list.
+ */
+function scanCatalog(announce) {
+  var issues = [];
+  var products = Array.isArray(S.products) ? S.products : [];
+  var featured = (S.raw && Array.isArray(S.raw.featured)) ? S.raw.featured : [];
+
+  /* Pre-compute slug duplicates across ALL products (any status) */
+  var slugCounts = {};
+  products.forEach(function (p) {
+    var s = (p.slug || '').trim().toLowerCase();
+    if (!s) return;
+    slugCounts[s] = (slugCounts[s] || 0) + 1;
+  });
+
+  products.forEach(function (p) {
+    if ((p.status || 'draft') !== 'live') return;
+    var pid = p.id;
+    var name = p.name || '(untitled)';
+    var push = function (severity, code, message) {
+      issues.push({ productId: pid, productName: name, severity: severity, code: code, message: message });
+    };
+
+    /* 1. Missing icon */
+    if (!(p.assets && p.assets.icon)) {
+      push('high', 'missing_icon', 'Missing <span class="hkey">assets.icon</span> — card will render broken.');
+    }
+    /* 2. Missing short_description */
+    if (!p.short_description || !String(p.short_description).trim()) {
+      push('med', 'missing_short_desc', 'Missing <span class="hkey">short_description</span>.');
+    }
+    /* 3. Missing tagline */
+    if (!p.tagline || !String(p.tagline).trim()) {
+      push('low', 'missing_tagline', 'Missing <span class="hkey">tagline</span>.');
+    }
+    /* 4. No features */
+    if (!Array.isArray(p.features) || p.features.length === 0) {
+      push('low', 'no_features', 'No <span class="hkey">features</span> listed.');
+    }
+    /* 5. No tags */
+    if (!Array.isArray(p.tags) || p.tags.length === 0) {
+      push('low', 'no_tags', 'No <span class="hkey">tags</span> set — hurts discoverability.');
+    }
+    /* 6. Not buyable (paid product without a Paddle hookup) */
+    var price = Number(p.price_usd) || 0;
+    var pdl = p.paddle || {};
+    if (price > 0 && !pdl.price_id && !pdl.checkout_url) {
+      push('high', 'not_buyable', 'Paid product but no <span class="hkey">paddle.price_id</span> or <span class="hkey">paddle.checkout_url</span> — checkout will fail.');
+    }
+    /* 7. Not downloadable (free product without a download_url) */
+    if (price === 0 && !p.download_url) {
+      push('high', 'not_downloadable', 'Free product but no <span class="hkey">download_url</span> — button does nothing.');
+    }
+    /* 8. No source file attached at all */
+    if (!p.source_file && !p.download_url) {
+      push('med', 'no_source_file', 'No <span class="hkey">source_file</span> or <span class="hkey">download_url</span> — fulfillment is unconfigured.');
+    }
+    /* 9. Suspiciously low price (below Paddle min) */
+    if (price > 0 && price < 0.99) {
+      push('high', 'price_below_paddle_min', 'Price <span class="hkey">$' + price.toFixed(2) + '</span> is below Paddle\'s $0.99 minimum.');
+    }
+    /* 10. Stale-looking version */
+    var ver = String(p.version || '').trim();
+    if (ver && (/^0\./.test(ver) || ver === '1.0.0')) {
+      push('low', 'version_stale', 'Version <span class="hkey">' + escapeHtml(ver) + '</span> looks like a placeholder — bump before launch.');
+    }
+    /* 11. Duplicate slug */
+    var slug = (p.slug || '').trim().toLowerCase();
+    if (slug && slugCounts[slug] > 1) {
+      push('high', 'duplicate_slug', 'Duplicate slug <span class="hkey">' + escapeHtml(slug) + '</span> — URL collisions on the live site.');
+    }
+  });
+
+  /* 12. Orphan featured (product id in featured[] but not live) */
+  featured.forEach(function (fid) {
+    var p = products.find(function (x) { return x.id === fid; });
+    if (!p) return; /* missing product entirely is handled by the Featured view */
+    if ((p.status || 'draft') !== 'live') {
+      issues.push({
+        productId: fid,
+        productName: p.name || '(untitled)',
+        severity: 'med',
+        code: 'orphan_featured',
+        message: 'Featured on homepage but status is <span class="hkey">' + escapeHtml(p.status || 'draft') + '</span> — hidden for visitors.'
+      });
+    }
+  });
+
+  __healthLastIssues = issues;
+
+  /* Update summary + nav chip */
+  var counts = { high: 0, med: 0, low: 0 };
+  issues.forEach(function (i) { counts[i.severity]++; });
+  var total = issues.length;
+  document.getElementById('health-total').textContent = total;
+  document.getElementById('health-high').textContent  = counts.high;
+  document.getElementById('health-med').textContent   = counts.med;
+  document.getElementById('health-low').textContent   = counts.low;
+  document.getElementById('health-total-sub').textContent =
+    total === 0
+      ? 'nothing to fix'
+      : 'across ' + new Set(issues.map(function (i) { return i.productId; })).size + ' products';
+  document.getElementById('health-last-scan').textContent =
+    'Last scanned ' + new Date().toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+  var navChip = document.getElementById('c-health');
+  if (navChip) {
+    navChip.textContent = total;
+    var worst = counts.high ? 'high' : (counts.med ? 'med' : (counts.low ? 'low' : ''));
+    if (worst) navChip.setAttribute('data-health', worst);
+    else       navChip.removeAttribute('data-health');
+  }
+
+  renderHealthPanel();
+  if (announce) toast('Scanned ' + products.length + ' products, found ' + total + ' issue' + (total === 1 ? '' : 's'), total ? 'warn' : 'ok');
+}
+
+/* ---------- Renderer ---------- */
+function renderHealthPanel() {
+  var issues = __healthLastIssues.slice();
+  var filter = __healthFilter;
+
+  /* Apply severity filter */
+  var filtered = issues.filter(function (i) {
+    if (filter === 'all') return true;
+    if (filter === 'high') return i.severity === 'high';
+    if (filter === 'high_med') return i.severity !== 'low';
+    return true;
+  });
+
+  /* Empty state — show only when there are ZERO real issues (ignore filter) */
+  var emptyEl = document.getElementById('health-empty');
+  var wrapEl  = document.getElementById('health-table-wrap');
+  if (issues.length === 0) {
+    wrapEl.style.display = 'none';
+    emptyEl.style.display = '';
+    var liveCount = (S.products || []).filter(function (p) { return (p.status || 'draft') === 'live'; }).length;
+    document.getElementById('health-empty-sub').textContent =
+      liveCount + ' live product' + (liveCount === 1 ? '' : 's') + ', all checked.';
+    return;
+  }
+  emptyEl.style.display = 'none';
+  wrapEl.style.display = '';
+
+  /* Sort: severity DESC (high > med > low), then product name ASC */
+  var sevRank = { high: 0, med: 1, low: 2 };
+  filtered.sort(function (a, b) {
+    var r = sevRank[a.severity] - sevRank[b.severity];
+    if (r !== 0) return r;
+    var n = (a.productName || '').localeCompare(b.productName || '');
+    if (n !== 0) return n;
+    return (a.code || '').localeCompare(b.code || '');
+  });
+
+  /* Group by product (preserving sorted order — each product's worst severity dictates its position) */
+  var groups = [];
+  var groupIndex = {};
+  filtered.forEach(function (issue) {
+    var key = issue.productId;
+    if (!(key in groupIndex)) {
+      groupIndex[key] = groups.length;
+      groups.push({ productId: key, productName: issue.productName, items: [] });
+    }
+    groups[groupIndex[key]].items.push(issue);
+  });
+
+  var html = groups.map(function (g) {
+    var rowsHtml = g.items.map(function (i) {
+      return (
+        '<div class="health-row">' +
+          '<span class="health-sev ' + i.severity + '">' + i.severity + '</span>' +
+          '<div class="health-msg">' + i.message + '</div>' +
+          '<button class="health-fix" onclick="jumpToFix(\'' + encodeURIComponent(i.productId) + '\')">Fix now &rsaquo;</button>' +
+        '</div>'
+      );
+    }).join('');
+    return (
+      '<div class="health-group">' +
+        '<div class="health-group-head" onclick="jumpToFix(\'' + encodeURIComponent(g.productId) + '\')">' +
+          '<span class="health-group-name">' + escapeHtml(g.productName) + '</span>' +
+          '<span class="health-group-id">' + escapeHtml(g.productId) + '</span>' +
+          '<span class="health-group-count">' + g.items.length + ' issue' + (g.items.length === 1 ? '' : 's') + '</span>' +
+        '</div>' +
+        rowsHtml +
+      '</div>'
+    );
+  }).join('');
+
+  document.getElementById('health-rows').innerHTML = html;
+  document.getElementById('health-shown-count').textContent =
+    filtered.length + ' of ' + issues.length + ' issue' + (issues.length === 1 ? '' : 's') + ' shown';
+}
+
+/* ---------- Filter buttons ---------- */
+function setHealthFilter(sev) {
+  __healthFilter = sev;
+  document.querySelectorAll('#health-panel .health-fbtn').forEach(function (b) {
+    b.classList.toggle('active', b.dataset.sev === sev);
+  });
+  renderHealthPanel();
+}
+
+/* ---------- "Fix now" — navigate to the product in the main grid ---------- */
+function jumpToFix(encId) {
+  var id = decodeURIComponent(encId);
+  var p = (S.products || []).find(function (x) { return x.id === id; });
+  if (!p) { toast('Product not found: ' + id, 'err'); return; }
+  /* Clear the current report view, jump to the "All" category, then open the product */
+  setFilter('all');
+  showProductGrid();
+  selectProduct(id);
+}
+
+/* ---------- Export issue list as markdown ---------- */
+function exportHealthMarkdown() {
+  var issues = __healthLastIssues;
+  if (!issues.length) { toast('Nothing to export — catalog is clean', 'ok'); return; }
+
+  var stripTags = function (s) { return String(s || '').replace(/<[^>]+>/g, ''); };
+  var now = new Date();
+  var counts = { high: 0, med: 0, low: 0 };
+  issues.forEach(function (i) { counts[i.severity]++; });
+
+  var lines = [];
+  lines.push('# Misfits Store — Catalog Health Report');
+  lines.push('');
+  lines.push('_Scanned ' + now.toISOString() + '_');
+  lines.push('');
+  lines.push('**' + issues.length + ' issues** — ' + counts.high + ' high, ' + counts.med + ' medium, ' + counts.low + ' low');
+  lines.push('');
+
+  /* Group by product, same sort as the panel */
+  var sevRank = { high: 0, med: 1, low: 2 };
+  var sorted = issues.slice().sort(function (a, b) {
+    var r = sevRank[a.severity] - sevRank[b.severity];
+    if (r !== 0) return r;
+    return (a.productName || '').localeCompare(b.productName || '');
+  });
+  var byProduct = {};
+  var order = [];
+  sorted.forEach(function (i) {
+    if (!(i.productId in byProduct)) { byProduct[i.productId] = { name: i.productName, items: [] }; order.push(i.productId); }
+    byProduct[i.productId].items.push(i);
+  });
+
+  order.forEach(function (pid) {
+    var g = byProduct[pid];
+    lines.push('## ' + g.name + '  `' + pid + '`');
+    lines.push('');
+    g.items.forEach(function (i) {
+      lines.push('- [ ] **[' + i.severity.toUpperCase() + ']** ' + stripTags(i.message) + '  _(' + i.code + ')_');
+    });
+    lines.push('');
+  });
+
+  var md = lines.join('\n');
+  var blob = new Blob([md], { type: 'text/markdown' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  var stamp = now.toISOString().slice(0, 10);
+  a.href = url;
+  a.download = 'catalog-health-' + stamp + '.md';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(function () { URL.revokeObjectURL(url); }, 500);
+  toast('Exported ' + issues.length + ' issues to markdown', 'ok');
+}
+
+/* ---------- Wire filter buttons + hook setView ----------
+ * Required edits to existing code:
+ *
+ * 1) In setView(view) — extend with the health branch:
+ *      if (view === 'health')   showHealthView();
+ *
+ * 2) In bootEditor() — after the existing nav-item wiring, add:
+ *      document.querySelectorAll('#health-panel .health-fbtn').forEach(function (b) {
+ *        b.addEventListener('click', function () { setHealthFilter(b.dataset.sev); });
+ *      });
+ *
+ * 3) After any save/load that rebuilds S.products, optionally call scanCatalog(false)
+ *    so the nav chip stays fresh. Safe to omit — chip refreshes on view open.
+ */
+
+=== OTHER_FILES_MODIFIED ===
+(none — this wave is a read-only editor UI addition; products.json is not touched)
