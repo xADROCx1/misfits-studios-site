@@ -63,7 +63,15 @@
     color: var(--paper);
     background: linear-gradient(90deg, var(--cyan), var(--pink));
     -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    cursor: pointer;
+    user-select: none;
+    transition: filter 0.15s, transform 0.05s;
+    border: none;
+    padding: 0;
   }
+  .logo:hover { filter: drop-shadow(0 0 10px rgba(0, 242, 255, 0.45)) drop-shadow(0 0 18px rgba(255, 26, 143, 0.25)); }
+  .logo:active { transform: translateY(1px); }
+  .logo:focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
   .top .pipe { width: 1px; height: 22px; background: var(--line); }
   .top .title {
     font-family: var(--font-head);
@@ -2112,7 +2120,7 @@
 
   <!-- TOPBAR -->
   <div class="top">
-    <div class="logo">MISFITS</div>
+    <button type="button" class="logo" onclick="backToProducts()" title="Home — back to product grid" aria-label="Misfits Studios — return to home view">MISFITS</button>
     <div class="pipe"></div>
     <div class="title">Product Editor</div>
     <div class="spacer"></div>
