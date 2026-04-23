@@ -122,8 +122,8 @@
       "status": "live",
       "tagline": "Cyberpunk admin UI for every command",
       "short_description": "Terminal-inspired in-game browser for chat commands, console commands, permissions, and skin IDs across every loaded plugin.",
-      "price_usd": 3.99,
-      "price_label": "$3.99",
+      "price_usd": 5.99,
+      "price_label": "$5.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -1483,7 +1483,7 @@
       "eta": "TBD"
     }
   ],
-  "last_editor_update": "2026-04-23T18:56:02.245Z",
+  "last_editor_update": "2026-04-23T18:57:27.862Z",
   "announcement": {
     "enabled": false,
     "text": "",
