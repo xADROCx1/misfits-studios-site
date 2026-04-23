@@ -1,9 +1,9 @@
 {
-  "$schema": "Misfits Studios product manifest — single source of truth for the storefront",
+  "$schema": "Shadow Kids Studios product manifest — single source of truth for the storefront",
   "store": {
-    "name": "Misfits Studios",
+    "name": "Shadow Kids Studios",
     "tagline": "Rust plugins & desktop tools. Built solo.",
-    "contact_email": "support@misfits-studios.com",
+    "contact_email": "support@shadowkidsstudios.com",
     "discord_url": "",
     "twitter_url": "",
     "github_url": "https://github.com/xADROCx1",
@@ -89,7 +89,7 @@
         "dependency",
         "free"
       ],
-      "cs_info_author": "Misfits Studios",
+      "cs_info_author": "Shadow Kids Studios",
       "paddle": {
         "product_id": "pro_01kpm2ctttg83y3gz1ntw7dbph",
         "price_id": null,
@@ -127,11 +127,11 @@
       "requires": [
         "misfitsui"
       ],
-      "cs_info_author": "Misfits Studios",
+      "cs_info_author": "Shadow Kids Studios",
       "paddle": {
         "product_id": "pro_01kpm2ctz626s06vg3hvkyxz9s",
         "price_id": "pri_01kpm2cv217k81hrmt0xt4zbfg",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vxaaf26cchxsrynf3n51",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vxaaf26cchxsrynf3n51",
         "environment": "live"
       },
       "assets": {
@@ -161,11 +161,11 @@
         "server",
         "utility"
       ],
-      "cs_info_author": "Misfits Studios",
+      "cs_info_author": "Shadow Kids Studios",
       "paddle": {
         "product_id": "pro_01kpm2ctd1k0ydn4s6dpjradg8",
         "price_id": "pri_01kpm2ctgvwbzvpvxjbx0fdxrx",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vxe4ng50e8sr2nhd5b7a",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vxe4ng50e8sr2nhd5b7a",
         "environment": "live"
       },
       "assets": {
@@ -182,8 +182,8 @@
       "status": "live",
       "tagline": "Large Backpack + diving tank hybrid",
       "short_description": "Large Backpack + diving tank behavior: oxygen in water, drains air, refill via chat, compact O2 HUD.",
-      "price_usd": 6.99,
-      "price_label": "$6.99",
+      "price_usd": 2.99,
+      "price_label": "$2.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -200,7 +200,7 @@
       "paddle": {
         "product_id": "pro_01kpm2cvm2h63q3cspcr0a0p85",
         "price_id": "pri_01kpm2cvpn8z7dw3x15p13xmsf",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vx6e8fy1r0x9qfdrh444",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vx6e8fy1r0x9qfdrh444",
         "environment": "live"
       },
       "assets": {
@@ -233,7 +233,7 @@
       "paddle": {
         "product_id": "pro_01kpm2cvytzacwb696z60ner6p",
         "price_id": "pri_01kpm2cw2bxfgmgkgfgj56mv52",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vx2vf5yv49rgd7fzap8j",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vx2vf5yv49rgd7fzap8j",
         "environment": "live"
       },
       "assets": {
@@ -265,7 +265,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d3vwxnx7jefkf2004bb8",
         "price_id": "pri_01kpm2d3yn8hkvnepy58ejeccf",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vteqjdsed2ghxxba2s4y",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vteqjdsed2ghxxba2s4y",
         "environment": "live"
       },
       "assets": {
@@ -301,7 +301,7 @@
       "paddle": {
         "product_id": "pro_01kpm2cwnaardqzwy93jy26tam",
         "price_id": "pri_01kpm2cwqycjeq3kr1y7481vkr",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vwvmcda3ydc6brv8jypg",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vwvmcda3ydc6brv8jypg",
         "environment": "live"
       },
       "assets": {
@@ -333,7 +333,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d1nfc9bspkwzvhamqw7z",
         "price_id": "pri_01kpm2d1rardk6pdxhk2c9vdpb",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vv6tdw53eqat7r36zb7s",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vv6tdw53eqat7r36zb7s",
         "environment": "live"
       },
       "assets": {
@@ -366,7 +366,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d1zjn6e3z70x7f24aeya",
         "price_id": "pri_01kpm2d221haf8tj8mj8ev87df",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vv2qem7cmdprp8d6ktxt",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vv2qem7cmdprp8d6ktxt",
         "environment": "live"
       },
       "assets": {
@@ -398,7 +398,7 @@
       "paddle": {
         "product_id": "pro_01kpm2cwz788jxaem7r54yab0v",
         "price_id": "pri_01kpm2cx2c6egp29br63xf59b4",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vwqyg7bwt3vaq5ryh8d3",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vwqyg7bwt3vaq5ryh8d3",
         "environment": "live"
       },
       "assets": {
@@ -431,7 +431,7 @@
       "paddle": {
         "product_id": "pro_01kpm2cxkw728nhjqjvvj79g0a",
         "price_id": "pri_01kpm2cxpb6pq6z7y1y3jyh1rv",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vwkkjpsw8p52mwfcn1f8",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vwkkjpsw8p52mwfcn1f8",
         "environment": "live"
       },
       "assets": {
@@ -464,7 +464,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d6a0329wjaj63xtwk82e",
         "price_id": "pri_01kpm2d6cknpm09nnfm96meakj",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vsqzxbe60k12sh5s87fx",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vsqzxbe60k12sh5s87fx",
         "environment": "live"
       },
       "assets": {
@@ -496,7 +496,7 @@
       "paddle": {
         "product_id": "pro_01kpm2cw9hrjk0qz4pxxm7knme",
         "price_id": "pri_01kpm2cwc625qaa5xjvef8qn9g",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vwzea8wq9pkesr8xjb1x",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vwzea8wq9pkesr8xjb1x",
         "environment": "live"
       },
       "assets": {
@@ -528,7 +528,7 @@
       "paddle": {
         "product_id": "pro_01kpm2cxx7b0dd0v4g938gw411",
         "price_id": "pri_01kpm2cxzw9ypb5yzbv0tyd62m",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vwgd3m7h1tb5r33zc6ke",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vwgd3m7h1tb5r33zc6ke",
         "environment": "live"
       },
       "assets": {
@@ -560,7 +560,7 @@
       "paddle": {
         "product_id": "pro_01kpm2cy6s5bf2j7g41m12zkbt",
         "price_id": "pri_01kpm2cy97g86nk1eqsnn6enp0",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vwc2tydb8ng2tcdt19bm",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vwc2tydb8ng2tcdt19bm",
         "environment": "live"
       },
       "assets": {
@@ -593,7 +593,7 @@
       "paddle": {
         "product_id": "pro_01kpm2cyghh1w2ew397h6xpdy7",
         "price_id": "pri_01kpm2cyjxdh6q0df0z306zm2j",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vw8epx2tynr2j6jnv240",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vw8epx2tynr2j6jnv240",
         "environment": "live"
       },
       "assets": {
@@ -626,7 +626,7 @@
       "paddle": {
         "product_id": "pro_01kpm2cytyffc6ss7djnnkmkx6",
         "price_id": "pri_01kpm2cyxcvx6n2d1fdc4030zj",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vw31nr3w0wa7n4qtv6ak",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vw31nr3w0wa7n4qtv6ak",
         "environment": "live"
       },
       "assets": {
@@ -654,11 +654,11 @@
         "qol",
         "ui"
       ],
-      "cs_info_author": "Misfit",
+      "cs_info_author": "Shadow Kids Studios",
       "paddle": {
         "product_id": "pro_01kpm2cz4p4zj2kptnyt8306zf",
         "price_id": "pri_01kpm2cz78fmd8bvzkddwq7jrp",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vvzadptgqq1f5vhx8sp9",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vvzadptgqq1f5vhx8sp9",
         "environment": "live"
       },
       "assets": {
@@ -690,7 +690,7 @@
       "paddle": {
         "product_id": "pro_01kpm2czsc2p80maz8nz1r635v",
         "price_id": "pri_01kpm2czwa5fnca9tebepdw3zh",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vvv39sjgvj1nysh1j8bf",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vvv39sjgvj1nysh1j8bf",
         "environment": "live"
       },
       "assets": {
@@ -723,7 +723,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d03af9bn7j6mj5cedf50",
         "price_id": "pri_01kpm2d05y7zs7j7hn3j8a8yy2",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vvqb277yc7k57z02qrmf",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vvqb277yc7k57z02qrmf",
         "environment": "live"
       },
       "assets": {
@@ -756,7 +756,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d0pwgtgsy2r2j4gmy489",
         "price_id": "pri_01kpm2d0spcvnbmbfn4k2zmztj",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vvkp09rf0qq3jsaba3wk",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vvkp09rf0qq3jsaba3wk",
         "environment": "live"
       },
       "assets": {
@@ -789,7 +789,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d112hhyt0a3bp3q278fc",
         "price_id": "pri_01kpm2d13qtehrtfr7mf32ccd0",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vvfb7r6hq1djm5mv9sk0",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vvfb7r6hq1djm5mv9sk0",
         "environment": "live"
       },
       "assets": {
@@ -822,7 +822,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d1bbyw6ecmejfxa45wxn",
         "price_id": "pri_01kpm2d1dqsskm7hks00v49638",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vvatxg9dh9q8s278yzzr",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vvatxg9dh9q8s278yzzr",
         "environment": "live"
       },
       "assets": {
@@ -854,7 +854,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d28k5c597j3vww1zgp2g",
         "price_id": "pri_01kpm2d2b993gehb8tr883tw7f",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vtyrejgprwc8n3kz791j",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vtyrejgprwc8n3kz791j",
         "environment": "live"
       },
       "assets": {
@@ -888,7 +888,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d2jdstr66m18dhsvnxkg",
         "price_id": "pri_01kpm2d2mtc6nqcyp1k4yrvw6p",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vtte60nmah7shdqxd3st",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vtte60nmah7shdqxd3st",
         "environment": "live"
       },
       "assets": {
@@ -920,7 +920,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d2w65crkdq839zx86yrk",
         "price_id": "pri_01kpm2d2z7tj3bzzt25cr58ws6",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vtphyy0zaardt4mfetn1",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vtphyy0zaardt4mfetn1",
         "environment": "live"
       },
       "assets": {
@@ -952,7 +952,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d3gr3yg2t8qxpxp4mp7s",
         "price_id": "pri_01kpm2d3kkp8zq9ghpje44gkny",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vtjbpys4c6v5gebzv25b",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vtjbpys4c6v5gebzv25b",
         "environment": "live"
       },
       "assets": {
@@ -985,7 +985,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d45ny7prh9zdzvy0r1tx",
         "price_id": "pri_01kpm2d485nw6yez77vkz784bz",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vta3bfctdba3pkz2h5xr",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vta3bfctdba3pkz2h5xr",
         "environment": "live"
       },
       "assets": {
@@ -1018,7 +1018,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d4few3771471q2ea51m8",
         "price_id": "pri_01kpm2d4j55d8m1781cg3tnamh",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vt68xgrpvhd08ww27fsc",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vt68xgrpvhd08ww27fsc",
         "environment": "live"
       },
       "assets": {
@@ -1050,7 +1050,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d53gqg67exmd1v9whbej",
         "price_id": "pri_01kpm2d5654zyhajems5teqxm0",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vt2epa29mq8rgjh6bwm0",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vt2epa29mq8rgjh6bwm0",
         "environment": "live"
       },
       "assets": {
@@ -1083,7 +1083,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d60gbdq8788h276qbk7z",
         "price_id": "pri_01kpm2d630hpqcehq6r9rbtm9q",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vsy87pttm6545974q1wg",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vsy87pttm6545974q1wg",
         "environment": "live"
       },
       "assets": {
@@ -1116,7 +1116,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d766ex7z2wb4mrc3p5w1",
         "price_id": "pri_01kpm2d78pcgazfzey979mhccd",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vskw8xeq7zkjca3027za",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vskw8xeq7zkjca3027za",
         "environment": "live"
       },
       "assets": {
@@ -1148,7 +1148,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d7f9req4ktgwd5qzfq5t",
         "price_id": "pri_01kpm2d7hrbcc74b833smrxxk2",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vsfdzahq253krdbm70kd",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vsfdzahq253krdbm70kd",
         "environment": "live"
       },
       "assets": {
@@ -1181,7 +1181,7 @@
       "paddle": {
         "product_id": "pro_01kpm2d7rvk4qxgv0hanp4apt4",
         "price_id": "pri_01kpm2d7v7vjwnq88dpxhqy1vd",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vsb7wrt38b49g7hvrgvg",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vsb7wrt38b49g7hvrgvg",
         "environment": "live"
       },
       "assets": {
@@ -1216,7 +1216,7 @@
       "paddle": {
         "product_id": "pro_01kpm3eh4thv8zs0r1mdbfy9ne",
         "price_id": "pri_01kpm3eh8bvn4mbmzwqx23pqe6",
-        "checkout_url": "https://misfits-studios.com/?_ptxn=txn_01kpm4vs6qpbfsp2jnc3bhsvsh",
+        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vs6qpbfsp2jnc3bhsvsh",
         "environment": "live"
       },
       "assets": {
@@ -1251,7 +1251,7 @@
       "eta": "TBD"
     }
   ],
-  "last_editor_update": "2026-04-21T22:03:11.935Z",
+  "last_editor_update": "2026-04-23T14:48:27.290Z",
   "announcement": {
     "enabled": false,
     "text": "",
@@ -1262,8 +1262,8 @@
   "homepage": {
     "hero": {
       "crafted": "CRAFTED",
-      "for": "FOR",
-      "misfits": "MISFITS.",
+      "for": "IN",
+      "misfits": "SHADOWS.",
       "subtitle": "48 weaponized Rust plugins. Per-server license. Lifetime updates. Oxide + Carbon compatible. Built direct from the keyboard that wrote them — no middlemen, no reseller markup."
     },
     "tagline_strip": [
@@ -1286,12 +1286,12 @@
     },
     "footer": {
       "tile_about_title": "About",
-      "tile_about_body": "The promise behind Misfits Studios — original work, direct support from the dev who wrote it.",
+      "tile_about_body": "The promise behind Shadow Kids Studios — original work, direct support from the dev who wrote it.",
       "tile_support_title": "Support",
       "tile_support_body": "Bug report, pre-sale question, or just want to chat? Talk directly to the person who wrote the code.",
       "tile_terms_title": "Terms",
       "tile_terms_body": "Licensing, refunds, updates, privacy — plain English, no legalese. Read before you buy.",
-      "copyright": "(c) 2026 MISFITS STUDIOS",
+      "copyright": "(c) 2026 SHADOW KIDS STUDIOS",
       "disclaimer": "NOT AFFILIATED WITH FACEPUNCH / OXIDE / CARBON"
     }
   },
@@ -1299,32 +1299,32 @@
     "about": {
       "title": "About",
       "last_updated": "2026-04-21",
-      "body_md": "# The Promise\n\n*The hub for everything we build.*\n\nMisfits Studios is the home base for every digital thing we create. Rust plugins today. Desktop apps next. Whatever comes after that. No resold work, no white-labeled junk — if it ships from here, we wrote it.\n\n## 01 · Built Here, Shipped Here\n\nEvery plugin and every app on this site is our own original work. No bundled reseller code. No forks of other devs' plugins slapped with a new name.\n\n## 02 · Oxide & Carbon Ready\n\nEvery Rust plugin is tested against both frameworks before release. Compatibility is listed clearly on every product card so you know what you're installing.\n\n## 03 · Direct Support\n\nTalk to the person who actually wrote the code. No ticket farm, no outsourced reply bot. Hit the Discord or email below.\n\n---\n\n**Not affiliated with Facepunch / Oxide / Carbon.**\n"
+      "body_md": "# The Promise\n\n*The hub for everything we build.*\n\nShadow Kids Studios is the home base for every digital thing we create. Rust plugins today. Desktop apps next. Whatever comes after that. No resold work, no white-labeled junk — if it ships from here, we wrote it.\n\n## 01 · Built Here, Shipped Here\n\nEvery plugin and every app on this site is our own original work. No bundled reseller code. No forks of other devs' plugins slapped with a new name.\n\n## 02 · Oxide & Carbon Ready\n\nEvery Rust plugin is tested against both frameworks before release. Compatibility is listed clearly on every product card so you know what you're installing.\n\n## 03 · Direct Support\n\nTalk to the person who actually wrote the code. No ticket farm, no outsourced reply bot. Hit the Discord or email below.\n\n---\n\n**Not affiliated with Facepunch / Oxide / Carbon.**\n"
     },
     "support": {
       "title": "Support",
       "last_updated": "2026-04-21",
-      "body_md": "# Talk To The Dev\n\n*Need help or want to buy?*\n\nReady to pick up a plugin, ask a pre-sale question, or report a bug? Ping us directly. Every message lands in front of the person who wrote the code.\n\n- **Email:** [support@misfits-studios.com](mailto:support@misfits-studios.com)\n- **Discord:** (TBD)\n\n> Response within 24h. Solo dev, but we don't ghost.\n\n## Send A Message\n\nUse the contact form on the live site, or email us directly. Subject lines we watch for:\n\n- Pre-sale question\n- Bug report\n- Feature request\n- Plugin collaboration\n- Other\n\nCode snippets and logs always welcome — they cut the back-and-forth in half.\n\n## Join The Misfits List\n\nLow volume, no spam. New plugin releases, patch notes when Facepunch breaks something, and the occasional deep dive on a system we're building. No marketing blasts. Unsubscribe any time.\n"
+      "body_md": "# Talk To The Dev\n\n*Need help or want to buy?*\n\nReady to pick up a plugin, ask a pre-sale question, or report a bug? Ping us directly. Every message lands in front of the person who wrote the code.\n\n- **Email:** [support@shadowkidsstudios.com](mailto:support@shadowkidsstudios.com)\n- **Discord:** (TBD)\n\n> Response within 24h. Solo dev, but we don't ghost.\n\n## Send A Message\n\nUse the contact form on the live site, or email us directly. Subject lines we watch for:\n\n- Pre-sale question\n- Bug report\n- Feature request\n- Plugin collaboration\n- Other\n\nCode snippets and logs always welcome — they cut the back-and-forth in half.\n\n## Join The Misfits List\n\nLow volume, no spam. New plugin releases, patch notes when Facepunch breaks something, and the occasional deep dive on a system we're building. No marketing blasts. Unsubscribe any time.\n"
     },
     "terms": {
       "title": "Terms of Service",
       "last_updated": "2026-04-21",
-      "body_md": "# Terms & Policy\n\n*Read before you buy. Digital goods, plain English.*\n\n## 01 · What You Get\n\nA downloadable `.cs` plugin file (or Windows binary for desktop apps), install instructions, and access to all future updates for that product. Plugins are delivered after purchase via email or Discord DM.\n\n## 02 · License\n\nYou are granted a **non-exclusive, non-transferable** license to use the plugin on servers you own or operate. One purchase = one server group. You may **not** resell, rehost, rebrand, decompile, or redistribute the file. Reverse engineering and sharing to leak sites voids your license immediately.\n\n## 03 · Refunds\n\nBecause these are digital goods delivered instantly, all sales are final. Exception: if a plugin is fundamentally broken on a current Oxide or Carbon build and we can't fix it within 7 days of your report, we'll refund it. Buyer's remorse is not a refund reason. See the full [Refund Policy](refund.html).\n\n## 04 · Updates & Breakage\n\nRust updates can and will break plugins. We patch breakages as fast as we can verify the fix — usually within 24–72 hours of a forced wipe. Updates are **free for the life of the plugin**. Subscribe to the Discord for patch alerts.\n\n## 05 · Liability\n\nPlugins are provided *as-is*. We are not liable for server downtime, data loss, or any indirect damages arising from plugin use. Back up your server data.\n\n## 06 · Contact\n\nQuestions about these terms: [support@misfits-studios.com](mailto:support@misfits-studios.com).\n"
+      "body_md": "# Terms & Policy\n\n*Read before you buy. Digital goods, plain English.*\n\n## 01 · What You Get\n\nA downloadable `.cs` plugin file (or Windows binary for desktop apps), install instructions, and access to all future updates for that product. Plugins are delivered after purchase via email or Discord DM.\n\n## 02 · License\n\nYou are granted a **non-exclusive, non-transferable** license to use the plugin on servers you own or operate. One purchase = one server group. You may **not** resell, rehost, rebrand, decompile, or redistribute the file. Reverse engineering and sharing to leak sites voids your license immediately.\n\n## 03 · Refunds\n\nBecause these are digital goods delivered instantly, all sales are final. Exception: if a plugin is fundamentally broken on a current Oxide or Carbon build and we can't fix it within 7 days of your report, we'll refund it. Buyer's remorse is not a refund reason. See the full [Refund Policy](refund.html).\n\n## 04 · Updates & Breakage\n\nRust updates can and will break plugins. We patch breakages as fast as we can verify the fix — usually within 24–72 hours of a forced wipe. Updates are **free for the life of the plugin**. Subscribe to the Discord for patch alerts.\n\n## 05 · Liability\n\nPlugins are provided *as-is*. We are not liable for server downtime, data loss, or any indirect damages arising from plugin use. Back up your server data.\n\n## 06 · Contact\n\nQuestions about these terms: [support@shadowkidsstudios.com](mailto:support@shadowkidsstudios.com).\n"
     },
     "privacy": {
       "title": "Privacy Policy",
       "last_updated": "2026-04-21",
-      "body_md": "# Privacy Policy\n\n*How we handle your data.*\n\n## 01 · Who We Are\n\nMisfits Studios is a solo development studio operated by the owner of [xADROCx1](https://github.com/xADROCx1). Contact: [support@misfits-studios.com](mailto:support@misfits-studios.com). This policy covers the website **misfits-studios.com** and the digital products sold through it.\n\n## 02 · What We Collect\n\nWe try to collect as little as possible. In practice we handle:\n\n- **Standard web-server logs** — IP address, browser user-agent, referring URL, and timestamps. Collected automatically by our hosting provider (Cloudflare) and retained for up to 30 days for security and debugging.\n- **Purchase data** — when you buy a product, our payment processor (Lemon Squeezy or Paddle, both merchants of record) collects your name, email, billing country, and payment details. We receive the order record (name, email, country, what you bought) but never your full card number.\n- **Support conversations** — if you email us or message us on Discord, we keep those messages to provide support and improve the products.\n- **Product analytics** — we may run privacy-focused, cookieless analytics that measure anonymous page views and conversion events. No personally identifying information is collected by analytics.\n\n## 03 · What We Don't Collect\n\n- We don't sell or rent your data to anyone, ever.\n- We don't use third-party advertising trackers.\n- We don't run A/B-testing scripts that fingerprint your browser.\n- We don't combine data across platforms to build a profile of you.\n\n## 04 · How We Use It\n\n- Deliver the products you buy and provide support.\n- Send update notifications about plugins you've purchased (and only those — not marketing blasts).\n- Debug errors, monitor site uptime, and prevent abuse.\n- Comply with tax law — our payment processor handles VAT / GST / sales tax as the merchant of record, which requires keeping purchase records for the legally mandated retention period (typically 7–10 years depending on jurisdiction).\n\n## 05 · Third Parties We Use\n\n- **Cloudflare** — website hosting, CDN, DDoS protection.\n- **Lemon Squeezy** — payment processor, merchant of record, file delivery, license keys.\n- **Paddle** — alternative payment processor / merchant of record.\n- **GitHub** — source code hosting; does not process customer data.\n- **Proton Mail** — our support inbox.\n- **Discord** — community and direct support chat.\n\n## 06 · Your Rights (GDPR / CCPA / UK-GDPR)\n\nIf you're in the EU, UK, California, or any jurisdiction with a personal-data law, you can request:\n\n- **Access** — a copy of the data we hold on you.\n- **Correction** — fix anything incorrect.\n- **Deletion** — remove your data, subject to legal retention requirements for purchase records.\n- **Portability** — your data in a machine-readable format.\n- **Objection** — stop us using your data for any non-essential purpose.\n\nEmail [support@misfits-studios.com](mailto:support@misfits-studios.com) with the subject line `DATA REQUEST`. We'll respond within 30 days.\n\n## 07 · Cookies\n\nThis website currently uses essential cookies only — nothing for advertising, no cross-site tracking. Our payment processor may set cookies during checkout to maintain your cart and verify the transaction.\n\n## 08 · Children\n\nOur products are aimed at server administrators of the game Rust. We don't knowingly collect data from anyone under 13 (or under 16 where GDPR requires). If you believe we have, email us and we'll delete it immediately.\n\n## 09 · Data Security\n\nPayment data is handled by our processors' PCI-compliant infrastructure, not by us. Our site is served over HTTPS. Support emails are in Proton Mail, which is end-to-end encrypted where both parties use it. No system is perfectly secure — if you suspect a breach, email us.\n\n## 10 · Changes To This Policy\n\nIf we change this policy materially, we'll update the 'last updated' date at the top and post a notice in our Discord. Continued use of the site after changes means you accept the new version.\n\n## 11 · Contact\n\nQuestions, data requests, or complaints:\n\n- Email: [support@misfits-studios.com](mailto:support@misfits-studios.com)\n- GitHub: [xADROCx1](https://github.com/xADROCx1)\n"
+      "body_md": "# Privacy Policy\n\n*How we handle your data.*\n\n## 01 · Who We Are\n\nShadow Kids Studios is a solo development studio operated by the owner of [xADROCx1](https://github.com/xADROCx1). Contact: [support@shadowkidsstudios.com](mailto:support@shadowkidsstudios.com). This policy covers the website **shadowkidsstudios.com** and the digital products sold through it.\n\n## 02 · What We Collect\n\nWe try to collect as little as possible. In practice we handle:\n\n- **Standard web-server logs** — IP address, browser user-agent, referring URL, and timestamps. Collected automatically by our hosting provider (Cloudflare) and retained for up to 30 days for security and debugging.\n- **Purchase data** — when you buy a product, our payment processor (Lemon Squeezy or Paddle, both merchants of record) collects your name, email, billing country, and payment details. We receive the order record (name, email, country, what you bought) but never your full card number.\n- **Support conversations** — if you email us or message us on Discord, we keep those messages to provide support and improve the products.\n- **Product analytics** — we may run privacy-focused, cookieless analytics that measure anonymous page views and conversion events. No personally identifying information is collected by analytics.\n\n## 03 · What We Don't Collect\n\n- We don't sell or rent your data to anyone, ever.\n- We don't use third-party advertising trackers.\n- We don't run A/B-testing scripts that fingerprint your browser.\n- We don't combine data across platforms to build a profile of you.\n\n## 04 · How We Use It\n\n- Deliver the products you buy and provide support.\n- Send update notifications about plugins you've purchased (and only those — not marketing blasts).\n- Debug errors, monitor site uptime, and prevent abuse.\n- Comply with tax law — our payment processor handles VAT / GST / sales tax as the merchant of record, which requires keeping purchase records for the legally mandated retention period (typically 7–10 years depending on jurisdiction).\n\n## 05 · Third Parties We Use\n\n- **Cloudflare** — website hosting, CDN, DDoS protection.\n- **Lemon Squeezy** — payment processor, merchant of record, file delivery, license keys.\n- **Paddle** — alternative payment processor / merchant of record.\n- **GitHub** — source code hosting; does not process customer data.\n- **Proton Mail** — our support inbox.\n- **Discord** — community and direct support chat.\n\n## 06 · Your Rights (GDPR / CCPA / UK-GDPR)\n\nIf you're in the EU, UK, California, or any jurisdiction with a personal-data law, you can request:\n\n- **Access** — a copy of the data we hold on you.\n- **Correction** — fix anything incorrect.\n- **Deletion** — remove your data, subject to legal retention requirements for purchase records.\n- **Portability** — your data in a machine-readable format.\n- **Objection** — stop us using your data for any non-essential purpose.\n\nEmail [support@shadowkidsstudios.com](mailto:support@shadowkidsstudios.com) with the subject line `DATA REQUEST`. We'll respond within 30 days.\n\n## 07 · Cookies\n\nThis website currently uses essential cookies only — nothing for advertising, no cross-site tracking. Our payment processor may set cookies during checkout to maintain your cart and verify the transaction.\n\n## 08 · Children\n\nOur products are aimed at server administrators of the game Rust. We don't knowingly collect data from anyone under 13 (or under 16 where GDPR requires). If you believe we have, email us and we'll delete it immediately.\n\n## 09 · Data Security\n\nPayment data is handled by our processors' PCI-compliant infrastructure, not by us. Our site is served over HTTPS. Support emails are in Proton Mail, which is end-to-end encrypted where both parties use it. No system is perfectly secure — if you suspect a breach, email us.\n\n## 10 · Changes To This Policy\n\nIf we change this policy materially, we'll update the 'last updated' date at the top and post a notice in our Discord. Continued use of the site after changes means you accept the new version.\n\n## 11 · Contact\n\nQuestions, data requests, or complaints:\n\n- Email: [support@shadowkidsstudios.com](mailto:support@shadowkidsstudios.com)\n- GitHub: [xADROCx1](https://github.com/xADROCx1)\n"
     },
     "refund": {
       "title": "Refund Policy",
       "last_updated": "2026-04-21",
-      "body_md": "# Refund Policy\n\n*Digital goods, fair rules.*\n\n## 01 · Short Version\n\nDigital goods delivered instantly. All sales final. **Exception:** if a plugin is fundamentally broken on the current Oxide or Carbon build and we can't fix it within 7 days of your report, we'll refund the purchase. Buyer's remorse is not a refund reason.\n\n## 02 · When You Are Entitled To A Refund\n\n- The plugin does not function on a current, supported Oxide or Carbon build for reasons unrelated to your server setup, AND we have been unable to resolve it within 7 calendar days of your written report (email or Discord).\n- You were charged twice for the same product (duplicate transaction).\n- A purchase was made without your authorization (fraud) — report to us AND your payment provider.\n- You are protected by a statutory consumer right that overrides this policy (for example, certain EU or UK consumer protections for non-downloaded goods).\n\n## 03 · When You Are Not Entitled To A Refund\n\n- **Change of mind.** Because plugins are downloadable and you get full value at the moment of delivery, we don't refund regret.\n- **Conflicts with other plugins.** Rust's modding ecosystem has thousands of plugins; we cannot guarantee compatibility with every combination.\n- **Custom or heavily modified server setups** where the root cause is outside our plugin.\n- **Misuse or permission issues** after you were given documentation showing how to configure correctly.\n- **Facepunch breaking the game with an update** — we will fix the plugin as fast as we reasonably can, but Facepunch's schedule is not ours.\n\n## 04 · How To Request A Refund\n\nEmail [support@misfits-studios.com](mailto:support@misfits-studios.com) with:\n\n- Subject line: `REFUND REQUEST — [plugin name]`\n- The email address and order number from your purchase (Lemon Squeezy or Paddle receipt)\n- A description of the issue, a screenshot or log excerpt, and the Oxide/Carbon build you're running\n\nWe respond within 3 business days. If eligible, the refund is processed back to the original payment method by our payment processor (Lemon Squeezy or Paddle) — typically 5–10 business days to appear on your statement.\n\n## 05 · License Revocation On Refund\n\nIf a refund is issued, your license to use the plugin terminates immediately. You agree to uninstall the plugin from all servers under your control within 48 hours of the refund being processed.\n\n## 06 · Chargebacks\n\nPlease contact us first — we'd rather fix a problem than see you pay chargeback fees. Opening a chargeback without first attempting resolution may result in your account being denied future purchases.\n\n## 07 · Contact\n\nEmail [support@misfits-studios.com](mailto:support@misfits-studios.com) or message on Discord.\n"
+      "body_md": "# Refund Policy\n\n*Digital goods, fair rules.*\n\n## 01 · Short Version\n\nDigital goods delivered instantly. All sales final. **Exception:** if a plugin is fundamentally broken on the current Oxide or Carbon build and we can't fix it within 7 days of your report, we'll refund the purchase. Buyer's remorse is not a refund reason.\n\n## 02 · When You Are Entitled To A Refund\n\n- The plugin does not function on a current, supported Oxide or Carbon build for reasons unrelated to your server setup, AND we have been unable to resolve it within 7 calendar days of your written report (email or Discord).\n- You were charged twice for the same product (duplicate transaction).\n- A purchase was made without your authorization (fraud) — report to us AND your payment provider.\n- You are protected by a statutory consumer right that overrides this policy (for example, certain EU or UK consumer protections for non-downloaded goods).\n\n## 03 · When You Are Not Entitled To A Refund\n\n- **Change of mind.** Because plugins are downloadable and you get full value at the moment of delivery, we don't refund regret.\n- **Conflicts with other plugins.** Rust's modding ecosystem has thousands of plugins; we cannot guarantee compatibility with every combination.\n- **Custom or heavily modified server setups** where the root cause is outside our plugin.\n- **Misuse or permission issues** after you were given documentation showing how to configure correctly.\n- **Facepunch breaking the game with an update** — we will fix the plugin as fast as we reasonably can, but Facepunch's schedule is not ours.\n\n## 04 · How To Request A Refund\n\nEmail [support@shadowkidsstudios.com](mailto:support@shadowkidsstudios.com) with:\n\n- Subject line: `REFUND REQUEST — [plugin name]`\n- The email address and order number from your purchase (Lemon Squeezy or Paddle receipt)\n- A description of the issue, a screenshot or log excerpt, and the Oxide/Carbon build you're running\n\nWe respond within 3 business days. If eligible, the refund is processed back to the original payment method by our payment processor (Lemon Squeezy or Paddle) — typically 5–10 business days to appear on your statement.\n\n## 05 · License Revocation On Refund\n\nIf a refund is issued, your license to use the plugin terminates immediately. You agree to uninstall the plugin from all servers under your control within 48 hours of the refund being processed.\n\n## 06 · Chargebacks\n\nPlease contact us first — we'd rather fix a problem than see you pay chargeback fees. Opening a chargeback without first attempting resolution may result in your account being denied future purchases.\n\n## 07 · Contact\n\nEmail [support@shadowkidsstudios.com](mailto:support@shadowkidsstudios.com) or message on Discord.\n"
     },
     "changelog": {
       "title": "Changelog",
       "last_updated": "2026-04-21",
-      "body_md": "# Changelog\n\n*Release history.*\n\nEvery Misfits Studios plugin ships with a version. This page shows the current version of every plugin in the catalog, pulled live from our products manifest. Detailed release notes per plugin live on each product page.\n\n> Currently tracking the full catalog, versioned via SemVer.\n\n## How Versioning Works\n\nWe follow **SemVer** — `MAJOR.MINOR.PATCH`:\n\n- `PATCH` — bug fixes, no behavior change for config files.\n- `MINOR` — new features, additive config keys, backwards compatible.\n- `MAJOR` — breaking config or behavior change. Read the release notes before upgrading.\n\n## Where To Find Release Notes\n\nOpen any product page — the version history is inline on each one. For patch alerts immediately after Rust forced wipes, subscribe to the Discord.\n\n## Recent Studio-Wide Changes\n\n- **2026-04** — Editor UI: prose pages are now editable from the admin (`/admin/editor.html` → Pages).\n- **2026-04** — All plugins verified against the April forced wipe.\n- **2026-03** — Misfits brand aesthetic rolled out across the storefront.\n"
+      "body_md": "# Changelog\n\n*Release history.*\n\nEvery Shadow Kids Studios plugin ships with a version. This page shows the current version of every plugin in the catalog, pulled live from our products manifest. Detailed release notes per plugin live on each product page.\n\n> Currently tracking the full catalog, versioned via SemVer.\n\n## How Versioning Works\n\nWe follow **SemVer** — `MAJOR.MINOR.PATCH`:\n\n- `PATCH` — bug fixes, no behavior change for config files.\n- `MINOR` — new features, additive config keys, backwards compatible.\n- `MAJOR` — breaking config or behavior change. Read the release notes before upgrading.\n\n## Where To Find Release Notes\n\nOpen any product page — the version history is inline on each one. For patch alerts immediately after Rust forced wipes, subscribe to the Discord.\n\n## Recent Studio-Wide Changes\n\n- **2026-04** — Editor UI: prose pages are now editable from the admin (`/admin/editor.html` → Pages).\n- **2026-04** — All plugins verified against the April forced wipe.\n- **2026-03** — Misfits brand aesthetic rolled out across the storefront.\n"
     }
   }
 }
