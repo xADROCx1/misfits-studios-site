@@ -25,10 +25,10 @@
     "flyingsubs",
     "sharkgun",
     "chickengun",
+    "loadedturrets",
     "misfitscommands",
     "misfitsui",
-    "deadmanslocker",
-    "loadedturrets"
+    "deadmanslocker"
   ],
   "products": [
     {
@@ -1484,7 +1484,7 @@
       "eta": "TBD"
     }
   ],
-  "last_editor_update": "2026-04-23T21:36:10.934Z",
+  "last_editor_update": "2026-04-23T21:37:10.933Z",
   "announcement": {
     "enabled": false,
     "text": "",
