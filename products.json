@@ -64,7 +64,13 @@
       "assets": {
         "icon": "/assets/products/rustconchat.jpg"
       },
-      "download_url": "/downloads/RustconChat.cs"
+      "download_url": "/downloads/RustconChat.cs",
+      "features": [
+        "Ring buffer of last 100 chat + event messages",
+        "Served over RCON for app backfill",
+        "Logs global chat, team chat, connects, disconnects",
+        "Configurable buffer size, zero dependencies"
+      ]
     },
     {
       "id": "misfitsui",
@@ -99,7 +105,13 @@
       "assets": {
         "icon": "/assets/products/misfitsui.png"
       },
-      "download_url": "/downloads/MisfitsUI.cs"
+      "download_url": "/downloads/MisfitsUI.cs",
+      "features": [
+        "Shared UI + image asset library for all plugins",
+        "ImageLibrary integration with URL fallback",
+        "Neon underground color palette as static constants",
+        "Branded panels, toasts, buttons, skull icons"
+      ]
     },
     {
       "id": "misfitscommands",
@@ -136,7 +148,15 @@
       },
       "assets": {
         "icon": "/assets/products/misfitscommands.png"
-      }
+      },
+      "source_file": "plugins/MisfitsCommands/MisfitsCommands.cs",
+      "features": [
+        "Browse chat commands, console commands, permissions, skin IDs",
+        "Cyberpunk UI v4 with collapsible sidebar and detail drawer",
+        "Per-command permission filtering with admin bypass",
+        "Favorites system with persistent data file",
+        "Plugin-grouped file tree with search and paging"
+      ]
     },
     {
       "id": "dev2discord",
@@ -171,7 +191,15 @@
       "assets": {
         "icon": "/assets/products/dev2discord.jpg"
       },
-      "source_file": "/downloads/Dev2Discord.cs"
+      "source_file": "/downloads/Dev2Discord.cs",
+      "download_url": "/downloads/Dev2Discord.cs",
+      "features": [
+        "Bridges Rust devblog RSS feed to Discord webhook",
+        "Individual or daily digest posting modes",
+        "Keyword allowlist, blacklist, and role-ping filters",
+        "First-run backfill skip and seen-GUID memory",
+        "Custom embed color, username, avatar, footer"
+      ]
     },
     {
       "id": "airbags",
@@ -205,7 +233,15 @@
       },
       "assets": {
         "icon": "/assets/products/airbags.jpg"
-      }
+      },
+      "source_file": "Revised plugins/AirBags.cs",
+      "features": [
+        "Large Backpack acts as oxygen tank underwater",
+        "Compact O2 HUD shown only when relevant",
+        "Configurable drain rate and max air reserves",
+        "Chat-command refill gated by permission",
+        "Craft conversion from diving tank supported"
+      ]
     },
     {
       "id": "alwaysstocked",
@@ -238,7 +274,14 @@
       },
       "assets": {
         "icon": "/assets/products/alwaysstocked.png"
-      }
+      },
+      "source_file": "Revised plugins/AlwaysStocked.cs",
+      "features": [
+        "NPC vending machines hold huge default stock",
+        "Auto-resets stock after every purchase",
+        "Configurable restock interval timer",
+        "Admin command restocks all vendors instantly"
+      ]
     },
     {
       "id": "motorbikenitro",
@@ -273,7 +316,8 @@
       },
       "features": [
         ""
-      ]
+      ],
+      "source_file": "Revised plugins/MotorbikeNitro.cs"
     },
     {
       "id": "boatnitro",
@@ -306,7 +350,15 @@
       },
       "assets": {
         "icon": "/assets/products/boatnitro.jpg"
-      }
+      },
+      "source_file": "Revised plugins/BoatNitro.cs",
+      "features": [
+        "Shift-to-boost for rowboat, RHIB, PT, tugboat",
+        "Separate water and air boost multipliers",
+        "Unified manual-eject for driver and passengers",
+        "Blocks vanilla auto-eject in air",
+        "Per-vehicle tug boost profile"
+      ]
     },
     {
       "id": "helinitro",
@@ -338,7 +390,15 @@
       },
       "assets": {
         "icon": "/assets/products/helinitro.png"
-      }
+      },
+      "source_file": "Revised plugins/HeliNitro.cs",
+      "features": [
+        "Sprint-key nitro for minicopter, scrap, attack heli",
+        "Per-prefab speed, duration, cooldown profiles",
+        "Minimum ground distance safety check",
+        "Profile linking across helicopter types",
+        "Optional velocity impulse and effect prefab"
+      ]
     },
     {
       "id": "horsegun",
@@ -371,7 +431,15 @@
       },
       "assets": {
         "icon": "/assets/products/horsegun.png"
-      }
+      },
+      "source_file": "Revised plugins/HorseGun.cs",
+      "features": [
+        "Custom skin fires live horses as projectiles",
+        "Ground-impact detection forces ragdoll corpse",
+        "Configurable launch speed and upward arc",
+        "Auto-cleanup of corpses after configurable seconds",
+        "Owner-collision ignore window prevents self-hits"
+      ]
     },
     {
       "id": "c4guns",
@@ -403,7 +471,14 @@
       },
       "assets": {
         "icon": "/assets/products/c4guns.png"
-      }
+      },
+      "source_file": "Revised plugins/C4Guns.cs",
+      "features": [
+        "Explosive 5.56 launches timed C4 on fire",
+        "Permission-gated with per-player toggle command",
+        "Configurable fuse time and launch speed",
+        "Reflection-based fuse override for compatibility"
+      ]
     },
     {
       "id": "chickengun",
@@ -436,7 +511,15 @@
       },
       "assets": {
         "icon": "/assets/products/chickengun.png"
-      }
+      },
+      "source_file": "Revised plugins/ChickenGun.cs",
+      "features": [
+        "Full-auto chicken launcher with skin ID gate",
+        "Physics-driven chickens with AI disabled mid-flight",
+        "Hover protection and configurable landing modes",
+        "Per-player and global active chicken caps",
+        "Configurable launch speed and bounce behavior"
+      ]
     },
     {
       "id": "sharkgun",
@@ -469,7 +552,15 @@
       },
       "assets": {
         "icon": "/assets/products/sharkgun.png"
-      }
+      },
+      "source_file": "Revised plugins/SharkGun.cs",
+      "features": [
+        "MP5 skin fires SimpleSharks via projectile carrier",
+        "Sharks swim on water entry, die on ground impact",
+        "Full-auto fire with bullet damage cancelled",
+        "Per-player and global active shark caps",
+        "Corpse cleanup with configurable timeout"
+      ]
     },
     {
       "id": "betterarmorinsert",
@@ -501,7 +592,15 @@
       },
       "assets": {
         "icon": "/assets/products/betterarmorinsert.png"
-      }
+      },
+      "source_file": "Revised plugins/BetterArmorInsert.cs",
+      "features": [
+        "Custom armor insert plates with damage-type scaling",
+        "Configurable destruction chance when moved to clothes",
+        "Crate spawn configuration per insert type",
+        "Give command gated by permission",
+        "Harmony patches for clean item behavior"
+      ]
     },
     {
       "id": "chickenlover",
@@ -533,7 +632,15 @@
       },
       "assets": {
         "icon": "/assets/products/chickenlover.jpg"
-      }
+      },
+      "download_url": "/downloads/ChickenLover.cs",
+      "source_file": "/downloads/ChickenLover.cs",
+      "features": [
+        "Adds Chicken Lover button to Chicken Coop UI",
+        "Satisfies only chickens in the coop being looted",
+        "Heal to full and fill needs to full options",
+        "Configurable scan radius and prefab list"
+      ]
     },
     {
       "id": "compostsplitter",
@@ -565,7 +672,15 @@
       },
       "assets": {
         "icon": "/assets/products/compostsplitter.jpg"
-      }
+      },
+      "download_url": "/downloads/CompostSplitter.cs",
+      "source_file": "/downloads/CompostSplitter.cs",
+      "features": [
+        "Splits compostables evenly across open slots",
+        "Blocks adding when composter is full",
+        "Persists stack layout across server restarts",
+        "Permission-gated with auto-restore on load"
+      ]
     },
     {
       "id": "deadmanslocker",
@@ -598,7 +713,15 @@
       },
       "assets": {
         "icon": "/assets/products/deadmanslocker.jpg"
-      }
+      },
+      "source_file": "Revised plugins/DeadMansLocker.cs",
+      "features": [
+        "Loot button on your own corpse for instant retrieval",
+        "Optional exact layout restore from snapshot",
+        "Configurable cooldown and overflow-to-ground",
+        "Snapshot max-age controls restore eligibility",
+        "Console and file logging options"
+      ]
     },
     {
       "id": "deepseaspeed",
@@ -631,7 +754,15 @@
       },
       "assets": {
         "icon": "/assets/products/deepseaspeed.png"
-      }
+      },
+      "source_file": "Revised plugins/DeepSeaSpeed.cs",
+      "features": [
+        "Speed boost and nitro for modular boats",
+        "Shift-key nitro with fuel cost per burst",
+        "VIP tier with unlimited nitro and max speed",
+        "Separate perms for boost, speed, nitro, flip",
+        "Cooldown bypass permission for admins"
+      ]
     },
     {
       "id": "eatall",
@@ -663,7 +794,15 @@
       },
       "assets": {
         "icon": "/assets/products/eatall.png"
-      }
+      },
+      "source_file": "Revised plugins/EatAll.cs",
+      "features": [
+        "Toggleable EAT ALL button consumes every food item",
+        "Applies cumulative stat buffs in one click",
+        "Include belt and wear slots optionally",
+        "Configurable blacklist and max-per-click",
+        "Custom anchor, colors, text, font size"
+      ]
     },
     {
       "id": "entcount",
@@ -695,7 +834,15 @@
       },
       "assets": {
         "icon": "/assets/products/entcount.jpg"
-      }
+      },
+      "source_file": "Revised plugins/EntCount.cs",
+      "features": [
+        "Counts Rust entities owned by online or offline players",
+        "Lookup by name or SteamID",
+        "List command with query and limit",
+        "Cache layer avoids repeated full scans",
+        "Covalence plugin for cross-game compatibility"
+      ]
     },
     {
       "id": "entitylimiter",
@@ -728,7 +875,15 @@
       },
       "assets": {
         "icon": "/assets/products/entitylimiter.png"
-      }
+      },
+      "source_file": "Revised plugins/EntityLimiter.cs",
+      "features": [
+        "Caps owned entities per player using four tiers",
+        "Tier1, tier2, tier3, unlimited permissions",
+        "Configurable default limit for ungranted players",
+        "Chat command shows current count and limit",
+        "Optional full recount on plugin load"
+      ]
     },
     {
       "id": "flyingfish",
@@ -761,7 +916,15 @@
       },
       "assets": {
         "icon": "/assets/products/flyingfish.png"
-      }
+      },
+      "source_file": "Revised plugins/FlyingFish.cs",
+      "features": [
+        "Periodic ocean event spawns leaping shark cluster",
+        "Configurable count, radius, jump force, interval",
+        "Random event frequency window",
+        "Announce messages at start and end",
+        "Splashdown buffer and repeat jumps"
+      ]
     },
     {
       "id": "flyingsubs",
@@ -794,7 +957,15 @@
       },
       "assets": {
         "icon": "/assets/products/flyingsubs.png"
-      }
+      },
+      "source_file": "Revised plugins/FlyingSubs.cs",
+      "features": [
+        "Submarines fly through the air on shift",
+        "Toggle via /flysub chat command",
+        "Air torpedoes with cooldown and custom speed",
+        "Tunable thrust, pitch, turn, hover damping",
+        "Solo and duo sub support"
+      ]
     },
     {
       "id": "happybee",
@@ -827,7 +998,14 @@
       },
       "assets": {
         "icon": "/assets/products/happybee.png"
-      }
+      },
+      "source_file": "Revised plugins/HappyBee.cs",
+      "features": [
+        "Adds Bee Happy button to Beehive UI",
+        "Satisfies bees in the hive being looted",
+        "Configurable happiness duration in minutes",
+        "Periodic check interval for hive state"
+      ]
     },
     {
       "id": "instanthelistartup",
@@ -859,7 +1037,15 @@
       },
       "assets": {
         "icon": "/assets/products/instanthelistartup.png"
-      }
+      },
+      "source_file": "Revised plugins/InstantHeliStartup.cs",
+      "features": [
+        "Instant engine start for all player helicopters",
+        "Optional upward jump impulse on mount",
+        "Per-player toggle for jump impulse",
+        "Exclude permission opts players out",
+        "Reflection-cached for low overhead"
+      ]
     },
     {
       "id": "keywordlog",
@@ -893,7 +1079,15 @@
       },
       "assets": {
         "icon": "/assets/products/keywordlog.png"
-      }
+      },
+      "source_file": "Revised plugins/KeyWordLog.cs",
+      "features": [
+        "Logs chat messages containing configured keywords",
+        "Writes to local file and optional Discord webhook",
+        "Global and team chat monitoring toggles",
+        "Case-insensitive keyword matching",
+        "Custom date format and log file name"
+      ]
     },
     {
       "id": "loadedturrets",
@@ -925,7 +1119,15 @@
       },
       "assets": {
         "icon": "/assets/products/loadedturrets.jpg"
-      }
+      },
+      "source_file": "Revised plugins/LoadedTurrets.cs",
+      "features": [
+        "Turret presets auto-applied on placement",
+        "Per-player saved weapon and ammo loadouts",
+        "Auto-refill ammo on configurable interval",
+        "UI browser for weapon selection with paging",
+        "Optional permission gate"
+      ]
     },
     {
       "id": "maxarmorcraft",
@@ -957,7 +1159,15 @@
       },
       "assets": {
         "icon": "/assets/products/maxarmorcraft.jpg"
-      }
+      },
+      "source_file": "Revised plugins/MaxArmorCraft.cs",
+      "features": [
+        "Forces maximum armor insert slots on attire",
+        "Auto-detect mode for .use permission holders",
+        "Legacy per-item overrides for admin tier",
+        "Apply on craft and on item added to container",
+        "Configurable slot counts per shortname"
+      ]
     },
     {
       "id": "myboat",
@@ -990,7 +1200,15 @@
       },
       "assets": {
         "icon": "/assets/products/myboat.png"
-      }
+      },
+      "source_file": "Revised plugins/MyBoat.cs",
+      "features": [
+        "Spawn and fetch boats and subs via chat commands",
+        "Rowboat, RHIB, kayak, motorrowboat, solo/duo sub",
+        "Per-vehicle cooldown, fuel, and spawn distance",
+        "Max-distance-from-water safety check",
+        "Permission-gated per vehicle type"
+      ]
     },
     {
       "id": "nocratefire",
@@ -1023,7 +1241,15 @@
       },
       "assets": {
         "icon": "/assets/products/nocratefire.jpg"
-      }
+      },
+      "source_file": "Revised plugins/NoCrateFire.cs",
+      "features": [
+        "Removes or shortens napalm fire on heli and Bradley crates",
+        "Configurable fire duration seconds",
+        "Tracks multiple concurrent crates with timeout",
+        "Customizable crate and fire prefab lists",
+        "Optional /hcf command for manual sweep"
+      ]
     },
     {
       "id": "playerlog",
@@ -1055,7 +1281,15 @@
       },
       "assets": {
         "icon": "/assets/products/playerlog.png"
-      }
+      },
+      "source_file": "Revised plugins/PlayerLog.cs",
+      "features": [
+        "Logs connects, disconnects, and session durations",
+        "New-player detection with color-coded output",
+        "Admins can watch live via console stream",
+        "Per-player join counter persisted to disk",
+        "Optional chat notify for admins"
+      ]
     },
     {
       "id": "sharkbaitcrate",
@@ -1088,7 +1322,15 @@
       },
       "assets": {
         "icon": "/assets/products/sharkbaitcrate.jpg"
-      }
+      },
+      "source_file": "Revised plugins/SharkBaitCrate.cs",
+      "features": [
+        "Ultra-light ocean crate event with shark escort",
+        "Works on custom maps with configurable water level",
+        "Configurable shark count, depth, and radius",
+        "Optional map marker with custom radius",
+        "Auto-interval mode for recurring events"
+      ]
     },
     {
       "id": "superammo",
@@ -1121,7 +1363,15 @@
       },
       "assets": {
         "icon": "/assets/products/superammo.png"
-      }
+      },
+      "source_file": "Revised plugins/SuperAmmo.cs",
+      "features": [
+        "Permission-based super damage ammo multipliers",
+        "One-shots animals, scientists, heli, Bradley",
+        "Per-player toggle with persistent state",
+        "Per-ammo multiplier up to 10000x",
+        "Configurable NPC prefab list for affected targets"
+      ]
     },
     {
       "id": "teamid",
@@ -1153,7 +1403,14 @@
       },
       "assets": {
         "icon": "/assets/products/teamid.jpg"
-      }
+      },
+      "source_file": "Revised plugins/TeamId.cs",
+      "features": [
+        "Lightweight team inspector by team ID or player",
+        "Chat and console commands for team or all-teams report",
+        "Separate use and admin permissions",
+        "Plain-text report for easy copy-paste"
+      ]
     },
     {
       "id": "treeremover",
@@ -1186,7 +1443,15 @@
       },
       "assets": {
         "icon": "/assets/products/treeremover.png"
-      }
+      },
+      "source_file": "Revised plugins/TreeRemover.cs",
+      "features": [
+        "Toggleable right-click tree and ore-node remover",
+        "Crosshair UI shown while enabled",
+        "Configurable click cooldown and raycast layers",
+        "Toolbar-ignore window prevents misclicks",
+        "Permission-gated per player"
+      ]
     },
     {
       "id": "neighborhoodwatch",
@@ -1222,7 +1487,14 @@
       "assets": {
         "icon": "/assets/products/neighborhoodwatch.png"
       },
-      "source_file": "/downloads/NeighborhoodWatch.cs"
+      "source_file": "/downloads/NeighborhoodWatch.cs",
+      "features": [
+        "PvP kills logged with weapon, distance, bodypart",
+        "Unauthorized loot, door, and deployable access alerts",
+        "Raid tracking for C4, rockets, satchels, MLRS, fire",
+        "Color-coded Discord embeds per alert type",
+        "Server-side JSON backup with auto-rotation"
+      ]
     }
   ],
   "coming_soon": [
