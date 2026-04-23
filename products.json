@@ -210,8 +210,8 @@
       "status": "live",
       "tagline": "Large Backpack + diving tank hybrid",
       "short_description": "Large Backpack + diving tank behavior: oxygen in water, drains air, refill via chat, compact O2 HUD.",
-      "price_usd": 2.99,
-      "price_label": "$2.99",
+      "price_usd": 4.99,
+      "price_label": "$4.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -252,8 +252,8 @@
       "status": "live",
       "tagline": "NPC vendors never run out",
       "short_description": "NPC vending machines keep a high default stack and reset to it after every purchase. Includes timer and restock-all command.",
-      "price_usd": 1.99,
-      "price_label": "$1.99",
+      "price_usd": 2.99,
+      "price_label": "$2.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -292,8 +292,8 @@
       "status": "live",
       "tagline": "Shift = nitro, midair A/D steering",
       "short_description": "Hold Shift = nitro. In air = A/D steering only. Immortal bikes.",
-      "price_usd": 2.99,
-      "price_label": "$2.99",
+      "price_usd": 3.99,
+      "price_label": "$3.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -328,8 +328,8 @@
       "status": "live",
       "tagline": "Shift-to-boost for every boat",
       "short_description": "Shift-only boat boost (rowboat / RHIB / PT + optional tug) and unified manual-eject for driver & passengers.",
-      "price_usd": 3.99,
-      "price_label": "$3.99",
+      "price_usd": 4.99,
+      "price_label": "$4.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -369,8 +369,8 @@
       "status": "live",
       "tagline": "Nitro boost for player helis",
       "short_description": "Nitro boost for player-driven helicopters (minicopter / scrap / attack) with cooldown and safety checks.",
-      "price_usd": 4.99,
-      "price_label": "$4.99",
+      "price_usd": 5.99,
+      "price_label": "$5.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -530,8 +530,8 @@
       "status": "live",
       "tagline": "MP5 that fires live sharks",
       "short_description": "MP5 skin shoots SimpleSharks. Bullets blocked, full-auto, corpse on ground impact, swim normally on water entry, Codefling-safe caps.",
-      "price_usd": 1.99,
-      "price_label": "$1.99",
+      "price_usd": 6.99,
+      "price_label": "$6.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -560,46 +560,6 @@
         "Full-auto fire with bullet damage cancelled",
         "Per-player and global active shark caps",
         "Corpse cleanup with configurable timeout"
-      ]
-    },
-    {
-      "id": "betterarmorinsert",
-      "slug": "betterarmorinsert",
-      "name": "BetterArmorInsert",
-      "version": "1.0.3",
-      "category": "plugin",
-      "status": "live",
-      "tagline": "Maxed armor insert slots on every piece",
-      "short_description": "Improves armor-insert slot behavior across attire items with auto-detect and per-item overrides.",
-      "price_usd": 2.99,
-      "price_label": "$2.99",
-      "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
-        "overlay_enabled": true
-      },
-      "tags": [
-        "armor",
-        "inventory",
-        "gear"
-      ],
-      "cs_info_author": "jtedal",
-      "paddle": {
-        "product_id": "pro_01kpm2cw9hrjk0qz4pxxm7knme",
-        "price_id": "pri_01kpm2cwc625qaa5xjvef8qn9g",
-        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vwzea8wq9pkesr8xjb1x",
-        "environment": "live"
-      },
-      "assets": {
-        "icon": "/assets/products/betterarmorinsert.png"
-      },
-      "source_file": "Revised plugins/BetterArmorInsert.cs",
-      "features": [
-        "Custom armor insert plates with damage-type scaling",
-        "Configurable destruction chance when moved to clothes",
-        "Crate spawn configuration per insert type",
-        "Give command gated by permission",
-        "Harmony patches for clean item behavior"
       ]
     },
     {
@@ -633,8 +593,7 @@
       "assets": {
         "icon": "/assets/products/chickenlover.jpg"
       },
-      "download_url": "/downloads/ChickenLover.cs",
-      "source_file": "/downloads/ChickenLover.cs",
+      "source_file": "Revised plugins/ChickenLover.cs",
       "features": [
         "Adds Chicken Lover button to Chicken Coop UI",
         "Satisfies only chickens in the coop being looted",
@@ -732,8 +691,8 @@
       "status": "live",
       "tagline": "Modular boat speed + nitro",
       "short_description": "Speed boost and nitro system for modular boats.",
-      "price_usd": 9.99,
-      "price_label": "$9.99",
+      "price_usd": 7.99,
+      "price_label": "$7.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -935,8 +894,8 @@
       "status": "live",
       "tagline": "Submarines that fly",
       "short_description": "Allows submarines to fly through the air. Use /flysub to toggle. Hold SHIFT to launch and thrust. Supports solo and duo subs.",
-      "price_usd": 3.99,
-      "price_label": "$3.99",
+      "price_usd": 5.99,
+      "price_label": "$5.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -976,8 +935,8 @@
       "status": "live",
       "tagline": "One-click beehive satisfaction",
       "short_description": "Adds a 'Bee Happy' button to Beehive UI that satisfies the bees in the hive you are currently looting.",
-      "price_usd": 1.99,
-      "price_label": "$1.99",
+      "price_usd": 2.99,
+      "price_label": "$2.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -1016,8 +975,8 @@
       "status": "live",
       "tagline": "No spool-up delay",
       "short_description": "Instant engine startup for Minicopter, Scrap Transport Helicopter & Attack Helicopter + optional jump impulse.",
-      "price_usd": 1.99,
-      "price_label": "$1.99",
+      "price_usd": 2.99,
+      "price_label": "$2.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -1056,8 +1015,8 @@
       "status": "live",
       "tagline": "Chat keyword watcher",
       "short_description": "Logs chat messages containing configurable keywords to a file and optionally to Discord.",
-      "price_usd": 0.99,
-      "price_label": "$0.99",
+      "price_usd": 2.99,
+      "price_label": "$2.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -1178,8 +1137,8 @@
       "status": "live",
       "tagline": "Spawn & fetch your boats",
       "short_description": "Players can spawn and fetch boats and submarines via chat commands with permission-based access and configurable fuel.",
-      "price_usd": 2.99,
-      "price_label": "$2.99",
+      "price_usd": 6.99,
+      "price_label": "$6.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -1260,8 +1219,8 @@
       "status": "live",
       "tagline": "Player activity logger",
       "short_description": "Logs player connections, sessions, and activity for admin review.",
-      "price_usd": 1.99,
-      "price_label": "$1.99",
+      "price_usd": 2.99,
+      "price_label": "$2.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -1300,8 +1259,8 @@
       "status": "live",
       "tagline": "Ocean crate + shark event",
       "short_description": "Ultra-light ocean crate + sharks. Works on custom maps.",
-      "price_usd": 3.99,
-      "price_label": "$3.99",
+      "price_usd": 5.99,
+      "price_label": "$5.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -1341,8 +1300,8 @@
       "status": "live",
       "tagline": "One-shot everything",
       "short_description": "Permission-based super damage ammo multipliers with per-player toggle. One-shot animals, all scientists, heli, Bradley.",
-      "price_usd": 4.99,
-      "price_label": "$4.99",
+      "price_usd": 2.99,
+      "price_label": "$2.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -1382,8 +1341,8 @@
       "status": "live",
       "tagline": "Lightweight team inspector",
       "short_description": "Lightweight team inspector — quick admin lookup of team rosters and IDs.",
-      "price_usd": 0.99,
-      "price_label": "$0.99",
+      "price_usd": 1.99,
+      "price_label": "$1.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -1461,8 +1420,8 @@
       "status": "live",
       "tagline": "Server monitor: PvP, loot, raids → Discord",
       "short_description": "All-in-one server monitor: PvP kills, unauthorized looting/access, and comprehensive raid tracking — pushed live to Discord.",
-      "price_usd": 4.99,
-      "price_label": "$4.99",
+      "price_usd": 8.99,
+      "price_label": "$8.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -1523,7 +1482,7 @@
       "eta": "TBD"
     }
   ],
-  "last_editor_update": "2026-04-23T18:40:13.647Z",
+  "last_editor_update": "2026-04-23T18:52:17.241Z",
   "announcement": {
     "enabled": false,
     "text": "",
@@ -1534,13 +1493,13 @@
   "homepage": {
     "hero": {
       "crafted": "CRAFTED",
-      "for": "IN THE",
+      "for": "IN",
       "misfits": "SHADOWS.",
       "subtitle": "48 weaponized Rust plugins. Per-server license. Lifetime updates. Oxide + Carbon compatible. Built direct from the keyboard that wrote them — no middlemen, no reseller markup."
     },
     "tagline_strip": [
-      ">>JOIN THE",
-      "SHADOW KIDS",
+      ">>  ONE DEV",
+      "EVERY LINE",
       "ZERO FILLER  <<"
     ],
     "ticker_strip": [
@@ -1548,7 +1507,8 @@
       "ORIGINAL WORK",
       "SOLO DEV",
       "DIRECT DISCORD SUPPORT",
-      "NO RESELLING"
+      "NO RESELLING",
+      "V.1.0_STUDIO_PROTOCOL"
     ],
     "sections": {
       "featured_title": "Featured Plugins",
