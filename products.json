@@ -1483,7 +1483,7 @@
       "eta": "TBD"
     }
   ],
-  "last_editor_update": "2026-04-23T18:57:27.862Z",
+  "last_editor_update": "2026-04-23T18:59:59.226Z",
   "announcement": {
     "enabled": false,
     "text": "",
@@ -1494,22 +1494,21 @@
   "homepage": {
     "hero": {
       "crafted": "CRAFTED",
-      "for": "IN",
+      "for": "IN THE",
       "misfits": "SHADOWS.",
       "subtitle": "48 weaponized Rust plugins. Per-server license. Lifetime updates. Oxide + Carbon compatible. Built direct from the keyboard that wrote them — no middlemen, no reseller markup."
     },
     "tagline_strip": [
-      ">>  ONE DEV",
-      "EVERY LINE",
-      "ZERO FILLER  <<"
+      ">>  JOIN",
+      "THE",
+      "SHADOW KIDS  <<"
     ],
     "ticker_strip": [
       "OXIDE + CARBON COMPATIBLE",
       "ORIGINAL WORK",
       "SOLO DEV",
       "DIRECT DISCORD SUPPORT",
-      "NO RESELLING",
-      "V.1.0_STUDIO_PROTOCOL"
+      "NO RESELLING"
     ],
     "sections": {
       "featured_title": "Featured Plugins",
