@@ -1,5 +1,5 @@
 /*
- * Misfits Studios — Announcement ribbon
+ * Shadow Kids Studios — Announcement ribbon
  * ------------------------------------------------------------
  * Fetches /products.json and, if announcement.enabled && announcement.text,
  * injects a ribbon at the top of <body>. Supports styles: neon | alert | info.

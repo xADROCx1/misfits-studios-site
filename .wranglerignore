@@ -1,0 +1,34 @@
+# Mirror .gitignore exclusions so `wrangler deploy` from a fresh folder copy
+# never uploads anything that the canonical git repo doesn't ship.
+
+# Secrets
+scripts/.env
+.env
+.env.local
+.dev.vars*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+
+# Build / dependency artifacts
+node_modules/
+dist/
+.wrangler/
+
+# PAID INVENTORY — must never reach the public CDN
+# (plugin source belongs in Lemon Squeezy / Paddle as buyer-only download assets)
+(XADROCX) PLUGINS/
+
+# Design scratch / reference-only (not for public CDN)
+Misfits studio Logo.psd
+stitch.zip
+stitch/
+stitch_misfits_studios_marketplace/
+universal_upscale_0_*.png
+SETUP-LEGACY-gumroad.md
+
+# Historical patch archives (internal doc, not site content)
+admin/waves/

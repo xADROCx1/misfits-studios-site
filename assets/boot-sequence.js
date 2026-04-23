@@ -1,5 +1,5 @@
-/* ==========================================================================
- * boot-sequence.js — Misfits Studios first-visit terminal boot animation
+﻿/* ==========================================================================
+ * boot-sequence.js — Shadow Kids Studios first-visit terminal boot animation
  * --------------------------------------------------------------------------
  * Fires once per session on the user's first page load. Displays a fake
  * terminal boot log (VT323 green-on-black, scanlines, CRT flicker) and then
@@ -45,10 +45,10 @@
   // - pauseBeforeOK: if set, we pause this long before rendering " OK" at end
   // - big: render line in slightly larger mint style (welcome line)
   var LINES = [
-    { text: '> MISFITS_STUDIOS · boot sequence initialized...', delayBefore: 120, charSpeed: [18, 32] },
+    { text: '> SHADOW_KIDS_STUDIOS · boot sequence initialized...', delayBefore: 120, charSpeed: [18, 32] },
     { text: '> mounting /catalog...', delayBefore: 160, charSpeed: [20, 35], pauseBeforeOK: 250, append: ' OK' },
     { text: '> loading 48 products from manifest.json...', delayBefore: 140, charSpeed: [18, 30], pauseBeforeOK: 280, append: ' OK' },
-    { text: '> verifying SSL handshake on misfits-studios.com...', delayBefore: 140, charSpeed: [16, 28], pauseBeforeOK: 320, append: ' OK' },
+    { text: '> verifying SSL handshake on shadowkidsstudios.com...', delayBefore: 140, charSpeed: [16, 28], pauseBeforeOK: 320, append: ' OK' },
     { text: '> attaching lemon.js overlay...', delayBefore: 150, charSpeed: [20, 32], pauseBeforeOK: 220, append: ' OK' },
     { text: '> attaching paddle.js overlay...', delayBefore: 130, charSpeed: [20, 32], pauseBeforeOK: 220, append: ' OK' },
     { text: '> sync agent: ARMED (cron: weekly)', delayBefore: 180, charSpeed: [18, 30] },
@@ -146,7 +146,7 @@
     var overlay = document.createElement('div');
     overlay.className = 'mf-boot-overlay';
     overlay.setAttribute('role', 'dialog');
-    overlay.setAttribute('aria-label', 'Misfits Studios boot sequence');
+    overlay.setAttribute('aria-label', 'Shadow Kids Studios boot sequence');
 
     var skip = document.createElement('a');
     skip.href = '#';

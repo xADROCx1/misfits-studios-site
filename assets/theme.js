@@ -1,4 +1,4 @@
-/* MISFITS STUDIOS — V2 theme enhancer
+/* SHADOW KIDS STUDIOS — V2 theme enhancer
  * Injects:
  *   1. Hazard tape ticker at the top of every page
  *   2. Adds .msfts-v2 to <body> so CSS padding kicks in
@@ -8,7 +8,7 @@
   'use strict';
 
   var HAZARD_SEGMENTS = [
-    '// MISFITS STUDIOS',
+    '// SHADOW KIDS STUDIOS',
     'RUST ECOSYSTEM',
     'ORIGINAL WORK',
     'OXIDE + CARBON',

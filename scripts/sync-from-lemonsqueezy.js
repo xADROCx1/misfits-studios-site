@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Misfits Studios — Lemon Squeezy → products.json sync
+ * Shadow Kids Studios — Lemon Squeezy → products.json sync
  *
  * Pulls every published product from your Lemon Squeezy store and merges the
  * live price + buy_url + variant_id into the existing products.json.

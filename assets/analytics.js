@@ -1,4 +1,4 @@
-/* Misfits Studios — lightweight analytics loader
+/* Shadow Kids Studios — lightweight analytics loader
  *
  * Loads PostHog if a project key is configured (privacy-respecting, cookieless mode).
  * Safe to include on every page. No-op if no key is set.

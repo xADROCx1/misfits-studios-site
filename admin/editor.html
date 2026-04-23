@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Misfits — Product Editor</title>
+<title>Shadow Kids Studios — Product Editor</title>
 <meta name="robots" content="noindex,nofollow" />
 <link rel="stylesheet" href="/assets/cyber-v5.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -2111,13 +2111,16 @@
 }
 .gallery-hint.staged { color: var(--mint); }
 </style>
+<link rel="icon" href="/favicon.ico" sizes="any"/>
+<link rel="icon" type="image/png" href="/assets/icons/sks-icon.png"/>
+<link rel="apple-touch-icon" href="/assets/icons/sks-icon.png"/>
 </head>
 <body>
 
 <!-- PASSWORD GATE -->
 <div id="pw-gate">
   <div class="pw-box" id="pw-box">
-    <div class="pw-logo">MISFITS</div>
+    <div class="pw-logo"><img src="/assets/icons/sks-icon.png" alt="Shadow Kids Studios" style="height:40px;vertical-align:middle;display:inline-block"></div>
     <div class="pw-title">Editor · Access Required</div>
     <div class="pw-label">Password</div>
     <input type="password" class="pw-input" id="pw-input" autofocus autocomplete="off" spellcheck="false" />
@@ -2131,7 +2134,7 @@
 
   <!-- TOPBAR -->
   <div class="top">
-    <button type="button" class="logo" onclick="backToProducts()" title="Home — back to product grid" aria-label="Misfits Studios — return to home view">MISFITS</button>
+    <button type="button" class="logo" onclick="backToProducts()" title="Home — back to product grid" aria-label="Shadow Kids Studios — return to home view" style="background:none;-webkit-text-fill-color:initial;padding:0;border:none;"><img src="/assets/icons/sks-icon.png" alt="Shadow Kids Studios" style="height:28px;vertical-align:middle;display:block"></button>
     <div class="pipe"></div>
     <div class="title">Product Editor</div>
     <div class="spacer"></div>
@@ -2282,7 +2285,7 @@
         <div class="sales-setup-body">
           This report calls Paddle's API through a server-side proxy so your secret key never touches the browser. Set up takes ~60 seconds:
           <ol>
-            <li>In Cloudflare Pages → your <code>misfits-studios-site</code> project → <b>Settings → Environment variables</b>, add two secrets (Production scope):
+            <li>In Cloudflare → Workers &amp; Pages → your <code>misfits-studios-site</code> Worker (internal name — serves shadowkidsstudios.com) → <b>Settings → Variables and Secrets</b>, add two secrets (Production scope):
               <ul>
                 <li><code>PADDLE_API_KEY</code> = your Paddle server API key (<code>pdl_live_apikey_...</code>)</li>
                 <li><code>EDITOR_ADMIN_SECRET</code> = any random string you choose, e.g. <code>xyz-2026-random</code></li>
@@ -2390,7 +2393,7 @@
           <span class="settings-label">Store name</span>
           <input type="text" class="settings-input" id="set-store-name"
                  oninput="settingsOnStoreField('name', this.value)"
-                 placeholder="Misfits Studios" />
+                 placeholder="Shadow Kids Studios" />
           <span class="settings-hint">Shown in &lt;title&gt; and footer.</span>
         </label>
         <label class="settings-field">
@@ -2557,8 +2560,8 @@
     <div class="homepage-preview-eyebrow" id="hp-prev-eyebrow">&gt;&gt; ONE DEV &middot; EVERY LINE &middot; ZERO FILLER &lt;&lt;</div>
     <div class="homepage-preview-stack">
       <span class="homepage-preview-crafted" id="hp-prev-crafted">CRAFTED</span>
-      <span class="homepage-preview-for" id="hp-prev-for">FOR</span>
-      <span class="homepage-preview-misfits" id="hp-prev-misfits">MISFITS.</span>
+      <span class="homepage-preview-for" id="hp-prev-for">IN</span>
+      <span class="homepage-preview-misfits" id="hp-prev-misfits">SHADOWS.</span>
     </div>
     <div class="homepage-preview-sub" id="hp-prev-sub">48 weaponized Rust plugins...</div>
   </div>
@@ -2572,12 +2575,12 @@
         <input type="text" data-hp-key="hero.crafted" placeholder="CRAFTED" />
       </label>
       <label class="homepage-field">
-        <span>Word 2 (FOR)</span>
-        <input type="text" data-hp-key="hero.for" placeholder="FOR" />
+        <span>Word 2 (IN)</span>
+        <input type="text" data-hp-key="hero.for" placeholder="IN" />
       </label>
       <label class="homepage-field homepage-field-full">
-        <span>Word 3 (MISFITS.)</span>
-        <input type="text" data-hp-key="hero.misfits" placeholder="MISFITS." />
+        <span>Word 3 (SHADOWS.)</span>
+        <input type="text" data-hp-key="hero.misfits" placeholder="SHADOWS." />
       </label>
       <label class="homepage-field homepage-field-full">
         <span>Subtitle paragraph</span>
@@ -2643,7 +2646,7 @@
       </label>
       <label class="homepage-field">
         <span>Body</span>
-        <input type="text" data-hp-key="footer.tile_about_body" placeholder="The promise behind Misfits Studios..." />
+        <input type="text" data-hp-key="footer.tile_about_body" placeholder="The promise behind Shadow Kids Studios..." />
       </label>
     </div>
 
@@ -2675,7 +2678,7 @@
     <div class="homepage-grid-2">
       <label class="homepage-field">
         <span>Copyright</span>
-        <input type="text" data-hp-key="footer.copyright" placeholder="(c) 2026 MISFITS STUDIOS" />
+        <input type="text" data-hp-key="footer.copyright" placeholder="(c) 2026 SHADOW KIDS STUDIOS" />
       </label>
       <label class="homepage-field">
         <span>Disclaimer</span>
@@ -3042,7 +3045,7 @@
       <!-- PAT setup (shown only if no stored token) -->
       <div class="pat-box" id="pat-setup" style="display:none">
         <label>First-time setup · GitHub Access Token</label>
-        <div style="margin-bottom:8px">This editor needs a GitHub Personal Access Token (classic, "repo" scope) to write changes. <a href="https://github.com/settings/tokens/new?description=Misfits%20Editor&scopes=repo" target="_blank" rel="noreferrer">Create one here</a> — takes 20 seconds. Paste below. Stored locally in this browser only, never sent to Misfits servers.</div>
+        <div style="margin-bottom:8px">This editor needs a GitHub Personal Access Token (classic, "repo" scope) to write changes. <a href="https://github.com/settings/tokens/new?description=ShadowKidsStudios%20Editor&scopes=repo" target="_blank" rel="noreferrer">Create one here</a> — takes 20 seconds. Paste below. Stored locally in this browser only, never sent to Shadow Kids Studios servers.</div>
         <input type="password" class="inp" id="gh-token" placeholder="ghp_..." autocomplete="off" style="width:100%;margin-bottom:8px" />
         <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
           <input type="checkbox" id="gh-token-remember" checked />
@@ -4234,7 +4237,7 @@ function addNew() {
     tags: [],
     features: [],
     cover_image: '',
-    cs_info_author: 'Misfits Studios'
+    cs_info_author: 'Shadow Kids Studios'
   };
   S.products.push(np);
   S.dirty.add(np.id);
@@ -4501,7 +4504,7 @@ async function publishNow() {
     setStep(3, 'active');
     // Cloudflare Pages "Deploy on push" starts within seconds; we don't have a build-status API without extra tokens,
     // so we poll the live products.json URL for the timestamp we just committed. That's the actual source-of-truth.
-    const liveUrl = (location.origin.includes('localhost') ? 'https://misfits-studios.com' : location.origin) + '/products.json';
+    const liveUrl = (location.origin.includes('localhost') ? 'https://shadowkidsstudios.com' : location.origin) + '/products.json';
     const startMs = Date.now();
     const MAX_MS = 180000; // 3 min hard cap
     let lastStatus = '';
@@ -5288,7 +5291,7 @@ function stampMatchesSha(stamp, gh) {
 async function fetchLiveProducts() {
   try {
     const base = (location.origin.includes('localhost') || location.origin.startsWith('file:'))
-      ? 'https://misfits-studios.com'
+      ? 'https://shadowkidsstudios.com'
       : location.origin;
     const r = await fetch(base + '/products.json?_=' + Date.now(), { cache: 'no-store' });
     if (!r.ok) return null;
@@ -5387,7 +5390,7 @@ function notifyDeployPending(newStamp) {
 function openPreview(slug) {
   if (!slug) { toast('No slug on this product yet — save first', 'err'); return; }
   const base = (location.origin.includes('localhost') || location.origin.startsWith('file:'))
-    ? 'https://misfits-studios.com'
+    ? 'https://shadowkidsstudios.com'
     : location.origin;
   const url = base + '/products/' + encodeURIComponent(slug) + '.html?_=' + Date.now();
   window.open(url, '_blank', 'noopener,noreferrer');
@@ -5549,8 +5552,8 @@ function updateHomepagePreview() {
   var $ = function (id) { return document.getElementById(id); };
 
   if ($('hp-prev-crafted')) $('hp-prev-crafted').textContent = hp.hero.crafted || 'CRAFTED';
-  if ($('hp-prev-for'))     $('hp-prev-for').textContent     = hp.hero.for     || 'FOR';
-  if ($('hp-prev-misfits')) $('hp-prev-misfits').textContent = hp.hero.misfits || 'MISFITS.';
+  if ($('hp-prev-for'))     $('hp-prev-for').textContent     = hp.hero.for     || 'IN';
+  if ($('hp-prev-misfits')) $('hp-prev-misfits').textContent = hp.hero.misfits || 'SHADOWS.';
   if ($('hp-prev-sub'))     $('hp-prev-sub').textContent     = hp.hero.subtitle || '48 weaponized Rust plugins...';
 
   if ($('hp-prev-eyebrow')) {

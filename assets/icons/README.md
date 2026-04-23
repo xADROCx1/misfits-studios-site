@@ -1,6 +1,6 @@
-# Misfits Studios — Icon Set
+# Shadow Kids Studios — Icon Set
 
-Custom SVG iconography for the Misfits Studios brand: skull-punk, neon underground, cyberpunk HUD. Pure SVG, no external dependencies, no raster embeds.
+Custom SVG iconography for the Shadow Kids Studios brand: skull-punk, neon underground, cyberpunk HUD. Pure SVG, no external dependencies, no raster embeds.
 
 ## How to tint with CSS
 
@@ -9,7 +9,7 @@ Every icon (except `noise-pattern.svg`) uses `stroke="currentColor"` or `fill="c
 ```html
 <img src="/assets/icons/skull.svg" alt="" class="w-6 h-6" style="color:var(--neon-mint)"/>
 <img src="/assets/icons/warning-triangle.svg" alt="" style="color:var(--safety-orange)"/>
-<img src="/assets/icons/logo-mark.svg" alt="Misfits Studios" style="color:var(--electric-purple)"/>
+<img src="/assets/icons/logo-mark.svg" alt="Shadow Kids Studios" style="color:var(--electric-purple)"/>
 ```
 
 For SVG-as-CSS-background, you need to either inline them in a `background-image: url("data:image/svg+xml,...")` or use the `<img>` tag; `currentColor` won't work through `url()`, so for background tiles we provide the `noise-pattern.svg` and `scanlines.svg` as standalone patterns.
@@ -40,7 +40,7 @@ Compact skull for tight spaces. Use in nav items, footer credits, inline next to
 ```html
 <span style="color:var(--electric-purple); display:inline-flex; gap:.5rem; align-items:center;">
   <img src="/assets/icons/skull-icon.svg" alt="" width="24" height="24"/>
-  Misfits Studios
+  Shadow Kids Studios
 </span>
 ```
 
@@ -70,7 +70,7 @@ Minimal MS monogram in stamped-metal block-letter style. Use as a favicon source
 ```html
 <link rel="icon" type="image/svg+xml" href="/assets/icons/logo-mark.svg">
 <!-- or -->
-<img src="/assets/icons/logo-mark.svg" alt="Misfits Studios" width="32" height="32" style="color:var(--electric-purple)"/>
+<img src="/assets/icons/logo-mark.svg" alt="Shadow Kids Studios" width="32" height="32" style="color:var(--electric-purple)"/>
 ```
 
 ### `noise-pattern.svg` — 200x200

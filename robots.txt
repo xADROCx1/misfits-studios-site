@@ -2,4 +2,4 @@ User-agent: *
 Disallow: /admin/
 Disallow: /scripts/
 
-Sitemap: https://misfits-studios.com/sitemap.xml
+Sitemap: https://shadowkidsstudios.com/sitemap.xml

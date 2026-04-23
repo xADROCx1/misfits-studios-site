@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Misfits Studios — Paddle → products.json sync
+ * Shadow Kids Studios — Paddle → products.json sync
  *
  * Pulls all Paddle products and their prices, then updates products.json with:
  *   - paddle.product_id

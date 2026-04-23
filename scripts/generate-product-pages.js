@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+﻿#!/usr/bin/env node
 /**
  * generate-product-pages.js
  * Reads products.json and emits one /products/<slug>.html per live product.
@@ -21,7 +21,7 @@ try {
   }
 } catch (_) { PLUGIN_DOCS = {}; }
 const SITEMAP_PATH = path.join(ROOT, 'sitemap.xml');
-const SITE = 'https://misfits-studios.com';
+const SITE = 'https://shadowkidsstudios.com';
 const TODAY = new Date().toISOString().slice(0, 10);
 
 const esc = (s) => String(s == null ? '' : s)
@@ -174,7 +174,7 @@ function includedBlock(p) {
     <ul class="included-list">
       <li><span class="dot"></span><code>${esc(fileName)}</code> &mdash; drop into <code>oxide/plugins/</code> or <code>carbon/plugins/</code></li>
       <li><span class="dot"></span>Lifetime updates &mdash; every future version, free</li>
-      <li><span class="dot"></span>Discord support from the Misfits Studios community</li>
+      <li><span class="dot"></span>Discord support from the Shadow Kids Studios community</li>
       <li><span class="dot"></span>Per-server license &mdash; use on every server you run</li>
     </ul>
   </section>`;
@@ -190,7 +190,7 @@ function tagsChips(p) {
 }
 
 function renderPage(p, all) {
-  const title = `${p.name} — Misfits Studios`;
+  const title = `${p.name} — Shadow Kids Studios`;
   const desc = p.short_description || p.tagline || '';
   const canonical = `${SITE}/products/${p.slug}.html`;
   const ogImage = `${SITE}/NewLogo.png`;
@@ -200,7 +200,7 @@ function renderPage(p, all) {
     name: p.name,
     description: desc,
     sku: p.id,
-    brand: { '@type': 'Brand', name: 'Misfits Studios' },
+    brand: { '@type': 'Brand', name: 'Shadow Kids Studios' },
     category: 'Software > Rust Plugin',
     offers: {
       '@type': 'Offer',
@@ -315,8 +315,8 @@ function renderPage(p, all) {
 <header class="sticky top-0 z-40 bg-bg/95 backdrop-blur border-b border-surface-hi">
   <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
     <a href="/index.html" class="flex items-center gap-3">
-      <img src="/NewLogo.png" alt="Misfits Studios" class="h-10 w-auto object-contain" onerror="this.style.display='none'"/>
-      <span class="font-headline text-lg font-black tracking-tight">MISFITS_STUDIOS</span>
+      <img src="/NewLogo.png" alt="Shadow Kids Studios" class="h-10 w-auto object-contain" onerror="this.style.display='none'"/>
+      <span class="font-headline text-lg font-black tracking-tight">SHADOW_KIDS_STUDIOS</span>
     </a>
     <nav class="hidden md:flex items-center gap-8 text-sm font-headline tracking-widest">
       <a class="text-muted hover:text-accent transition-all" href="/index.html">HOME</a>
@@ -381,7 +381,7 @@ function renderPage(p, all) {
     <div class="tech-row"><span class="k">Slug</span><span class="v">${esc(p.slug)}</span></div>
     <div class="tech-row"><span class="k">Version</span><span class="v">${esc(p.version)}</span></div>
     <div class="tech-row"><span class="k">Category</span><span class="v">${esc(p.category || 'plugin')}</span></div>
-    <div class="tech-row"><span class="k">Author</span><span class="v">${esc(p.cs_info_author || 'Misfits Studios')}</span></div>
+    <div class="tech-row"><span class="k">Author</span><span class="v">${esc(p.cs_info_author || 'Shadow Kids Studios')}</span></div>
     <div class="tech-row"><span class="k">Tags</span><span class="v">${(p.tags || []).join(', ') || '—'}</span></div>
   </section>
 
@@ -391,20 +391,20 @@ function renderPage(p, all) {
 
 <footer class="bg-ink px-6 py-12 border-t border-surface-hi mt-12">
   <div class="max-w-7xl mx-auto text-center text-xs text-muted font-mono tracking-widest uppercase">
-    © 2026 Misfits Studios · <a href="/terms.html" class="hover:text-accent">Terms</a> · <a href="/privacy.html" class="hover:text-accent">Privacy</a> · <a href="/refund.html" class="hover:text-accent">Refund</a>
+    © 2026 Shadow Kids Studios · <a href="/terms.html" class="hover:text-accent">Terms</a> · <a href="/privacy.html" class="hover:text-accent">Privacy</a> · <a href="/refund.html" class="hover:text-accent">Refund</a>
   </div>
 </footer>
 
 <script>
   // Paddle init — no-op if token isn't set on the window.
   (function () {
-    if (window.Paddle && typeof window.Paddle.Initialize === 'function' && window.__misfits_paddle_token) {
-      try { window.Paddle.Initialize({ token: window.__misfits_paddle_token }); } catch (e) { console.warn('Paddle init failed', e); }
-    } else if (window.__misfits_paddle_token) {
+    if (window.Paddle && typeof window.Paddle.Initialize === 'function' && window.__sks_paddle_token) {
+      try { window.Paddle.Initialize({ token: window.__sks_paddle_token }); } catch (e) { console.warn('Paddle init failed', e); }
+    } else if (window.__sks_paddle_token) {
       // Paddle script loads async — retry once it's ready.
       document.addEventListener('DOMContentLoaded', function () {
         if (window.Paddle && window.Paddle.Initialize) {
-          try { window.Paddle.Initialize({ token: window.__misfits_paddle_token }); } catch (e) {}
+          try { window.Paddle.Initialize({ token: window.__sks_paddle_token }); } catch (e) {}
         }
       });
     }

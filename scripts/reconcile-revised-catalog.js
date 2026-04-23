@@ -8,7 +8,7 @@
  *   - ADDS  plugins that exist in the folder but not in products.json
  *   - UPDATES version numbers from each .cs file's [Info(...)] attribute
  *   - REMOVES entries from products.json that have no matching .cs file
- *            in the folder (keeps the 3 Misfits originals by explicit allow-list)
+ *            in the folder (keeps the 3 originals — MisfitsUI, MisfitsCommands, Dev2Discord — by explicit allow-list)
  *   - ARCHIVES the corresponding Paddle products for each removal
  *   - CREATES new Paddle products for each addition (via bulk-create)
  *   - DELETES the obsolete /products/<slug>.html files
@@ -54,8 +54,8 @@ loadEnv();
 const PADDLE_API_KEY = process.env.PADDLE_API_KEY;
 const PADDLE_BASE = 'https://api.paddle.com';
 
-// ---- products that are Misfits originals (not in Revised folder but always kept) ----
-const MISFITS_KEEP = new Set(['dev2discord', 'misfitsui', 'misfitscommands']);
+// ---- original products (not in Revised folder but always kept — the three plugins shipped under the Misfits Studios brand pre-rebrand) ----
+const ORIGINALS_KEEP = new Set(['dev2discord', 'misfitsui', 'misfitscommands']);
 
 // ---- pricing tiers (matching existing convention) ----
 const PRICE_TIERS = {
@@ -125,7 +125,7 @@ const toAdd = [];  // new products to add
 const toRemove = []; // products to archive + delete
 
 for (const p of products) {
-  if (MISFITS_KEEP.has(p.id)) { toKeep.push(p); continue; }
+  if (ORIGINALS_KEEP.has(p.id)) { toKeep.push(p); continue; }
   if (revised.has(p.id)) {
     const r = revised.get(p.id);
     // bump version if different
@@ -153,7 +153,7 @@ for (const [id, r] of revised) {
 }
 
 console.log(`\nPLAN:`);
-console.log(`  keep: ${toKeep.length} products (incl. 3 Misfits originals)`);
+console.log(`  keep: ${toKeep.length} products (incl. 3 originals)`);
 console.log(`  add:  ${toAdd.length} new → ${toAdd.map(p => p.name).join(', ') || '(none)'}`);
 console.log(`  remove: ${toRemove.length} → ${toRemove.map(p => p.id).join(', ') || '(none)'}`);
 

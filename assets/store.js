@@ -1,4 +1,4 @@
-/* Misfits Studios storefront — product loader + Lemon Squeezy overlay wiring
+/* Shadow Kids Studios storefront — product loader + Lemon Squeezy overlay wiring
  *
  * What it does:
  *   1. Fetches products.json (single source of truth)
@@ -112,8 +112,8 @@
     // Re-initialize Lemon.js in case it loaded before our buttons rendered.
     if (window.createLemonSqueezy) { window.createLemonSqueezy(); }
     // Re-scan for Paddle.js buttons. Paddle auto-scans on init, but we re-render cards after fetch.
-    if (window.Paddle && typeof window.Paddle.Initialize === 'function' && window.__misfits_paddle_token && !window.__misfits_paddle_init) {
-      try { window.Paddle.Initialize({ token: window.__misfits_paddle_token }); window.__misfits_paddle_init = true; } catch (_) {}
+    if (window.Paddle && typeof window.Paddle.Initialize === 'function' && window.__sks_paddle_token && !window.__misfits_paddle_init) {
+      try { window.Paddle.Initialize({ token: window.__sks_paddle_token }); window.__misfits_paddle_init = true; } catch (_) {}
     }
   }
 

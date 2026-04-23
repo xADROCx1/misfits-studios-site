@@ -1,5 +1,5 @@
 /* ============================================================================
- * MISFITS STUDIOS — Shopping Cart
+ * SHADOW KIDS STUDIOS — Shopping Cart
  * ----------------------------------------------------------------------------
  * Client-side cart with localStorage persistence, slide-in drawer UI,
  * and Paddle / Lemon Squeezy checkout integration.

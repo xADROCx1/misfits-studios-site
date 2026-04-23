@@ -1,6 +1,6 @@
-# Misfits Studios — Storefront
+# Shadow Kids Studios — Storefront
 
-The web hub for every Misfits Studios digital product: Rust plugins, desktop apps, and software. Checkout is handled by **Lemon Squeezy**; the site is a static frontend deployed on **Cloudflare Pages**.
+The web hub for every Shadow Kids Studios digital product: Rust plugins, desktop apps, and software. Checkout is handled by **Lemon Squeezy**; the site is a static frontend deployed on **Cloudflare Pages**.
 
 ## How it works
 

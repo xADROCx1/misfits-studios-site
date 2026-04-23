@@ -1,17 +1,19 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html class="dark" lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Changelog — MISFITS STUDIOS</title>
-<meta name="description" content="Release notes for every Misfits Studios plugin and app. What changed, when, and why."/>
-<link rel="canonical" href="https://misfits-studios.com/changelog.html"/>
+<title>Changelog — SHADOW KIDS STUDIOS</title>
+<meta name="description" content="Release notes for every Shadow Kids Studios plugin and app. What changed, when, and why."/>
+<link rel="canonical" href="https://shadowkidsstudios.com/changelog.html"/>
 <meta property="og:type" content="website"/>
-<meta property="og:title" content="Changelog — Misfits Studios"/>
-<meta property="og:description" content="Release notes for every Misfits Studios plugin and app."/>
-<meta property="og:url" content="https://misfits-studios.com/changelog.html"/>
-<meta property="og:image" content="https://misfits-studios.com/NewLogo.png"/>
-<link rel="icon" href="/NewLogo.png"/>
+<meta property="og:title" content="Changelog — Shadow Kids Studios"/>
+<meta property="og:description" content="Release notes for every Shadow Kids Studios plugin and app."/>
+<meta property="og:url" content="https://shadowkidsstudios.com/changelog.html"/>
+<meta property="og:image" content="https://shadowkidsstudios.com/NewLogo.png"/>
+<link rel="icon" href="/favicon.ico" sizes="any"/>
+<link rel="icon" type="image/png" href="/assets/icons/sks-icon.png"/>
+<link rel="apple-touch-icon" href="/assets/icons/sks-icon.png"/>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="/assets/analytics.js" defer></script>
@@ -41,7 +43,7 @@
   .log-meta { font-family:'JetBrains Mono',monospace; font-size:11px; color:#a3aac4; }
 </style>
 <!-- PADDLE_CLIENT_TOKEN:START -->
-<script>window.__misfits_paddle_token = "52apcb4w49nj9rnj1gjxkbxkzqjr0gq9bmevbhwcnxzr69dwb9";</script>
+<script>window.__sks_paddle_token = "52apcb4w49nj9rnj1gjxkbxkzqjr0gq9bmevbhwcnxzr69dwb9";</script>
 <!-- PADDLE_CLIENT_TOKEN:END -->
 </head>
 <body class="bg-bg text-paper font-body" data-page-key="changelog">
@@ -49,8 +51,8 @@
 <header class="sticky top-0 z-40 bg-bg/95 backdrop-blur border-b border-surface-hi">
   <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
     <a href="/" class="flex items-center gap-3">
-      <img src="/NewLogo.png" alt="Misfits Studios" class="h-10 w-auto object-contain" onerror="this.style.display='none'"/>
-      <span class="font-headline text-lg font-black tracking-tight">MISFITS_STUDIOS</span>
+      <img src="/NewLogo.png" alt="Shadow Kids Studios" class="h-10 w-auto object-contain" onerror="this.style.display='none'"/>
+      <span class="font-headline text-lg font-black tracking-tight">SHADOW_KIDS_STUDIOS</span>
     </a>
     <nav class="hidden md:flex items-center gap-8 text-sm font-headline tracking-widest">
       <a class="text-muted hover:text-accent transition-all" href="/">HOME</a>
@@ -72,7 +74,7 @@
   </div>
 
   <p class="text-paper/80 text-sm mb-10 max-w-3xl">
-    Every Misfits Studios plugin ships with a version. This page shows the <b>current version of every plugin in the catalog</b>, pulled live from our products manifest. Detailed release notes per plugin live on each product page.
+    Every Shadow Kids Studios plugin ships with a version. This page shows the <b>current version of every plugin in the catalog</b>, pulled live from our products manifest. Detailed release notes per plugin live on each product page.
   </p>
 
   <div id="log-root">
@@ -83,7 +85,7 @@
 
 <footer class="bg-ink px-6 py-12 border-t border-surface-hi">
   <div class="max-w-7xl mx-auto text-center text-xs text-muted font-mono tracking-widest uppercase">
-    © 2026 Misfits Studios · <a href="/terms.html" class="hover:text-accent">Terms</a> · <a href="/privacy.html" class="hover:text-accent">Privacy</a> · <a href="/refund.html" class="hover:text-accent">Refund</a>
+    © 2026 Shadow Kids Studios · <a href="/terms.html" class="hover:text-accent">Terms</a> · <a href="/privacy.html" class="hover:text-accent">Privacy</a> · <a href="/refund.html" class="hover:text-accent">Refund</a>
   </div>
 </footer>
 
@@ -114,7 +116,7 @@
                     '<div class="log-version">v' + escapeHTML(p.version) + '</div>' +
                   '</div>' +
                   '<div class="text-sm text-paper/70 mb-2">' + escapeHTML(p.tagline || p.short_description || '') + '</div>' +
-                  '<div class="log-meta">' + escapeHTML(p.category) + ' · ' + (p.price_label || '$' + (p.price_usd || 0).toFixed(2)) + ' · ' + escapeHTML(p.cs_info_author || 'Misfits') + '</div>' +
+                  '<div class="log-meta">' + escapeHTML(p.category) + ' · ' + (p.price_label || '$' + (p.price_usd || 0).toFixed(2)) + ' · ' + escapeHTML(p.cs_info_author || 'Shadow Kids Studios') + '</div>' +
                 '</a>';
       });
       html += '</div>';

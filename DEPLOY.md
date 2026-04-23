@@ -1,4 +1,4 @@
-# MISFITS STUDIOS — Deploy & Automation Guide
+# SHADOW KIDS STUDIOS — Deploy & Automation Guide
 
 The store supports **two** payment backends, both wired up:
 
@@ -13,7 +13,7 @@ The store supports **two** payment backends, both wired up:
 
 **Recommended:** Lemon Squeezy for simplicity (less infrastructure work), Paddle for full automation. Your `products.json` can hold both sets of IDs — `store.js` will prefer Paddle if both are present.
 
-**Domain:** `https://misfits-studios.com` (Cloudflare Registrar, auto-renews $10.46/yr).
+**Domain:** `https://shadowkidsstudios.com` (Cloudflare Registrar, auto-renews $10.46/yr).
 
 ---
 
@@ -107,7 +107,7 @@ Lemon Squeezy does **not** support programmatic product creation (no API endpoin
 
 **To make that fast, use the paste-sheet helper** — open these two URLs side-by-side in your browser:
 
-1. https://misfits-studios.com/admin/ls-paste-sheet.html — 48 products, each with one-click COPY buttons for name/price/description, and a "✓ Done" checkbox that greys the card out so you can track progress
+1. https://shadowkidsstudios.com/admin/ls-paste-sheet.html — 48 products, each with one-click COPY buttons for name/price/description, and a "✓ Done" checkbox that greys the card out so you can track progress
 2. https://app.lemonsqueezy.com/products/new — the LS "New Product" panel
 
 Workflow per product:

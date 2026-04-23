@@ -1,5 +1,5 @@
 /* ==========================================================================
- * MISFITS STUDIOS — V2 Theme Layer
+ * SHADOW KIDS STUDIOS — V2 Theme Layer
  * "Obsidian Architect" base + "Neon Kinetic" HUD + punk/underground accents
  * ==========================================================================
  * Loads AFTER Tailwind config on each page. Additive — doesn't destroy
@@ -77,18 +77,16 @@ body::before {
  * 2. HAZARD TAPE TICKER — warning-striped marquee across the top
  * ========================================================================== */
 
+/* Shadow Kids neon ticker — dark bar, marquee text, pink/green tracer sweeping
+   a glowing underline across the bottom. Replaces the old yellow hazard stripes. */
 .msfts-hazard-tape {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 9999;
-  background: repeating-linear-gradient(
-    -45deg,
-    #1a1a1a 0 18px,
-    var(--neon-warning) 18px 36px
-  );
-  color: var(--bg);
+  background: #07070a;
+  color: #f5f5f7;
   font-family: var(--font-mono);
   font-size: 10px;
   font-weight: 900;
@@ -96,25 +94,72 @@ body::before {
   text-transform: uppercase;
   height: 22px;
   overflow: hidden;
-  border-bottom: 2px solid #000;
+  border-bottom: 1px solid rgba(255, 20, 147, 0.35);
+  box-shadow:
+    0 0 10px rgba(255, 20, 147, 0.25),
+    inset 0 -1px 0 rgba(57, 255, 20, 0.12);
+}
+
+/* Chasing neon tracer — sweeps left → right across the bottom edge,
+   trailing a glowing pink → green → transparent tail. Reads like a scanning
+   line underlining whatever text is above it at that moment. */
+.msfts-hazard-tape::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -40%;
+  width: 40%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(57, 255, 20, 0.15) 30%,
+    rgba(57, 255, 20, 0.45) 55%,
+    rgba(255, 20, 147, 0.85) 85%,
+    #ff1493 100%
+  );
+  box-shadow:
+    0 0 8px #ff1493,
+    0 0 16px rgba(255, 20, 147, 0.55),
+    0 -2px 18px rgba(255, 20, 147, 0.35);
+  animation: msfts-tracer 5s linear infinite;
+  pointer-events: none;
+  z-index: 2;
 }
 
 .msfts-hazard-tape__track {
   display: flex;
   white-space: nowrap;
   animation: msfts-marquee 48s linear infinite;
+  position: relative;
+  z-index: 1;
 }
 
 .msfts-hazard-tape__track > span {
   padding: 0 32px;
-  color: #000;
-  text-shadow: 0 0 1px #fff;
+  color: #f5f5f7;
+  text-shadow:
+    0 0 4px rgba(255, 20, 147, 0.5),
+    0 0 10px rgba(255, 20, 147, 0.2);
   line-height: 22px;
+}
+
+/* // separators between ticker items glow green — subtle rhythm break */
+.msfts-hazard-tape__track > span:nth-child(even) {
+  color: rgba(245, 245, 247, 0.78);
+  text-shadow:
+    0 0 4px rgba(57, 255, 20, 0.4),
+    0 0 10px rgba(57, 255, 20, 0.15);
 }
 
 @keyframes msfts-marquee {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
+}
+
+@keyframes msfts-tracer {
+  0%   { left: -40%; }
+  100% { left: 100%; }
 }
 
 /* Push page content down to avoid hazard tape overlap */

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * go-live-paddle.js  —  Misfits Studios one-command Paddle launcher
+ * go-live-paddle.js  —  Shadow Kids Studios one-command Paddle launcher
  *
  * Reads the two Paddle tokens from scripts/.env (or prompts for them),
  * then runs the full pipeline in order:
@@ -224,7 +224,7 @@ function runGit(args) {
         const msg = IS_SANDBOX
           ? 'chore(paddle): sync sandbox products + inject client token'
           : 'feat(paddle): live products synced + client token injected';
-        const rc = runGit(['-c', 'user.name=Misfits Studios', '-c', 'user.email=misfits@local', 'commit', '-m', msg]);
+        const rc = runGit(['-c', 'user.name=Shadow Kids Studios', '-c', 'user.email=shadowkids@local', 'commit', '-m', msg]);
         if (rc !== 0) {
           warn('commit failed (maybe pre-commit hook?) — left staged');
         } else {
@@ -239,7 +239,7 @@ function runGit(args) {
   ok(`Paddle ${IS_SANDBOX ? 'sandbox' : 'live'} pipeline complete.`);
   console.log();
   info('Next steps:');
-  info('  • Verify the live site at https://misfits-studios.com after ~30s of deploy');
+  info('  • Verify the live site at https://shadowkidsstudios.com after ~30s of deploy');
   info('  • Click BUY on any product card to confirm the Paddle overlay opens');
   info('  • ' + (IS_SANDBOX ? 'Use test card 4242 4242 4242 4242 to complete a sandbox purchase' : 'You are LIVE — your first real sale is now possible'));
   console.log();

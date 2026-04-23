@@ -31,7 +31,7 @@ const args = process.argv.slice(2);
 const IS_SANDBOX = args.includes('--sandbox');
 const IS_DRY_RUN = args.includes('--dry-run');
 const siteArg = args.find(a => a.startsWith('--site='));
-const SITE_URL = (siteArg ? siteArg.split('=')[1] : 'https://misfits-studios.com').replace(/\/$/, '');
+const SITE_URL = (siteArg ? siteArg.split('=')[1] : 'https://shadowkidsstudios.com').replace(/\/$/, '');
 
 function loadEnv() {
   const envPath = path.join(__dirname, '.env');

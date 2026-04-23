@@ -1,7 +1,52 @@
-_worker.js
-functions/
-scripts/
+# Workers-with-Assets ignore — .gitignore-style. Prevents paid inventory,
+# secrets, config files, and dev-only scripts from reaching the public CDN.
+
+# Secrets / env
+scripts/.env
+.env
+.env.local
+.dev.vars*
+
+# Dependency / build artifacts
 node_modules/
-.git/
+dist/
+.wrangler/
+
+# Cloudflare deploy config (NOT for public CDN)
+wrangler.jsonc
+wrangler.toml
+
+# Worker source (wrangler should exclude, belt + suspenders)
+_worker.js
+
+# CI / repo metadata
 .github/
-*.md
+
+# Dev-only scripts (Node admin tools, never loaded by browser)
+scripts/
+
+# Legacy Pages functions (no longer used — replaced by _worker.js)
+functions/
+
+# Docs / READMEs — internal, not CDN content
+README.md
+DEPLOY.md
+SETUP-LEGACY-gumroad.md
+
+# PAID INVENTORY — must never reach the public CDN
+(XADROCX) PLUGINS/
+
+# Design scratch / reference-only
+Misfits studio Logo.psd
+stitch.zip
+stitch/
+stitch_misfits_studios_marketplace/
+universal_upscale_0_*.png
+
+# Historical patch archives (internal doc only)
+admin/waves/
+
+# Don't ship the ignore files themselves
+.wranglerignore
+.assetsignore
+.gitignore

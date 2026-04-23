@@ -1,5 +1,5 @@
 /* ==========================================================================
- * MISFITS STUDIOS — V5 CYBER theme (spaced, accessible, animated)
+ * SHADOW KIDS STUDIOS — V5 CYBER theme (spaced, accessible, animated)
  * Loads AFTER theme.css. Additive — only styles .v5-* classes.
  * ========================================================================== */
 
@@ -58,12 +58,11 @@
 .v5-brand { display: flex; align-items: center; gap: 16px; text-decoration: none; }
 .v5-brand-mark {
   width: 60px; height: 60px;
-  background: rgba(255, 26, 143, 0.12);
+  background: rgba(255, 26, 143, 0.12) url('/assets/icons/sks-icon.png') center/80% no-repeat;
   border: 2px solid var(--v5-pink);
   display: grid; place-items: center;
-  font-family: 'Rubik Mono One', sans-serif;
-  font-size: 28px;
-  color: var(--v5-pink);
+  font-size: 0;
+  color: transparent;
   line-height: 1;
 }
 .v5-brand-stack { display: flex; flex-direction: column; gap: 2px; }

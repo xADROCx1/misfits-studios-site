@@ -1,5 +1,5 @@
 /*
- * Misfits Studios — Homepage Content Renderer
+ * Shadow Kids Studios — Homepage Content Renderer
  *
  * Reads data.homepage from /products.json (or window.MisfitsProducts if already
  * loaded by assets/store.js) and applies editable text to DOM elements via

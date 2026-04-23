@@ -2,7 +2,7 @@
 /**
  * inject-paddle-token.js
  *
- * Sets window.__misfits_paddle_token on every HTML page that loads store.js
+ * Sets window.__sks_paddle_token on every HTML page that loads store.js
  * or cart.js so the Paddle.js overlay knows which account to open for.
  *
  * Usage:
@@ -49,7 +49,7 @@ if (!/^(live|test)_[A-Za-z0-9_-]+$/.test(token)) {
 // Marker comment to let us find + replace safely
 const MARKER_OPEN = '<!-- PADDLE_CLIENT_TOKEN:START -->';
 const MARKER_CLOSE = '<!-- PADDLE_CLIENT_TOKEN:END -->';
-const block = `${MARKER_OPEN}\n<script>window.__misfits_paddle_token = ${JSON.stringify(token)};</script>\n${MARKER_CLOSE}`;
+const block = `${MARKER_OPEN}\n<script>window.__sks_paddle_token = ${JSON.stringify(token)};</script>\n${MARKER_CLOSE}`;
 
 // Files to update: all top-level HTML + product detail pages
 function listHTML() {

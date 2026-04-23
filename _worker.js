@@ -1,15 +1,22 @@
 /**
- * _worker.js — top-level Worker for the misfits-studios-site project
+ * _worker.js — top-level Worker for the Shadow Kids Studios site.
  *
- * The site was migrated from Cloudflare Pages to the new Workers-with-Assets
- * format. In that format, Pages-style /functions/ auto-discovery is gone;
- * the project needs a single _worker.js that either handles the request or
- * falls through to the static-asset bindings.
+ * Internal Cloudflare Worker script name remains `misfits-studios-site` (the
+ * name is immutable — renaming would require a full deploy dance and secret
+ * re-entry; not worth it for an invisible internal label). Public brand is
+ * Shadow Kids Studios, served from shadowkidsstudios.com.
+ *
+ * The site uses the Workers-with-Assets format. In that format, Pages-style
+ * /functions/ auto-discovery is gone; the project needs a single _worker.js
+ * that either handles the request or falls through to the static-asset
+ * bindings.
  *
  * Routes handled here:
- *   /api/paddle/*   → server-side proxy to Paddle REST API (CORS workaround +
- *                     secret key protection); whitelisted to safe read-only
- *                     endpoints and requires X-Admin-Secret header.
+ *   misfits-studios.com/*  → 301 redirect to shadowkidsstudios.com (legacy
+ *                            domain kept ≥12 months for SEO + email continuity)
+ *   /api/paddle/*          → server-side proxy to Paddle REST API (CORS
+ *                            workaround + secret key protection); whitelisted
+ *                            to safe endpoints, requires X-Admin-Secret header.
  *
  * Everything else → env.ASSETS.fetch(request) so static HTML/JS/CSS/images
  * continue to be served as before.
@@ -17,6 +24,11 @@
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+
+    // Legacy-domain redirect: 301 misfits-studios.com → shadowkidsstudios.com
+    if (url.hostname === 'misfits-studios.com' || url.hostname === 'www.misfits-studios.com') {
+      return Response.redirect('https://shadowkidsstudios.com' + url.pathname + url.search, 301);
+    }
 
     if (url.pathname.startsWith('/api/paddle/') || url.pathname === '/api/paddle') {
       return handlePaddleProxy(request, env);

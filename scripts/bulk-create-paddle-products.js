@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Misfits Studios — Paddle bulk product creator
+ * Shadow Kids Studios — Paddle bulk product creator
  *
  * For each product in products.json that doesn't yet have a paddle.price_id,
  * this creates (1) a Paddle Product, (2) a Price, and (3) a Transaction to

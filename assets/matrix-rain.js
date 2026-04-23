@@ -1,4 +1,4 @@
-/* Misfits Studios — Matrix katakana rain background
+/* Shadow Kids Studios — Matrix katakana rain background
  * Attaches to any <canvas class="v5-matrix-canvas"> element on the page.
  * Lightweight, pauses when tab is hidden, respects prefers-reduced-motion.
  */
