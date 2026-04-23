@@ -26,7 +26,8 @@
     "sharkgun",
     "chickengun",
     "misfitscommands",
-    "misfitsui"
+    "misfitsui",
+    "deadmanslocker"
   ],
   "products": [
     {
@@ -1482,7 +1483,7 @@
       "eta": "TBD"
     }
   ],
-  "last_editor_update": "2026-04-23T19:29:59.189Z",
+  "last_editor_update": "2026-04-23T21:34:42.401Z",
   "announcement": {
     "enabled": false,
     "text": "",
