@@ -599,7 +599,8 @@
         "Satisfies only chickens in the coop being looted",
         "Heal to full and fill needs to full options",
         "Configurable scan radius and prefab list"
-      ]
+      ],
+      "download_url": "Revised plugins/ChickenLover.cs"
     },
     {
       "id": "compostsplitter",
@@ -1482,7 +1483,7 @@
       "eta": "TBD"
     }
   ],
-  "last_editor_update": "2026-04-23T18:54:33.047Z",
+  "last_editor_update": "2026-04-23T18:56:02.245Z",
   "announcement": {
     "enabled": false,
     "text": "",
