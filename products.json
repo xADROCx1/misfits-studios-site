@@ -1484,7 +1484,7 @@
       "eta": "TBD"
     }
   ],
-  "last_editor_update": "2026-04-23T21:37:10.933Z",
+  "last_editor_update": "2026-04-23T21:38:55.323Z",
   "announcement": {
     "enabled": false,
     "text": "",
@@ -1497,7 +1497,7 @@
       "crafted": "CRAFTED",
       "for": "IN THE",
       "misfits": "SHADOWS.",
-      "subtitle": "48 weaponized Rust plugins. Per-server license. Lifetime updates. Oxide + Carbon compatible. Built direct from the keyboard that wrote them — no middlemen, no reseller markup."
+      "subtitle": "weaponized Rust plugins. Per-server license. Lifetime updates. Oxide + Carbon compatible. Built direct from the keyboard that wrote them — no middlemen, no reseller markup."
     },
     "tagline_strip": [
       ">>  JOIN",
