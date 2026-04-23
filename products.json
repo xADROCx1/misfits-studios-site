@@ -27,7 +27,8 @@
     "chickengun",
     "misfitscommands",
     "misfitsui",
-    "deadmanslocker"
+    "deadmanslocker",
+    "loadedturrets"
   ],
   "products": [
     {
@@ -1483,7 +1484,7 @@
       "eta": "TBD"
     }
   ],
-  "last_editor_update": "2026-04-23T21:34:42.401Z",
+  "last_editor_update": "2026-04-23T21:36:10.934Z",
   "announcement": {
     "enabled": false,
     "text": "",
