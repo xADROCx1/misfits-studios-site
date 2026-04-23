@@ -122,8 +122,8 @@
       "status": "live",
       "tagline": "Cyberpunk admin UI for every command",
       "short_description": "Terminal-inspired in-game browser for chat commands, console commands, permissions, and skin IDs across every loaded plugin.",
-      "price_usd": 5.99,
-      "price_label": "$5.99",
+      "price_usd": 3.99,
+      "price_label": "$3.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -210,8 +210,8 @@
       "status": "live",
       "tagline": "Large Backpack + diving tank hybrid",
       "short_description": "Large Backpack + diving tank behavior: oxygen in water, drains air, refill via chat, compact O2 HUD.",
-      "price_usd": 4.99,
-      "price_label": "$4.99",
+      "price_usd": 6.99,
+      "price_label": "$6.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -292,8 +292,8 @@
       "status": "live",
       "tagline": "Shift = nitro, midair A/D steering",
       "short_description": "Hold Shift = nitro. In air = A/D steering only. Immortal bikes.",
-      "price_usd": 3.99,
-      "price_label": "$3.99",
+      "price_usd": 2.99,
+      "price_label": "$2.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -530,8 +530,8 @@
       "status": "live",
       "tagline": "MP5 that fires live sharks",
       "short_description": "MP5 skin shoots SimpleSharks. Bullets blocked, full-auto, corpse on ground impact, swim normally on water entry, Codefling-safe caps.",
-      "price_usd": 6.99,
-      "price_label": "$6.99",
+      "price_usd": 2.99,
+      "price_label": "$2.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -571,8 +571,8 @@
       "status": "live",
       "tagline": "One-click coop happiness",
       "short_description": "Adds a Chicken Lover button to Chicken Coop UI that satisfies only the chickens inside the coop you're currently looting.",
-      "price_usd": 0,
-      "price_label": "FREE",
+      "price_usd": 1.99,
+      "price_label": "$1.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -599,8 +599,7 @@
         "Satisfies only chickens in the coop being looted",
         "Heal to full and fill needs to full options",
         "Configurable scan radius and prefab list"
-      ],
-      "download_url": "Revised plugins/ChickenLover.cs"
+      ]
     },
     {
       "id": "compostsplitter",
@@ -854,8 +853,8 @@
       "status": "live",
       "tagline": "Jumping shark clusters",
       "short_description": "Periodically spawns a cluster of sharks that leap out of the water and splash back down. Fully configurable.",
-      "price_usd": 5.99,
-      "price_label": "$5.99",
+      "price_usd": 4.99,
+      "price_label": "$4.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -895,8 +894,8 @@
       "status": "live",
       "tagline": "Submarines that fly",
       "short_description": "Allows submarines to fly through the air. Use /flysub to toggle. Hold SHIFT to launch and thrust. Supports solo and duo subs.",
-      "price_usd": 5.99,
-      "price_label": "$5.99",
+      "price_usd": 3.99,
+      "price_label": "$3.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -1016,8 +1015,8 @@
       "status": "live",
       "tagline": "Chat keyword watcher",
       "short_description": "Logs chat messages containing configurable keywords to a file and optionally to Discord.",
-      "price_usd": 2.99,
-      "price_label": "$2.99",
+      "price_usd": 1.99,
+      "price_label": "$1.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -1098,8 +1097,8 @@
       "status": "live",
       "tagline": "Max armor insert slots on craft",
       "short_description": "Forces maximum armor insert slots on attire items. Auto-detect + legacy per-item overrides.",
-      "price_usd": 2.99,
-      "price_label": "$2.99",
+      "price_usd": 3.99,
+      "price_label": "$3.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -1138,8 +1137,8 @@
       "status": "live",
       "tagline": "Spawn & fetch your boats",
       "short_description": "Players can spawn and fetch boats and submarines via chat commands with permission-based access and configurable fuel.",
-      "price_usd": 6.99,
-      "price_label": "$6.99",
+      "price_usd": 3.99,
+      "price_label": "$3.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -1220,8 +1219,8 @@
       "status": "live",
       "tagline": "Player activity logger",
       "short_description": "Logs player connections, sessions, and activity for admin review.",
-      "price_usd": 2.99,
-      "price_label": "$2.99",
+      "price_usd": 1.99,
+      "price_label": "$1.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -1301,8 +1300,8 @@
       "status": "live",
       "tagline": "One-shot everything",
       "short_description": "Permission-based super damage ammo multipliers with per-player toggle. One-shot animals, all scientists, heli, Bradley.",
-      "price_usd": 2.99,
-      "price_label": "$2.99",
+      "price_usd": 6.99,
+      "price_label": "$6.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -1483,7 +1482,7 @@
       "eta": "TBD"
     }
   ],
-  "last_editor_update": "2026-04-23T19:04:00.698Z",
+  "last_editor_update": "2026-04-23T19:28:13.234Z",
   "announcement": {
     "enabled": false,
     "text": "",
@@ -1494,21 +1493,22 @@
   "homepage": {
     "hero": {
       "crafted": "CRAFTED",
-      "for": "IN THE",
+      "for": "IN",
       "misfits": "SHADOWS.",
       "subtitle": "48 weaponized Rust plugins. Per-server license. Lifetime updates. Oxide + Carbon compatible. Built direct from the keyboard that wrote them — no middlemen, no reseller markup."
     },
     "tagline_strip": [
-      ">>  JOIN",
-      "THE",
-      "SHADOW KIDS  <<"
+      ">>  ONE DEV",
+      "EVERY LINE",
+      "ZERO FILLER  <<"
     ],
     "ticker_strip": [
       "OXIDE + CARBON COMPATIBLE",
       "ORIGINAL WORK",
       "SOLO DEV",
       "DIRECT DISCORD SUPPORT",
-      "NO RESELLING"
+      "NO RESELLING",
+      "V.1.0_STUDIO_PROTOCOL"
     ],
     "sections": {
       "featured_title": "Featured Plugins",
