@@ -1420,8 +1420,8 @@
       "status": "live",
       "tagline": "Server monitor: PvP, loot, raids → Discord",
       "short_description": "All-in-one server monitor: PvP kills, unauthorized looting/access, and comprehensive raid tracking — pushed live to Discord.",
-      "price_usd": 8.99,
-      "price_label": "$8.99",
+      "price_usd": 4.99,
+      "price_label": "$4.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -1482,7 +1482,7 @@
       "eta": "TBD"
     }
   ],
-  "last_editor_update": "2026-04-23T18:52:17.241Z",
+  "last_editor_update": "2026-04-23T18:54:33.047Z",
   "announcement": {
     "enabled": false,
     "text": "",
