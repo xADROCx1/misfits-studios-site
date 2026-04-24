@@ -391,7 +391,7 @@
         "environment": "live"
       },
       "assets": {
-        "icon": "/assets/products/helinitro.png"
+        "icon": "/assets/products/helinitro.jpg"
       },
       "source_file": "Revised plugins/HeliNitro.cs",
       "features": [
@@ -1484,7 +1484,7 @@
       "eta": "TBD"
     }
   ],
-  "last_editor_update": "2026-04-24T13:26:38.788Z",
+  "last_editor_update": "2026-04-24T13:34:16.273Z",
   "announcement": {
     "enabled": false,
     "text": "",
