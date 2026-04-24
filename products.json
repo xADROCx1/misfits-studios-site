@@ -714,7 +714,7 @@
         "environment": "live"
       },
       "assets": {
-        "icon": "/assets/products/deepseaspeed.jpg"
+        "icon": "/assets/products/deepseaspeed.png"
       },
       "source_file": "Revised plugins/DeepSeaSpeed.cs",
       "features": [
@@ -1484,7 +1484,7 @@
       "eta": "TBD"
     }
   ],
-  "last_editor_update": "2026-04-24T14:27:20.135Z",
+  "last_editor_update": "2026-04-24T17:38:04.009Z",
   "announcement": {
     "enabled": false,
     "text": "",
