@@ -275,7 +275,7 @@
         "environment": "live"
       },
       "assets": {
-        "icon": "/assets/products/alwaysstocked.png"
+        "icon": "/assets/products/alwaysstocked.jpg"
       },
       "source_file": "Revised plugins/AlwaysStocked.cs",
       "features": [
@@ -714,7 +714,7 @@
         "environment": "live"
       },
       "assets": {
-        "icon": "/assets/products/deepseaspeed.png"
+        "icon": "/assets/products/deepseaspeed.jpg"
       },
       "source_file": "Revised plugins/DeepSeaSpeed.cs",
       "features": [
@@ -876,7 +876,7 @@
         "environment": "live"
       },
       "assets": {
-        "icon": "/assets/products/flyingfish.png"
+        "icon": "/assets/products/flyingfish.jpg"
       },
       "source_file": "Revised plugins/FlyingFish.cs",
       "features": [
@@ -917,7 +917,7 @@
         "environment": "live"
       },
       "assets": {
-        "icon": "/assets/products/flyingsubs.png"
+        "icon": "/assets/products/flyingsubs.jpg"
       },
       "source_file": "Revised plugins/FlyingSubs.cs",
       "features": [
@@ -1484,7 +1484,7 @@
       "eta": "TBD"
     }
   ],
-  "last_editor_update": "2026-04-24T14:00:37.264Z",
+  "last_editor_update": "2026-04-24T14:27:20.135Z",
   "announcement": {
     "enabled": false,
     "text": "",
