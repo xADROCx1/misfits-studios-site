@@ -432,7 +432,7 @@
         "environment": "live"
       },
       "assets": {
-        "icon": "/assets/products/horsegun.png"
+        "icon": "/assets/products/horsegun.jpg"
       },
       "source_file": "Revised plugins/HorseGun.cs",
       "features": [
@@ -512,7 +512,7 @@
         "environment": "live"
       },
       "assets": {
-        "icon": "/assets/products/chickengun.png"
+        "icon": "/assets/products/chickengun.jpg"
       },
       "source_file": "Revised plugins/ChickenGun.cs",
       "features": [
@@ -553,7 +553,7 @@
         "environment": "live"
       },
       "assets": {
-        "icon": "/assets/products/sharkgun.png"
+        "icon": "/assets/products/sharkgun.jpg"
       },
       "source_file": "Revised plugins/SharkGun.cs",
       "features": [
@@ -1484,7 +1484,7 @@
       "eta": "TBD"
     }
   ],
-  "last_editor_update": "2026-04-24T13:34:16.273Z",
+  "last_editor_update": "2026-04-24T14:00:37.264Z",
   "announcement": {
     "enabled": false,
     "text": "",
