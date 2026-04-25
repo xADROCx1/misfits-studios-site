@@ -472,7 +472,7 @@
         "environment": "live"
       },
       "assets": {
-        "icon": "/assets/products/c4guns.png"
+        "icon": "/assets/products/c4guns.jpg"
       },
       "source_file": "Revised plugins/C4Guns.cs",
       "features": [
@@ -835,7 +835,7 @@
         "environment": "live"
       },
       "assets": {
-        "icon": "/assets/products/entitylimiter.png"
+        "icon": "/assets/products/entitylimiter.jpg"
       },
       "source_file": "Revised plugins/EntityLimiter.cs",
       "features": [
@@ -997,7 +997,7 @@
         "environment": "live"
       },
       "assets": {
-        "icon": "/assets/products/instanthelistartup.png"
+        "icon": "/assets/products/instanthelistartup.jpg"
       },
       "source_file": "Revised plugins/InstantHeliStartup.cs",
       "features": [
@@ -1039,7 +1039,7 @@
         "environment": "live"
       },
       "assets": {
-        "icon": "/assets/products/keywordlog.png"
+        "icon": "/assets/products/keywordlog.jpg"
       },
       "source_file": "Revised plugins/KeyWordLog.cs",
       "features": [
@@ -1160,7 +1160,7 @@
         "environment": "live"
       },
       "assets": {
-        "icon": "/assets/products/myboat.png"
+        "icon": "/assets/products/myboat.jpg"
       },
       "source_file": "Revised plugins/MyBoat.cs",
       "features": [
@@ -1323,7 +1323,7 @@
         "environment": "live"
       },
       "assets": {
-        "icon": "/assets/products/superammo.png"
+        "icon": "/assets/products/superammo.jpg"
       },
       "source_file": "Revised plugins/SuperAmmo.cs",
       "features": [
@@ -1403,7 +1403,7 @@
         "environment": "live"
       },
       "assets": {
-        "icon": "/assets/products/treeremover.png"
+        "icon": "/assets/products/treeremover.jpg"
       },
       "source_file": "Revised plugins/TreeRemover.cs",
       "features": [
@@ -1446,7 +1446,7 @@
         "environment": "live"
       },
       "assets": {
-        "icon": "/assets/products/neighborhoodwatch.png"
+        "icon": "/assets/products/neighborhoodwatch.jpg"
       },
       "source_file": "/downloads/NeighborhoodWatch.cs",
       "features": [
@@ -1484,7 +1484,7 @@
       "eta": "TBD"
     }
   ],
-  "last_editor_update": "2026-04-25T01:31:16.141Z",
+  "last_editor_update": "2026-04-25T02:19:14.325Z",
   "announcement": {
     "enabled": false,
     "text": "",
