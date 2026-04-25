@@ -814,8 +814,8 @@
       "status": "live",
       "tagline": "Cap entities per player by tier",
       "short_description": "Limits total owned entities per player using 4 permissions: tier1, tier2, tier3, unlimited (-1 = infinite).",
-      "price_usd": 5.99,
-      "price_label": "$5.99",
+      "price_usd": 2.99,
+      "price_label": "$2.99",
       "lemonsqueezy": {
         "variant_id": null,
         "buy_url": null,
@@ -1484,7 +1484,7 @@
       "eta": "TBD"
     }
   ],
-  "last_editor_update": "2026-04-25T02:19:14.325Z",
+  "last_editor_update": "2026-04-25T04:57:45.111Z",
   "announcement": {
     "enabled": false,
     "text": "",
