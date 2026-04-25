@@ -29,6 +29,12 @@ jobs:
         with:
           node-version: '20'
 
+      # Remove .git so wrangler doesn't try to upload pack files as static assets.
+      # CI's actions/checkout consolidates the repo into one >25 MiB pack file
+      # which exceeds Cloudflare Workers' per-asset size limit.
+      - name: Remove .git from assets directory
+        run: rm -rf .git
+
       - name: Deploy with Wrangler
         uses: cloudflare/wrangler-action@v3
         with:
