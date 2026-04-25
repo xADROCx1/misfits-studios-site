@@ -958,7 +958,7 @@
         "environment": "live"
       },
       "assets": {
-        "icon": "/assets/products/happybee.png"
+        "icon": "/assets/products/happybee.jpg"
       },
       "source_file": "Revised plugins/HappyBee.cs",
       "features": [
@@ -1484,7 +1484,7 @@
       "eta": "TBD"
     }
   ],
-  "last_editor_update": "2026-04-24T22:18:33.036Z",
+  "last_editor_update": "2026-04-25T01:31:16.141Z",
   "announcement": {
     "enabled": false,
     "text": "",
