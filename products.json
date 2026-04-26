@@ -572,7 +572,7 @@
       "category": "plugin",
       "status": "live",
       "tagline": "One-click coop happiness",
-      "short_description": "Adds a Chicken Lover button to Chicken Coop UI that satisfies only the chickens inside the coop you're currently looting.",
+      "short_description": "https://youtu.be/nyXzJ8M_QK4 Adds a Chicken Lover button to Chicken Coop UI that satisfies only the chickens inside the coop you're currently looting.",
       "price_usd": 1.99,
       "price_label": "$1.99",
       "lemonsqueezy": {
@@ -1484,7 +1484,7 @@
       "eta": "TBD"
     }
   ],
-  "last_editor_update": "2026-04-25T04:57:45.111Z",
+  "last_editor_update": "2026-04-26T20:19:40.101Z",
   "announcement": {
     "enabled": false,
     "text": "",
