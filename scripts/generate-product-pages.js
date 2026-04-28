@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env node
+#!/usr/bin/env node
 /**
  * generate-product-pages.js
  * Reads products.json and emits one /products/<slug>.html per live product.
@@ -193,23 +193,79 @@ function renderPage(p, all) {
   const title = `${p.name} — Shadow Kids Studios`;
   const desc = p.short_description || p.tagline || '';
   const canonical = `${SITE}/products/${p.slug}.html`;
-  const ogImage = `${SITE}/NewLogo.png`;
-  const ld = {
+  const productIcon = p.assets && p.assets.icon ? `${SITE}${p.assets.icon}` : null;
+  const ogImage = productIcon || `${SITE}/NewLogo.png`;
+  const isApp = (p.category === 'app' || p.category === 'desktop');
+  const keywords = [
+    p.name,
+    isApp ? 'Rust admin tool' : 'Rust plugin',
+    isApp ? 'desktop app' : 'Oxide plugin',
+    isApp ? 'Windows' : 'Carbon plugin',
+    'Shadow Kids Studios',
+    ...(p.tags || [])
+  ].filter(Boolean).join(', ');
+
+  const offer = {
+    '@type': 'Offer',
+    price: String(p.price_usd ?? 0),
+    priceCurrency: 'USD',
+    availability: 'https://schema.org/InStock',
+    url: canonical,
+    seller: { '@type': 'Organization', name: 'Shadow Kids Studios', url: SITE }
+  };
+
+  const softwareApp = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    '@id': canonical + '#software',
+    name: p.name,
+    description: desc,
+    url: canonical,
+    image: ogImage,
+    applicationCategory: isApp ? 'UtilitiesApplication' : 'GameApplication',
+    applicationSubCategory: isApp ? 'Desktop Utility' : 'Rust Plugin',
+    operatingSystem: isApp ? 'Windows' : 'Cross-platform (Oxide/Carbon)',
+    softwareVersion: p.version || undefined,
+    downloadUrl: p.download_url ? `${SITE}${p.download_url}` : undefined,
+    author: { '@type': 'Organization', name: 'Shadow Kids Studios', url: SITE },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Shadow Kids Studios',
+      url: SITE,
+      logo: { '@type': 'ImageObject', url: `${SITE}/NewLogo.png` }
+    },
+    offers: offer,
+    keywords: (p.tags || []).join(', ') || undefined
+  };
+
+  const product = {
     '@context': 'https://schema.org',
     '@type': 'Product',
+    '@id': canonical + '#product',
     name: p.name,
     description: desc,
     sku: p.id,
+    image: ogImage,
     brand: { '@type': 'Brand', name: 'Shadow Kids Studios' },
-    category: 'Software > Rust Plugin',
-    offers: {
-      '@type': 'Offer',
-      price: String(p.price_usd ?? 0),
-      priceCurrency: 'USD',
-      availability: 'https://schema.org/InStock',
-      url: canonical
-    }
+    category: isApp ? 'Software > Desktop App' : 'Software > Rust Plugin',
+    offers: offer
   };
+
+  const breadcrumbs = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE + '/' },
+      { '@type': 'ListItem', position: 2, name: isApp ? 'Apps' : 'Plugins', item: SITE + (isApp ? '/apps.html' : '/plugins.html') },
+      { '@type': 'ListItem', position: 3, name: p.name, item: canonical }
+    ]
+  };
+
+  // Emit SoftwareApplication (primary), Product (for Offer+price rich result), and Breadcrumb.
+  // Separate <script> tags so a malformed one can't break the others.
+  const ldBlocks = [softwareApp, product, breadcrumbs]
+    .map(o => `<script type="application/ld+json">${JSON.stringify(o)}</script>`)
+    .join('\n');
 
   return `<!DOCTYPE html>
 <html class="dark" lang="en">
@@ -218,17 +274,29 @@ function renderPage(p, all) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>${esc(title)}</title>
 <meta name="description" content="${attr(desc)}"/>
+<meta name="keywords" content="${attr(keywords)}"/>
+<meta name="author" content="Shadow Kids Studios"/>
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"/>
 <link rel="canonical" href="${attr(canonical)}"/>
 <link rel="icon" href="/NewLogo.png"/>
+<meta property="og:site_name" content="Shadow Kids Studios"/>
 <meta property="og:title" content="${attr(title)}"/>
 <meta property="og:description" content="${attr(desc)}"/>
 <meta property="og:image" content="${attr(ogImage)}"/>
+<meta property="og:image:alt" content="${attr(p.name + ' — ' + desc)}"/>
 <meta property="og:type" content="product"/>
 <meta property="og:url" content="${attr(canonical)}"/>
+<meta property="product:price:amount" content="${attr(String(p.price_usd ?? 0))}"/>
+<meta property="product:price:currency" content="USD"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="${attr(title)}"/>
 <meta name="twitter:description" content="${attr(desc)}"/>
 <meta name="twitter:image" content="${attr(ogImage)}"/>
+<meta name="twitter:image:alt" content="${attr(p.name)}"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="dns-prefetch" href="https://cdn.tailwindcss.com"/>
+<link rel="dns-prefetch" href="https://cdn.paddle.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="/assets/theme.css"/>
@@ -238,6 +306,7 @@ function renderPage(p, all) {
 <script src="/assets/cart.js" defer></script>
 <script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
 <script src="https://cdn.paddle.com/paddle/v2/paddle.js" defer></script>
+<script>window.__sks_paddle_token = "52apcb4w49nj9rnj1gjxkbxkzqjr0gq9bmevbhwcnxzr69dwb9";</script>
 <script>
   tailwind.config = {
     darkMode: "class",
@@ -248,7 +317,7 @@ function renderPage(p, all) {
     }}
   };
 </script>
-<script type="application/ld+json">${JSON.stringify(ld)}</script>
+${ldBlocks}
 <style>
   html, body { background:#060e20; color:#dee5ff; }
   .ob-data-label { font-family:'Space Grotesk',sans-serif; text-transform:uppercase; letter-spacing:.25em; font-size:10px; color:#a3aac4; }
@@ -417,18 +486,38 @@ function renderPage(p, all) {
 }
 
 function updateSitemap(products) {
-  if (!fs.existsSync(SITEMAP_PATH)) return;
-  const existing = fs.readFileSync(SITEMAP_PATH, 'utf8');
-  // Strip any existing product entries (so re-runs don't duplicate).
-  const stripped = existing.replace(/\s*<url>\s*<loc>[^<]*\/products\/[^<]+<\/loc>[\s\S]*?<\/url>/g, '');
-  const entries = products.map(p => `  <url>
+  // Rebuild sitemap from scratch — single source of truth.
+  // Static pages with hand-tuned priorities; product pages appended below.
+  const staticPages = [
+    { loc: '/',               freq: 'weekly',  pri: '1.0' },
+    { loc: '/plugins.html',   freq: 'weekly',  pri: '0.9' },
+    { loc: '/apps.html',      freq: 'monthly', pri: '0.8' },
+    { loc: '/changelog.html', freq: 'weekly',  pri: '0.7' },
+    { loc: '/about.html',     freq: 'monthly', pri: '0.6' },
+    { loc: '/support.html',   freq: 'monthly', pri: '0.6' },
+    { loc: '/terms.html',     freq: 'yearly',  pri: '0.3' },
+    { loc: '/privacy.html',   freq: 'yearly',  pri: '0.3' },
+    { loc: '/refund.html',    freq: 'yearly',  pri: '0.3' },
+  ];
+  const staticEntries = staticPages.map(s => `  <url>
+    <loc>${SITE}${s.loc}</loc>
+    <lastmod>${TODAY}</lastmod>
+    <changefreq>${s.freq}</changefreq>
+    <priority>${s.pri}</priority>
+  </url>`).join('\n');
+  const productEntries = products.map(p => `  <url>
     <loc>${SITE}/products/${p.slug}.html</loc>
     <lastmod>${TODAY}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>`).join('\n');
-  const updated = stripped.replace('</urlset>', entries + '\n</urlset>');
-  fs.writeFileSync(SITEMAP_PATH, updated);
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${staticEntries}
+${productEntries}
+</urlset>
+`;
+  fs.writeFileSync(SITEMAP_PATH, xml);
 }
 
 function main() {

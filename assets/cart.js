@@ -80,11 +80,27 @@
   function total() { return items.reduce(function (a, i) { return a + i.price_usd; }, 0); }
 
   // --- Checkout ---
+  function ensurePaddleInitialized() {
+    // store.js initializes Paddle after products.json loads, but pages without
+    // store.js (legal pages, product detail pages without a grid) still need
+    // Paddle.Initialize before Checkout.open works. Idempotent — guarded by
+    // window.__misfits_paddle_init.
+    if (window.__misfits_paddle_init) return true;
+    if (!(window.Paddle && typeof window.Paddle.Initialize === 'function')) return false;
+    if (!window.__sks_paddle_token) return false;
+    try {
+      window.Paddle.Initialize({ token: window.__sks_paddle_token });
+      window.__misfits_paddle_init = true;
+      return true;
+    } catch (e) { console.warn('Paddle init from cart failed:', e); return false; }
+  }
+
   function checkout() {
     if (!items.length) { toast('Cart is empty.'); return; }
 
     // Pure Paddle flow — preferred when all items have paddle price IDs.
     var allPaddle = items.every(function (i) { return !!i.paddle_price_id; });
+    ensurePaddleInitialized();
     if (allPaddle && window.Paddle && typeof window.Paddle.Checkout === 'object') {
       try {
         window.Paddle.Checkout.open({
