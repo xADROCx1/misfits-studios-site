@@ -2754,13 +2754,13 @@
         <aside class="pages-sidebar">
           <div class="pages-sidebar-head">
             <div class="pages-sidebar-title">Prose Pages</div>
-            <div class="pages-sidebar-sub">6 editable pages</div>
+            <div class="pages-sidebar-sub">7 editable pages · 6 prose + 1 raw HTML</div>
           </div>
           <div class="pages-list" id="pages-list">
             <!-- Rows injected by renderPagesList() -->
           </div>
           <div class="pages-sidebar-foot">
-            <span class="pages-foot-hint">Stored in <code>products.json</code> under <code>pages</code></span>
+            <span class="pages-foot-hint">Prose: <code>products.json</code> · Raw HTML: standalone files in repo</span>
           </div>
         </aside>
 
@@ -2769,7 +2769,7 @@
           <div class="pages-editor-empty" id="pages-editor-empty">
             <div class="pages-editor-empty-icon">&#128196;</div>
             <div class="pages-editor-empty-title">Pick a page to edit</div>
-            <div class="pages-editor-empty-sub">Titles &amp; body markdown are stored in products.json under <code>pages</code> and ship with the normal publish flow.</div>
+            <div class="pages-editor-empty-sub">Prose pages: titles &amp; markdown stored in <code>products.json</code> under <code>pages</code>. Pages with the <span style="color:var(--mint);font-size:9px;letter-spacing:0.1em;border:1px solid var(--mint);padding:1px 4px;border-radius:2px">HTML</span> badge are raw HTML files in the repo and ride the same publish flow as other staged files.</div>
           </div>
 
           <div class="pages-editor-body" id="pages-editor-body" style="display:none">
@@ -5898,31 +5898,59 @@ function exportHealthMarkdown() {
  * ============================================================ */
 
 /* Hardcoded list so the editor can render the sidebar before products.json loads. */
-const PAGE_KEYS = ['about', 'support', 'terms', 'privacy', 'refund', 'changelog'];
+const PAGE_KEYS = ['about', 'support', 'terms', 'privacy', 'refund', 'changelog', 'rustcon'];
 const PAGE_DEFAULT_TITLES = {
   about: 'About',
   support: 'Support',
   terms: 'Terms of Service',
   privacy: 'Privacy Policy',
   refund: 'Refund Policy',
-  changelog: 'Changelog'
+  changelog: 'Changelog',
+  rustcon: 'RustCON Page'
 };
+
+/* Pages whose content lives as a standalone HTML file in the repo, NOT
+ * inside products.json. These edit raw HTML in the same panel; on Publish
+ * they ride the existing staged-file commit flow.
+ *
+ * key -> { repoPath, liveUrl, sublabel }
+ *   repoPath: the repository path the editor commits to via GitHub Contents API.
+ *   liveUrl:  the URL the editor fetches on first selection to populate the buffer.
+ *   sublabel: shown under the title in the sidebar so the user knows it's a file.
+ */
+const PAGE_FILE_MAP = {
+  rustcon: {
+    repoPath: 'apps/rustcon/index.html',
+    liveUrl:  '/apps/rustcon/index.html',
+    sublabel: 'apps/rustcon/index.html'
+  }
+};
+function isFileBackedPage(key) { return Object.prototype.hasOwnProperty.call(PAGE_FILE_MAP, key); }
 
 /* Editor runtime state for the pages view. */
 const PagesS = {
   selectedKey: null,
   previewOn: false,
-  baseline: new Map(),   // key -> stableStringify of last saved page
-  dirty: new Set()       // keys with unsaved changes
+  baseline: new Map(),   // key -> stableStringify of last saved page (prose) OR raw HTML (file-backed)
+  dirty: new Set(),      // keys with unsaved changes
+  fileBuffers: new Map() // file-backed key -> latest in-memory raw HTML (also restaged on every keystroke)
 };
 
-/* Ensure S.raw.pages exists and has all 6 keys. Called after products.json loads
- * (hook into the existing afterDataLoaded / init flow, OR lazily on first showPagesView). */
+/* Encode a UTF-8 string as base64 (handles non-ASCII reliably for HTML). */
+function utf8ToBase64(str) {
+  return btoa(unescape(encodeURIComponent(str)));
+}
+
+/* Ensure S.raw.pages exists and has all prose keys. Called after products.json loads
+ * (hook into the existing afterDataLoaded / init flow, OR lazily on first showPagesView).
+ * File-backed pages (rustcon, etc.) live as standalone files in the repo — they
+ * are intentionally excluded from products.json. */
 function ensurePagesInRaw() {
   if (!S.raw) S.raw = {};
   if (!S.raw.pages || typeof S.raw.pages !== 'object') S.raw.pages = {};
   const today = new Date().toISOString().slice(0, 10);
   PAGE_KEYS.forEach(k => {
+    if (isFileBackedPage(k)) return;
     if (!S.raw.pages[k]) {
       S.raw.pages[k] = {
         title: PAGE_DEFAULT_TITLES[k],
@@ -5931,8 +5959,10 @@ function ensurePagesInRaw() {
       };
     }
   });
-  // Seed baselines (only first time we see the key)
+  // Seed baselines (only first time we see the key) — prose pages baseline against the JSON,
+  // file-backed pages baseline against the raw HTML once it loads (in selectPage).
   PAGE_KEYS.forEach(k => {
+    if (isFileBackedPage(k)) return;
     if (!PagesS.baseline.has(k)) {
       PagesS.baseline.set(k, JSON.stringify(S.raw.pages[k]));
     }
@@ -5972,14 +6002,23 @@ function renderPagesList() {
   const wrap = document.getElementById('pages-list');
   if (!wrap) return;
   wrap.innerHTML = PAGE_KEYS.map(k => {
-    const p = (S.raw && S.raw.pages && S.raw.pages[k]) || {};
-    const title = p.title || PAGE_DEFAULT_TITLES[k];
+    const fileBacked = isFileBackedPage(k);
+    let title;
+    let sub;
+    if (fileBacked) {
+      title = PAGE_DEFAULT_TITLES[k];
+      sub = PAGE_FILE_MAP[k].sublabel;
+    } else {
+      const p = (S.raw && S.raw.pages && S.raw.pages[k]) || {};
+      title = p.title || PAGE_DEFAULT_TITLES[k];
+      sub = k + '.html';
+    }
     const isActive = k === PagesS.selectedKey;
     const isDirty = PagesS.dirty.has(k);
     return `<div class="pages-row ${isActive ? 'active' : ''}" data-key="${escapeHtml(k)}" onclick="selectPage('${escapeHtml(k)}')">
       <div class="pages-row-main">
-        <div class="pages-row-title">${escapeHtml(title)}</div>
-        <div class="pages-row-key">${escapeHtml(k)}.html</div>
+        <div class="pages-row-title">${escapeHtml(title)}${fileBacked ? ' <span style="color:var(--mint);font-size:9px;letter-spacing:0.1em;border:1px solid var(--mint);padding:1px 4px;border-radius:2px;vertical-align:middle">HTML</span>' : ''}</div>
+        <div class="pages-row-key">${escapeHtml(sub)}</div>
       </div>
       ${isDirty ? '<span class="pages-row-dirty" title="Unsaved changes"></span>' : ''}
     </div>`;
@@ -5987,7 +6026,7 @@ function renderPagesList() {
 }
 
 /* Select a page for editing. */
-function selectPage(key) {
+async function selectPage(key) {
   if (!PAGE_KEYS.includes(key)) return;
   ensurePagesInRaw();
   // Persist in-flight edits from the currently-active page before switching
@@ -5995,27 +6034,105 @@ function selectPage(key) {
     commitPageEditorToRaw(PagesS.selectedKey);
   }
   PagesS.selectedKey = key;
-  const page = S.raw.pages[key];
 
   document.getElementById('pages-editor-empty').style.display = 'none';
   document.getElementById('pages-editor-body').style.display = '';
-
   document.getElementById('pages-key-chip').textContent = key;
-  document.getElementById('pages-title-input').value = page.title || '';
-  document.getElementById('pages-md-input').value = page.body_md || '';
-  document.getElementById('pages-last-updated').textContent =
-    'Last updated: ' + (page.last_updated || '—');
+
+  const titleEl = document.getElementById('pages-title-input');
+  const mdEl = document.getElementById('pages-md-input');
+  const lastEl = document.getElementById('pages-last-updated');
+
+  if (isFileBackedPage(key)) {
+    // File-backed (raw HTML, lives as a standalone file in the repo).
+    const meta = PAGE_FILE_MAP[key];
+    titleEl.value = PAGE_DEFAULT_TITLES[key];
+    titleEl.disabled = true;
+    titleEl.title = 'File-backed page — title is set inside the HTML <head>, not here';
+    mdEl.placeholder = 'Raw HTML for ' + meta.repoPath + ' — fully self-contained.';
+
+    // Load buffer: prefer the in-memory buffer if user already touched it; else fetch live.
+    if (PagesS.fileBuffers.has(key)) {
+      mdEl.value = PagesS.fileBuffers.get(key);
+      lastEl.textContent = 'Editing: ' + meta.repoPath + ' (unsaved buffer)';
+    } else {
+      mdEl.value = ''; // brief blank while we fetch
+      lastEl.textContent = 'Loading ' + meta.repoPath + '…';
+      try {
+        const r = await fetch(meta.liveUrl + '?_=' + Date.now(), { cache: 'no-store' });
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        const html = await r.text();
+        // Only apply if the user hasn't switched away in the meantime
+        if (PagesS.selectedKey === key) {
+          PagesS.fileBuffers.set(key, html);
+          PagesS.baseline.set(key, html); // baseline = what we just loaded
+          mdEl.value = html;
+          lastEl.textContent = 'Loaded ' + meta.repoPath + ' (' + (html.length / 1024).toFixed(1) + ' KB)';
+        }
+      } catch (e) {
+        if (PagesS.selectedKey === key) {
+          mdEl.value = '';
+          lastEl.textContent = 'Failed to load ' + meta.repoPath + ': ' + e.message;
+          toast && toast('Could not fetch ' + meta.repoPath + ' — paste the HTML manually', 'err');
+        }
+      }
+    }
+  } else {
+    // Prose page (markdown stored inside products.json under pages[key]).
+    const page = S.raw.pages[key];
+    titleEl.disabled = false;
+    titleEl.title = '';
+    titleEl.value = page.title || '';
+    mdEl.placeholder = '# Page title\n\nWrite markdown here...';
+    mdEl.value = page.body_md || '';
+    lastEl.textContent = 'Last updated: ' + (page.last_updated || '—');
+  }
 
   renderPagesList();
   if (PagesS.previewOn) updatePagesPreview();
 }
 
-/* Copy the editor inputs back into S.raw.pages[key] and recompute dirty state. */
+/* Copy the editor inputs back into S.raw.pages[key] (prose) or stage to S.stagedFiles
+ * (file-backed) and recompute dirty state. */
 function commitPageEditorToRaw(key) {
-  if (!key || !S.raw || !S.raw.pages || !S.raw.pages[key]) return;
+  if (!key) return;
   const titleEl = document.getElementById('pages-title-input');
   const mdEl = document.getElementById('pages-md-input');
   if (!titleEl || !mdEl) return;
+
+  if (isFileBackedPage(key)) {
+    const meta = PAGE_FILE_MAP[key];
+    const nextHtml = mdEl.value;
+    PagesS.fileBuffers.set(key, nextHtml);
+    const base = PagesS.baseline.get(key);
+    // Only stage / mark dirty after the initial fetch has populated the baseline,
+    // otherwise the first selectPage transient (empty -> loaded) would falsely
+    // mark the page dirty.
+    if (typeof base === 'string') {
+      if (nextHtml !== base) {
+        // Stage for commit on the next Publish. Reuses the existing stagedFiles flow.
+        const publicPath = '/' + meta.repoPath;
+        S.stagedFiles.set(publicPath, {
+          repoPath: meta.repoPath,
+          filename: meta.repoPath.split('/').pop(),
+          base64: utf8ToBase64(nextHtml),
+          size: new Blob([nextHtml]).size
+        });
+        PagesS.dirty.add(key);
+        S.dirty.add('__pages__');
+      } else {
+        PagesS.dirty.delete(key);
+        const publicPath = '/' + meta.repoPath;
+        S.stagedFiles.delete(publicPath);
+        if (PagesS.dirty.size === 0) S.dirty.delete('__pages__');
+      }
+      updateDirtyBadge && updateDirtyBadge();
+    }
+    return;
+  }
+
+  // Prose path (unchanged from original behavior).
+  if (!S.raw || !S.raw.pages || !S.raw.pages[key]) return;
   const page = S.raw.pages[key];
   const nextTitle = titleEl.value;
   const nextBody = mdEl.value;
@@ -6025,7 +6142,6 @@ function commitPageEditorToRaw(key) {
     page.body_md = nextBody;
     page.last_updated = new Date().toISOString().slice(0, 10);
   }
-  // Compare against baseline to set/clear dirty state
   const now = JSON.stringify(page);
   const base = PagesS.baseline.get(key);
   if (now !== base) {
@@ -6040,11 +6156,17 @@ function commitPageEditorToRaw(key) {
 
 /* Fired by oninput on title + textarea. */
 function onPageChange() {
-  if (!PagesS.selectedKey) return;
-  commitPageEditorToRaw(PagesS.selectedKey);
-  // Refresh only what's cheap
-  document.getElementById('pages-last-updated').textContent =
-    'Last updated: ' + (S.raw.pages[PagesS.selectedKey].last_updated || '—');
+  const key = PagesS.selectedKey;
+  if (!key) return;
+  commitPageEditorToRaw(key);
+  const lastEl = document.getElementById('pages-last-updated');
+  if (isFileBackedPage(key)) {
+    const meta = PAGE_FILE_MAP[key];
+    const isDirty = PagesS.dirty.has(key);
+    lastEl.textContent = (isDirty ? '● Staged for next Publish: ' : 'Editing: ') + meta.repoPath;
+  } else if (S.raw && S.raw.pages && S.raw.pages[key]) {
+    lastEl.textContent = 'Last updated: ' + (S.raw.pages[key].last_updated || '—');
+  }
   renderPagesList();
   if (PagesS.previewOn) updatePagesPreview();
 }
@@ -6076,9 +6198,18 @@ function togglePagesPreview() {
 }
 function updatePagesPreview() {
   const key = PagesS.selectedKey; if (!key) return;
-  const md = document.getElementById('pages-md-input').value || '';
-  const html = miniMarkdown(md);
-  document.getElementById('pages-preview-inner').innerHTML = html;
+  const buf = document.getElementById('pages-md-input').value || '';
+  const inner = document.getElementById('pages-preview-inner');
+  if (isFileBackedPage(key)) {
+    // Raw HTML pages render via an iframe so their <style> blocks and assets
+    // don't bleed into the editor chrome.
+    const blob = new Blob([buf], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    inner.innerHTML = '<iframe src="' + url + '" style="width:100%;height:100%;min-height:600px;border:0;background:#fff" sandbox="allow-same-origin"></iframe>';
+    setTimeout(function () { URL.revokeObjectURL(url); }, 5000);
+  } else {
+    inner.innerHTML = miniMarkdown(buf);
+  }
 }
 
 /* ---------- Tiny markdown parser (shared shape with /assets/prose.js) ----------

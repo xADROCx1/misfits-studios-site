@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RUSTCON_APP — Mobile RCON for Rust Server Admins · Shadow Kids Studios</title>
+<meta name="description" content="RustCON is the most complete mobile RCON app for Rust game servers. Live chat, RCON console, player manager, Oxide and Carbon permissions, item giver, events, kits. Android and iOS — built solo by Shadow Kids Studios.">
+<link rel="canonical" href="https://shadowkidsstudios.com/apps/rustcon/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#050a13">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="RUSTCON — Mobile RCON for Rust Server Admins">
+<meta property="og:description" content="Run your Rust server from your phone. Live chat, console, player manager, Oxide and Carbon permissions, item giver, events, kits.">
+<meta property="og:url" content="https://shadowkidsstudios.com/apps/rustcon/">
+<meta property="og:image" content="https://shadowkidsstudios.com/apps/rustcon/assets/Rustcon-server-banner.png">
+<meta property="og:site_name" content="Shadow Kids Studios">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="RUSTCON — Mobile RCON for Rust Server Admins">
+<meta name="twitter:description" content="The most complete mobile RCON app for Rust. Live on Android and iOS.">
+<meta name="twitter:image" content="https://shadowkidsstudios.com/apps/rustcon/assets/Rustcon-server-banner.png">
+
+<link rel="icon" type="image/png" href="assets/Rustcon-new-icon2.png">
+<link rel="apple-touch-icon" href="assets/Rustcon-new-icon2.png">
+
+<!-- Google Fonts: blocky display + monospace, matching SKS look -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "RustCON",
+  "operatingSystem": "Android, iOS",
+  "applicationCategory": "UtilitiesApplication",
+  "applicationSubCategory": "Game Server Admin Tool",
+  "description": "Mobile RCON console for Rust game servers. Live chat, RCON console, player manager with Steam avatars, Oxide and Carbon permissions, item giver, events, server monitor, kits.",
+  "url": "https://shadowkidsstudios.com/apps/rustcon/",
+  "image": "https://shadowkidsstudios.com/apps/rustcon/assets/Rustcon-new-icon2.png",
+  "offers": [
+    {"@type": "Offer", "name": "Monthly", "price": "3.99", "priceCurrency": "USD"},
+    {"@type": "Offer", "name": "Yearly", "price": "29.99", "priceCurrency": "USD"}
+  ],
+  "publisher": {
+    "@type": "Organization",
+    "name": "Shadow Kids Studios",
+    "url": "https://shadowkidsstudios.com/"
+  },
+  "downloadUrl": [
+    "https://play.google.com/store/apps/details?id=com.xadroc.rustcon",
+    "https://apps.apple.com/us/app/rustcon/id6761402467"
+  ]
+}
+</script>
+
+<style>
+  /* ============================================================
+     RustCON product page — theme-matched to shadowkidsstudios.com
+     Cyberpunk / synthwave / terminal aesthetic.
+     Self-contained: only references files under ./assets/
+     ============================================================ */
+
+  :root {
+    /* Backgrounds */
+    --rc-bg:          #050a13;
+    --rc-bg-1:        #0a1124;
+    --rc-bg-card:     #0d1730;
+    --rc-bg-card-hov: #11203f;
+
+    /* Neon accents (matches SKS card-border palette) */
+    --rc-cyan:    #00e5ff;
+    --rc-pink:    #ff1c8d;
+    --rc-green:   #00ff88;
+    --rc-yellow:  #ffe000;
+    --rc-purple:  #b76eff;
+    --rc-orange:  #ff8c1c;
+    --rc-red:     #ff4d6d;
+
+    /* Text */
+    --rc-text:        #e8edf5;
+    --rc-text-mid:    #aab2c0;
+    --rc-text-mute:   #7280a0;
+    --rc-text-mono:   #00ff88;
+
+    --rc-border:      #1a2444;
+    --rc-border-soft: #11193a;
+
+    --rc-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --rc-display: 'Bungee', Impact, 'Arial Black', sans-serif;
+    --rc-body: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --rc-max: 1240px;
+  }
+
+  .rc-scope * { box-sizing: border-box; }
+  .rc-scope { font-family: var(--rc-body); background: var(--rc-bg); color: var(--rc-text); font-size: 15px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  .rc-scope img { max-width: 100%; height: auto; display: block; }
+  .rc-scope a { color: var(--rc-cyan); text-decoration: none; transition: color .15s ease, opacity .15s ease; }
+  .rc-scope a:hover { color: #fff; }
+  .rc-scope code { font-family: var(--rc-mono); background: var(--rc-bg-card); padding: .1em .4em; border: 1px solid var(--rc-border); color: var(--rc-green); font-size: .9em; }
+
+  /* ---------- Star/dot field background (matches SKS feel) ---------- */
+  .rc-scope {
+    background-image:
+      radial-gradient(circle at 8% 12%, rgba(255,255,255,0.06) 1px, transparent 1px),
+      radial-gradient(circle at 78% 22%, rgba(0,229,255,0.12) 1px, transparent 1px),
+      radial-gradient(circle at 32% 70%, rgba(255,28,141,0.08) 1px, transparent 1px),
+      radial-gradient(circle at 91% 88%, rgba(255,255,255,0.05) 1px, transparent 1px),
+      radial-gradient(circle at 18% 90%, rgba(0,255,136,0.06) 1px, transparent 1px),
+      var(--rc-bg);
+    background-size: 800px 800px, 600px 600px, 700px 700px, 500px 500px, 900px 900px, auto;
+  }
+
+  /* ---------- Top marquee bar ---------- */
+  .rc-marquee {
+    overflow: hidden;
+    border-bottom: 1px solid var(--rc-border);
+    background: linear-gradient(180deg, rgba(255,28,141,.08), transparent);
+    padding: .55rem 0;
+    font-family: var(--rc-mono);
+    font-size: .72rem;
+    letter-spacing: .15em;
+    font-weight: 700;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .rc-marquee-track { display: inline-flex; gap: 2.5rem; animation: rc-scroll 38s linear infinite; padding-left: 100%; }
+  .rc-marquee span:nth-child(6n+1) { color: var(--rc-pink); }
+  .rc-marquee span:nth-child(6n+2) { color: var(--rc-cyan); }
+  .rc-marquee span:nth-child(6n+3) { color: #fff; }
+  .rc-marquee span:nth-child(6n+4) { color: var(--rc-green); }
+  .rc-marquee span:nth-child(6n+5) { color: var(--rc-yellow); }
+  .rc-marquee span:nth-child(6n+6) { color: var(--rc-purple); }
+  @keyframes rc-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ---------- Wrap ---------- */
+  .rc-wrap { max-width: var(--rc-max); margin: 0 auto; padding: 0 1.4rem; }
+
+  /* ---------- Studio header ---------- */
+  .rc-studio { text-align: center; padding: 2.4rem 1.4rem 0; }
+  .rc-studio .rc-mark { width: 110px; height: 110px; margin: 0 auto; border-radius: 18px; box-shadow: 0 0 0 2px var(--rc-pink), 0 0 60px rgba(255,28,141,.3); }
+  .rc-studio .rc-studio-name { margin-top: 1rem; font-family: var(--rc-mono); font-size: .82rem; letter-spacing: .35em; color: var(--rc-text-mid); text-transform: uppercase; }
+
+  /* ---------- App breadcrumb header ---------- */
+  .rc-app-bar { display: flex; align-items: center; gap: 1.2rem; padding: 1.6rem 0 1rem; border-bottom: 1px solid var(--rc-border-soft); }
+  .rc-app-bar .rc-app-icon { width: 56px; height: 56px; border-radius: 12px; box-shadow: 0 0 0 1px var(--rc-cyan), 0 0 30px rgba(0,229,255,.35); }
+  .rc-app-bar h2 { font-family: var(--rc-mono); font-weight: 800; font-size: 1.55rem; letter-spacing: .04em; margin: 0; color: var(--rc-text); }
+  .rc-app-bar .rc-jp { font-family: var(--rc-mono); color: var(--rc-cyan); font-size: .78rem; letter-spacing: .12em; margin-top: .2rem; }
+
+  /* ---------- Sub-nav row ---------- */
+  .rc-subnav { display: flex; flex-wrap: wrap; gap: .65rem; padding: 1rem 0 1.4rem; }
+  .rc-tab {
+    display: inline-flex; align-items: center; gap: .5rem;
+    padding: .65rem 1.05rem;
+    font-family: var(--rc-mono); font-weight: 700;
+    text-transform: uppercase; letter-spacing: .12em;
+    color: var(--rc-text);
+    border: 1px solid var(--rc-border);
+    background: rgba(13,23,48,.55);
+    font-size: .82rem;
+    transition: all .12s ease;
+  }
+  .rc-tab:hover { color: #fff; border-color: var(--rc-cyan); }
+  .rc-tab.active { color: var(--rc-pink); border-color: var(--rc-pink); box-shadow: 0 0 18px rgba(255,28,141,.25); }
+  .rc-tab .dot { width: 6px; height: 6px; background: currentColor; }
+
+  /* ---------- Section headings (snake_case style) ---------- */
+  .rc-h2 { font-family: var(--rc-display); font-size: clamp(2rem, 5vw, 3.4rem); letter-spacing: .03em; margin: 0 0 .3rem; color: var(--rc-text); text-shadow: 3px 0 0 var(--rc-pink), -3px 0 0 var(--rc-cyan); }
+  .rc-sub { font-family: var(--rc-mono); color: var(--rc-green); font-size: .88rem; letter-spacing: .12em; margin: 0 0 2rem; }
+  .rc-sub::before { content: "// "; color: var(--rc-text-mute); }
+
+  /* ---------- Hero ---------- */
+  .rc-hero { padding: 2.5rem 0 3.4rem; }
+  .rc-hero-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; align-items: center; }
+  @media (min-width: 920px) { .rc-hero-grid { grid-template-columns: 1.25fr 1fr; gap: 3rem; } }
+
+  .rc-hero h1 { font-family: var(--rc-display); font-size: clamp(2.6rem, 7.5vw, 5.4rem); line-height: .95; margin: 0 0 1.2rem; letter-spacing: .01em; color: var(--rc-text); text-shadow: 4px 0 0 var(--rc-pink), -4px 0 0 var(--rc-cyan); }
+  .rc-hero h1 .accent { color: var(--rc-pink); text-shadow: 4px 0 0 var(--rc-yellow), -4px 0 0 var(--rc-cyan); }
+  .rc-hero .rc-strap { font-family: var(--rc-mono); color: var(--rc-cyan); font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; margin-bottom: 1.1rem; }
+  .rc-hero .rc-strap::before { content: ">> "; color: var(--rc-text-mute); }
+  .rc-hero .rc-strap::after { content: " <<"; color: var(--rc-text-mute); }
+  .rc-hero p.rc-lead { font-family: var(--rc-mono); color: var(--rc-text); font-size: 1rem; max-width: 580px; margin: 0 0 1.8rem; line-height: 1.7; }
+
+  .rc-hero-art { display: flex; justify-content: center; }
+  .rc-phone { max-width: 320px; width: 100%; box-shadow: 0 0 0 2px var(--rc-cyan), 0 0 60px rgba(0,229,255,.3), 0 30px 80px rgba(0,0,0,.7); }
+
+  /* ---------- Buttons ---------- */
+  .rc-btns { display: flex; flex-wrap: wrap; gap: .9rem; }
+  .rc-btn {
+    display: inline-flex; align-items: center; gap: .6rem;
+    padding: .9rem 1.4rem;
+    font-family: var(--rc-mono); font-weight: 700; font-size: .92rem;
+    text-transform: uppercase; letter-spacing: .12em;
+    color: #050a13; background: var(--rc-cyan);
+    border: 2px solid var(--rc-cyan);
+    transition: all .12s ease;
+    cursor: pointer;
+  }
+  .rc-btn::before { content: "▸"; color: currentColor; }
+  .rc-btn:hover { background: #fff; border-color: #fff; color: #050a13; box-shadow: 0 0 30px rgba(0,229,255,.6); }
+  .rc-btn-pink { background: transparent; color: var(--rc-pink); border-color: var(--rc-pink); }
+  .rc-btn-pink:hover { background: var(--rc-pink); color: #050a13; box-shadow: 0 0 30px rgba(255,28,141,.5); }
+  .rc-btn-ghost { background: transparent; color: var(--rc-text); border-color: var(--rc-border); }
+  .rc-btn-ghost:hover { color: var(--rc-cyan); border-color: var(--rc-cyan); background: transparent; }
+
+  .rc-pricing-line { font-family: var(--rc-mono); font-size: .8rem; color: var(--rc-text-mute); margin-top: 1.3rem; letter-spacing: .03em; }
+  .rc-pricing-line code { color: var(--rc-yellow); border-color: var(--rc-border); background: rgba(255,224,0,.08); }
+
+  /* ---------- Banner image ---------- */
+  .rc-banner { width: 100%; border: 1px solid var(--rc-border); margin-top: 2.5rem; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+
+  /* ---------- Section ---------- */
+  .rc-section { padding: 4rem 0; border-top: 1px solid var(--rc-border-soft); }
+  .rc-section-head { margin-bottom: 2.4rem; }
+
+  /* ---------- Feature cards (colored neon borders, à la SKS) ---------- */
+  .rc-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; }
+  .rc-card {
+    position: relative;
+    padding: 1.4rem 1.4rem 1.6rem;
+    background: rgba(13,23,48,.7);
+    border: 1px solid var(--card-color, var(--rc-border));
+    box-shadow: 0 0 22px rgba(0,0,0,.4);
+    transition: transform .12s ease, box-shadow .15s ease;
+  }
+  .rc-card:hover { transform: translateY(-3px); box-shadow: 0 0 30px rgba(var(--card-rgb, 0,229,255), .35); }
+  .rc-card .rc-glyph { width: 38px; height: 38px; border: 2px solid var(--card-color, var(--rc-cyan)); display: flex; align-items: center; justify-content: center; font-family: var(--rc-display); font-size: 1.05rem; color: var(--card-color, var(--rc-cyan)); margin-bottom: 1rem; }
+  .rc-card h3 { font-family: var(--rc-display); font-size: 1.25rem; letter-spacing: .04em; margin: 0 0 .5rem; color: var(--rc-text); }
+  .rc-card p { font-family: var(--rc-mono); margin: 0; font-size: .88rem; color: var(--rc-text-mid); line-height: 1.65; }
+  .rc-card .rc-route { font-family: var(--rc-mono); font-size: .82rem; color: var(--card-color, var(--rc-cyan)); margin-top: 1rem; letter-spacing: .04em; }
+  .rc-card .rc-route::before { content: "▸ "; }
+
+  .rc-c-cyan   { --card-color: var(--rc-cyan);   --card-rgb: 0,229,255; }
+  .rc-c-pink   { --card-color: var(--rc-pink);   --card-rgb: 255,28,141; }
+  .rc-c-green  { --card-color: var(--rc-green);  --card-rgb: 0,255,136; }
+  .rc-c-yellow { --card-color: var(--rc-yellow); --card-rgb: 255,224,0; }
+  .rc-c-purple { --card-color: var(--rc-purple); --card-rgb: 183,110,255; }
+  .rc-c-orange { --card-color: var(--rc-orange); --card-rgb: 255,140,28; }
+  .rc-c-red    { --card-color: var(--rc-red);    --card-rgb: 255,77,109; }
+
+  /* ---------- Real screenshot gallery ---------- */
+  .rc-shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+  .rc-shot { margin: 0; padding: 1rem; background: rgba(13,23,48,.65); border: 1px solid var(--card-color, var(--rc-cyan)); display: flex; flex-direction: column; gap: 1rem; transition: transform .12s ease, box-shadow .15s ease; }
+  .rc-shot:hover { transform: translateY(-3px); box-shadow: 0 0 28px rgba(var(--card-rgb, 0,229,255), .35); }
+  .rc-shot img { width: 100%; aspect-ratio: 9 / 19.5; object-fit: cover; object-position: top center; border: 1px solid var(--rc-border); background: #000; }
+  .rc-shot figcaption { font-family: var(--rc-mono); font-size: .85rem; color: var(--rc-text-mid); line-height: 1.55; }
+  .rc-shot figcaption strong { display: block; font-family: var(--rc-display); color: var(--card-color, var(--rc-cyan)); font-size: .98rem; letter-spacing: .04em; margin-bottom: .35rem; }
+
+  /* ---------- FAQ — terminal style ---------- */
+  .rc-faq { max-width: 820px; margin: 0 auto; }
+  .rc-faq details { background: rgba(13,23,48,.55); border: 1px solid var(--rc-border); padding: 1rem 1.2rem; margin-bottom: .65rem; transition: border-color .12s ease; }
+  .rc-faq details[open] { border-color: var(--rc-cyan); }
+  .rc-faq summary { font-family: var(--rc-mono); font-weight: 600; color: var(--rc-text); list-style: none; cursor: pointer; letter-spacing: .04em; }
+  .rc-faq summary::-webkit-details-marker { display: none; }
+  .rc-faq summary::before { content: "[ + ] "; color: var(--rc-green); font-weight: 800; margin-right: .3rem; }
+  .rc-faq details[open] summary::before { content: "[ − ] "; color: var(--rc-pink); }
+  .rc-faq p { font-family: var(--rc-mono); margin: .8rem 0 0; color: var(--rc-text-mid); font-size: .9rem; }
+
+  /* ---------- CTA stripe ---------- */
+  .rc-cta { padding: 4rem 0; border-top: 1px solid var(--rc-border-soft); border-bottom: 1px solid var(--rc-border-soft); background: linear-gradient(135deg, rgba(0,229,255,.06), rgba(255,28,141,.06)); text-align: center; }
+  .rc-cta h2 { font-family: var(--rc-display); font-size: clamp(1.8rem, 4vw, 2.8rem); letter-spacing: .03em; margin: 0 0 .5rem; text-shadow: 3px 0 0 var(--rc-pink), -3px 0 0 var(--rc-cyan); }
+  .rc-cta p { font-family: var(--rc-mono); color: var(--rc-text-mid); margin: 0 auto 1.8rem; max-width: 540px; font-size: .92rem; }
+  .rc-cta .rc-btns { justify-content: center; }
+
+  /* ---------- Footer note (matches their feel; shadowkidsstudios footer wraps the page) ---------- */
+  .rc-foot { padding: 2rem 0 3rem; font-family: var(--rc-mono); font-size: .8rem; color: var(--rc-text-mute); text-align: center; letter-spacing: .04em; }
+  .rc-foot::before { content: "// "; color: var(--rc-pink); }
+  .rc-foot a { color: var(--rc-cyan); }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     RUSTCON PRODUCT PAGE — drop-in section for shadowkidsstudios.com
+
+     If your site already has a header/footer, paste only the
+     content between the <!-- BEGIN --> / <!-- END --> markers
+     into your existing layout.
+
+     If you want this to be a full standalone page, leave it as is
+     and rename the file to index.html inside an /apps/rustcon/ folder.
+     ============================================================ -->
+
+<!-- BEGIN RUSTCON PAGE CONTENT -->
+<div class="rc-scope">
+
+  <!-- Marquee strap -->
+  <div class="rc-marquee" aria-hidden="true">
+    <div class="rc-marquee-track">
+      <span>// MOBILE_RCON //</span><span>RUST_ECOSYSTEM //</span><span>OXIDE + CARBON //</span>
+      <span>1185_ITEMS //</span><span>FREE_TRIAL //</span><span>BUILT_SOLO //</span>
+      <span>// MOBILE_RCON //</span><span>RUST_ECOSYSTEM //</span><span>OXIDE + CARBON //</span>
+      <span>1185_ITEMS //</span><span>FREE_TRIAL //</span><span>BUILT_SOLO //</span>
+      <span>// MOBILE_RCON //</span><span>RUST_ECOSYSTEM //</span><span>OXIDE + CARBON //</span>
+      <span>1185_ITEMS //</span><span>FREE_TRIAL //</span><span>BUILT_SOLO //</span>
+    </div>
+  </div>
+
+  <!-- Studio bar (only show if standalone — your existing site header replaces this) -->
+  <header class="rc-studio">
+    <img class="rc-mark" src="assets/Rustcon-new-icon2.png" alt="RustCON icon">
+    <div class="rc-studio-name">SHADOW &nbsp; KIDS &nbsp; STUDIOS</div>
+  </header>
+
+  <main class="rc-wrap">
+
+    <!-- App breadcrumb / handle -->
+    <div class="rc-app-bar">
+      <img class="rc-app-icon" src="assets/Rustcon-new-icon2.png" alt="RustCON app icon">
+      <div>
+        <h2>RUSTCON_APP</h2>
+        <div class="rc-jp">// mobile_rcon · oxide · carbon</div>
+      </div>
+    </div>
+
+    <!-- Sub-nav (matches SKS style; "APPS" is the active route) -->
+    <nav class="rc-subnav" aria-label="Sub-navigation">
+      <a class="rc-tab" href="/"><span class="dot"></span>HOME</a>
+      <a class="rc-tab" href="/plugins.html"><span class="dot"></span>PLUGINS</a>
+      <a class="rc-tab active" href="/apps.html"><span class="dot"></span>APPS</a>
+      <a class="rc-tab" href="/changelog.html"><span class="dot"></span>CHANGELOG</a>
+      <a class="rc-tab" href="/support.html"><span class="dot"></span>SUPPORT</a>
+    </nav>
+
+    <!-- Hero -->
+    <section class="rc-hero">
+      <div class="rc-hero-grid">
+        <div>
+          <div class="rc-strap">JOIN &nbsp;·&nbsp; THE &nbsp;·&nbsp; ADMINS</div>
+          <h1>RUST<br><span class="accent">CON</span>.</h1>
+          <p class="rc-lead">The most complete mobile RCON for Rust game servers. Live chat, full console, player manager with Steam avatars, Oxide and Carbon permissions, 1,185 giveable items, events, and kits. Built solo by an admin who actually runs servers.</p>
+          <div class="rc-btns">
+            <a class="rc-btn" href="https://play.google.com/store/apps/details?id=com.xadroc.rustcon" rel="noopener">GOOGLE_PLAY</a>
+            <a class="rc-btn rc-btn-pink" href="https://apps.apple.com/us/app/rustcon/id6761402467" rel="noopener">APP_STORE</a>
+            <a class="rc-btn rc-btn-ghost" href="#features">FEATURES</a>
+          </div>
+          <p class="rc-pricing-line">Free trial · then <code>$3.99/mo</code> or <code>$29.99/yr</code> · cancel anytime</p>
+        </div>
+        <div class="rc-hero-art">
+          <img class="rc-phone" src="assets/screenshots/ss1.png" alt="RustCON app showing the server admin menu on iPhone" width="320" height="694" loading="eager">
+        </div>
+      </div>
+      <img class="rc-banner" src="assets/Rustcon-server-banner.png" alt="RustCON server banner" loading="lazy">
+    </section>
+
+    <!-- Features -->
+    <section class="rc-section" id="features">
+      <div class="rc-section-head">
+        <h2 class="rc-h2">FEATURES</h2>
+        <p class="rc-sub">eight_modules · everything_an_admin_actually_needs</p>
+      </div>
+      <div class="rc-features">
+        <div class="rc-card rc-c-cyan">
+          <div class="rc-glyph">›_</div>
+          <h3>RCON CONSOLE</h3>
+          <p>Full WebRcon console with command history and live log streaming. No SSH. No proxy. Every Rust console command available.</p>
+          <div class="rc-route">/console</div>
+        </div>
+        <div class="rc-card rc-c-pink">
+          <div class="rc-glyph">◢</div>
+          <h3>LIVE CHAT</h3>
+          <p>Watch and reply to in-game chat in real time. Color tags render correctly. Send as server, admin, or custom name.</p>
+          <div class="rc-route">/chat</div>
+        </div>
+        <div class="rc-card rc-c-green">
+          <div class="rc-glyph">◉</div>
+          <h3>PLAYER MANAGER</h3>
+          <p>Every player with Steam avatar, SteamID, ping, and a Tools menu — kick, ban, mute, kill, teleport — one tap.</p>
+          <div class="rc-route">/players</div>
+        </div>
+        <div class="rc-card rc-c-yellow">
+          <div class="rc-glyph">◆</div>
+          <h3>OXIDE + CARBON PERMS</h3>
+          <p>Visual permissions editor for both frameworks. Browse groups, grant and revoke plugin perms. No typing <code>oxide.grant</code> on a phone.</p>
+          <div class="rc-route">/permissions</div>
+        </div>
+        <div class="rc-card rc-c-purple">
+          <div class="rc-glyph">▣</div>
+          <h3>1,185 GIVEABLE ITEMS</h3>
+          <p>Search the entire Rust item list with icons. Skins, blueprints, components — give to any player in two taps. Auto-updates each wipe.</p>
+          <div class="rc-route">/give</div>
+        </div>
+        <div class="rc-card rc-c-orange">
+          <div class="rc-glyph">⚡</div>
+          <h3>EVENTS</h3>
+          <p>Spawn heli, cargo ship, CH47, Bradley, airdrops — and control weather and time. Run community events from the couch.</p>
+          <div class="rc-route">/events</div>
+        </div>
+        <div class="rc-card rc-c-red">
+          <div class="rc-glyph">▲</div>
+          <h3>SERVER MONITOR</h3>
+          <p>FPS, entity count, players, memory, network — at a glance. Catch lag spikes before players notice.</p>
+          <div class="rc-route">/monitor</div>
+        </div>
+        <div class="rc-card rc-c-cyan">
+          <div class="rc-glyph">◇</div>
+          <h3>MULTI-SERVER</h3>
+          <p>Admin more than one server? Switch between them without re-entering credentials. Encrypted local storage.</p>
+          <div class="rc-route">/profiles</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Real screenshot gallery -->
+    <section class="rc-section" id="shots">
+      <div class="rc-section-head">
+        <h2 class="rc-h2">RUNTIME</h2>
+        <p class="rc-sub">live_screens · ios_build · oxide+carbon_active</p>
+      </div>
+      <div class="rc-shots">
+        <figure class="rc-shot rc-c-red">
+          <img src="assets/screenshots/ss7.png" alt="RustCON server monitoring dashboard with FPS, entity count, network, uptime and memory" loading="lazy">
+          <figcaption><strong>SERVER MONITOR</strong>Live FPS, entities, network, uptime. Catch lag before players do.</figcaption>
+        </figure>
+        <figure class="rc-shot rc-c-green">
+          <img src="assets/screenshots/ss6.png" alt="RustCON player list with online and sleeping players, Steam avatars and Tools menu" loading="lazy">
+          <figcaption><strong>PLAYER MANAGER</strong>Steam avatars, ping, status, Tools menu — one tap from anywhere.</figcaption>
+        </figure>
+        <figure class="rc-shot rc-c-yellow">
+          <img src="assets/screenshots/ss3.png" alt="RustCON Oxide permissions manager showing groups, plugin search and grant or revoke toggles" loading="lazy">
+          <figcaption><strong>PERMISSIONS</strong>Native Oxide and Carbon. Groups, plugins, grant/revoke. No typing.</figcaption>
+        </figure>
+        <figure class="rc-shot rc-c-orange">
+          <img src="assets/screenshots/ss5.png" alt="RustCON events panel with Patrol Heli, Cargo Ship, Bradley, CH47 and weather and time controls" loading="lazy">
+          <figcaption><strong>EVENTS</strong>Heli, cargo, Bradley, CH47, weather, time. Couch-driven chaos.</figcaption>
+        </figure>
+        <figure class="rc-shot rc-c-cyan">
+          <img src="assets/screenshots/ss4.png" alt="RustCON commands panel with quick actions, plugin reload, teleport, restart and a custom command input" loading="lazy">
+          <figcaption><strong>QUICK COMMANDS</strong>The commands you actually run, pre-wired. Teleport, save, skip night, restart.</figcaption>
+        </figure>
+        <figure class="rc-shot rc-c-pink">
+          <img src="assets/screenshots/ss2.png" alt="RustCON kits panel with grid of kits and Give buttons" loading="lazy">
+          <figcaption><strong>KITS</strong>Every kit on your server, one tap to hand out. Standard Kits plugin compatible.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="rc-section" id="faq">
+      <div class="rc-section-head">
+        <h2 class="rc-h2">FAQ</h2>
+        <p class="rc-sub">stuff_admins_ask · before_install</p>
+      </div>
+      <div class="rc-faq">
+        <details>
+          <summary>Does RustCON need a server-side plugin?</summary>
+          <p>No. RustCON connects over standard WebRcon, the same way the in-game F1 console and the official Facepunch tools do. If your server has RCON enabled, RustCON works.</p>
+        </details>
+        <details>
+          <summary>Does it work with Oxide (uMod) and Carbon?</summary>
+          <p>Yes — both. The permissions manager has native support for Oxide and Carbon group/user/permission models. Toggle between frameworks in the app.</p>
+        </details>
+        <details>
+          <summary>How is RustCON different from Rust+?</summary>
+          <p>Rust+ is the official companion app for players — map, base alerts, team chat. RustCON is the admin's panel — RCON console, player management, permissions, item giving, events, kits. Different tool, different audience.</p>
+        </details>
+        <details>
+          <summary>What does it cost?</summary>
+          <p>Free trial for new users. After the trial, an active subscription is required: $3.99/month or $29.99/year. No ads. No dark patterns. Cancel anytime through the App Store or Google Play.</p>
+        </details>
+        <details>
+          <summary>Which platforms are supported?</summary>
+          <p>Live now on the Apple App Store (iPhone, iPad, M1+ Macs, Vision Pro) and on Google Play (Android). Desktop builds (Windows, macOS, Linux) are in active development.</p>
+        </details>
+        <details>
+          <summary>Is this affiliated with Facepunch Studios?</summary>
+          <p>No. RustCON is an independent third-party admin tool that talks to the standard Rust RCON endpoint. Rust® is a trademark of Facepunch Studios.</p>
+        </details>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Closing CTA -->
+  <section class="rc-cta">
+    <div class="rc-wrap">
+      <h2>READY_TO_DEPLOY?</h2>
+      <p>Free trial. Two taps to install. Connect to your first server in under a minute.</p>
+      <div class="rc-btns">
+        <a class="rc-btn" href="https://play.google.com/store/apps/details?id=com.xadroc.rustcon" rel="noopener">GOOGLE_PLAY</a>
+        <a class="rc-btn rc-btn-pink" href="https://apps.apple.com/us/app/rustcon/id6761402467" rel="noopener">APP_STORE</a>
+      </div>
+    </div>
+  </section>
+
+  <p class="rc-foot">crafted_in_the_shadows &nbsp;·&nbsp; <a href="/">shadowkidsstudios.com</a> &nbsp;·&nbsp; rustcon_app_v1</p>
+
+</div>
+<!-- END RUSTCON PAGE CONTENT -->
+
+</body>
+</html>
