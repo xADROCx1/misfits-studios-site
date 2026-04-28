@@ -272,18 +272,20 @@
 </footer>
 
 <script>
-  // Paddle init — no-op if token isn't set on the window.
+  // Paddle init — no-op unless a Billing-v2 client-side token is set.
+  // Token format: live_pct_... / test_pct_... — anything else triggers the
+  // SDK error overlay so we silently skip until inject-paddle-token.js
+  // stamps in a valid one.
   (function () {
-    if (window.Paddle && typeof window.Paddle.Initialize === 'function' && window.__sks_paddle_token) {
-      try { window.Paddle.Initialize({ token: window.__sks_paddle_token }); } catch (e) { console.warn('Paddle init failed', e); }
-    } else if (window.__sks_paddle_token) {
-      // Paddle script loads async — retry once it's ready.
-      document.addEventListener('DOMContentLoaded', function () {
-        if (window.Paddle && window.Paddle.Initialize) {
-          try { window.Paddle.Initialize({ token: window.__sks_paddle_token }); } catch (e) {}
-        }
-      });
+    var t = window.__sks_paddle_token;
+    if (!t || !/^(live|test)_/.test(t)) return;
+    function go() {
+      if (window.Paddle && typeof window.Paddle.Initialize === 'function') {
+        try { window.Paddle.Initialize({ token: t }); } catch (e) { console.warn('Paddle init failed', e); }
+      }
     }
+    if (window.Paddle && typeof window.Paddle.Initialize === 'function') go();
+    else document.addEventListener('DOMContentLoaded', go);
   })();
 </script>
 

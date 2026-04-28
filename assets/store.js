@@ -112,8 +112,13 @@
     // Re-initialize Lemon.js in case it loaded before our buttons rendered.
     if (window.createLemonSqueezy) { window.createLemonSqueezy(); }
     // Re-scan for Paddle.js buttons. Paddle auto-scans on init, but we re-render cards after fetch.
-    if (window.Paddle && typeof window.Paddle.Initialize === 'function' && window.__sks_paddle_token && !window.__misfits_paddle_init) {
-      try { window.Paddle.Initialize({ token: window.__sks_paddle_token }); window.__misfits_paddle_init = true; } catch (_) {}
+    // Token format guard: Paddle Billing v2 expects `live_pct_...` / `test_pct_...`. Anything else
+    // pops the SDK error overlay; skip silently until a valid client-side token is wired.
+    if (window.Paddle && typeof window.Paddle.Initialize === 'function' && !window.__misfits_paddle_init) {
+      var t = window.__sks_paddle_token;
+      if (t && /^(live|test)_/.test(t)) {
+        try { window.Paddle.Initialize({ token: t }); window.__misfits_paddle_init = true; } catch (_) {}
+      }
     }
   }
 

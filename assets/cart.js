@@ -85,11 +85,17 @@
     // store.js (legal pages, product detail pages without a grid) still need
     // Paddle.Initialize before Checkout.open works. Idempotent — guarded by
     // window.__misfits_paddle_init.
+    //
+    // Token format guard: Paddle Billing v2 client-side tokens must start with
+    // `live_pct_` or `test_pct_`. Anything else (legacy / API key / mistake)
+    // makes Initialize() pop the SDK error overlay on every page load.
+    // Skip silently in that case — checkout will fall back to LS / toast.
     if (window.__misfits_paddle_init) return true;
     if (!(window.Paddle && typeof window.Paddle.Initialize === 'function')) return false;
-    if (!window.__sks_paddle_token) return false;
+    var t = window.__sks_paddle_token;
+    if (!t || !/^(live|test)_/.test(t)) return false;
     try {
-      window.Paddle.Initialize({ token: window.__sks_paddle_token });
+      window.Paddle.Initialize({ token: t });
       window.__misfits_paddle_init = true;
       return true;
     } catch (e) { console.warn('Paddle init from cart failed:', e); return false; }
