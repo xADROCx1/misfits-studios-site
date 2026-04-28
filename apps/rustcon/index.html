@@ -189,22 +189,27 @@
   .rc-hero-art { display: flex; justify-content: center; }
   .rc-phone { max-width: 320px; width: 100%; box-shadow: 0 0 0 2px var(--rc-cyan), 0 0 60px rgba(0,229,255,.3), 0 30px 80px rgba(0,0,0,.7); }
 
-  /* ---------- Buttons ---------- */
+  /* ---------- Buttons ----------
+     Primary CTA (.rc-btn) is brand neon-green-on-black for unambiguous
+     legibility — text color is locked to the page background (--rc-bg)
+     so it never gets confused with the button fill. Pink + ghost variants
+     keep their accent identity but explicitly pin contrast on hover. */
   .rc-btns { display: flex; flex-wrap: wrap; gap: .9rem; }
   .rc-btn {
     display: inline-flex; align-items: center; gap: .6rem;
     padding: .9rem 1.4rem;
-    font-family: var(--rc-mono); font-weight: 700; font-size: .92rem;
+    font-family: var(--rc-mono); font-weight: 800; font-size: .92rem;
     text-transform: uppercase; letter-spacing: .12em;
-    color: #050a13; background: var(--rc-cyan);
-    border: 2px solid var(--rc-cyan);
+    color: var(--rc-bg); background: var(--rc-green);
+    border: 2px solid var(--rc-green);
     transition: all .12s ease;
     cursor: pointer;
+    text-shadow: none;
   }
   .rc-btn::before { content: "▸"; color: currentColor; }
-  .rc-btn:hover { background: #fff; border-color: #fff; color: #050a13; box-shadow: 0 0 30px rgba(0,229,255,.6); }
-  .rc-btn-pink { background: transparent; color: var(--rc-pink); border-color: var(--rc-pink); }
-  .rc-btn-pink:hover { background: var(--rc-pink); color: #050a13; box-shadow: 0 0 30px rgba(255,28,141,.5); }
+  .rc-btn:hover { background: #00cc6e; border-color: #00cc6e; color: var(--rc-bg); box-shadow: 0 0 30px rgba(0,255,136,.55); }
+  .rc-btn-pink { background: var(--rc-pink); color: var(--rc-bg); border-color: var(--rc-pink); }
+  .rc-btn-pink:hover { background: #ff4ba2; border-color: #ff4ba2; color: var(--rc-bg); box-shadow: 0 0 30px rgba(255,28,141,.55); }
   .rc-btn-ghost { background: transparent; color: var(--rc-text); border-color: var(--rc-border); }
   .rc-btn-ghost:hover { color: var(--rc-cyan); border-color: var(--rc-cyan); background: transparent; }
 
