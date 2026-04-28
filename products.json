@@ -1558,5 +1558,74 @@
       "last_updated": "2026-04-21",
       "body_md": "# Changelog\n\n*Release history.*\n\nEvery Shadow Kids Studios plugin ships with a version. This page shows the current version of every plugin in the catalog, pulled live from our products manifest. Detailed release notes per plugin live on each product page.\n\n> Currently tracking the full catalog, versioned via SemVer.\n\n## How Versioning Works\n\nWe follow **SemVer** — `MAJOR.MINOR.PATCH`:\n\n- `PATCH` — bug fixes, no behavior change for config files.\n- `MINOR` — new features, additive config keys, backwards compatible.\n- `MAJOR` — breaking config or behavior change. Read the release notes before upgrading.\n\n## Where To Find Release Notes\n\nOpen any product page — the version history is inline on each one. For patch alerts immediately after Rust forced wipes, subscribe to the Discord.\n\n## Recent Studio-Wide Changes\n\n- **2026-04** — Editor UI: prose pages are now editable from the admin (`/admin/editor.html` → Pages).\n- **2026-04** — All plugins verified against the April forced wipe.\n- **2026-03** — Misfits brand aesthetic rolled out across the storefront.\n"
     }
+  },
+  "apps_pages": {
+    "rustcon": {
+      "slug": "rustcon",
+      "title": "RUSTCON_APP — Mobile RCON for Rust Server Admins · Shadow Kids Studios",
+      "meta_description": "RustCON is the most complete mobile RCON app for Rust game servers. Live chat, RCON console, player manager, Oxide and Carbon permissions, item giver, events, kits. Android and iOS — built solo by Shadow Kids Studios.",
+      "canonical_url": "https://shadowkidsstudios.com/apps/rustcon/",
+      "og_title": "RUSTCON — Mobile RCON for Rust Server Admins",
+      "og_description": "Run your Rust server from your phone. Live chat, console, player manager, Oxide and Carbon permissions, item giver, events, kits.",
+      "og_image": "https://shadowkidsstudios.com/apps/rustcon/assets/Rustcon-server-banner.png",
+      "app_icon": "assets/Rustcon-new-icon2.png",
+      "banner": "assets/Rustcon-server-banner.png",
+      "phone_screenshot": "assets/screenshots/ss1.png",
+      "app_name": "RustCON",
+      "app_handle": "RUSTCON_APP",
+      "app_subtitle": "// mobile_rcon · oxide · carbon",
+      "hero": {
+        "strap": "JOIN  ·  THE  ·  ADMINS",
+        "headline_main": "RUST",
+        "headline_accent": "CON",
+        "lead": "The most complete mobile RCON for Rust game servers. Live chat, full console, player manager with Steam avatars, Oxide and Carbon permissions, 1,185 giveable items, events, and kits. Built solo by an admin who actually runs servers."
+      },
+      "store_links": {
+        "play_store_url": "https://play.google.com/store/apps/details?id=com.xadroc.rustcon",
+        "app_store_url": "https://apps.apple.com/us/app/rustcon/id6761402467"
+      },
+      "pricing": {
+        "monthly_label": "$3.99/mo",
+        "yearly_label": "$29.99/yr",
+        "monthly_price": "3.99",
+        "yearly_price": "29.99",
+        "tag_line": "Free trial · then {monthly} or {yearly} · cancel anytime"
+      },
+      "features_heading": "FEATURES",
+      "features_sub": "eight_modules · everything_an_admin_actually_needs",
+      "features": [
+        {"color": "cyan",   "glyph": "›_",  "title": "RCON CONSOLE",          "description": "Full WebRcon console with command history and live log streaming. No SSH. No proxy. Every Rust console command available.", "route": "/console"},
+        {"color": "pink",   "glyph": "◢",  "title": "LIVE CHAT",             "description": "Watch and reply to in-game chat in real time. Color tags render correctly. Send as server, admin, or custom name.",            "route": "/chat"},
+        {"color": "green",  "glyph": "◉",  "title": "PLAYER MANAGER",        "description": "Every player with Steam avatar, SteamID, ping, and a Tools menu — kick, ban, mute, kill, teleport — one tap.",                "route": "/players"},
+        {"color": "yellow", "glyph": "◆",  "title": "OXIDE + CARBON PERMS",  "description": "Visual permissions editor for both frameworks. Browse groups, grant and revoke plugin perms. No typing oxide.grant on a phone.", "route": "/permissions"},
+        {"color": "purple", "glyph": "▣",  "title": "1,185 GIVEABLE ITEMS",  "description": "Search the entire Rust item list with icons. Skins, blueprints, components — give to any player in two taps. Auto-updates each wipe.", "route": "/give"},
+        {"color": "orange", "glyph": "⚡", "title": "EVENTS",                 "description": "Spawn heli, cargo ship, CH47, Bradley, airdrops — and control weather and time. Run community events from the couch.",        "route": "/events"},
+        {"color": "red",    "glyph": "▲",  "title": "SERVER MONITOR",        "description": "FPS, entity count, players, memory, network — at a glance. Catch lag spikes before players notice.",                          "route": "/monitor"},
+        {"color": "cyan",   "glyph": "◇",  "title": "MULTI-SERVER",          "description": "Admin more than one server? Switch between them without re-entering credentials. Encrypted local storage.",                   "route": "/profiles"}
+      ],
+      "shots_heading": "RUNTIME",
+      "shots_sub": "live_screens · ios_build · oxide+carbon_active",
+      "screenshots": [
+        {"color": "red",    "src": "assets/screenshots/ss7.png", "alt": "RustCON server monitoring dashboard with FPS, entity count, network, uptime and memory",        "title": "SERVER MONITOR", "caption": "Live FPS, entities, network, uptime. Catch lag before players do."},
+        {"color": "green",  "src": "assets/screenshots/ss6.png", "alt": "RustCON player list with online and sleeping players, Steam avatars and Tools menu",            "title": "PLAYER MANAGER", "caption": "Steam avatars, ping, status, Tools menu — one tap from anywhere."},
+        {"color": "yellow", "src": "assets/screenshots/ss3.png", "alt": "RustCON Oxide permissions manager showing groups, plugin search and grant or revoke toggles",   "title": "PERMISSIONS",    "caption": "Native Oxide and Carbon. Groups, plugins, grant/revoke. No typing."},
+        {"color": "orange", "src": "assets/screenshots/ss5.png", "alt": "RustCON events panel with Patrol Heli, Cargo Ship, Bradley, CH47 and weather and time controls", "title": "EVENTS",         "caption": "Heli, cargo, Bradley, CH47, weather, time. Couch-driven chaos."},
+        {"color": "cyan",   "src": "assets/screenshots/ss4.png", "alt": "RustCON commands panel with quick actions, plugin reload, teleport, restart and a custom command input", "title": "QUICK COMMANDS", "caption": "The commands you actually run, pre-wired. Teleport, save, skip night, restart."},
+        {"color": "pink",   "src": "assets/screenshots/ss2.png", "alt": "RustCON kits panel with grid of kits and Give buttons",                                          "title": "KITS",           "caption": "Every kit on your server, one tap to hand out. Standard Kits plugin compatible."}
+      ],
+      "faq_heading": "FAQ",
+      "faq_sub": "stuff_admins_ask · before_install",
+      "faqs": [
+        {"q": "Does RustCON need a server-side plugin?", "a": "No. RustCON connects over standard WebRcon, the same way the in-game F1 console and the official Facepunch tools do. If your server has RCON enabled, RustCON works."},
+        {"q": "Does it work with Oxide (uMod) and Carbon?", "a": "Yes — both. The permissions manager has native support for Oxide and Carbon group/user/permission models. Toggle between frameworks in the app."},
+        {"q": "How is RustCON different from Rust+?", "a": "Rust+ is the official companion app for players — map, base alerts, team chat. RustCON is the admin's panel — RCON console, player management, permissions, item giving, events, kits. Different tool, different audience."},
+        {"q": "What does it cost?", "a": "Free trial for new users. After the trial, an active subscription is required: $3.99/month or $29.99/year. No ads. No dark patterns. Cancel anytime through the App Store or Google Play."},
+        {"q": "Which platforms are supported?", "a": "Live now on the Apple App Store (iPhone, iPad, M1+ Macs, Vision Pro) and on Google Play (Android). Desktop builds (Windows, macOS, Linux) are in active development."},
+        {"q": "Is this affiliated with Facepunch Studios?", "a": "No. RustCON is an independent third-party admin tool that talks to the standard Rust RCON endpoint. Rust® is a trademark of Facepunch Studios."}
+      ],
+      "cta_heading": "READY_TO_DEPLOY?",
+      "cta_sub": "Free trial. Two taps to install. Connect to your first server in under a minute.",
+      "schema_app_subcategory": "Game Server Admin Tool"
+    }
   }
 }

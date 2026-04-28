@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="/assets/cyber-v5.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Rubik+Mono+One&display=swap" rel="stylesheet" />
+<script src="app-page-template.js" defer></script>
 <style>
   :root {
     --bg: #000;
@@ -2198,7 +2199,10 @@
 
     <div class="nav-sec" style="margin-top:12px">Content</div>
     <div class="nav-item" data-view="pages">
-      <span>&#128196; Pages</span><span class="c" id="c-pages">7</span>
+      <span>&#128196; Pages</span><span class="c" id="c-pages">6</span>
+    </div>
+    <div class="nav-item" data-view="app-pages">
+      <span>&#128241; App Pages</span><span class="c" id="c-app-pages">1</span>
     </div>
 
     <div class="nav-sec" style="margin-top:12px">Reports</div>
@@ -2754,13 +2758,13 @@
         <aside class="pages-sidebar">
           <div class="pages-sidebar-head">
             <div class="pages-sidebar-title">Prose Pages</div>
-            <div class="pages-sidebar-sub">7 editable pages · 6 prose + 1 raw HTML</div>
+            <div class="pages-sidebar-sub">6 editable prose pages</div>
           </div>
           <div class="pages-list" id="pages-list">
             <!-- Rows injected by renderPagesList() -->
           </div>
           <div class="pages-sidebar-foot">
-            <span class="pages-foot-hint">Prose: <code>products.json</code> · Raw HTML: standalone files in repo</span>
+            <span class="pages-foot-hint">Stored in <code>products.json</code> under <code>pages</code></span>
           </div>
         </aside>
 
@@ -2769,7 +2773,7 @@
           <div class="pages-editor-empty" id="pages-editor-empty">
             <div class="pages-editor-empty-icon">&#128196;</div>
             <div class="pages-editor-empty-title">Pick a page to edit</div>
-            <div class="pages-editor-empty-sub">Prose pages: titles &amp; markdown stored in <code>products.json</code> under <code>pages</code>. Pages with the <span style="color:var(--mint);font-size:9px;letter-spacing:0.1em;border:1px solid var(--mint);padding:1px 4px;border-radius:2px">HTML</span> badge are raw HTML files in the repo and ride the same publish flow as other staged files.</div>
+            <div class="pages-editor-empty-sub">Titles &amp; body markdown are stored in <code>products.json</code> under <code>pages</code> and ship with the normal publish flow. For app marketing pages (RustCON, etc.), use the <b>App Pages</b> section in the left nav.</div>
           </div>
 
           <div class="pages-editor-body" id="pages-editor-body" style="display:none">
@@ -2808,8 +2812,53 @@
         </section>
       </div>
     </div>
-    
-    
+
+
+    <!-- App Pages editor — structured form for app marketing pages (rustcon, etc.).
+         Generates apps/<slug>/index.html via window.SKSAppPage.render and stages
+         it on every keystroke; rides the existing staged-file publish flow. -->
+    <div id="app-pages-panel" style="display:none">
+      <div class="pages-layout">
+
+        <aside class="pages-sidebar">
+          <div class="pages-sidebar-head">
+            <div class="pages-sidebar-title">App Pages</div>
+            <div class="pages-sidebar-sub" id="ap-sidebar-sub">— apps</div>
+          </div>
+          <div class="pages-list" id="ap-list"></div>
+          <button class="nav-add" style="margin:10px;" onclick="appPageNew()" type="button">+ NEW APP PAGE</button>
+          <div class="pages-sidebar-foot">
+            <span class="pages-foot-hint">Form data &rarr; <code>products.json</code> · HTML &rarr; <code>apps/&lt;slug&gt;/index.html</code></span>
+          </div>
+        </aside>
+
+        <section class="pages-editor" id="ap-editor">
+          <div class="pages-editor-empty" id="ap-editor-empty">
+            <div class="pages-editor-empty-icon">&#128241;</div>
+            <div class="pages-editor-empty-title">Pick an app to edit</div>
+            <div class="pages-editor-empty-sub">Each app page is generated from structured data. The form below mirrors the field set the rustcon page uses; new apps start from the same template.</div>
+          </div>
+
+          <div class="pages-editor-body" id="ap-editor-body" style="display:none">
+            <div class="pages-editor-head">
+              <div class="pages-head-left">
+                <span class="pages-key-chip" id="ap-slug-chip">slug</span>
+                <input type="text" class="pages-title-input" id="ap-title-input" placeholder="Page <title> (browser tab + SEO)" />
+              </div>
+              <div class="pages-head-right">
+                <span class="pages-last-updated" id="ap-status">—</span>
+                <button class="btn" onclick="appPagePreview()" title="Open the staged HTML in a new tab" type="button">&#128065; Preview</button>
+                <button class="btn" onclick="appPageDelete()" title="Remove this app page (form data + staged file)" type="button" style="color:var(--danger);border-color:rgba(255,71,87,.4)">&#128465; Delete</button>
+              </div>
+            </div>
+
+            <div class="ap-form" id="ap-form" style="display:flex;flex-direction:column;gap:18px;padding:20px;overflow-y:auto;flex:1;"></div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+
     <!-- Discount code manager (hidden by default, shown when Discounts nav item clicked) -->
     <div id="discounts-panel" style="display:none">
       <div class="discounts-setup" id="discounts-setup" style="display:none">
@@ -3743,6 +3792,7 @@ function showFeaturedView() {
   { const el = document.getElementById('homepage-panel'); if (el) el.style.display = 'none'; }
   { const el = document.getElementById('health-panel'); if (el) el.style.display = 'none'; }
   { const el = document.getElementById('pages-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('app-pages-panel'); if (el) el.style.display = 'none'; }
   { const el = document.getElementById('discounts-panel'); if (el) el.style.display = 'none'; }
   { const el = document.getElementById('history-panel'); if (el) el.style.display = 'none'; }
 }
@@ -4258,6 +4308,7 @@ function setView(view) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.view === view));
   if (view === 'sales')    showSalesView();
   if (view === 'featured') showFeaturedView();
+  if (view === 'app-pages') showAppPagesView();
   // WAVES:setView
   if (view === 'settings')   showSettingsView();
   if (view === 'homepage')   showHomepageView();
@@ -4682,6 +4733,7 @@ function showSalesView() {
   { const el = document.getElementById('homepage-panel'); if (el) el.style.display = 'none'; }
   { const el = document.getElementById('health-panel'); if (el) el.style.display = 'none'; }
   { const el = document.getElementById('pages-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('app-pages-panel'); if (el) el.style.display = 'none'; }
   { const el = document.getElementById('discounts-panel'); if (el) el.style.display = 'none'; }
   { const el = document.getElementById('history-panel'); if (el) el.style.display = 'none'; }
 }
@@ -4701,6 +4753,7 @@ function showProductGrid() {
   { const el = document.getElementById('homepage-panel'); if (el) el.style.display = 'none'; }
   { const el = document.getElementById('health-panel'); if (el) el.style.display = 'none'; }
   { const el = document.getElementById('pages-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('app-pages-panel'); if (el) el.style.display = 'none'; }
   { const el = document.getElementById('discounts-panel'); if (el) el.style.display = 'none'; }
   { const el = document.getElementById('history-panel'); if (el) el.style.display = 'none'; }
 }
@@ -4866,6 +4919,7 @@ function showSettingsView() {
   { const el = document.getElementById('homepage-panel'); if (el) el.style.display = 'none'; }
   { const el = document.getElementById('health-panel'); if (el) el.style.display = 'none'; }
   { const el = document.getElementById('pages-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('app-pages-panel'); if (el) el.style.display = 'none'; }
   { const el = document.getElementById('discounts-panel'); if (el) el.style.display = 'none'; }
   { const el = document.getElementById('history-panel'); if (el) el.style.display = 'none'; }
   document.getElementById('grid').style.display = 'none';
@@ -5455,6 +5509,7 @@ function showHomepageView() {
   { const el = document.getElementById('settings-panel'); if (el) el.style.display = 'none'; }
   { const el = document.getElementById('health-panel'); if (el) el.style.display = 'none'; }
   { const el = document.getElementById('pages-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('app-pages-panel'); if (el) el.style.display = 'none'; }
   { const el = document.getElementById('discounts-panel'); if (el) el.style.display = 'none'; }
   { const el = document.getElementById('history-panel'); if (el) el.style.display = 'none'; }
   document.getElementById('grid').style.display = 'none';
@@ -5594,6 +5649,7 @@ function showHealthView() {
   { const el = document.getElementById('settings-panel'); if (el) el.style.display = 'none'; }
   { const el = document.getElementById('homepage-panel'); if (el) el.style.display = 'none'; }
   { const el = document.getElementById('pages-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('app-pages-panel'); if (el) el.style.display = 'none'; }
   { const el = document.getElementById('discounts-panel'); if (el) el.style.display = 'none'; }
   { const el = document.getElementById('history-panel'); if (el) el.style.display = 'none'; }
   document.getElementById('grid').style.display = 'none';
@@ -5898,33 +5954,22 @@ function exportHealthMarkdown() {
  * ============================================================ */
 
 /* Hardcoded list so the editor can render the sidebar before products.json loads. */
-const PAGE_KEYS = ['about', 'support', 'terms', 'privacy', 'refund', 'changelog', 'rustcon'];
+const PAGE_KEYS = ['about', 'support', 'terms', 'privacy', 'refund', 'changelog'];
 const PAGE_DEFAULT_TITLES = {
   about: 'About',
   support: 'Support',
   terms: 'Terms of Service',
   privacy: 'Privacy Policy',
   refund: 'Refund Policy',
-  changelog: 'Changelog',
-  rustcon: 'RustCON Page'
+  changelog: 'Changelog'
 };
 
-/* Pages whose content lives as a standalone HTML file in the repo, NOT
- * inside products.json. These edit raw HTML in the same panel; on Publish
- * they ride the existing staged-file commit flow.
- *
- * key -> { repoPath, liveUrl, sublabel }
- *   repoPath: the repository path the editor commits to via GitHub Contents API.
- *   liveUrl:  the URL the editor fetches on first selection to populate the buffer.
- *   sublabel: shown under the title in the sidebar so the user knows it's a file.
- */
-const PAGE_FILE_MAP = {
-  rustcon: {
-    repoPath: 'apps/rustcon/index.html',
-    liveUrl:  '/apps/rustcon/index.html',
-    sublabel: 'apps/rustcon/index.html'
-  }
-};
+/* File-backed Pages were used to raw-HTML edit standalone files (e.g. the
+ * RustCON marketing page). That role has been taken over by the structured
+ * "App Pages" editor (showAppPagesView), which generates HTML from form data
+ * via window.SKSAppPage.render. PAGE_FILE_MAP is kept as a no-op extension
+ * point in case a future raw-HTML page needs the old behavior. */
+const PAGE_FILE_MAP = {};
 function isFileBackedPage(key) { return Object.prototype.hasOwnProperty.call(PAGE_FILE_MAP, key); }
 
 /* Editor runtime state for the pages view. */
@@ -5991,7 +6036,7 @@ function showPagesView() {
   document.getElementById('pages-panel').style.display = '';
   document.getElementById('canvas-title').textContent = 'Prose Pages';
   document.getElementById('canvas-sub').textContent =
-    '7 pages · 6 in products.json + 1 raw HTML file (apps/rustcon)';
+    '6 pages · ships with products.json · rendered by /assets/prose.js';
   initPagesEditor(); // idempotent — wires title + textarea input listeners
   renderPagesList();
   // Keep previously selected page, or default to 'about'
@@ -6221,6 +6266,403 @@ function updatePagesPreview() {
   }
 }
 
+/* ============================================================
+ *  APP PAGES EDITOR
+ *  Structured form for app marketing pages (rustcon, etc.).
+ *  Data lives in products.json under apps_pages[<slug>].
+ *  Compiled HTML at /apps/<slug>/index.html is rebuilt on every
+ *  keystroke via window.SKSAppPage.render and staged to
+ *  S.stagedFiles, riding the existing publish flow.
+ * ============================================================ */
+
+const APP_PAGE_FIELD_GROUPS = [
+  { id: 'meta', title: 'SEO & Meta', fields: [
+    { f: 'title', label: 'Page <title>', type: 'text', placeholder: 'RUSTCON_APP — Mobile RCON for...' },
+    { f: 'meta_description', label: 'Meta description', type: 'textarea', rows: 2 },
+    { f: 'canonical_url', label: 'Canonical URL', type: 'text' },
+    { f: 'og_title', label: 'OG title', type: 'text' },
+    { f: 'og_description', label: 'OG description', type: 'textarea', rows: 2 },
+    { f: 'og_image', label: 'OG image URL (absolute)', type: 'text' }
+  ]},
+  { id: 'assets', title: 'Assets', fields: [
+    { f: 'app_icon', label: 'App icon (relative path)', type: 'text', placeholder: 'assets/Rustcon-new-icon2.png' },
+    { f: 'banner', label: 'Banner image (relative path)', type: 'text', placeholder: 'assets/Rustcon-server-banner.png' },
+    { f: 'phone_screenshot', label: 'Hero phone screenshot (relative path)', type: 'text', placeholder: 'assets/screenshots/ss1.png' }
+  ]},
+  { id: 'identity', title: 'App Identity', fields: [
+    { f: 'app_name', label: 'App name', type: 'text', placeholder: 'RustCON' },
+    { f: 'app_handle', label: 'App handle (block heading)', type: 'text', placeholder: 'RUSTCON_APP' },
+    { f: 'app_subtitle', label: 'App subtitle', type: 'text', placeholder: '// mobile_rcon · oxide · carbon' }
+  ]},
+  { id: 'hero', title: 'Hero', fields: [
+    { f: 'hero.strap',           label: 'Strap line (above headline)', type: 'text' },
+    { f: 'hero.headline_main',   label: 'Headline (line 1)', type: 'text' },
+    { f: 'hero.headline_accent', label: 'Headline accent (line 2 — pink)', type: 'text' },
+    { f: 'hero.lead',            label: 'Lead paragraph', type: 'textarea', rows: 4 }
+  ]},
+  { id: 'store', title: 'Store Links', fields: [
+    { f: 'store_links.play_store_url', label: 'Google Play URL', type: 'text' },
+    { f: 'store_links.app_store_url',  label: 'Apple App Store URL', type: 'text' }
+  ]},
+  { id: 'pricing', title: 'Pricing', fields: [
+    { f: 'pricing.monthly_label', label: 'Monthly label (display)', type: 'text', placeholder: '$3.99/mo' },
+    { f: 'pricing.yearly_label',  label: 'Yearly label (display)', type: 'text', placeholder: '$29.99/yr' },
+    { f: 'pricing.monthly_price', label: 'Monthly price (number, schema.org)', type: 'text', placeholder: '3.99' },
+    { f: 'pricing.yearly_price',  label: 'Yearly price (number, schema.org)', type: 'text', placeholder: '29.99' },
+    { f: 'pricing.tag_line',      label: 'Pricing tag line (use {monthly} / {yearly})', type: 'text' }
+  ]},
+  { id: 'cta', title: 'Closing CTA', fields: [
+    { f: 'cta_heading', label: 'CTA heading', type: 'text' },
+    { f: 'cta_sub',     label: 'CTA subtext', type: 'textarea', rows: 2 }
+  ]}
+];
+
+const APP_FEATURE_COLORS = ['cyan', 'pink', 'green', 'yellow', 'purple', 'orange', 'red'];
+
+const AppPagesS = {
+  selectedSlug: null,
+  baseline: new Map(),  // slug -> JSON.stringify(data) at last load/save
+  dirty: new Set()
+};
+
+function getAppPages() {
+  if (!S.raw) S.raw = {};
+  if (!S.raw.apps_pages || typeof S.raw.apps_pages !== 'object') S.raw.apps_pages = {};
+  return S.raw.apps_pages;
+}
+
+function appPageSlugs() {
+  const ap = getAppPages();
+  return Object.keys(ap).sort();
+}
+
+function appPageGet(slug) { return getAppPages()[slug]; }
+
+/* Get/set a nested field path like "hero.headline_main" or "store_links.play_store_url". */
+function deepGet(obj, path) {
+  if (!path) return undefined;
+  return path.split('.').reduce(function (o, k) { return o == null ? o : o[k]; }, obj);
+}
+function deepSet(obj, path, value) {
+  if (!path) return;
+  const parts = path.split('.');
+  let cur = obj;
+  for (let i = 0; i < parts.length - 1; i++) {
+    if (cur[parts[i]] == null || typeof cur[parts[i]] !== 'object') cur[parts[i]] = {};
+    cur = cur[parts[i]];
+  }
+  cur[parts[parts.length - 1]] = value;
+}
+
+function showAppPagesView() {
+  setLayoutMode("full", "App Pages");
+  ['grid','sales-panel','featured-panel','settings-panel','homepage-panel','health-panel','discounts-panel','history-panel','pages-panel'].forEach(function (id) {
+    const el = document.getElementById(id); if (el) el.style.display = 'none';
+  });
+  document.getElementById('app-pages-panel').style.display = '';
+  document.getElementById('canvas-title').textContent = 'App Pages';
+  const slugs = appPageSlugs();
+  document.getElementById('canvas-sub').textContent = slugs.length + ' app page' + (slugs.length === 1 ? '' : 's') + ' · structured form generates apps/<slug>/index.html';
+  document.getElementById('ap-sidebar-sub').textContent = slugs.length + ' app' + (slugs.length === 1 ? '' : 's');
+  // Seed baselines for any unseen slugs
+  slugs.forEach(function (slug) {
+    if (!AppPagesS.baseline.has(slug)) AppPagesS.baseline.set(slug, JSON.stringify(appPageGet(slug)));
+  });
+  renderAppPagesList();
+  selectAppPage(AppPagesS.selectedSlug || slugs[0] || null);
+  // Update nav chip
+  const chip = document.getElementById('c-app-pages'); if (chip) chip.textContent = String(slugs.length);
+}
+
+function renderAppPagesList() {
+  const wrap = document.getElementById('ap-list');
+  if (!wrap) return;
+  const slugs = appPageSlugs();
+  if (!slugs.length) {
+    wrap.innerHTML = '<div style="padding:18px;color:var(--muted);font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-align:center;">No app pages yet.<br>Click "+ NEW APP PAGE" to add one.</div>';
+    return;
+  }
+  wrap.innerHTML = slugs.map(function (slug) {
+    const d = appPageGet(slug) || {};
+    const isActive = slug === AppPagesS.selectedSlug;
+    const isDirty = AppPagesS.dirty.has(slug);
+    return '<div class="pages-row ' + (isActive ? 'active' : '') + '" data-slug="' + escapeHtml(slug) + '" onclick="selectAppPage(\'' + escapeHtml(slug) + '\')">' +
+      '<div class="pages-row-main">' +
+        '<div class="pages-row-title">' + escapeHtml(d.app_name || slug) + '</div>' +
+        '<div class="pages-row-key">apps/' + escapeHtml(slug) + '/index.html</div>' +
+      '</div>' +
+      (isDirty ? '<span class="pages-row-dirty" title="Unsaved changes"></span>' : '') +
+    '</div>';
+  }).join('');
+}
+
+function selectAppPage(slug) {
+  if (!slug) {
+    AppPagesS.selectedSlug = null;
+    document.getElementById('ap-editor-empty').style.display = '';
+    document.getElementById('ap-editor-body').style.display = 'none';
+    return;
+  }
+  if (!appPageGet(slug)) return;
+  AppPagesS.selectedSlug = slug;
+  document.getElementById('ap-editor-empty').style.display = 'none';
+  document.getElementById('ap-editor-body').style.display = '';
+  document.getElementById('ap-slug-chip').textContent = slug;
+  const d = appPageGet(slug);
+  const titleEl = document.getElementById('ap-title-input');
+  titleEl.value = d.title || '';
+  titleEl.oninput = function () { d.title = titleEl.value; onAppPageChange(); };
+  renderAppForm(d);
+  updateAppPageStatus();
+  renderAppPagesList();
+}
+
+function renderAppForm(d) {
+  const wrap = document.getElementById('ap-form');
+  if (!wrap) return;
+  let html = '';
+  // Static field groups
+  APP_PAGE_FIELD_GROUPS.forEach(function (g) {
+    if (g.id === 'meta') return; // title is in the head input; rest lives below as part of meta group anyway
+    html += renderAppFormGroup(g, d);
+  });
+  // Meta group placed last so it doesn't push hero/identity below the fold
+  html += renderAppFormGroup(APP_PAGE_FIELD_GROUPS.find(function (g) { return g.id === 'meta'; }), d);
+  // Repeating lists
+  html += renderAppFormFeatures(d);
+  html += renderAppFormScreenshots(d);
+  html += renderAppFormFaqs(d);
+  wrap.innerHTML = html;
+  // Wire all simple text/textarea inputs
+  wrap.querySelectorAll('[data-apf]').forEach(function (el) {
+    el.addEventListener('input', function () {
+      const path = el.getAttribute('data-apf');
+      const cur = appPageGet(AppPagesS.selectedSlug);
+      deepSet(cur, path, el.value);
+      onAppPageChange();
+    });
+  });
+}
+
+function renderAppFormGroup(g, d) {
+  let inner = '';
+  g.fields.forEach(function (fd) {
+    const val = deepGet(d, fd.f);
+    const safeVal = val == null ? '' : String(val);
+    inner += '<div class="field"><label>' + escapeHtml(fd.label) + '</label>';
+    if (fd.type === 'textarea') {
+      inner += '<textarea class="inp" rows="' + (fd.rows || 3) + '" data-apf="' + escapeHtml(fd.f) + '" placeholder="' + escapeHtml(fd.placeholder || '') + '">' + escapeHtml(safeVal) + '</textarea>';
+    } else {
+      inner += '<input class="inp" type="text" data-apf="' + escapeHtml(fd.f) + '" value="' + escapeHtml(safeVal) + '" placeholder="' + escapeHtml(fd.placeholder || '') + '" />';
+    }
+    inner += '</div>';
+  });
+  return '<details open style="border:1px solid var(--line);padding:12px 14px;background:rgba(0,242,255,0.03);"><summary style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);cursor:pointer;outline:none;">' + escapeHtml(g.title) + '</summary><div style="display:flex;flex-direction:column;gap:10px;margin-top:12px;">' + inner + '</div></details>';
+}
+
+function renderAppFormFeatures(d) {
+  const features = Array.isArray(d.features) ? d.features : [];
+  let inner = '<div class="field"><label>Section heading</label><input class="inp" type="text" data-apf="features_heading" value="' + escapeHtml(d.features_heading || '') + '"/></div>';
+  inner += '<div class="field"><label>Section sub</label><input class="inp" type="text" data-apf="features_sub" value="' + escapeHtml(d.features_sub || '') + '"/></div>';
+  inner += '<div style="display:flex;flex-direction:column;gap:8px;">';
+  features.forEach(function (f, i) {
+    inner += '<div style="border:1px solid var(--line);padding:10px;background:rgba(0,0,0,.25);display:grid;grid-template-columns:90px 90px 1fr auto;gap:8px;align-items:start;">' +
+      '<input class="inp" type="text" placeholder="color" data-apl="features.' + i + '.color"  value="' + escapeHtml(f.color || '') + '" title="cyan/pink/green/yellow/purple/orange/red" />' +
+      '<input class="inp" type="text" placeholder="glyph" data-apl="features.' + i + '.glyph" value="' + escapeHtml(f.glyph || '') + '" />' +
+      '<div style="display:flex;flex-direction:column;gap:6px;">' +
+        '<input class="inp" type="text" placeholder="Title" data-apl="features.' + i + '.title" value="' + escapeHtml(f.title || '') + '" />' +
+        '<textarea class="inp" rows="2" placeholder="Description" data-apl="features.' + i + '.description">' + escapeHtml(f.description || '') + '</textarea>' +
+        '<input class="inp" type="text" placeholder="route (e.g. /console)" data-apl="features.' + i + '.route" value="' + escapeHtml(f.route || '') + '" />' +
+      '</div>' +
+      '<button class="btn" type="button" onclick="appListRemove(\'features\',' + i + ')" style="color:var(--danger);border-color:rgba(255,71,87,.3);width:32px;padding:4px;" title="Remove">&times;</button>' +
+    '</div>';
+  });
+  inner += '</div>';
+  inner += '<button class="btn" type="button" onclick="appListAdd(\'features\')" style="margin-top:8px;">+ Add feature</button>';
+  return '<details open style="border:1px solid var(--line);padding:12px 14px;background:rgba(0,255,163,0.03);"><summary style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mint);cursor:pointer;outline:none;">Features &rsaquo; ' + features.length + '</summary><div style="display:flex;flex-direction:column;gap:10px;margin-top:12px;">' + inner + '</div></details>';
+}
+
+function renderAppFormScreenshots(d) {
+  const shots = Array.isArray(d.screenshots) ? d.screenshots : [];
+  let inner = '<div class="field"><label>Section heading</label><input class="inp" type="text" data-apf="shots_heading" value="' + escapeHtml(d.shots_heading || '') + '"/></div>';
+  inner += '<div class="field"><label>Section sub</label><input class="inp" type="text" data-apf="shots_sub" value="' + escapeHtml(d.shots_sub || '') + '"/></div>';
+  inner += '<div style="display:flex;flex-direction:column;gap:8px;">';
+  shots.forEach(function (s, i) {
+    inner += '<div style="border:1px solid var(--line);padding:10px;background:rgba(0,0,0,.25);display:grid;grid-template-columns:90px 1fr auto;gap:8px;align-items:start;">' +
+      '<input class="inp" type="text" placeholder="color" data-apl="screenshots.' + i + '.color" value="' + escapeHtml(s.color || '') + '" />' +
+      '<div style="display:flex;flex-direction:column;gap:6px;">' +
+        '<input class="inp" type="text" placeholder="src (relative path)" data-apl="screenshots.' + i + '.src" value="' + escapeHtml(s.src || '') + '" />' +
+        '<input class="inp" type="text" placeholder="alt (accessibility)" data-apl="screenshots.' + i + '.alt" value="' + escapeHtml(s.alt || '') + '" />' +
+        '<input class="inp" type="text" placeholder="title (caption strong)" data-apl="screenshots.' + i + '.title" value="' + escapeHtml(s.title || '') + '" />' +
+        '<textarea class="inp" rows="2" placeholder="caption" data-apl="screenshots.' + i + '.caption">' + escapeHtml(s.caption || '') + '</textarea>' +
+      '</div>' +
+      '<button class="btn" type="button" onclick="appListRemove(\'screenshots\',' + i + ')" style="color:var(--danger);border-color:rgba(255,71,87,.3);width:32px;padding:4px;" title="Remove">&times;</button>' +
+    '</div>';
+  });
+  inner += '</div>';
+  inner += '<button class="btn" type="button" onclick="appListAdd(\'screenshots\')" style="margin-top:8px;">+ Add screenshot</button>';
+  return '<details open style="border:1px solid var(--line);padding:12px 14px;background:rgba(255,28,141,0.03);"><summary style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--pink);cursor:pointer;outline:none;">Screenshots &rsaquo; ' + shots.length + '</summary><div style="display:flex;flex-direction:column;gap:10px;margin-top:12px;">' + inner + '</div></details>';
+}
+
+function renderAppFormFaqs(d) {
+  const faqs = Array.isArray(d.faqs) ? d.faqs : [];
+  let inner = '<div class="field"><label>Section heading</label><input class="inp" type="text" data-apf="faq_heading" value="' + escapeHtml(d.faq_heading || '') + '"/></div>';
+  inner += '<div class="field"><label>Section sub</label><input class="inp" type="text" data-apf="faq_sub" value="' + escapeHtml(d.faq_sub || '') + '"/></div>';
+  inner += '<div style="display:flex;flex-direction:column;gap:8px;">';
+  faqs.forEach(function (f, i) {
+    inner += '<div style="border:1px solid var(--line);padding:10px;background:rgba(0,0,0,.25);display:grid;grid-template-columns:1fr auto;gap:8px;align-items:start;">' +
+      '<div style="display:flex;flex-direction:column;gap:6px;">' +
+        '<input class="inp" type="text" placeholder="Question" data-apl="faqs.' + i + '.q" value="' + escapeHtml(f.q || '') + '" />' +
+        '<textarea class="inp" rows="3" placeholder="Answer" data-apl="faqs.' + i + '.a">' + escapeHtml(f.a || '') + '</textarea>' +
+      '</div>' +
+      '<button class="btn" type="button" onclick="appListRemove(\'faqs\',' + i + ')" style="color:var(--danger);border-color:rgba(255,71,87,.3);width:32px;padding:4px;" title="Remove">&times;</button>' +
+    '</div>';
+  });
+  inner += '</div>';
+  inner += '<button class="btn" type="button" onclick="appListAdd(\'faqs\')" style="margin-top:8px;">+ Add FAQ</button>';
+  return '<details open style="border:1px solid var(--line);padding:12px 14px;background:rgba(204,151,255,0.03);"><summary style="font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--purple);cursor:pointer;outline:none;">FAQs &rsaquo; ' + faqs.length + '</summary><div style="display:flex;flex-direction:column;gap:10px;margin-top:12px;">' + inner + '</div></details>';
+}
+
+/* Wire repeating-list inputs after each render. Called from renderAppForm. */
+function wireListInputs() {
+  document.querySelectorAll('[data-apl]').forEach(function (el) {
+    if (el._aplBound) return;
+    el._aplBound = true;
+    el.addEventListener('input', function () {
+      const path = el.getAttribute('data-apl');
+      const cur = appPageGet(AppPagesS.selectedSlug);
+      deepSet(cur, path, el.value);
+      onAppPageChange({ skipFormReRender: true });
+    });
+  });
+}
+
+function appListAdd(listName) {
+  const slug = AppPagesS.selectedSlug; if (!slug) return;
+  const d = appPageGet(slug);
+  if (!Array.isArray(d[listName])) d[listName] = [];
+  if (listName === 'features') {
+    const next = d[listName].length;
+    d[listName].push({ color: APP_FEATURE_COLORS[next % APP_FEATURE_COLORS.length], glyph: '›', title: 'NEW FEATURE', description: '', route: '' });
+  } else if (listName === 'screenshots') {
+    d[listName].push({ color: 'cyan', src: '', alt: '', title: 'NEW SCREENSHOT', caption: '' });
+  } else if (listName === 'faqs') {
+    d[listName].push({ q: 'New question?', a: '' });
+  }
+  onAppPageChange();
+}
+function appListRemove(listName, idx) {
+  const slug = AppPagesS.selectedSlug; if (!slug) return;
+  const d = appPageGet(slug);
+  if (!Array.isArray(d[listName])) return;
+  d[listName].splice(idx, 1);
+  onAppPageChange();
+}
+
+function onAppPageChange(opts) {
+  opts = opts || {};
+  const slug = AppPagesS.selectedSlug; if (!slug) return;
+  const d = appPageGet(slug);
+  // Re-stage compiled HTML
+  restageAppPageHTML(slug, d);
+  // Mark dirty in PagesS-style state
+  const baseline = AppPagesS.baseline.get(slug);
+  const now = JSON.stringify(d);
+  if (now !== baseline) {
+    AppPagesS.dirty.add(slug);
+    S.dirty.add('__app_pages__');
+  } else {
+    AppPagesS.dirty.delete(slug);
+    if (AppPagesS.dirty.size === 0) S.dirty.delete('__app_pages__');
+  }
+  updateDirtyBadge && updateDirtyBadge();
+  if (!opts.skipFormReRender) {
+    renderAppForm(d);
+    wireListInputs();
+  } else {
+    // Update group counts in summary headers
+    document.querySelectorAll('#ap-form details').forEach(function () {/* no-op: counts refresh on next full render */});
+  }
+  renderAppPagesList();
+  updateAppPageStatus();
+  // Re-wire freshly-rendered inputs (they're created by renderAppForm too — innerHTML wipes listeners)
+  wireListInputs();
+}
+
+function restageAppPageHTML(slug, data) {
+  if (!window.SKSAppPage || typeof window.SKSAppPage.render !== 'function') {
+    console.warn('[app-pages] SKSAppPage.render not loaded yet');
+    return;
+  }
+  let html;
+  try { html = window.SKSAppPage.render(data); }
+  catch (e) { console.error('[app-pages] render failed:', e); toast && toast('App page render failed: ' + e.message, 'err'); return; }
+  const repoPath = 'apps/' + slug + '/index.html';
+  const publicPath = '/' + repoPath;
+  S.stagedFiles.set(publicPath, {
+    repoPath: repoPath,
+    filename: 'index.html',
+    base64: utf8ToBase64(html),
+    size: new Blob([html]).size
+  });
+}
+
+function updateAppPageStatus() {
+  const el = document.getElementById('ap-status');
+  if (!el) return;
+  const slug = AppPagesS.selectedSlug;
+  if (!slug) { el.textContent = '—'; return; }
+  const isDirty = AppPagesS.dirty.has(slug);
+  el.textContent = (isDirty ? '● Staged for next Publish: ' : 'In sync: ') + 'apps/' + slug + '/index.html';
+  el.style.color = isDirty ? 'var(--mint)' : 'var(--muted)';
+}
+
+function appPagePreview() {
+  const slug = AppPagesS.selectedSlug; if (!slug) return;
+  const data = appPageGet(slug);
+  if (!window.SKSAppPage) return;
+  const html = window.SKSAppPage.render(data);
+  const blob = new Blob([html], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+  window.open(url, '_blank');
+  setTimeout(function () { URL.revokeObjectURL(url); }, 30000);
+}
+
+function appPageNew() {
+  const slug = (prompt('New app page slug (lowercase, no spaces — used in /apps/<slug>/):') || '').trim().toLowerCase().replace(/[^a-z0-9-]/g, '');
+  if (!slug) return;
+  const ap = getAppPages();
+  if (ap[slug]) { toast && toast('Slug "' + slug + '" already exists', 'err'); return; }
+  // Clone rustcon as the starting template, OR seed a minimal blank if rustcon absent
+  const template = ap.rustcon ? JSON.parse(JSON.stringify(ap.rustcon)) : {};
+  template.slug = slug;
+  template.app_name = slug.toUpperCase();
+  template.app_handle = slug.toUpperCase() + '_APP';
+  template.title = template.app_name + ' — Shadow Kids Studios';
+  template.canonical_url = 'https://shadowkidsstudios.com/apps/' + slug + '/';
+  ap[slug] = template;
+  AppPagesS.baseline.set(slug, JSON.stringify({})); // empty baseline so creation marks dirty
+  selectAppPage(slug);
+  onAppPageChange();
+  showAppPagesView();
+  toast && toast('Created app page: ' + slug + '. Edit fields and Publish.', 'ok');
+}
+
+function appPageDelete() {
+  const slug = AppPagesS.selectedSlug; if (!slug) return;
+  if (!confirm('Delete app page "' + slug + '"? This removes the form data from products.json. The live HTML at apps/' + slug + '/index.html stays in the repo until you remove it manually.')) return;
+  const ap = getAppPages();
+  delete ap[slug];
+  AppPagesS.baseline.delete(slug);
+  AppPagesS.dirty.add(slug); // mark __app_pages__ dirty so products.json gets re-committed
+  S.dirty.add('__app_pages__');
+  AppPagesS.selectedSlug = null;
+  // Drop any staged HTML for it (we're not committing a new HTML; the file remains until manually deleted)
+  S.stagedFiles.delete('/apps/' + slug + '/index.html');
+  showAppPagesView();
+  toast && toast('Removed app page: ' + slug, 'ok');
+}
+
 /* ---------- Tiny markdown parser (shared shape with /assets/prose.js) ----------
  * Supports: H1-H4, paragraphs, ul/ol, links, bold/italic, inline code, code
  * blocks (```), hr, blockquotes. Not CommonMark — good enough for policy pages.
@@ -6402,6 +6844,7 @@ function showDiscountsView() {
   { const el = document.getElementById('homepage-panel'); if (el) el.style.display = 'none'; }
   { const el = document.getElementById('health-panel'); if (el) el.style.display = 'none'; }
   { const el = document.getElementById('pages-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('app-pages-panel'); if (el) el.style.display = 'none'; }
   { const el = document.getElementById('history-panel'); if (el) el.style.display = 'none'; }
   document.getElementById('grid').style.display = 'none';
   const fp = document.getElementById('featured-panel');
@@ -6785,6 +7228,7 @@ function showHistoryView() {
   { const el = document.getElementById('homepage-panel'); if (el) el.style.display = 'none'; }
   { const el = document.getElementById('health-panel'); if (el) el.style.display = 'none'; }
   { const el = document.getElementById('pages-panel'); if (el) el.style.display = 'none'; }
+  { const el = document.getElementById('app-pages-panel'); if (el) el.style.display = 'none'; }
   { const el = document.getElementById('discounts-panel'); if (el) el.style.display = 'none'; }
   document.getElementById('grid').style.display = 'none';
   const fp = document.getElementById('featured-panel');      if (fp) fp.style.display = 'none';
