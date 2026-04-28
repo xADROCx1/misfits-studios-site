@@ -2198,7 +2198,7 @@
 
     <div class="nav-sec" style="margin-top:12px">Content</div>
     <div class="nav-item" data-view="pages">
-      <span>&#128196; Pages</span><span class="c" id="c-pages">6</span>
+      <span>&#128196; Pages</span><span class="c" id="c-pages">7</span>
     </div>
 
     <div class="nav-sec" style="margin-top:12px">Reports</div>
@@ -5991,7 +5991,8 @@ function showPagesView() {
   document.getElementById('pages-panel').style.display = '';
   document.getElementById('canvas-title').textContent = 'Prose Pages';
   document.getElementById('canvas-sub').textContent =
-    '6 pages · ships with products.json · rendered by /assets/prose.js';
+    '7 pages · 6 in products.json + 1 raw HTML file (apps/rustcon)';
+  initPagesEditor(); // idempotent — wires title + textarea input listeners
   renderPagesList();
   // Keep previously selected page, or default to 'about'
   selectPage(PagesS.selectedKey || 'about');
@@ -6171,12 +6172,20 @@ function onPageChange() {
   if (PagesS.previewOn) updatePagesPreview();
 }
 
-/* Wire up inputs after first render. Called once from init. */
+/* Wire up inputs after first render. Idempotent — safe to call repeatedly,
+ * each element is bound at most once. Called from showPagesView since there
+ * is no top-level init flow that runs after the panel mounts. */
 function initPagesEditor() {
   const titleEl = document.getElementById('pages-title-input');
   const mdEl = document.getElementById('pages-md-input');
-  if (titleEl) titleEl.addEventListener('input', onPageChange);
-  if (mdEl) mdEl.addEventListener('input', onPageChange);
+  if (titleEl && !titleEl._pagesInputBound) {
+    titleEl.addEventListener('input', onPageChange);
+    titleEl._pagesInputBound = true;
+  }
+  if (mdEl && !mdEl._pagesInputBound) {
+    mdEl.addEventListener('input', onPageChange);
+    mdEl._pagesInputBound = true;
+  }
 }
 
 /* Preview toggle */
