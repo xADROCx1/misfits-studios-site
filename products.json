@@ -4,7 +4,7 @@
     "name": "Shadow Kids Studios",
     "tagline": "Rust plugins & desktop tools. Built solo.",
     "contact_email": "support@shadowkidsstudios.com",
-    "discord_url": "",
+    "discord_url": "https://discord.gg/VsgWppbz2U",
     "twitter_url": "",
     "github_url": "https://github.com/xADROCx1",
     "lemonsqueezy_store_slug": "REPLACE_ME_STORE_SLUG",
@@ -1484,7 +1484,7 @@
       "eta": "TBD"
     }
   ],
-  "last_editor_update": "2026-04-26T20:19:40.101Z",
+  "last_editor_update": "2026-04-28T16:37:27.631Z",
   "announcement": {
     "enabled": false,
     "text": "",
