@@ -471,7 +471,7 @@ ${ldBlocks}
   // stamps in a valid one.
   (function () {
     var t = window.__sks_paddle_token;
-    if (!t || !/^(live|test)_apikey_[A-Za-z0-9_-]+$/.test(t) || t.length < 50) return;
+    if (!t || !/^(live|test)_[A-Za-z0-9_-]{8,}$/.test(t)) return;
     function go() {
       if (window.Paddle && typeof window.Paddle.Initialize === 'function') {
         try { window.Paddle.Initialize({ token: t }); } catch (e) { console.warn('Paddle init failed', e); }

@@ -93,10 +93,11 @@
     if (window.__misfits_paddle_init) return true;
     if (!(window.Paddle && typeof window.Paddle.Initialize === 'function')) return false;
     var t = window.__sks_paddle_token;
-    // Real Paddle Billing v2 tokens are `live_apikey_<id>_<secret>` and
-    // 50+ chars. Reject obviously-malformed shorter strings that pass the
-    // prefix check but make Initialize fail with "Something went wrong".
-    if (!t || !/^(live|test)_apikey_[A-Za-z0-9_-]+$/.test(t) || t.length < 50) return false;
+    // Paddle Billing v2 client-side tokens have shape `live_<alphanumeric>`
+    // (sometimes `live_apikey_<id>_<secret>` for longer ones). Loose prefix
+    // check; if Initialize still throws, the user has a deeper Paddle dashboard
+    // configuration problem (e.g. the site domain isn't in Approved domains).
+    if (!t || !/^(live|test)_[A-Za-z0-9_-]{8,}$/.test(t)) return false;
     try {
       window.Paddle.Initialize({ token: t });
       window.__misfits_paddle_init = true;

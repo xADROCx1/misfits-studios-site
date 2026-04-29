@@ -110,9 +110,8 @@
   .tech-row .v { font-family:'JetBrains Mono',monospace; color:#dee5ff; }
   .back-link { font-family:'JetBrains Mono',monospace; font-size:12px; color:#a3aac4; text-transform:uppercase; letter-spacing:.2em; }
   .back-link:hover { color:#53ddfc; }
-</style>
-<!-- PADDLE_CLIENT_TOKEN:START -->
-<script>window.__sks_paddle_token = "live_7d279f61a3499fed520f7cd8c08";</script>
+</style><!-- PADDLE_CLIENT_TOKEN:START -->
+<script>window.__sks_paddle_token = "live_3c8d006b7ebfbe8070b8bbcbae8";</script>
 <!-- PADDLE_CLIENT_TOKEN:END -->
 </head>
 <body class="bg-bg text-paper font-body">
@@ -274,7 +273,7 @@
   // stamps in a valid one.
   (function () {
     var t = window.__sks_paddle_token;
-    if (!t || !/^(live|test)_apikey_[A-Za-z0-9_-]+$/.test(t) || t.length < 50) return;
+    if (!t || !/^(live|test)_[A-Za-z0-9_-]{8,}$/.test(t)) return;
     function go() {
       if (window.Paddle && typeof window.Paddle.Initialize === 'function') {
         try { window.Paddle.Initialize({ token: t }); } catch (e) { console.warn('Paddle init failed', e); }
