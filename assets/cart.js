@@ -104,10 +104,13 @@
   function checkout() {
     if (!items.length) { toast('Cart is empty.'); return; }
 
-    // Pure Paddle flow — preferred when all items have paddle price IDs.
+    // Pure Paddle flow — only when Initialize succeeded. ensurePaddleInitialized()
+    // returns false if the client-side token isn't a valid v2 format, in which
+    // case we MUST skip Paddle entirely — calling Checkout.open without a
+    // successful Initialize pops the SDK error overlay.
     var allPaddle = items.every(function (i) { return !!i.paddle_price_id; });
-    ensurePaddleInitialized();
-    if (allPaddle && window.Paddle && typeof window.Paddle.Checkout === 'object') {
+    var paddleReady = ensurePaddleInitialized();
+    if (paddleReady && allPaddle && window.Paddle && window.Paddle.Checkout) {
       try {
         window.Paddle.Checkout.open({
           items: items.map(function (i) { return { priceId: i.paddle_price_id, quantity: 1 }; }),
@@ -366,6 +369,40 @@
       if (product) add(product);
       else toast('Product not found: ' + productId);
     });
+
+    // Paddle-button fallback: when Paddle isn't initialized (no valid v2 token),
+    // intercept .paddle_button clicks BEFORE the browser navigates to the
+    // checkout_url href. Without this, clicks fall through to
+    // shadowkidsstudios.com/?_ptxn=<stale-txn-id> which triggers Paddle's
+    // "Something went wrong" overlay on the home page. Add the product to
+    // the cart instead and toast a clear status.
+    document.addEventListener('click', function (e) {
+      var paddleBtn = e.target.closest('.paddle_button');
+      if (!paddleBtn) return;
+      // If Paddle Initialize succeeded, let Paddle's own handler run.
+      if (window.__misfits_paddle_init) return;
+      e.preventDefault();
+      e.stopPropagation();
+      var slug = paddleBtn.getAttribute('data-slug') || paddleBtn.getAttribute('data-product-id');
+      var product = slug ? findProduct(slug) : null;
+      // Try to derive product from data-items priceId if no slug
+      if (!product) {
+        try {
+          var items = JSON.parse(paddleBtn.getAttribute('data-items') || '[]');
+          if (items[0] && items[0].priceId && window.MisfitsProducts) {
+            product = (window.MisfitsProducts.products || []).find(function (p) {
+              return p.paddle && p.paddle.price_id === items[0].priceId;
+            });
+          }
+        } catch (_) {}
+      }
+      if (product) {
+        add(product);
+        open();
+      } else {
+        toast('Checkout is being configured — please try again shortly.');
+      }
+    }, true);
   }
 
   function findProduct(id) {
