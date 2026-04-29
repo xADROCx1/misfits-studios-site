@@ -93,7 +93,10 @@
     if (window.__misfits_paddle_init) return true;
     if (!(window.Paddle && typeof window.Paddle.Initialize === 'function')) return false;
     var t = window.__sks_paddle_token;
-    if (!t || !/^(live|test)_/.test(t)) return false;
+    // Real Paddle Billing v2 tokens are `live_apikey_<id>_<secret>` and
+    // 50+ chars. Reject obviously-malformed shorter strings that pass the
+    // prefix check but make Initialize fail with "Something went wrong".
+    if (!t || !/^(live|test)_apikey_[A-Za-z0-9_-]+$/.test(t) || t.length < 50) return false;
     try {
       window.Paddle.Initialize({ token: t });
       window.__misfits_paddle_init = true;

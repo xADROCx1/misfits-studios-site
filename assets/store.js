@@ -116,7 +116,8 @@
     // pops the SDK error overlay; skip silently until a valid client-side token is wired.
     if (window.Paddle && typeof window.Paddle.Initialize === 'function' && !window.__misfits_paddle_init) {
       var t = window.__sks_paddle_token;
-      if (t && /^(live|test)_/.test(t)) {
+      // Real Paddle Billing v2 tokens are `live_apikey_<id>_<secret>` and 50+ chars.
+      if (t && /^(live|test)_apikey_[A-Za-z0-9_-]+$/.test(t) && t.length >= 50) {
         try { window.Paddle.Initialize({ token: t }); window.__misfits_paddle_init = true; } catch (_) {}
       }
     }
