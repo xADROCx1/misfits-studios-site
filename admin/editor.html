@@ -6285,9 +6285,10 @@ const APP_PAGE_FIELD_GROUPS = [
     { f: 'og_image', label: 'OG image URL (absolute)', type: 'text' }
   ]},
   { id: 'assets', title: 'Assets', fields: [
-    { f: 'app_icon', label: 'App icon (relative path)', type: 'text', placeholder: 'assets/Rustcon-new-icon2.png' },
-    { f: 'banner', label: 'Banner image (relative path)', type: 'text', placeholder: 'assets/Rustcon-server-banner.png' },
-    { f: 'phone_screenshot', label: 'Hero phone screenshot (relative path)', type: 'text', placeholder: 'assets/screenshots/ss1.png' }
+    { f: 'app_icon', label: 'App icon (relative path)', type: 'text', placeholder: 'assets/icon.png' },
+    { f: 'banner', label: 'Banner image (relative path)', type: 'text', placeholder: 'assets/banner.png' },
+    { f: 'phone_screenshot', label: 'Hero phone screenshot (when no hero_image — phone-shaped)', type: 'text', placeholder: 'assets/screenshots/ss1.png' },
+    { f: 'hero_image', label: 'Hero image (square — overrides phone_screenshot when set)', type: 'text', placeholder: 'assets/icon.png' }
   ]},
   { id: 'identity', title: 'App Identity', fields: [
     { f: 'app_name', label: 'App name', type: 'text', placeholder: 'RustCON' },

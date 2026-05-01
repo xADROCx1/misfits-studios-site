@@ -1637,6 +1637,7 @@
       "og_image": "https://shadowkidsstudios.com/apps/rustcon-desktop/assets/banner.png",
       "app_icon": "/apps/rustcon-desktop/assets/icon.png",
       "banner": "/apps/rustcon-desktop/assets/banner.png",
+      "hero_image": "/apps/rustcon-desktop/assets/icon.png",
       "phone_screenshot": "/apps/rustcon/assets/screenshots/ss1.png",
       "app_name": "RustCON Desktop",
       "app_handle": "RUSTCON_DESKTOP",

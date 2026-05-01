@@ -228,7 +228,10 @@ renderCtaButtons(data, '            ') +
 ) +
 '        </div>\n' +
 '        <div class="rc-hero-art">\n' +
-'          <img class="rc-phone" src="' + escapeAttr(data.phone_screenshot || '') + '" alt="' + escapeAttr(data.app_name || '') + ' app screenshot" width="320" height="694" loading="eager">\n' +
+(data.hero_image
+  ? '          <img class="rc-hero-icon" src="' + escapeAttr(data.hero_image) + '" alt="' + escapeAttr(data.app_name || '') + ' icon" width="320" height="320" loading="eager">\n'
+  : '          <img class="rc-phone" src="' + escapeAttr(data.phone_screenshot || '') + '" alt="' + escapeAttr(data.app_name || '') + ' app screenshot" width="320" height="694" loading="eager">\n'
+) +
 '        </div>\n' +
 '      </div>\n' +
 (data.banner ? '      <img class="rc-banner" src="' + escapeAttr(data.banner) + '" alt="' + escapeAttr((data.app_name || '') + ' banner') + '" loading="lazy">\n' : '') +
@@ -337,6 +340,7 @@ renderCtaButtons(data, '        ') +
     '.rc-hero p.rc-lead { font-family: var(--rc-mono); color: var(--rc-text); font-size: 1rem; max-width: 580px; margin: 0 0 1.8rem; line-height: 1.7; }',
     '.rc-hero-art { display: flex; justify-content: center; }',
     '.rc-phone { max-width: 320px; width: 100%; box-shadow: 0 0 0 2px var(--rc-cyan), 0 0 60px rgba(0,229,255,.3), 0 30px 80px rgba(0,0,0,.7); }',
+    '.rc-hero-icon { max-width: 360px; width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 28px; box-shadow: 0 0 0 2px var(--rc-cyan), 0 0 80px rgba(0,229,255,.45), 0 30px 80px rgba(0,0,0,.7); }',
     '.rc-banner { width: 100%; margin-top: 3rem; border: 1px solid var(--rc-border); }',
     '.rc-btns { display: flex; flex-wrap: wrap; gap: .9rem; }',
     '.rc-btn { display: inline-flex; align-items: center; gap: .6rem; padding: .9rem 1.4rem; font-family: var(--rc-mono); font-weight: 800; font-size: .92rem; text-transform: uppercase; letter-spacing: .12em; color: var(--rc-bg); background: var(--rc-green); border: 2px solid var(--rc-green); transition: all .12s ease; cursor: pointer; text-shadow: none; }',
