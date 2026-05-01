@@ -1626,6 +1626,68 @@
       "cta_heading": "READY_TO_DEPLOY?",
       "cta_sub": "Free trial. Two taps to install. Connect to your first server in under a minute.",
       "schema_app_subcategory": "Game Server Admin Tool"
+    },
+    "rustcon-desktop": {
+      "slug": "rustcon-desktop",
+      "title": "RustCON Desktop — Free RCON for Rust Server Admins · Shadow Kids Studios",
+      "meta_description": "RustCON Desktop is the free Windows version of RustCON, the most complete RCON tool for Rust game servers. Live chat, RCON console, player manager, Oxide and Carbon permissions, item giver, events, kits — direct from your PC, no subscription, no account.",
+      "canonical_url": "https://shadowkidsstudios.com/apps/rustcon-desktop/",
+      "og_title": "RustCON Desktop — Free RCON for Rust Server Admins",
+      "og_description": "Free Windows desktop client for Rust server admins. Live chat, console, player manager, Oxide and Carbon permissions, item giver, events, kits.",
+      "og_image": "https://shadowkidsstudios.com/apps/rustcon/assets/Rustcon-server-banner.png",
+      "app_icon": "/apps/rustcon/assets/Rustcon-new-icon2.png",
+      "banner": "/apps/rustcon/assets/Rustcon-server-banner.png",
+      "phone_screenshot": "/apps/rustcon/assets/screenshots/ss1.png",
+      "app_name": "RustCON Desktop",
+      "app_handle": "RUSTCON_DESKTOP",
+      "app_subtitle": "// desktop_rcon · windows · free",
+      "os": "Windows",
+      "hero": {
+        "strap": "FREE  ·  DESKTOP  ·  ADMINS",
+        "headline_main": "RUST",
+        "headline_accent": "CON.DESKTOP",
+        "lead": "The free Windows version of RustCON. Same RCON workflow trusted by mobile admins — full console, live chat, player manager with Steam avatars, Oxide and Carbon permissions, 1,185 giveable items, events, and kits — running natively on your PC. No subscription. No account. No ads."
+      },
+      "store_links": {},
+      "download_url": "https://github.com/xADROCx1/misfits-studios-site/releases/download/rustcon-desktop-v1.0.3/RustCON-Free-1.0.3-Setup.exe",
+      "download_button_label": "DOWNLOAD_FOR_WINDOWS",
+      "free_tag_line": "Free · Windows installer · ~80 MB · no account required",
+      "pricing": {},
+      "features_heading": "FEATURES",
+      "features_sub": "eight_modules · everything_an_admin_actually_needs",
+      "features": [
+        {"color": "cyan",   "glyph": "›_",  "title": "RCON CONSOLE",          "description": "Full WebRcon console with command history and live log streaming. No SSH. No proxy. Every Rust console command available, native on your PC.", "route": "/console"},
+        {"color": "pink",   "glyph": "◢",  "title": "LIVE CHAT",             "description": "Watch and reply to in-game chat in real time. Color tags render correctly. Send as server, admin, or custom name.",            "route": "/chat"},
+        {"color": "green",  "glyph": "◉",  "title": "PLAYER MANAGER",        "description": "Every player with Steam avatar, SteamID, ping, and a Tools menu — kick, ban, mute, kill, teleport — one click.",              "route": "/players"},
+        {"color": "yellow", "glyph": "◆",  "title": "OXIDE + CARBON PERMS",  "description": "Visual permissions editor for both frameworks. Browse groups, grant and revoke plugin perms. No typing oxide.grant by hand.", "route": "/permissions"},
+        {"color": "purple", "glyph": "▣",  "title": "1,185 GIVEABLE ITEMS",  "description": "Search the entire Rust item list with icons. Skins, blueprints, components — give to any player in two clicks. Auto-updates each wipe.", "route": "/give"},
+        {"color": "orange", "glyph": "⚡", "title": "EVENTS",                 "description": "Spawn heli, cargo ship, CH47, Bradley, airdrops — and control weather and time. Run community events from your desk.",        "route": "/events"},
+        {"color": "red",    "glyph": "▲",  "title": "SERVER MONITOR",        "description": "FPS, entity count, players, memory, network — at a glance. Catch lag spikes before players notice.",                          "route": "/monitor"},
+        {"color": "cyan",   "glyph": "◇",  "title": "MULTI-SERVER",          "description": "Admin more than one server? Switch between them without re-entering credentials. Encrypted local storage.",                   "route": "/profiles"}
+      ],
+      "shots_heading": "RUNTIME",
+      "shots_sub": "live_screens · oxide+carbon_active · windows_native",
+      "screenshots": [
+        {"color": "red",    "src": "/apps/rustcon/assets/screenshots/ss7.png", "alt": "RustCON server monitoring dashboard with FPS, entity count, network, uptime and memory",        "title": "SERVER MONITOR", "caption": "Live FPS, entities, network, uptime. Catch lag before players do."},
+        {"color": "green",  "src": "/apps/rustcon/assets/screenshots/ss6.png", "alt": "RustCON player list with online and sleeping players, Steam avatars and Tools menu",            "title": "PLAYER MANAGER", "caption": "Steam avatars, ping, status, Tools menu — one click from anywhere."},
+        {"color": "yellow", "src": "/apps/rustcon/assets/screenshots/ss3.png", "alt": "RustCON Oxide permissions manager showing groups, plugin search and grant or revoke toggles",   "title": "PERMISSIONS",    "caption": "Native Oxide and Carbon. Groups, plugins, grant/revoke. No typing."},
+        {"color": "orange", "src": "/apps/rustcon/assets/screenshots/ss5.png", "alt": "RustCON events panel with Patrol Heli, Cargo Ship, Bradley, CH47 and weather and time controls", "title": "EVENTS",         "caption": "Heli, cargo, Bradley, CH47, weather, time. Run them from your desk."},
+        {"color": "cyan",   "src": "/apps/rustcon/assets/screenshots/ss4.png", "alt": "RustCON commands panel with quick actions, plugin reload, teleport, restart and a custom command input", "title": "QUICK COMMANDS", "caption": "The commands you actually run, pre-wired. Teleport, save, skip night, restart."},
+        {"color": "pink",   "src": "/apps/rustcon/assets/screenshots/ss2.png", "alt": "RustCON kits panel with grid of kits and Give buttons",                                          "title": "KITS",           "caption": "Every kit on your server, one click to hand out. Standard Kits plugin compatible."}
+      ],
+      "faq_heading": "FAQ",
+      "faq_sub": "stuff_admins_ask · before_install",
+      "faqs": [
+        {"q": "Is this really free?", "a": "Yes. RustCON Desktop is a free Windows download. No account, no subscription, no in-app purchases, no ads. Built solo and released as a thank-you to the Rust admin community."},
+        {"q": "How is the desktop version different from the mobile RustCON app?", "a": "Same workflow, different surface. Desktop is a native Windows app you install from this page. Mobile RustCON ($3.99/mo or $29.99/yr) is the Android + iOS subscription with cloud sync, push alerts, and multi-device profile sync. Use whichever fits your admin habits — or both."},
+        {"q": "Does RustCON Desktop need a server-side plugin?", "a": "No. RustCON connects over standard WebRcon, the same way the in-game F1 console and the official Facepunch tools do. If your server has RCON enabled, RustCON Desktop works."},
+        {"q": "Does it work with Oxide (uMod) and Carbon?", "a": "Yes — both. The permissions manager has native support for Oxide and Carbon group/user/permission models. Toggle between frameworks in the app."},
+        {"q": "Which Windows versions are supported?", "a": "Windows 10 and Windows 11 (64-bit). The installer is signed and bundles its own runtime — no separate .NET or Node install required. macOS and Linux builds are in active development."},
+        {"q": "Is this affiliated with Facepunch Studios?", "a": "No. RustCON is an independent third-party admin tool that talks to the standard Rust RCON endpoint. Rust® is a trademark of Facepunch Studios."}
+      ],
+      "cta_heading": "DOWNLOAD_AND_DEPLOY",
+      "cta_sub": "Free Windows installer. Two-minute setup. Connect to your first server in under a minute.",
+      "schema_app_subcategory": "Game Server Admin Tool"
     }
   }
 }

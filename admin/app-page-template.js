@@ -39,26 +39,31 @@
       '@context': 'https://schema.org',
       '@type': 'SoftwareApplication',
       name: data.app_name || data.slug,
-      operatingSystem: 'Android, iOS',
+      operatingSystem: data.os || 'Android, iOS',
       applicationCategory: 'UtilitiesApplication',
       applicationSubCategory: data.schema_app_subcategory || 'Mobile Application',
       description: data.meta_description || '',
       url: data.canonical_url || '',
       image: data.canonical_url ? (data.canonical_url.replace(/\/?$/, '/') + (data.app_icon || '')) : '',
-      offers: [
-        { '@type': 'Offer', name: 'Monthly', price: data.pricing && data.pricing.monthly_price || '', priceCurrency: 'USD' },
-        { '@type': 'Offer', name: 'Yearly',  price: data.pricing && data.pricing.yearly_price  || '', priceCurrency: 'USD' }
-      ],
       publisher: {
         '@type': 'Organization',
         name: 'Shadow Kids Studios',
         url: 'https://shadowkidsstudios.com/'
-      },
-      downloadUrl: [
+      }
+    };
+    if (data.download_url) {
+      ld.offers = { '@type': 'Offer', price: '0', priceCurrency: 'USD' };
+      ld.downloadUrl = [data.download_url];
+    } else {
+      ld.offers = [
+        { '@type': 'Offer', name: 'Monthly', price: data.pricing && data.pricing.monthly_price || '', priceCurrency: 'USD' },
+        { '@type': 'Offer', name: 'Yearly',  price: data.pricing && data.pricing.yearly_price  || '', priceCurrency: 'USD' }
+      ];
+      ld.downloadUrl = [
         data.store_links && data.store_links.play_store_url,
         data.store_links && data.store_links.app_store_url
-      ].filter(Boolean)
-    };
+      ].filter(Boolean);
+    }
     return JSON.stringify(ld, null, 2);
   }
 
@@ -108,6 +113,22 @@
     return line
       .replace('{monthly}', '<code>' + escapeHtml(pricing.monthly_label || ('$' + pricing.monthly_price + '/mo')) + '</code>')
       .replace('{yearly}',  '<code>' + escapeHtml(pricing.yearly_label  || ('$' + pricing.yearly_price  + '/yr')) + '</code>');
+  }
+
+  // Render the primary CTA button row used in the hero + closing CTA stripe.
+  // Free desktop downloads use `data.download_url`; mobile apps use `store_links`.
+  // When download_url is set it takes precedence over store buttons.
+  function renderCtaButtons(data, indent) {
+    var pad = indent || '            ';
+    var store = data.store_links || {};
+    if (data.download_url) {
+      var label = data.download_button_label || 'DOWNLOAD';
+      return pad + '<a class="rc-btn" href="' + escapeAttr(data.download_url) + '" download>' + escapeHtml(label) + '</a>\n';
+    }
+    return (
+      (store.play_store_url ? pad + '<a class="rc-btn" href="' + escapeAttr(store.play_store_url) + '" rel="noopener">GOOGLE_PLAY</a>\n' : '') +
+      (store.app_store_url  ? pad + '<a class="rc-btn rc-btn-pink" href="' + escapeAttr(store.app_store_url)  + '" rel="noopener">APP_STORE</a>\n'  : '')
+    );
   }
 
   function render(data) {
@@ -196,13 +217,14 @@
 '          <h1>' + escapeHtml(hero.headline_main || '') + '<br><span class="accent">' + escapeHtml(hero.headline_accent || '') + '</span>.</h1>\n' +
 '          <p class="rc-lead">' + escapeHtml(hero.lead || '') + '</p>\n' +
 '          <div class="rc-btns">\n' +
-(store.play_store_url ? '            <a class="rc-btn" href="' + escapeAttr(store.play_store_url) + '" rel="noopener">GOOGLE_PLAY</a>\n' : '') +
-(store.app_store_url  ? '            <a class="rc-btn rc-btn-pink" href="' + escapeAttr(store.app_store_url)  + '" rel="noopener">APP_STORE</a>\n'  : '') +
+renderCtaButtons(data, '            ') +
 '            <a class="rc-btn rc-btn-ghost" href="#features">FEATURES</a>\n' +
 '          </div>\n' +
-(pricing && (pricing.monthly_label || pricing.monthly_price)
-  ? '          <p class="rc-pricing-line">' + pricingTagLine(pricing) + '</p>\n'
-  : ''
+(data.free_tag_line
+  ? '          <p class="rc-pricing-line">' + escapeHtml(data.free_tag_line) + '</p>\n'
+  : (pricing && (pricing.monthly_label || pricing.monthly_price)
+      ? '          <p class="rc-pricing-line">' + pricingTagLine(pricing) + '</p>\n'
+      : '')
 ) +
 '        </div>\n' +
 '        <div class="rc-hero-art">\n' +
@@ -243,8 +265,7 @@
 '      <h2>' + escapeHtml(data.cta_heading || 'READY_TO_DEPLOY?') + '</h2>\n' +
 '      <p>' + escapeHtml(data.cta_sub || '') + '</p>\n' +
 '      <div class="rc-btns">\n' +
-(store.play_store_url ? '        <a class="rc-btn" href="' + escapeAttr(store.play_store_url) + '" rel="noopener">GOOGLE_PLAY</a>\n' : '') +
-(store.app_store_url  ? '        <a class="rc-btn rc-btn-pink" href="' + escapeAttr(store.app_store_url)  + '" rel="noopener">APP_STORE</a>\n'  : '') +
+renderCtaButtons(data, '        ') +
 '      </div>\n' +
 '    </div>\n' +
 '  </section>\n' +

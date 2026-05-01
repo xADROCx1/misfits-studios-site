@@ -6300,16 +6300,20 @@ const APP_PAGE_FIELD_GROUPS = [
     { f: 'hero.headline_accent', label: 'Headline accent (line 2 — pink)', type: 'text' },
     { f: 'hero.lead',            label: 'Lead paragraph', type: 'textarea', rows: 4 }
   ]},
-  { id: 'store', title: 'Store Links', fields: [
-    { f: 'store_links.play_store_url', label: 'Google Play URL', type: 'text' },
-    { f: 'store_links.app_store_url',  label: 'Apple App Store URL', type: 'text' }
+  { id: 'store', title: 'Store Links / Download', fields: [
+    { f: 'store_links.play_store_url', label: 'Google Play URL (mobile)', type: 'text' },
+    { f: 'store_links.app_store_url',  label: 'Apple App Store URL (mobile)', type: 'text' },
+    { f: 'download_url',          label: 'Direct download URL (free desktop) — overrides store buttons', type: 'text', placeholder: 'https://github.com/.../releases/download/.../Setup.exe' },
+    { f: 'download_button_label', label: 'Download button label', type: 'text', placeholder: 'DOWNLOAD' },
+    { f: 'os',                    label: 'Operating system (schema.org)', type: 'text', placeholder: 'Android, iOS · or · Windows · or · macOS, Windows, Linux' }
   ]},
   { id: 'pricing', title: 'Pricing', fields: [
     { f: 'pricing.monthly_label', label: 'Monthly label (display)', type: 'text', placeholder: '$3.99/mo' },
     { f: 'pricing.yearly_label',  label: 'Yearly label (display)', type: 'text', placeholder: '$29.99/yr' },
     { f: 'pricing.monthly_price', label: 'Monthly price (number, schema.org)', type: 'text', placeholder: '3.99' },
     { f: 'pricing.yearly_price',  label: 'Yearly price (number, schema.org)', type: 'text', placeholder: '29.99' },
-    { f: 'pricing.tag_line',      label: 'Pricing tag line (use {monthly} / {yearly})', type: 'text' }
+    { f: 'pricing.tag_line',      label: 'Pricing tag line (use {monthly} / {yearly})', type: 'text' },
+    { f: 'free_tag_line',         label: 'Free tag line (overrides pricing tag when set)', type: 'text', placeholder: 'Free · Windows installer · ~80 MB · no account required' }
   ]},
   { id: 'cta', title: 'Closing CTA', fields: [
     { f: 'cta_heading', label: 'CTA heading', type: 'text' },
