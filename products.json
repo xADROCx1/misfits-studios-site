@@ -1689,6 +1689,62 @@
       "cta_heading": "DOWNLOAD_AND_DEPLOY",
       "cta_sub": "Free Windows installer. Two-minute setup. Connect to your first server in under a minute.",
       "schema_app_subcategory": "Game Server Admin Tool"
+    },
+    "voidconvert": {
+      "slug": "voidconvert",
+      "title": "VoidConvert — Cyberpunk file converter for Windows · Shadow Kids Studios",
+      "meta_description": "VoidConvert is a free Windows file converter for image, video, and audio. Drag and drop, batch convert, extract audio from video, custom output folders. ~80 supported formats via Sharp + FFmpeg.",
+      "canonical_url": "https://shadowkidsstudios.com/apps/voidconvert/",
+      "og_title": "VoidConvert — Cyberpunk File Converter for Windows",
+      "og_description": "Drag, drop, convert. Image, video, audio — all in one cyberpunk-themed Windows app. Free.",
+      "og_image": "https://shadowkidsstudios.com/apps/voidconvert/assets/banner.png",
+      "app_icon": "/apps/voidconvert/assets/icon.png",
+      "banner": "/apps/voidconvert/assets/banner.png",
+      "hero_image": "/apps/voidconvert/assets/icon.png",
+      "phone_screenshot": "",
+      "app_name": "VoidConvert",
+      "app_handle": "VOIDCONVERT",
+      "app_subtitle": "// file_converter · windows · free",
+      "os": "Windows",
+      "hero": {
+        "strap": "FREE  ·  DESKTOP  ·  CONVERTER",
+        "headline_main": "VOID",
+        "headline_accent": "CONVERT",
+        "lead": "A cyberpunk file converter for Windows. Drag in any image, video, or audio file — pick a target format — done. ~80 formats supported via Sharp and FFmpeg, batch conversions, drag-and-drop, quality slider, custom output folder, conversion history. No subscription. No account. No ads."
+      },
+      "store_links": {},
+      "download_url": "https://github.com/xADROCx1/misfits-studios-site/releases/download/voidconvert-v1.2.0/VoidConvert-Setup-1.2.0.exe",
+      "download_button_label": "DOWNLOAD_FOR_WINDOWS",
+      "free_tag_line": "Free · Windows installer · ~110 MB · no account required",
+      "pricing": {},
+      "features_heading": "FEATURES",
+      "features_sub": "drop_anything · convert_to_anything · stay_in_the_void",
+      "features": [
+        {"color": "cyan",   "glyph": "◧",  "title": "IMAGE CONVERSION",     "description": "PNG, JPG, WebP, AVIF, TIFF, GIF, HEIF, JXL, JP2 — both directions. Powered by Sharp for high-quality, fast pixel-pushing.", "route": "/image"},
+        {"color": "pink",   "glyph": "▶",  "title": "VIDEO CONVERSION",     "description": "MP4, MKV, AVI, MOV, WMV, FLV, WebM, MPEG, 3GP, OGV, M4V, VOB, MTS, DIVX, ASF, F4V, RM, SWF — both ways via FFmpeg.", "route": "/video"},
+        {"color": "green",  "glyph": "♪",  "title": "AUDIO CONVERSION",     "description": "MP3, WAV, AAC, OGG, FLAC, WMA, M4A, OPUS, AIFF, AC3, AMR, APE, DTS, MKA — every common audio format, both ways.", "route": "/audio"},
+        {"color": "yellow", "glyph": "⇩",  "title": "DRAG & DROP",          "description": "Drop any file onto the window. The app sniffs the type and shows you only the output formats that make sense.", "route": "/drop"},
+        {"color": "purple", "glyph": "◆",  "title": "QUALITY SLIDER",       "description": "Per-conversion quality control for image formats that support it. Trade size against fidelity in real time.", "route": "/quality"},
+        {"color": "orange", "glyph": "▤",  "title": "BATCH MODE",           "description": "Drop a folder. Convert hundreds of files in one click. Each conversion logged with input, output, and elapsed time.", "route": "/batch"},
+        {"color": "red",    "glyph": "♫",  "title": "VIDEO → AUDIO",        "description": "Pull the audio track out of any video file. MP4 to MP3 in two clicks. Useful for clips, lectures, podcast extracts.", "route": "/extract"},
+        {"color": "cyan",   "glyph": "▢",  "title": "CUSTOM OUTPUT FOLDER", "description": "Pick where converted files land. Defaults to the source folder. Conversion history shows every output path so nothing gets lost.", "route": "/output"}
+      ],
+      "shots_heading": "SUPPORTED",
+      "shots_sub": "image · video · audio · ~80_formats",
+      "screenshots": [],
+      "faq_heading": "FAQ",
+      "faq_sub": "stuff_users_ask · before_install",
+      "faqs": [
+        {"q": "Does VoidConvert need anything else installed?", "a": "Image conversions work standalone — Sharp ships with the installer. Video and audio conversions need FFmpeg on your system PATH. On Windows you can install it with `winget install FFmpeg` or grab a build from ffmpeg.org. The app shows a clear error if FFmpeg is missing."},
+        {"q": "Is it really free?", "a": "Yes. No trial, no subscription, no account, no ads. The Windows installer is a one-and-done download. We don't track you or your files — everything runs locally on your machine."},
+        {"q": "Where do my files go?", "a": "Nowhere. VoidConvert runs entirely on your PC. Files never leave your machine, never touch a server, never get uploaded anywhere. Output lands in the folder you pick (defaults to the source folder)."},
+        {"q": "What formats are supported?", "a": "Image: PNG, JPG, JPEG, WebP, AVIF, TIFF, GIF, BMP, ICO, HEIF, HEIC, JXL, JP2, RAW, SVG, PSD (input). Video and audio: every common format via FFmpeg — MP4, MKV, AVI, MOV, WMV, FLV, WebM, MP3, WAV, AAC, OGG, FLAC, M4A, OPUS, and more."},
+        {"q": "Which Windows versions are supported?", "a": "Windows 10 and Windows 11 (64-bit). The app is an Electron desktop application — bundles its own runtime, no separate Node install needed."},
+        {"q": "Is there a mobile version?", "a": "An Android build is in closed alpha testing — see the VoidConvert Play Store listing for tester opt-in. Desktop is the production-ready target right now."}
+      ],
+      "cta_heading": "DROP_AND_CONVERT",
+      "cta_sub": "Free Windows installer. ~110 MB. Drag, drop, done.",
+      "schema_app_subcategory": "File Conversion Utility"
     }
   }
 }
