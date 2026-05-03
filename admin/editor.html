@@ -2318,7 +2318,7 @@
               <option value="0">All time</option>
             </select>
             <button class="btn" onclick="clearSalesSecret()" title="Reset the saved admin secret">✕ Reset</button>
-            <button class="btn btn-primary" onclick="loadSales()" id="sales-refresh-btn">↻ Refresh</button>
+            <button class="btn btn-primary" onclick="loadSales(); loadFreeDownloads();" id="sales-refresh-btn">↻ Refresh</button>
           </div>
         </div>
 
@@ -2359,6 +2359,38 @@
             </tr></thead>
             <tbody id="sales-rows"><tr><td colspan="7" class="sales-empty">Click Refresh to load transactions from Paddle.</td></tr></tbody>
           </table>
+        </div>
+
+        <!-- Free downloads — install benchmark from GitHub Releases (public, no auth required) -->
+        <div class="sales-table-wrap" style="margin-top:24px">
+          <div class="sales-table-head" style="display:flex;justify-content:space-between;align-items:center">
+            <span>Free downloads <span style="color:var(--mint);font-size:9px;letter-spacing:0.1em;border:1px solid var(--mint);padding:1px 4px;margin-left:8px;border-radius:2px">BENCHMARK</span></span>
+            <span class="sales-meta" id="free-dl-meta">—</span>
+          </div>
+          <div class="sales-stats" style="padding:14px;border-bottom:1px solid var(--line)">
+            <div class="sales-card mint">
+              <div class="sales-card-label">Total Installs</div>
+              <div class="sales-card-value" id="free-dl-total">—</div>
+              <div class="sales-card-sub">Across all releases</div>
+            </div>
+            <div class="sales-card">
+              <div class="sales-card-label">GitHub Releases Tracked</div>
+              <div class="sales-card-value" id="free-dl-releases">—</div>
+              <div class="sales-card-sub">Tagged builds with assets</div>
+            </div>
+          </div>
+          <table class="sales-table">
+            <thead><tr>
+              <th>App / Plugin</th>
+              <th>Asset</th>
+              <th>Released</th>
+              <th class="num">Downloads</th>
+            </tr></thead>
+            <tbody id="free-dl-rows"><tr><td colspan="4" class="sales-empty">Loading from GitHub Releases…</td></tr></tbody>
+          </table>
+          <div style="padding:10px 14px;font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;color:var(--muted);border-top:1px solid var(--line)">
+            Note: free <code>.cs</code> plugins served from <code>/downloads/</code> (RustconChat, MisfitsUI, Dev2Discord, CompostSplitter) aren't counted yet — Worker-side analytics not wired. GH-Release apps only here.
+          </div>
         </div>
       </div>
     </div>
@@ -4722,11 +4754,16 @@ function showSalesView() {
   document.getElementById('sales-panel').style.display = '';
   document.getElementById('canvas-title').textContent = 'Sales Report';
   document.getElementById('canvas-sub').textContent = 'Live Paddle transactions';
-  // Toggle the setup panel vs the main body based on whether we have a secret stored
+  // Toggle the setup panel vs the main body based on whether we have a secret stored.
+  // Free-downloads section lives inside sales-body but doesn't need the Paddle secret —
+  // show sales-body either way so users without Paddle wiring can still see install
+  // benchmarks. The Paddle stat cards / table just stay empty until they set up.
   const hasSecret = !!getSalesSecret();
   document.getElementById('sales-setup').style.display = hasSecret ? 'none' : '';
-  document.getElementById('sales-body').style.display = hasSecret ? '' : 'none';
+  document.getElementById('sales-body').style.display = '';
   if (hasSecret) loadSales();
+  // Free downloads is public — always load.
+  loadFreeDownloads();
 
   // WAVES:hide:showSalesView
   { const el = document.getElementById('settings-panel'); if (el) el.style.display = 'none'; }
@@ -4868,6 +4905,87 @@ function renderSales(txs) {
       '<td><span class="sales-status ' + escapeHtml(status) + '">' + escapeHtml(status || '—') + '</span></td>' +
     '</tr>';
   }).join('');
+}
+
+/* ============================================================
+ *  FREE DOWNLOADS — install benchmark from GitHub Releases
+ *  Public endpoint, no auth needed. Counts every asset on every
+ *  release and groups by app (rustcon-desktop, voidconvert, ...).
+ * ============================================================ */
+const FREE_DL_REPO = 'xADROCx1/misfits-studios-site';
+
+async function loadFreeDownloads() {
+  const meta = document.getElementById('free-dl-meta');
+  const total = document.getElementById('free-dl-total');
+  const releases = document.getElementById('free-dl-releases');
+  const rows = document.getElementById('free-dl-rows');
+  if (!rows) return;
+  meta.textContent = 'Loading…';
+  rows.innerHTML = '<tr><td colspan="4" class="sales-empty">Loading from GitHub Releases…</td></tr>';
+  try {
+    const r = await fetch('https://api.github.com/repos/' + FREE_DL_REPO + '/releases?per_page=100', {
+      headers: { 'Accept': 'application/vnd.github+json' },
+      cache: 'no-store'
+    });
+    if (!r.ok) throw new Error('GitHub API ' + r.status);
+    const data = await r.json();
+    if (!Array.isArray(data) || !data.length) {
+      meta.textContent = 'No releases yet';
+      total.textContent = '0';
+      releases.textContent = '0';
+      rows.innerHTML = '<tr><td colspan="4" class="sales-empty">No releases on the repo yet.</td></tr>';
+      return;
+    }
+    // Map tag-prefix → friendly app name (matches apps_pages slug convention).
+    const APP_LABELS = {
+      'rustcon-desktop': 'RustCON Desktop',
+      'voidconvert':     'VoidConvert'
+    };
+    function appNameFromTag(tag) {
+      if (!tag) return tag || '—';
+      // Strip trailing -vX.Y.Z (or just version digits)
+      const slug = tag.replace(/-v?\d+(\.\d+)*$/, '');
+      return APP_LABELS[slug] || slug;
+    }
+    let totalDownloads = 0;
+    const flat = [];
+    data.forEach(rel => {
+      (rel.assets || []).forEach(a => {
+        totalDownloads += (a.download_count || 0);
+        flat.push({
+          app: appNameFromTag(rel.tag_name),
+          tag: rel.tag_name,
+          asset: a.name,
+          released: rel.published_at || rel.created_at || '',
+          count: a.download_count || 0,
+          size: a.size || 0,
+          html_url: a.browser_download_url || ''
+        });
+      });
+    });
+    total.textContent = totalDownloads.toLocaleString();
+    releases.textContent = String(data.length);
+    meta.textContent = 'Live from GitHub · ' + new Date().toLocaleTimeString();
+    if (!flat.length) {
+      rows.innerHTML = '<tr><td colspan="4" class="sales-empty">No assets on any release yet.</td></tr>';
+      return;
+    }
+    flat.sort((a, b) => b.count - a.count);
+    rows.innerHTML = flat.map(f => {
+      const sizeMB = (f.size / 1048576).toFixed(1);
+      return '<tr>' +
+        '<td><b>' + escapeHtml(f.app) + '</b><div style="color:var(--muted);font-size:10px;letter-spacing:.08em">' + escapeHtml(f.tag) + '</div></td>' +
+        '<td><a href="' + escapeHtml(f.html_url) + '" target="_blank" rel="noopener" style="color:var(--cyan)">' + escapeHtml(f.asset) + '</a><div style="color:var(--muted);font-size:10px">' + sizeMB + ' MB</div></td>' +
+        '<td>' + escapeHtml(fmtDate(f.released)) + '</td>' +
+        '<td class="num" style="color:var(--mint);font-weight:700">' + f.count.toLocaleString() + '</td>' +
+      '</tr>';
+    }).join('');
+  } catch (e) {
+    meta.textContent = 'Error';
+    total.textContent = '—';
+    releases.textContent = '—';
+    rows.innerHTML = '<tr><td colspan="4" class="sales-empty" style="color:var(--danger)">Failed: ' + escapeHtml(String(e.message || e)) + '</td></tr>';
+  }
 }
 
 
