@@ -116,11 +116,15 @@
   }
 
   // Render the primary CTA button row used in the hero + closing CTA stripe.
-  // Free desktop downloads use `data.download_url`; mobile apps use `store_links`.
-  // When download_url is set it takes precedence over store buttons.
+  // Precedence: external_cta_url (subscription / off-site landing / etc.) >
+  // download_url (free desktop installer) > store_links (mobile app stores).
   function renderCtaButtons(data, indent) {
     var pad = indent || '            ';
     var store = data.store_links || {};
+    if (data.external_cta_url) {
+      var extLabel = data.external_cta_label || 'GET STARTED';
+      return pad + '<a class="rc-btn" href="' + escapeAttr(data.external_cta_url) + '" rel="noopener">' + escapeHtml(extLabel) + '</a>\n';
+    }
     if (data.download_url) {
       var label = data.download_button_label || 'DOWNLOAD';
       return pad + '<a class="rc-btn" href="' + escapeAttr(data.download_url) + '" download>' + escapeHtml(label) + '</a>\n';
@@ -130,6 +134,9 @@
       (store.app_store_url  ? pad + '<a class="rc-btn rc-btn-pink" href="' + escapeAttr(store.app_store_url)  + '" rel="noopener">APP_STORE</a>\n'  : '')
     );
   }
+
+  // Helper: skip a section entirely when its content array is empty/missing.
+  function hasItems(arr) { return Array.isArray(arr) && arr.length > 0; }
 
   function render(data) {
     if (!data || !data.slug) throw new Error('renderAppPage: data.slug required');
@@ -237,30 +244,36 @@ renderCtaButtons(data, '            ') +
 (data.banner ? '      <img class="rc-banner" src="' + escapeAttr(data.banner) + '" alt="' + escapeAttr((data.app_name || '') + ' banner') + '" loading="lazy">\n' : '') +
 '    </section>\n' +
 '\n' +
-'    <section class="rc-section" id="features">\n' +
-'      <div class="rc-section-head">\n' +
-'        <h2 class="rc-h2">' + escapeHtml(data.features_heading || 'FEATURES') + '</h2>\n' +
-'        <p class="rc-sub">' + escapeHtml(data.features_sub || '') + '</p>\n' +
-'      </div>\n' +
-'      <div class="rc-features">\n        ' + renderFeatures(data.features) + '\n      </div>\n' +
-'    </section>\n' +
-'\n' +
-'    <section class="rc-section" id="shots">\n' +
-'      <div class="rc-section-head">\n' +
-'        <h2 class="rc-h2">' + escapeHtml(data.shots_heading || 'SCREENSHOTS') + '</h2>\n' +
-'        <p class="rc-sub">' + escapeHtml(data.shots_sub || '') + '</p>\n' +
-'      </div>\n' +
-'      <div class="rc-shots">\n        ' + renderScreenshots(data.screenshots) + '\n      </div>\n' +
-'    </section>\n' +
-'\n' +
-'    <section class="rc-section" id="faq">\n' +
-'      <div class="rc-section-head">\n' +
-'        <h2 class="rc-h2">' + escapeHtml(data.faq_heading || 'FAQ') + '</h2>\n' +
-'        <p class="rc-sub">' + escapeHtml(data.faq_sub || '') + '</p>\n' +
-'      </div>\n' +
-'      <div class="rc-faq">\n        ' + renderFaqs(data.faqs) + '\n      </div>\n' +
-'    </section>\n' +
-'\n' +
+(hasItems(data.features)
+  ? '    <section class="rc-section" id="features">\n' +
+    '      <div class="rc-section-head">\n' +
+    '        <h2 class="rc-h2">' + escapeHtml(data.features_heading || 'FEATURES') + '</h2>\n' +
+    '        <p class="rc-sub">' + escapeHtml(data.features_sub || '') + '</p>\n' +
+    '      </div>\n' +
+    '      <div class="rc-features">\n        ' + renderFeatures(data.features) + '\n      </div>\n' +
+    '    </section>\n\n'
+  : ''
+) +
+(hasItems(data.screenshots)
+  ? '    <section class="rc-section" id="shots">\n' +
+    '      <div class="rc-section-head">\n' +
+    '        <h2 class="rc-h2">' + escapeHtml(data.shots_heading || 'SCREENSHOTS') + '</h2>\n' +
+    '        <p class="rc-sub">' + escapeHtml(data.shots_sub || '') + '</p>\n' +
+    '      </div>\n' +
+    '      <div class="rc-shots">\n        ' + renderScreenshots(data.screenshots) + '\n      </div>\n' +
+    '    </section>\n\n'
+  : ''
+) +
+(hasItems(data.faqs)
+  ? '    <section class="rc-section" id="faq">\n' +
+    '      <div class="rc-section-head">\n' +
+    '        <h2 class="rc-h2">' + escapeHtml(data.faq_heading || 'FAQ') + '</h2>\n' +
+    '        <p class="rc-sub">' + escapeHtml(data.faq_sub || '') + '</p>\n' +
+    '      </div>\n' +
+    '      <div class="rc-faq">\n        ' + renderFaqs(data.faqs) + '\n      </div>\n' +
+    '    </section>\n\n'
+  : ''
+) +
 '  </main>\n' +
 '\n' +
 '  <section class="rc-cta">\n' +
