@@ -1745,40 +1745,6 @@
       "cta_heading": "DROP_AND_CONVERT",
       "cta_sub": "Free Windows installer. ~110 MB. Drag, drop, done.",
       "schema_app_subcategory": "File Conversion Utility"
-    },
-    "qwikapp": {
-      "slug": "qwikapp",
-      "title": "QwikApp — Ship your mobile app, fast · Shadow Kids Studios",
-      "meta_description": "AI-native mobile app shipping kit. 17 Claude Code skills walk you from idea to live on App Store + Google Play — Privacy Policy, Data Safety form, Closed Alpha, the works. Subscription, $15/mo or $149/yr.",
-      "canonical_url": "https://shadowkidsstudios.com/apps/qwikapp/",
-      "og_title": "QwikApp — AI-native mobile app shipping kit",
-      "og_description": "Idea → live on App Store and Google Play with a Claude Code co-pilot. 17 skills covering legal, monetization, submission, marketing.",
-      "og_image": "https://shadowkidsstudios.com/apps/qwikapp/assets/icon.svg",
-      "app_icon": "/apps/qwikapp/assets/icon.svg",
-      "banner": "",
-      "hero_image": "/apps/qwikapp/assets/icon.svg",
-      "phone_screenshot": "",
-      "app_name": "QwikApp",
-      "app_handle": "QWIKAPP",
-      "app_subtitle": "// ai_native_shipping_kit · ios + android · subscription",
-      "os": "macOS / Windows / Linux (Claude Code)",
-      "hero": {
-        "strap": "INDIE  ·  DEVS  ·  SHIP_FAST",
-        "headline_main": "QWIK",
-        "headline_accent": "APP",
-        "lead": "Ship your mobile app — without losing a week to the Play Console Data Safety form. 17 Claude Code skills walk you from idea to live on App Store + Google Play. Auto-published Privacy Policy + ToS, GitHub Actions + EAS pipelines, field-by-field store submission wizard, Closed Alpha tester recruitment kit. $15/mo or $149/yr."
-      },
-      "store_links": {},
-      "external_cta_url": "https://qwikapp.shadowkidsstudios.com",
-      "external_cta_label": "VIEW_FULL_LANDING_+_PRICING",
-      "free_tag_line": "$15/mo or $149/yr · 14-day money-back · cancel anytime",
-      "pricing": {},
-      "features": [],
-      "screenshots": [],
-      "faqs": [],
-      "cta_heading": "READY_TO_SHIP?",
-      "cta_sub": "Full pricing, all 17 skills, FAQ, and signup live at qwikapp.shadowkidsstudios.com.",
-      "schema_app_subcategory": "Developer Tool"
     }
   }
 }
