@@ -25,6 +25,14 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
+    // HTTP → HTTPS: Google Search Console flags http://shadowkidsstudios.com/
+    // as an Alternate page because CF "Always Use HTTPS" isn't set. Force 301
+    // at the Worker level so the http variant disappears from search.
+    if (url.protocol === 'http:') {
+      url.protocol = 'https:';
+      return Response.redirect(url.toString(), 301);
+    }
+
     // Legacy-domain redirect: 301 misfits-studios.com → shadowkidsstudios.com
     if (url.hostname === 'misfits-studios.com' || url.hostname === 'www.misfits-studios.com') {
       return Response.redirect('https://shadowkidsstudios.com' + url.pathname + url.search, 301);

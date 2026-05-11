@@ -1,5 +1,61 @@
+# Shadow Kids Studios — robots.txt
+# https://shadowkidsstudios.com/
+
 User-agent: *
+Allow: /
 Disallow: /admin/
 Disallow: /scripts/
+Disallow: /api/
+Disallow: /functions/
+Disallow: /*.psd$
+# Paddle checkout-resume URLs (?_ptxn=...) serve the homepage with a
+# query param. Crawlers shouldn't index them — they're duplicate content
+# of "/" and trigger "Alternate page with proper canonical tag" issues
+# in Search Console. Block at the param level.
+Disallow: /*?_ptxn=
+Disallow: /*?*_ptxn=
+
+# Explicitly allow major search & AI crawlers (they're permitted under "*" too,
+# but listing makes intent clear and some bots check for a direct match).
+User-agent: Googlebot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /*?_ptxn=
+Disallow: /*?*_ptxn=
+
+User-agent: Bingbot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /*?_ptxn=
+Disallow: /*?*_ptxn=
+
+User-agent: DuckDuckBot
+Allow: /
+
+# AI-crawler policy: allow indexing. Flip any of these to Disallow if you ever
+# want to opt out of being used as training data.
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+# Block aggressive SEO scraper bots that don't drive real traffic.
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
 
 Sitemap: https://shadowkidsstudios.com/sitemap.xml

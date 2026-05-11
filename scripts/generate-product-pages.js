@@ -192,7 +192,7 @@ function tagsChips(p) {
 function renderPage(p, all) {
   const title = `${p.name} — Shadow Kids Studios`;
   const desc = p.short_description || p.tagline || '';
-  const canonical = `${SITE}/products/${p.slug}.html`;
+  const canonical = `${SITE}/products/${p.slug}`;
   const productIcon = p.assets && p.assets.icon ? `${SITE}${p.assets.icon}` : null;
   const ogImage = productIcon || `${SITE}/NewLogo.png`;
   const isApp = (p.category === 'app' || p.category === 'desktop');
@@ -256,7 +256,7 @@ function renderPage(p, all) {
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Home', item: SITE + '/' },
-      { '@type': 'ListItem', position: 2, name: isApp ? 'Apps' : 'Plugins', item: SITE + (isApp ? '/apps.html' : '/plugins.html') },
+      { '@type': 'ListItem', position: 2, name: isApp ? 'Apps' : 'Plugins', item: SITE + (isApp ? '/apps' : '/plugins') },
       { '@type': 'ListItem', position: 3, name: p.name, item: canonical }
     ]
   };

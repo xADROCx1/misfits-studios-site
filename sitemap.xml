@@ -2,265 +2,265 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://shadowkidsstudios.com/</loc>
-    <lastmod>2026-04-18</lastmod>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/plugins.html</loc>
-    <lastmod>2026-04-18</lastmod>
+    <loc>https://shadowkidsstudios.com/plugins</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/apps.html</loc>
-    <lastmod>2026-04-18</lastmod>
+    <loc>https://shadowkidsstudios.com/apps</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/about.html</loc>
-    <lastmod>2026-04-18</lastmod>
+    <loc>https://shadowkidsstudios.com/changelog</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://shadowkidsstudios.com/about</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/support.html</loc>
-    <lastmod>2026-04-18</lastmod>
+    <loc>https://shadowkidsstudios.com/support</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/terms.html</loc>
-    <lastmod>2026-04-18</lastmod>
+    <loc>https://shadowkidsstudios.com/terms</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/privacy.html</loc>
-    <lastmod>2026-04-18</lastmod>
+    <loc>https://shadowkidsstudios.com/privacy</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/refund.html</loc>
-    <lastmod>2026-04-18</lastmod>
+    <loc>https://shadowkidsstudios.com/refund</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/dev2discord.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/rustconchat</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/misfitsui.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/misfitsui</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/misfitscommands.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/misfitscommands</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/airbags.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/dev2discord</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/alwaysstocked.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/airbags</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/betterarmorinsert.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/alwaysstocked</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/boatnitro.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/motorbikenitro</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/c4guns.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/boatnitro</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/chickengun.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/helinitro</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/chickenlover.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/horsegun</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/compostsplitter.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/c4guns</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/deadmanslocker.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/chickengun</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/deepseaspeed.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/sharkgun</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/eatall.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/chickenlover</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/entcount.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/compostsplitter</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/entitylimiter.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/deadmanslocker</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/flyingfish.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/deepseaspeed</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/flyingsubs.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/eatall</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/happybee.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/entcount</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/helinitro.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/entitylimiter</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/horsegun.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/flyingfish</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/instanthelistartup.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/flyingsubs</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/keywordlog.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/happybee</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/loadedturrets.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/instanthelistartup</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/maxarmorcraft.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/keywordlog</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/motorbikenitro.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/loadedturrets</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/myboat.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/maxarmorcraft</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/nocratefire.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/myboat</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/playerlog.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/nocratefire</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/sharkbaitcrate.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/playerlog</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/sharkgun.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/sharkbaitcrate</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/superammo.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/superammo</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/teamid.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/teamid</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/treeremover.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/treeremover</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://shadowkidsstudios.com/products/neighborhoodwatch.html</loc>
-    <lastmod>2026-04-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://shadowkidsstudios.com/products/rustconchat.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://shadowkidsstudios.com/products/neighborhoodwatch</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
