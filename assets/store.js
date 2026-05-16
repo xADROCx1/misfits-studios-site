@@ -19,28 +19,35 @@
   }
 
   function cardHTML(p) {
-    // Free-with-download short-circuits paddle/lemon routing.
+    // Free-with-download short-circuits payment routing.
     var isFreeDownload = (p.price_usd === 0) && !!p.download_url;
-    // Prefer Paddle if wired; fall back to Lemon Squeezy. Cards render regardless.
+    // LS is the primary payment provider as of the 2026-05 Paddle pivot.
+    // Paddle wiring is kept as a deep fallback only — Paddle.Initialize is
+    // domain-gated and currently dead. Order: LS first, Paddle last.
+    var lsUrl = p.lemonsqueezy && p.lemonsqueezy.buy_url;
     var paddlePriceId = p.paddle && p.paddle.price_id;
     var paddleUrl = p.paddle && p.paddle.checkout_url;
-    var lsUrl = p.lemonsqueezy && p.lemonsqueezy.buy_url;
-    var hasBuyUrl = isFreeDownload || !!(paddleUrl || lsUrl);
-    var isPaddle = !isFreeDownload && !!paddleUrl;
+    var hasBuyUrl = isFreeDownload || !!(lsUrl || paddleUrl);
+    var isLS = !isFreeDownload && !!lsUrl;
+    var isPaddle = !isFreeDownload && !lsUrl && !!paddleUrl;
 
-    // Paddle.js attaches to class="paddle_button" with data-items; Lemon.js attaches to class="lemonsqueezy-button" with href.
+    // Lemon.js attaches to class="lemonsqueezy-button" with href.
+    // Paddle.js attaches to class="paddle_button" with data-items.
     var classAttr, dataAttr = '', href;
     if (isFreeDownload) {
       classAttr = '';
       dataAttr  = ' download';
       href      = p.download_url;
+    } else if (isLS) {
+      classAttr = (p.lemonsqueezy && p.lemonsqueezy.overlay_enabled !== false) ? 'lemonsqueezy-button' : '';
+      href = lsUrl;
     } else if (isPaddle) {
       classAttr = 'paddle_button';
       dataAttr = ' data-display-mode="overlay" data-items=\'' + JSON.stringify([{ priceId: paddlePriceId, quantity: 1 }]).replace(/'/g, '&#39;') + '\'';
       href = paddleUrl;
     } else {
-      classAttr = (p.lemonsqueezy && p.lemonsqueezy.overlay_enabled !== false) ? 'lemonsqueezy-button' : '';
-      href = lsUrl || '#';
+      classAttr = '';
+      href = '#';
     }
 
     var cta = p.price_usd === 0 ? 'DOWNLOAD →' : '▸ BUY NOW';

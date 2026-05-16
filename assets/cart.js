@@ -108,10 +108,27 @@
   function checkout() {
     if (!items.length) { toast('Cart is empty.'); return; }
 
-    // Pure Paddle flow — only when Initialize succeeded. ensurePaddleInitialized()
-    // returns false if the client-side token isn't a valid v2 format, in which
-    // case we MUST skip Paddle entirely — calling Checkout.open without a
-    // successful Initialize pops the SDK error overlay.
+    // PRIMARY: Lemon Squeezy. LS hosted checkout supports one item per redirect;
+    // multi-item carts open the first item's overlay and toast the user about the rest.
+    // (LS Cart API for true multi-item checkout is a follow-up — needs server-side
+    // /checkouts call which requires the LS server key, not the client key.)
+    var firstLS = items.find(function (i) { return i.lemonsqueezy_buy_url; });
+    if (firstLS) {
+      if (items.length > 1) {
+        toast('LS supports one item per checkout — starting with "' + firstLS.name + '". Remaining items stay in cart.');
+      }
+      // Prefer the overlay if Lemon.js is loaded; otherwise navigate.
+      if (window.createLemonSqueezy && window.LemonSqueezy && window.LemonSqueezy.Url && window.LemonSqueezy.Url.Open) {
+        try { window.LemonSqueezy.Url.Open(firstLS.lemonsqueezy_buy_url); return; } catch (_) {}
+      }
+      window.location.href = firstLS.lemonsqueezy_buy_url;
+      return;
+    }
+
+    // FALLBACK: Paddle, only if Initialize succeeds AND all items have a paddle price.
+    // Paddle is currently domain-gated to "Action required" — this path stays dead
+    // until that's resolved. Keep the code so we don't have to re-add it if Paddle
+    // ever comes online again.
     var allPaddle = items.every(function (i) { return !!i.paddle_price_id; });
     var paddleReady = ensurePaddleInitialized();
     if (paddleReady && allPaddle && window.Paddle && window.Paddle.Checkout) {
@@ -123,18 +140,8 @@
       } catch (e) { console.warn('Paddle checkout failed:', e); }
     }
 
-    // Fallback: open Lemon Squeezy overlay for first item, inform user about the others.
-    var firstLS = items.find(function (i) { return i.lemonsqueezy_buy_url; });
-    if (firstLS && window.createLemonSqueezy) {
-      if (items.length > 1) {
-        toast('Checkout supports one item at a time for now. Starting with "' + firstLS.name + '".');
-      }
-      window.location.href = firstLS.lemonsqueezy_buy_url;
-      return;
-    }
-
-    // No integration wired yet — show a useful message.
-    toast('Checkout not wired yet. Email misfits.support@proton.me to complete the order.');
+    // No integration wired for any cart item — show a useful message.
+    toast('Checkout not wired for these items. Email support@shadowkidsstudios.com.');
   }
 
   // ==========================================================================
