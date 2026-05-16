@@ -116,19 +116,19 @@
       ]
     },
     {
-      "id": "misfitscommands",
-      "slug": "misfitscommands",
-      "name": "MisfitsCommands",
-      "version": "3.0.0",
+      "id": "shadowcommand",
+      "slug": "shadowcommand",
+      "name": "ShadowCommand",
+      "version": "1.0.0",
       "category": "plugin",
       "status": "live",
-      "tagline": "Cyberpunk admin UI for every command",
-      "short_description": "Terminal-inspired in-game browser for chat commands, console commands, permissions, and skin IDs across every loaded plugin.",
+      "tagline": "Cyberpunk admin UI for every command — now with server wallpaper",
+      "short_description": "Self-contained terminal-style in-game browser for chat commands, console commands, permissions, and skin IDs across every loaded plugin. Server image wallpaper + neon palette. Replaces MisfitsCommands + MisfitsUI in one file.",
       "price_usd": 3.99,
       "price_label": "$3.99",
       "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
+        "variant_id": "1664157",
+        "buy_url": "https://shadowkidsstudios.lemonsqueezy.com/checkout/buy/02511532-92dc-4045-a260-2b60596c9aee",
         "overlay_enabled": true
       },
       "tags": [
@@ -136,28 +136,27 @@
         "commands",
         "ui",
         "cyberpunk",
-        "in-game"
+        "in-game",
+        "shadowkids"
       ],
-      "requires": [
-        "misfitsui"
-      ],
+      "requires": [],
       "cs_info_author": "Shadow Kids Studios",
       "paddle": {
-        "product_id": "pro_01kpm2ctz626s06vg3hvkyxz9s",
-        "price_id": "pri_01kpm2cv217k81hrmt0xt4zbfg",
-        "checkout_url": "https://shadowkidsstudios.com/?_ptxn=txn_01kpm4vxaaf26cchxsrynf3n51",
+        "product_id": null,
+        "price_id": null,
+        "checkout_url": null,
         "environment": "live"
       },
       "assets": {
-        "icon": "/assets/products/misfitscommands.png"
+        "icon": "/assets/products/shadowcommand.png"
       },
-      "source_file": "plugins/MisfitsCommands/MisfitsCommands.cs",
+      "source_file": "plugins/ShadowCommand/ShadowCommand.cs",
       "features": [
-        "Browse chat commands, console commands, permissions, skin IDs",
-        "Cyberpunk UI v4 with collapsible sidebar and detail drawer",
+        "Browse chat commands, console commands, permissions, skin IDs across every loaded plugin",
+        "Cyberpunk UI with collapsible sidebar, detail drawer, faded server-image wallpaper",
         "Per-command permission filtering with admin bypass",
-        "Favorites system with persistent data file",
-        "Plugin-grouped file tree with search and paging"
+        "Favorites system — auto-migrates from MisfitsCommandsFavorites.json",
+        "Single-file install — no separate UI library dependency"
       ]
     },
     {
@@ -215,8 +214,8 @@
       "price_usd": 6.99,
       "price_label": "$6.99",
       "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
+        "variant_id": "1664466",
+        "buy_url": "https://shadowkidsstudios.lemonsqueezy.com/checkout/buy/37f4b0cb-a294-46bd-aaba-09542ffb80a4",
         "overlay_enabled": true
       },
       "tags": [
@@ -257,8 +256,8 @@
       "price_usd": 2.99,
       "price_label": "$2.99",
       "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
+        "variant_id": "1664469",
+        "buy_url": "https://shadowkidsstudios.lemonsqueezy.com/checkout/buy/04fef0c5-2d86-45e8-8580-a064e356bb3b",
         "overlay_enabled": true
       },
       "tags": [
@@ -294,11 +293,11 @@
       "status": "live",
       "tagline": "Shift = nitro, midair A/D steering",
       "short_description": "Hold Shift = nitro. In air = A/D steering only. Immortal bikes.",
-      "price_usd": 2.99,
-      "price_label": "$2.99",
+      "price_usd": 4.99,
+      "price_label": "$4.99",
       "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
+        "variant_id": "1664475",
+        "buy_url": "https://shadowkidsstudios.lemonsqueezy.com/checkout/buy/6eaa89b9-34e6-4de9-9f26-8e66c89c8607",
         "overlay_enabled": true
       },
       "tags": [
@@ -330,11 +329,11 @@
       "status": "live",
       "tagline": "Shift-to-boost for every boat",
       "short_description": "Shift-only boat boost (rowboat / RHIB / PT + optional tug) and unified manual-eject for driver & passengers.",
-      "price_usd": 4.99,
-      "price_label": "$4.99",
+      "price_usd": 5.99,
+      "price_label": "$5.99",
       "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
+        "variant_id": "1664493",
+        "buy_url": "https://shadowkidsstudios.lemonsqueezy.com/checkout/buy/6dde9845-3607-4ea0-bd39-828872259cff",
         "overlay_enabled": true
       },
       "tags": [
@@ -371,11 +370,11 @@
       "status": "live",
       "tagline": "Nitro boost for player helis",
       "short_description": "Nitro boost for player-driven helicopters (minicopter / scrap / attack) with cooldown and safety checks.",
-      "price_usd": 5.99,
-      "price_label": "$5.99",
+      "price_usd": 4.99,
+      "price_label": "$4.99",
       "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
+        "variant_id": "1664498",
+        "buy_url": "https://shadowkidsstudios.lemonsqueezy.com/checkout/buy/2901a41a-f71f-4f3d-8eb9-20befeaea512",
         "overlay_enabled": true
       },
       "tags": [
@@ -411,11 +410,11 @@
       "status": "live",
       "tagline": "Gun that fires horses",
       "short_description": "Gun skin shoots horses. Ground impact detected via ground polling, forces ragdoll/corpse, corpse despawns after 3 seconds.",
-      "price_usd": 1.99,
-      "price_label": "$1.99",
+      "price_usd": 2.99,
+      "price_label": "$2.99",
       "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
+        "variant_id": "1664513",
+        "buy_url": "https://shadowkidsstudios.lemonsqueezy.com/checkout/buy/a92148e4-caff-49aa-a1a3-b87e095065e4",
         "overlay_enabled": true
       },
       "tags": [
@@ -455,8 +454,8 @@
       "price_usd": 2.99,
       "price_label": "$2.99",
       "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
+        "variant_id": "1664519",
+        "buy_url": "https://shadowkidsstudios.lemonsqueezy.com/checkout/buy/a61dd110-e1de-466c-abfb-f905121e3726",
         "overlay_enabled": true
       },
       "tags": [
@@ -491,11 +490,11 @@
       "status": "live",
       "tagline": "Gun that fires live chickens",
       "short_description": "Gun skin that fires physics-driven chickens (full-auto). No bullets, AI disabled, hover/floor protection, landing modes, caps, and Codefling-safe permission handling.",
-      "price_usd": 1.99,
-      "price_label": "$1.99",
+      "price_usd": 2.99,
+      "price_label": "$2.99",
       "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
+        "variant_id": "1664523",
+        "buy_url": "https://shadowkidsstudios.lemonsqueezy.com/checkout/buy/2f27173b-cf98-4e7d-9bd7-85c0778805e7",
         "overlay_enabled": true
       },
       "tags": [
@@ -535,8 +534,8 @@
       "price_usd": 2.99,
       "price_label": "$2.99",
       "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
+        "variant_id": "1664528",
+        "buy_url": "https://shadowkidsstudios.lemonsqueezy.com/checkout/buy/5776147b-6116-42b4-a75c-b1f92ee1047f",
         "overlay_enabled": true
       },
       "tags": [
@@ -576,8 +575,8 @@
       "price_usd": 1.99,
       "price_label": "$1.99",
       "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
+        "variant_id": "1664534",
+        "buy_url": "https://shadowkidsstudios.lemonsqueezy.com/checkout/buy/bdbb7312-4338-4fe7-9dd4-901ff09fb548",
         "overlay_enabled": true
       },
       "tags": [
@@ -655,8 +654,8 @@
       "price_usd": 5.99,
       "price_label": "$5.99",
       "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
+        "variant_id": "1664548",
+        "buy_url": "https://shadowkidsstudios.lemonsqueezy.com/checkout/buy/71f9810d-e61b-4864-91e7-38f2e86dec7e",
         "overlay_enabled": true
       },
       "tags": [
@@ -696,8 +695,8 @@
       "price_usd": 7.99,
       "price_label": "$7.99",
       "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
+        "variant_id": "1664553",
+        "buy_url": "https://shadowkidsstudios.lemonsqueezy.com/checkout/buy/03383b07-bbda-4311-9c0b-b7d6bff682bb",
         "overlay_enabled": true
       },
       "tags": [
@@ -737,8 +736,8 @@
       "price_usd": 2.99,
       "price_label": "$2.99",
       "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
+        "variant_id": "1664556",
+        "buy_url": "https://shadowkidsstudios.lemonsqueezy.com/checkout/buy/ff5e6c1a-d08a-4092-8578-2a49ebc1171b",
         "overlay_enabled": true
       },
       "tags": [
@@ -774,11 +773,11 @@
       "status": "live",
       "tagline": "Per-player entity counter",
       "short_description": "Counts Rust entities owned by online/offline players.",
-      "price_usd": 1.99,
-      "price_label": "$1.99",
+      "price_usd": 2.99,
+      "price_label": "$2.99",
       "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
+        "variant_id": "1664561",
+        "buy_url": "https://shadowkidsstudios.lemonsqueezy.com/checkout/buy/c1741a99-4b48-4400-aed8-b6684a3cbb88",
         "overlay_enabled": true
       },
       "tags": [
@@ -814,11 +813,11 @@
       "status": "live",
       "tagline": "Cap entities per player by tier",
       "short_description": "Limits total owned entities per player using 4 permissions: tier1, tier2, tier3, unlimited (-1 = infinite).",
-      "price_usd": 2.99,
-      "price_label": "$2.99",
+      "price_usd": 4.99,
+      "price_label": "$4.99",
       "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
+        "variant_id": "1664565",
+        "buy_url": "https://shadowkidsstudios.lemonsqueezy.com/checkout/buy/d054a4d3-d10b-4a29-b55e-f1e8cbc1a6bd",
         "overlay_enabled": true
       },
       "tags": [
@@ -858,8 +857,8 @@
       "price_usd": 4.99,
       "price_label": "$4.99",
       "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
+        "variant_id": "1664567",
+        "buy_url": "https://shadowkidsstudios.lemonsqueezy.com/checkout/buy/489d9f51-b984-4ad1-bcf0-e34b03681fbd",
         "overlay_enabled": true
       },
       "tags": [
@@ -896,11 +895,11 @@
       "status": "live",
       "tagline": "Submarines that fly",
       "short_description": "Allows submarines to fly through the air. Use /flysub to toggle. Hold SHIFT to launch and thrust. Supports solo and duo subs.",
-      "price_usd": 3.99,
-      "price_label": "$3.99",
+      "price_usd": 4.99,
+      "price_label": "$4.99",
       "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
+        "variant_id": "1664571",
+        "buy_url": "https://shadowkidsstudios.lemonsqueezy.com/checkout/buy/f389d1e6-ee40-4809-b1ec-09a88f389076",
         "overlay_enabled": true
       },
       "tags": [
@@ -940,8 +939,8 @@
       "price_usd": 2.99,
       "price_label": "$2.99",
       "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
+        "variant_id": "1664587",
+        "buy_url": "https://shadowkidsstudios.lemonsqueezy.com/checkout/buy/f0c4345a-e729-4088-a4f7-dd4aae54e898",
         "overlay_enabled": true
       },
       "tags": [
@@ -980,8 +979,8 @@
       "price_usd": 2.99,
       "price_label": "$2.99",
       "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
+        "variant_id": "1664600",
+        "buy_url": "https://shadowkidsstudios.lemonsqueezy.com/checkout/buy/f6e7aaef-5634-4ddb-ae54-5b74ddcd52b7",
         "overlay_enabled": true
       },
       "tags": [
@@ -1020,8 +1019,8 @@
       "price_usd": 1.99,
       "price_label": "$1.99",
       "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
+        "variant_id": "1664604",
+        "buy_url": "https://shadowkidsstudios.lemonsqueezy.com/checkout/buy/b260ad19-16c4-48d5-b9b6-0f1b223d1793",
         "overlay_enabled": true
       },
       "tags": [
@@ -1062,8 +1061,8 @@
       "price_usd": 9.99,
       "price_label": "$9.99",
       "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
+        "variant_id": "1664627",
+        "buy_url": "https://shadowkidsstudios.lemonsqueezy.com/checkout/buy/6db1c368-0e30-4cc8-85e4-b8ad82372f1e",
         "overlay_enabled": true
       },
       "tags": [
@@ -1102,8 +1101,8 @@
       "price_usd": 3.99,
       "price_label": "$3.99",
       "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
+        "variant_id": "1664633",
+        "buy_url": "https://shadowkidsstudios.lemonsqueezy.com/checkout/buy/f194364c-9b66-47c7-8459-6852020e311e",
         "overlay_enabled": true
       },
       "tags": [
@@ -1142,8 +1141,8 @@
       "price_usd": 3.99,
       "price_label": "$3.99",
       "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
+        "variant_id": "1664679",
+        "buy_url": "https://shadowkidsstudios.lemonsqueezy.com/checkout/buy/bb972a77-4e14-47c9-bb61-72d6551247b6",
         "overlay_enabled": true
       },
       "tags": [
@@ -1180,11 +1179,11 @@
       "status": "live",
       "tagline": "Kill the napalm fire on crates",
       "short_description": "Removes or shortens the napalm fire around loot crates (Patrol Heli + Bradley APC).",
-      "price_usd": 2.99,
-      "price_label": "$2.99",
+      "price_usd": 9.99,
+      "price_label": "$9.99",
       "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
+        "variant_id": "1664688",
+        "buy_url": "https://shadowkidsstudios.lemonsqueezy.com/checkout/buy/28eef97c-f70e-4efa-9ea6-700b508ebf33",
         "overlay_enabled": true
       },
       "tags": [
@@ -1221,11 +1220,11 @@
       "status": "live",
       "tagline": "Player activity logger",
       "short_description": "Logs player connections, sessions, and activity for admin review.",
-      "price_usd": 1.99,
-      "price_label": "$1.99",
+      "price_usd": 9.99,
+      "price_label": "$9.99",
       "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
+        "variant_id": "1664696",
+        "buy_url": "https://shadowkidsstudios.lemonsqueezy.com/checkout/buy/d4cdd541-3c01-4fbd-bf96-bd7db599d636",
         "overlay_enabled": true
       },
       "tags": [
@@ -1261,11 +1260,11 @@
       "status": "live",
       "tagline": "Ocean crate + shark event",
       "short_description": "Ultra-light ocean crate + sharks. Works on custom maps.",
-      "price_usd": 5.99,
-      "price_label": "$5.99",
+      "price_usd": 9.99,
+      "price_label": "$9.99",
       "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
+        "variant_id": "1664750",
+        "buy_url": "https://shadowkidsstudios.lemonsqueezy.com/checkout/buy/a4ab301a-5872-4e25-a581-c85cd6bb2973",
         "overlay_enabled": true
       },
       "tags": [
@@ -1302,11 +1301,11 @@
       "status": "live",
       "tagline": "One-shot everything",
       "short_description": "Permission-based super damage ammo multipliers with per-player toggle. One-shot animals, all scientists, heli, Bradley.",
-      "price_usd": 6.99,
-      "price_label": "$6.99",
+      "price_usd": 3.99,
+      "price_label": "$3.99",
       "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
+        "variant_id": "1664780",
+        "buy_url": "https://shadowkidsstudios.lemonsqueezy.com/checkout/buy/5c600a51-4fa3-4113-b71a-a8754d141168",
         "overlay_enabled": true
       },
       "tags": [
@@ -1346,8 +1345,8 @@
       "price_usd": 1.99,
       "price_label": "$1.99",
       "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
+        "variant_id": "1664785",
+        "buy_url": "https://shadowkidsstudios.lemonsqueezy.com/checkout/buy/de262b9f-c9ab-48f3-a5ca-0b00e656694b",
         "overlay_enabled": true
       },
       "tags": [
@@ -1385,8 +1384,8 @@
       "price_usd": 1.99,
       "price_label": "$1.99",
       "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
+        "variant_id": "1664788",
+        "buy_url": "https://shadowkidsstudios.lemonsqueezy.com/checkout/buy/2124661e-6ca6-4774-8ae2-16aad602807f",
         "overlay_enabled": true
       },
       "tags": [
@@ -1425,8 +1424,8 @@
       "price_usd": 4.99,
       "price_label": "$4.99",
       "lemonsqueezy": {
-        "variant_id": null,
-        "buy_url": null,
+        "variant_id": "1664797",
+        "buy_url": "https://shadowkidsstudios.lemonsqueezy.com/checkout/buy/cde89af2-30cc-4f81-b787-6c7fda9fd5ce",
         "overlay_enabled": true
       },
       "tags": [
@@ -1594,34 +1593,136 @@
       "features_heading": "FEATURES",
       "features_sub": "eight_modules · everything_an_admin_actually_needs",
       "features": [
-        {"color": "cyan",   "glyph": "›_",  "title": "RCON CONSOLE",          "description": "Full WebRcon console with command history and live log streaming. No SSH. No proxy. Every Rust console command available.", "route": "/console"},
-        {"color": "pink",   "glyph": "◢",  "title": "LIVE CHAT",             "description": "Watch and reply to in-game chat in real time. Color tags render correctly. Send as server, admin, or custom name.",            "route": "/chat"},
-        {"color": "green",  "glyph": "◉",  "title": "PLAYER MANAGER",        "description": "Every player with Steam avatar, SteamID, ping, and a Tools menu — kick, ban, mute, kill, teleport — one tap.",                "route": "/players"},
-        {"color": "yellow", "glyph": "◆",  "title": "OXIDE + CARBON PERMS",  "description": "Visual permissions editor for both frameworks. Browse groups, grant and revoke plugin perms. No typing oxide.grant on a phone.", "route": "/permissions"},
-        {"color": "purple", "glyph": "▣",  "title": "1,185 GIVEABLE ITEMS",  "description": "Search the entire Rust item list with icons. Skins, blueprints, components — give to any player in two taps. Auto-updates each wipe.", "route": "/give"},
-        {"color": "orange", "glyph": "⚡", "title": "EVENTS",                 "description": "Spawn heli, cargo ship, CH47, Bradley, airdrops — and control weather and time. Run community events from the couch.",        "route": "/events"},
-        {"color": "red",    "glyph": "▲",  "title": "SERVER MONITOR",        "description": "FPS, entity count, players, memory, network — at a glance. Catch lag spikes before players notice.",                          "route": "/monitor"},
-        {"color": "cyan",   "glyph": "◇",  "title": "MULTI-SERVER",          "description": "Admin more than one server? Switch between them without re-entering credentials. Encrypted local storage.",                   "route": "/profiles"}
+        {
+          "color": "cyan",
+          "glyph": "›_",
+          "title": "RCON CONSOLE",
+          "description": "Full WebRcon console with command history and live log streaming. No SSH. No proxy. Every Rust console command available.",
+          "route": "/console"
+        },
+        {
+          "color": "pink",
+          "glyph": "◢",
+          "title": "LIVE CHAT",
+          "description": "Watch and reply to in-game chat in real time. Color tags render correctly. Send as server, admin, or custom name.",
+          "route": "/chat"
+        },
+        {
+          "color": "green",
+          "glyph": "◉",
+          "title": "PLAYER MANAGER",
+          "description": "Every player with Steam avatar, SteamID, ping, and a Tools menu — kick, ban, mute, kill, teleport — one tap.",
+          "route": "/players"
+        },
+        {
+          "color": "yellow",
+          "glyph": "◆",
+          "title": "OXIDE + CARBON PERMS",
+          "description": "Visual permissions editor for both frameworks. Browse groups, grant and revoke plugin perms. No typing oxide.grant on a phone.",
+          "route": "/permissions"
+        },
+        {
+          "color": "purple",
+          "glyph": "▣",
+          "title": "1,185 GIVEABLE ITEMS",
+          "description": "Search the entire Rust item list with icons. Skins, blueprints, components — give to any player in two taps. Auto-updates each wipe.",
+          "route": "/give"
+        },
+        {
+          "color": "orange",
+          "glyph": "⚡",
+          "title": "EVENTS",
+          "description": "Spawn heli, cargo ship, CH47, Bradley, airdrops — and control weather and time. Run community events from the couch.",
+          "route": "/events"
+        },
+        {
+          "color": "red",
+          "glyph": "▲",
+          "title": "SERVER MONITOR",
+          "description": "FPS, entity count, players, memory, network — at a glance. Catch lag spikes before players notice.",
+          "route": "/monitor"
+        },
+        {
+          "color": "cyan",
+          "glyph": "◇",
+          "title": "MULTI-SERVER",
+          "description": "Admin more than one server? Switch between them without re-entering credentials. Encrypted local storage.",
+          "route": "/profiles"
+        }
       ],
       "shots_heading": "RUNTIME",
       "shots_sub": "live_screens · ios_build · oxide+carbon_active",
       "screenshots": [
-        {"color": "red",    "src": "assets/screenshots/ss7.png", "alt": "RustCON server monitoring dashboard with FPS, entity count, network, uptime and memory",        "title": "SERVER MONITOR", "caption": "Live FPS, entities, network, uptime. Catch lag before players do."},
-        {"color": "green",  "src": "assets/screenshots/ss6.png", "alt": "RustCON player list with online and sleeping players, Steam avatars and Tools menu",            "title": "PLAYER MANAGER", "caption": "Steam avatars, ping, status, Tools menu — one tap from anywhere."},
-        {"color": "yellow", "src": "assets/screenshots/ss3.png", "alt": "RustCON Oxide permissions manager showing groups, plugin search and grant or revoke toggles",   "title": "PERMISSIONS",    "caption": "Native Oxide and Carbon. Groups, plugins, grant/revoke. No typing."},
-        {"color": "orange", "src": "assets/screenshots/ss5.png", "alt": "RustCON events panel with Patrol Heli, Cargo Ship, Bradley, CH47 and weather and time controls", "title": "EVENTS",         "caption": "Heli, cargo, Bradley, CH47, weather, time. Couch-driven chaos."},
-        {"color": "cyan",   "src": "assets/screenshots/ss4.png", "alt": "RustCON commands panel with quick actions, plugin reload, teleport, restart and a custom command input", "title": "QUICK COMMANDS", "caption": "The commands you actually run, pre-wired. Teleport, save, skip night, restart."},
-        {"color": "pink",   "src": "assets/screenshots/ss2.png", "alt": "RustCON kits panel with grid of kits and Give buttons",                                          "title": "KITS",           "caption": "Every kit on your server, one tap to hand out. Standard Kits plugin compatible."}
+        {
+          "color": "red",
+          "src": "assets/screenshots/ss7.png",
+          "alt": "RustCON server monitoring dashboard with FPS, entity count, network, uptime and memory",
+          "title": "SERVER MONITOR",
+          "caption": "Live FPS, entities, network, uptime. Catch lag before players do."
+        },
+        {
+          "color": "green",
+          "src": "assets/screenshots/ss6.png",
+          "alt": "RustCON player list with online and sleeping players, Steam avatars and Tools menu",
+          "title": "PLAYER MANAGER",
+          "caption": "Steam avatars, ping, status, Tools menu — one tap from anywhere."
+        },
+        {
+          "color": "yellow",
+          "src": "assets/screenshots/ss3.png",
+          "alt": "RustCON Oxide permissions manager showing groups, plugin search and grant or revoke toggles",
+          "title": "PERMISSIONS",
+          "caption": "Native Oxide and Carbon. Groups, plugins, grant/revoke. No typing."
+        },
+        {
+          "color": "orange",
+          "src": "assets/screenshots/ss5.png",
+          "alt": "RustCON events panel with Patrol Heli, Cargo Ship, Bradley, CH47 and weather and time controls",
+          "title": "EVENTS",
+          "caption": "Heli, cargo, Bradley, CH47, weather, time. Couch-driven chaos."
+        },
+        {
+          "color": "cyan",
+          "src": "assets/screenshots/ss4.png",
+          "alt": "RustCON commands panel with quick actions, plugin reload, teleport, restart and a custom command input",
+          "title": "QUICK COMMANDS",
+          "caption": "The commands you actually run, pre-wired. Teleport, save, skip night, restart."
+        },
+        {
+          "color": "pink",
+          "src": "assets/screenshots/ss2.png",
+          "alt": "RustCON kits panel with grid of kits and Give buttons",
+          "title": "KITS",
+          "caption": "Every kit on your server, one tap to hand out. Standard Kits plugin compatible."
+        }
       ],
       "faq_heading": "FAQ",
       "faq_sub": "stuff_admins_ask · before_install",
       "faqs": [
-        {"q": "Does RustCON need a server-side plugin?", "a": "No. RustCON connects over standard WebRcon, the same way the in-game F1 console and the official Facepunch tools do. If your server has RCON enabled, RustCON works."},
-        {"q": "Does it work with Oxide (uMod) and Carbon?", "a": "Yes — both. The permissions manager has native support for Oxide and Carbon group/user/permission models. Toggle between frameworks in the app."},
-        {"q": "How is RustCON different from Rust+?", "a": "Rust+ is the official companion app for players — map, base alerts, team chat. RustCON is the admin's panel — RCON console, player management, permissions, item giving, events, kits. Different tool, different audience."},
-        {"q": "What does it cost?", "a": "Free trial for new users. After the trial, an active subscription is required: $3.99/month or $29.99/year. No ads. No dark patterns. Cancel anytime through the App Store or Google Play."},
-        {"q": "Which platforms are supported?", "a": "Live now on the Apple App Store (iPhone, iPad, M1+ Macs, Vision Pro) and on Google Play (Android). Desktop builds (Windows, macOS, Linux) are in active development."},
-        {"q": "Is this affiliated with Facepunch Studios?", "a": "No. RustCON is an independent third-party admin tool that talks to the standard Rust RCON endpoint. Rust® is a trademark of Facepunch Studios."}
+        {
+          "q": "Does RustCON need a server-side plugin?",
+          "a": "No. RustCON connects over standard WebRcon, the same way the in-game F1 console and the official Facepunch tools do. If your server has RCON enabled, RustCON works."
+        },
+        {
+          "q": "Does it work with Oxide (uMod) and Carbon?",
+          "a": "Yes — both. The permissions manager has native support for Oxide and Carbon group/user/permission models. Toggle between frameworks in the app."
+        },
+        {
+          "q": "How is RustCON different from Rust+?",
+          "a": "Rust+ is the official companion app for players — map, base alerts, team chat. RustCON is the admin's panel — RCON console, player management, permissions, item giving, events, kits. Different tool, different audience."
+        },
+        {
+          "q": "What does it cost?",
+          "a": "Free trial for new users. After the trial, an active subscription is required: $3.99/month or $29.99/year. No ads. No dark patterns. Cancel anytime through the App Store or Google Play."
+        },
+        {
+          "q": "Which platforms are supported?",
+          "a": "Live now on the Apple App Store (iPhone, iPad, M1+ Macs, Vision Pro) and on Google Play (Android). Desktop builds (Windows, macOS, Linux) are in active development."
+        },
+        {
+          "q": "Is this affiliated with Facepunch Studios?",
+          "a": "No. RustCON is an independent third-party admin tool that talks to the standard Rust RCON endpoint. Rust® is a trademark of Facepunch Studios."
+        }
       ],
       "cta_heading": "READY_TO_DEPLOY?",
       "cta_sub": "Free trial. Two taps to install. Connect to your first server in under a minute.",
@@ -1657,34 +1758,136 @@
       "features_heading": "FEATURES",
       "features_sub": "eight_modules · everything_an_admin_actually_needs",
       "features": [
-        {"color": "cyan",   "glyph": "›_",  "title": "RCON CONSOLE",          "description": "Full WebRcon console with command history and live log streaming. No SSH. No proxy. Every Rust console command available, native on your PC.", "route": "/console"},
-        {"color": "pink",   "glyph": "◢",  "title": "LIVE CHAT",             "description": "Watch and reply to in-game chat in real time. Color tags render correctly. Send as server, admin, or custom name.",            "route": "/chat"},
-        {"color": "green",  "glyph": "◉",  "title": "PLAYER MANAGER",        "description": "Every player with Steam avatar, SteamID, ping, and a Tools menu — kick, ban, mute, kill, teleport — one click.",              "route": "/players"},
-        {"color": "yellow", "glyph": "◆",  "title": "OXIDE + CARBON PERMS",  "description": "Visual permissions editor for both frameworks. Browse groups, grant and revoke plugin perms. No typing oxide.grant by hand.", "route": "/permissions"},
-        {"color": "purple", "glyph": "▣",  "title": "1,185 GIVEABLE ITEMS",  "description": "Search the entire Rust item list with icons. Skins, blueprints, components — give to any player in two clicks. Auto-updates each wipe.", "route": "/give"},
-        {"color": "orange", "glyph": "⚡", "title": "EVENTS",                 "description": "Spawn heli, cargo ship, CH47, Bradley, airdrops — and control weather and time. Run community events from your desk.",        "route": "/events"},
-        {"color": "red",    "glyph": "▲",  "title": "SERVER MONITOR",        "description": "FPS, entity count, players, memory, network — at a glance. Catch lag spikes before players notice.",                          "route": "/monitor"},
-        {"color": "cyan",   "glyph": "◇",  "title": "MULTI-SERVER",          "description": "Admin more than one server? Switch between them without re-entering credentials. Encrypted local storage.",                   "route": "/profiles"}
+        {
+          "color": "cyan",
+          "glyph": "›_",
+          "title": "RCON CONSOLE",
+          "description": "Full WebRcon console with command history and live log streaming. No SSH. No proxy. Every Rust console command available, native on your PC.",
+          "route": "/console"
+        },
+        {
+          "color": "pink",
+          "glyph": "◢",
+          "title": "LIVE CHAT",
+          "description": "Watch and reply to in-game chat in real time. Color tags render correctly. Send as server, admin, or custom name.",
+          "route": "/chat"
+        },
+        {
+          "color": "green",
+          "glyph": "◉",
+          "title": "PLAYER MANAGER",
+          "description": "Every player with Steam avatar, SteamID, ping, and a Tools menu — kick, ban, mute, kill, teleport — one click.",
+          "route": "/players"
+        },
+        {
+          "color": "yellow",
+          "glyph": "◆",
+          "title": "OXIDE + CARBON PERMS",
+          "description": "Visual permissions editor for both frameworks. Browse groups, grant and revoke plugin perms. No typing oxide.grant by hand.",
+          "route": "/permissions"
+        },
+        {
+          "color": "purple",
+          "glyph": "▣",
+          "title": "1,185 GIVEABLE ITEMS",
+          "description": "Search the entire Rust item list with icons. Skins, blueprints, components — give to any player in two clicks. Auto-updates each wipe.",
+          "route": "/give"
+        },
+        {
+          "color": "orange",
+          "glyph": "⚡",
+          "title": "EVENTS",
+          "description": "Spawn heli, cargo ship, CH47, Bradley, airdrops — and control weather and time. Run community events from your desk.",
+          "route": "/events"
+        },
+        {
+          "color": "red",
+          "glyph": "▲",
+          "title": "SERVER MONITOR",
+          "description": "FPS, entity count, players, memory, network — at a glance. Catch lag spikes before players notice.",
+          "route": "/monitor"
+        },
+        {
+          "color": "cyan",
+          "glyph": "◇",
+          "title": "MULTI-SERVER",
+          "description": "Admin more than one server? Switch between them without re-entering credentials. Encrypted local storage.",
+          "route": "/profiles"
+        }
       ],
       "shots_heading": "RUNTIME",
       "shots_sub": "live_screens · oxide+carbon_active · windows_native",
       "screenshots": [
-        {"color": "red",    "src": "/apps/rustcon/assets/screenshots/ss7.png", "alt": "RustCON server monitoring dashboard with FPS, entity count, network, uptime and memory",        "title": "SERVER MONITOR", "caption": "Live FPS, entities, network, uptime. Catch lag before players do."},
-        {"color": "green",  "src": "/apps/rustcon/assets/screenshots/ss6.png", "alt": "RustCON player list with online and sleeping players, Steam avatars and Tools menu",            "title": "PLAYER MANAGER", "caption": "Steam avatars, ping, status, Tools menu — one click from anywhere."},
-        {"color": "yellow", "src": "/apps/rustcon/assets/screenshots/ss3.png", "alt": "RustCON Oxide permissions manager showing groups, plugin search and grant or revoke toggles",   "title": "PERMISSIONS",    "caption": "Native Oxide and Carbon. Groups, plugins, grant/revoke. No typing."},
-        {"color": "orange", "src": "/apps/rustcon/assets/screenshots/ss5.png", "alt": "RustCON events panel with Patrol Heli, Cargo Ship, Bradley, CH47 and weather and time controls", "title": "EVENTS",         "caption": "Heli, cargo, Bradley, CH47, weather, time. Run them from your desk."},
-        {"color": "cyan",   "src": "/apps/rustcon/assets/screenshots/ss4.png", "alt": "RustCON commands panel with quick actions, plugin reload, teleport, restart and a custom command input", "title": "QUICK COMMANDS", "caption": "The commands you actually run, pre-wired. Teleport, save, skip night, restart."},
-        {"color": "pink",   "src": "/apps/rustcon/assets/screenshots/ss2.png", "alt": "RustCON kits panel with grid of kits and Give buttons",                                          "title": "KITS",           "caption": "Every kit on your server, one click to hand out. Standard Kits plugin compatible."}
+        {
+          "color": "red",
+          "src": "/apps/rustcon/assets/screenshots/ss7.png",
+          "alt": "RustCON server monitoring dashboard with FPS, entity count, network, uptime and memory",
+          "title": "SERVER MONITOR",
+          "caption": "Live FPS, entities, network, uptime. Catch lag before players do."
+        },
+        {
+          "color": "green",
+          "src": "/apps/rustcon/assets/screenshots/ss6.png",
+          "alt": "RustCON player list with online and sleeping players, Steam avatars and Tools menu",
+          "title": "PLAYER MANAGER",
+          "caption": "Steam avatars, ping, status, Tools menu — one click from anywhere."
+        },
+        {
+          "color": "yellow",
+          "src": "/apps/rustcon/assets/screenshots/ss3.png",
+          "alt": "RustCON Oxide permissions manager showing groups, plugin search and grant or revoke toggles",
+          "title": "PERMISSIONS",
+          "caption": "Native Oxide and Carbon. Groups, plugins, grant/revoke. No typing."
+        },
+        {
+          "color": "orange",
+          "src": "/apps/rustcon/assets/screenshots/ss5.png",
+          "alt": "RustCON events panel with Patrol Heli, Cargo Ship, Bradley, CH47 and weather and time controls",
+          "title": "EVENTS",
+          "caption": "Heli, cargo, Bradley, CH47, weather, time. Run them from your desk."
+        },
+        {
+          "color": "cyan",
+          "src": "/apps/rustcon/assets/screenshots/ss4.png",
+          "alt": "RustCON commands panel with quick actions, plugin reload, teleport, restart and a custom command input",
+          "title": "QUICK COMMANDS",
+          "caption": "The commands you actually run, pre-wired. Teleport, save, skip night, restart."
+        },
+        {
+          "color": "pink",
+          "src": "/apps/rustcon/assets/screenshots/ss2.png",
+          "alt": "RustCON kits panel with grid of kits and Give buttons",
+          "title": "KITS",
+          "caption": "Every kit on your server, one click to hand out. Standard Kits plugin compatible."
+        }
       ],
       "faq_heading": "FAQ",
       "faq_sub": "stuff_admins_ask · before_install",
       "faqs": [
-        {"q": "Is this really free?", "a": "Yes. RustCON Desktop is a free Windows download. No account, no subscription, no in-app purchases, no ads. Built solo and released as a thank-you to the Rust admin community."},
-        {"q": "How is the desktop version different from the mobile RustCON app?", "a": "Same workflow, different surface. Desktop is a native Windows app you install from this page. Mobile RustCON ($3.99/mo or $29.99/yr) is the Android + iOS subscription with cloud sync, push alerts, and multi-device profile sync. Use whichever fits your admin habits — or both."},
-        {"q": "Does RustCON Desktop need a server-side plugin?", "a": "No. RustCON connects over standard WebRcon, the same way the in-game F1 console and the official Facepunch tools do. If your server has RCON enabled, RustCON Desktop works."},
-        {"q": "Does it work with Oxide (uMod) and Carbon?", "a": "Yes — both. The permissions manager has native support for Oxide and Carbon group/user/permission models. Toggle between frameworks in the app."},
-        {"q": "Which Windows versions are supported?", "a": "Windows 10 and Windows 11 (64-bit). The installer is signed and bundles its own runtime — no separate .NET or Node install required. macOS and Linux builds are in active development."},
-        {"q": "Is this affiliated with Facepunch Studios?", "a": "No. RustCON is an independent third-party admin tool that talks to the standard Rust RCON endpoint. Rust® is a trademark of Facepunch Studios."}
+        {
+          "q": "Is this really free?",
+          "a": "Yes. RustCON Desktop is a free Windows download. No account, no subscription, no in-app purchases, no ads. Built solo and released as a thank-you to the Rust admin community."
+        },
+        {
+          "q": "How is the desktop version different from the mobile RustCON app?",
+          "a": "Same workflow, different surface. Desktop is a native Windows app you install from this page. Mobile RustCON ($3.99/mo or $29.99/yr) is the Android + iOS subscription with cloud sync, push alerts, and multi-device profile sync. Use whichever fits your admin habits — or both."
+        },
+        {
+          "q": "Does RustCON Desktop need a server-side plugin?",
+          "a": "No. RustCON connects over standard WebRcon, the same way the in-game F1 console and the official Facepunch tools do. If your server has RCON enabled, RustCON Desktop works."
+        },
+        {
+          "q": "Does it work with Oxide (uMod) and Carbon?",
+          "a": "Yes — both. The permissions manager has native support for Oxide and Carbon group/user/permission models. Toggle between frameworks in the app."
+        },
+        {
+          "q": "Which Windows versions are supported?",
+          "a": "Windows 10 and Windows 11 (64-bit). The installer is signed and bundles its own runtime — no separate .NET or Node install required. macOS and Linux builds are in active development."
+        },
+        {
+          "q": "Is this affiliated with Facepunch Studios?",
+          "a": "No. RustCON is an independent third-party admin tool that talks to the standard Rust RCON endpoint. Rust® is a trademark of Facepunch Studios."
+        }
       ],
       "cta_heading": "DOWNLOAD_AND_DEPLOY",
       "cta_sub": "Free Windows installer. Two-minute setup. Connect to your first server in under a minute.",
@@ -1720,14 +1923,62 @@
       "features_heading": "FEATURES",
       "features_sub": "drop_anything · convert_to_anything · stay_in_the_void",
       "features": [
-        {"color": "cyan",   "glyph": "◧",  "title": "IMAGE CONVERSION",     "description": "PNG, JPG, WebP, AVIF, TIFF, GIF, HEIF, JXL, JP2 — both directions. Powered by Sharp for high-quality, fast pixel-pushing.", "route": "/image"},
-        {"color": "pink",   "glyph": "▶",  "title": "VIDEO CONVERSION",     "description": "MP4, MKV, AVI, MOV, WMV, FLV, WebM, MPEG, 3GP, OGV, M4V, VOB, MTS, DIVX, ASF, F4V, RM, SWF — both ways via FFmpeg.", "route": "/video"},
-        {"color": "green",  "glyph": "♪",  "title": "AUDIO CONVERSION",     "description": "MP3, WAV, AAC, OGG, FLAC, WMA, M4A, OPUS, AIFF, AC3, AMR, APE, DTS, MKA — every common audio format, both ways.", "route": "/audio"},
-        {"color": "yellow", "glyph": "⇩",  "title": "DRAG & DROP",          "description": "Drop any file onto the window. The app sniffs the type and shows you only the output formats that make sense.", "route": "/drop"},
-        {"color": "purple", "glyph": "◆",  "title": "QUALITY SLIDER",       "description": "Per-conversion quality control for image formats that support it. Trade size against fidelity in real time.", "route": "/quality"},
-        {"color": "orange", "glyph": "▤",  "title": "BATCH MODE",           "description": "Drop a folder. Convert hundreds of files in one click. Each conversion logged with input, output, and elapsed time.", "route": "/batch"},
-        {"color": "red",    "glyph": "♫",  "title": "VIDEO → AUDIO",        "description": "Pull the audio track out of any video file. MP4 to MP3 in two clicks. Useful for clips, lectures, podcast extracts.", "route": "/extract"},
-        {"color": "cyan",   "glyph": "▢",  "title": "CUSTOM OUTPUT FOLDER", "description": "Pick where converted files land. Defaults to the source folder. Conversion history shows every output path so nothing gets lost.", "route": "/output"}
+        {
+          "color": "cyan",
+          "glyph": "◧",
+          "title": "IMAGE CONVERSION",
+          "description": "PNG, JPG, WebP, AVIF, TIFF, GIF, HEIF, JXL, JP2 — both directions. Powered by Sharp for high-quality, fast pixel-pushing.",
+          "route": "/image"
+        },
+        {
+          "color": "pink",
+          "glyph": "▶",
+          "title": "VIDEO CONVERSION",
+          "description": "MP4, MKV, AVI, MOV, WMV, FLV, WebM, MPEG, 3GP, OGV, M4V, VOB, MTS, DIVX, ASF, F4V, RM, SWF — both ways via FFmpeg.",
+          "route": "/video"
+        },
+        {
+          "color": "green",
+          "glyph": "♪",
+          "title": "AUDIO CONVERSION",
+          "description": "MP3, WAV, AAC, OGG, FLAC, WMA, M4A, OPUS, AIFF, AC3, AMR, APE, DTS, MKA — every common audio format, both ways.",
+          "route": "/audio"
+        },
+        {
+          "color": "yellow",
+          "glyph": "⇩",
+          "title": "DRAG & DROP",
+          "description": "Drop any file onto the window. The app sniffs the type and shows you only the output formats that make sense.",
+          "route": "/drop"
+        },
+        {
+          "color": "purple",
+          "glyph": "◆",
+          "title": "QUALITY SLIDER",
+          "description": "Per-conversion quality control for image formats that support it. Trade size against fidelity in real time.",
+          "route": "/quality"
+        },
+        {
+          "color": "orange",
+          "glyph": "▤",
+          "title": "BATCH MODE",
+          "description": "Drop a folder. Convert hundreds of files in one click. Each conversion logged with input, output, and elapsed time.",
+          "route": "/batch"
+        },
+        {
+          "color": "red",
+          "glyph": "♫",
+          "title": "VIDEO → AUDIO",
+          "description": "Pull the audio track out of any video file. MP4 to MP3 in two clicks. Useful for clips, lectures, podcast extracts.",
+          "route": "/extract"
+        },
+        {
+          "color": "cyan",
+          "glyph": "▢",
+          "title": "CUSTOM OUTPUT FOLDER",
+          "description": "Pick where converted files land. Defaults to the source folder. Conversion history shows every output path so nothing gets lost.",
+          "route": "/output"
+        }
       ],
       "shots_heading": "SUPPORTED",
       "shots_sub": "image · video · audio · ~80_formats",
@@ -1735,12 +1986,30 @@
       "faq_heading": "FAQ",
       "faq_sub": "stuff_users_ask · before_install",
       "faqs": [
-        {"q": "Does VoidConvert need anything else installed?", "a": "Image conversions work standalone — Sharp ships with the installer. Video and audio conversions need FFmpeg on your system PATH. On Windows you can install it with `winget install FFmpeg` or grab a build from ffmpeg.org. The app shows a clear error if FFmpeg is missing."},
-        {"q": "Is it really free?", "a": "Yes. No trial, no subscription, no account, no ads. The Windows installer is a one-and-done download. We don't track you or your files — everything runs locally on your machine."},
-        {"q": "Where do my files go?", "a": "Nowhere. VoidConvert runs entirely on your PC. Files never leave your machine, never touch a server, never get uploaded anywhere. Output lands in the folder you pick (defaults to the source folder)."},
-        {"q": "What formats are supported?", "a": "Image: PNG, JPG, JPEG, WebP, AVIF, TIFF, GIF, BMP, ICO, HEIF, HEIC, JXL, JP2, RAW, SVG, PSD (input). Video and audio: every common format via FFmpeg — MP4, MKV, AVI, MOV, WMV, FLV, WebM, MP3, WAV, AAC, OGG, FLAC, M4A, OPUS, and more."},
-        {"q": "Which Windows versions are supported?", "a": "Windows 10 and Windows 11 (64-bit). The app is an Electron desktop application — bundles its own runtime, no separate Node install needed."},
-        {"q": "Is there a mobile version?", "a": "An Android build is in closed alpha testing — see the VoidConvert Play Store listing for tester opt-in. Desktop is the production-ready target right now."}
+        {
+          "q": "Does VoidConvert need anything else installed?",
+          "a": "Image conversions work standalone — Sharp ships with the installer. Video and audio conversions need FFmpeg on your system PATH. On Windows you can install it with `winget install FFmpeg` or grab a build from ffmpeg.org. The app shows a clear error if FFmpeg is missing."
+        },
+        {
+          "q": "Is it really free?",
+          "a": "Yes. No trial, no subscription, no account, no ads. The Windows installer is a one-and-done download. We don't track you or your files — everything runs locally on your machine."
+        },
+        {
+          "q": "Where do my files go?",
+          "a": "Nowhere. VoidConvert runs entirely on your PC. Files never leave your machine, never touch a server, never get uploaded anywhere. Output lands in the folder you pick (defaults to the source folder)."
+        },
+        {
+          "q": "What formats are supported?",
+          "a": "Image: PNG, JPG, JPEG, WebP, AVIF, TIFF, GIF, BMP, ICO, HEIF, HEIC, JXL, JP2, RAW, SVG, PSD (input). Video and audio: every common format via FFmpeg — MP4, MKV, AVI, MOV, WMV, FLV, WebM, MP3, WAV, AAC, OGG, FLAC, M4A, OPUS, and more."
+        },
+        {
+          "q": "Which Windows versions are supported?",
+          "a": "Windows 10 and Windows 11 (64-bit). The app is an Electron desktop application — bundles its own runtime, no separate Node install needed."
+        },
+        {
+          "q": "Is there a mobile version?",
+          "a": "An Android build is in closed alpha testing — see the VoidConvert Play Store listing for tester opt-in. Desktop is the production-ready target right now."
+        }
       ],
       "cta_heading": "DROP_AND_CONVERT",
       "cta_sub": "Free Windows installer. ~110 MB. Drag, drop, done.",
